@@ -30,5 +30,26 @@ class SearchResultsView(ListView):
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
     chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gt=0)
+
+    # Garbage, hard to read fuck it
+    data = []
+    current = 1
+    chapters = []
+    chapter_count = chapters_volumed.count()
+    for c in range(chapter_count):
+        tmp = {'volume': current}
+        if current != chapters_volumed[c].volume:
+            current = chapters_volumed[c].volume
+            tmp.update({'chapters': chapters})
+            data.append(tmp)
+            chapters = []  
+        chapters.append(chapters_volumed[c])
+
+        if c == chapter_count - 1:
+            current = chapters_volumed[c].volume
+            tmp.update({'chapters': chapters})
+            data.append(tmp)
+            chapters = []
+
     chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume__lt=0)
-    return render(request, 'web/detail.html', context={'manga': manga, 'chapters_volumed': chapters_volumed, 'chapters_nonvolumed': chapters_nonvolumed})
+    return render(request, 'web/detail.html', context={'manga': manga, 'data': data, 'chapters_nonvolumed': chapters_nonvolumed})

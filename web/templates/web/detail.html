@@ -50,13 +50,18 @@
         </div>
         <div class="col-sm-6">
             <p>Chapters in this manga:</p>
-            {% for c in chapters_volumed %}
-            {% if c.name %}
-            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }} - {{ c.name }}</li>
-            {% else %}
-            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }}</li>
-            {% endif %}
-            {% endfor %}
+            {% for i in data %}
+            <h5>Volume {{ i.volume }}</h5>
+            <ul>
+                {% for chapter in i.chapters %}
+                {% if chapter.name %}
+                <li>Chapter {{ chapter.chapter_number }} - {{ chapter.name }}</li>
+                {% else %}
+                <li>Chapter {{ chapter.chapter_number }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endfor%}
             {% if chapters_nonvolumed %}
             <p>Not yet in Tankōbon format:</p>
             <ul>
