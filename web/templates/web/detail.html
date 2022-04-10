@@ -5,19 +5,72 @@
 {% block content %}
 
 <div class="feature">
+    <div>
+        <center><img src="{{ manga.poster }}" alt="Poster" class="poster" width="150"></center>
+    </div>
+    <br>
     <h1>
         {{ manga.name }}
     </h1>
 </div>
 
 <div class="container section">
-    {% for c in chapters_volumed %}
-    {% if c.name %}
-    <h3>Chapter {{ c.chapter_number }} Volume {{ c.volume_number }} - {{ c.name }}</h3>
-    {% else %}
-    <h3>Chapter {{ c.chapter_number }} Volume {{ c.volume_number }}</h3>
-    {% endif %}
-    {% endfor %}
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="card mb-3" style="max-width: auto; height: auto;">
+                <div class="card-header">Info</div>
+                <div class="card-body text-dark">
+                    {{ manga.description }}
+                    <hr>
+                    <b>Romaji: </b> {{ manga.romaji }}
+                    <hr>
+                    <b>Status: </b> {{ manga.status }}
+                    <hr>
+                    <b>Start Date: </b> {{ manga.start_date }}
+                    <hr>
+                    <div class="badge-section">
+                        {% if manga.anilist_id %}
+                        <a href="https://anilist.co/manga/{{ manga.anilist_id }}"><h5><span class="badge badge-anilist">AniList</span></h5></a>
+                        {% endif %}
+                        {% if manga.mal_id %}
+                        <a href="https://myanimelist.net/manga/{{ manga.mal_id }}"><h5><span class="badge badge-mal">MAL</span></h5></a>
+                        {% endif %}
+                        {% if manga.mangaupdates_id %}
+                        <a href="https://www.mangaupdates.com/series.html?id={{ manga.mangaupdates_id }}"><h5><span class="badge badge-mangaupdates">MangaUpdates</span></h5></a>
+                        {% endif %}
+                        {% if manga.anime_planet_slug %}
+                        <a href="https://www.anime-planet.com/manga/{{ manga.anime_planet_slug }}"><h5><span class="badge badge-anime-planet">Anime Planet</span></h5></a>
+                        {% endif %}
+                        {% if manga.kitsu_id %}
+                        <a href="https://kitsu.io/manga/{{ manga.kitsu_id }}"><h5><span class="badge badge-kitsu">Kitsu</span></h5></a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <p>Chapters in this manga:</p>
+            {% for c in chapters_volumed %}
+            {% if c.name %}
+            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }} - {{ c.name }}</li>
+            {% else %}
+            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }}</li>
+            {% endif %}
+            {% endfor %}
+            {% if chapters_nonvolumed %}
+            <p>Not yet in Tankōbon format:</p>
+            <ul>
+                {% for c in chapters_nonvolumed %}
+                {% if c.name %}
+                <li>Chapter {{ c.chapter_number }} - {{ c.name }}</li>
+                {% else %}
+                <li>Chapter {{ c.chapter_number }}</li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
 </div>
 
 {% endblock %}

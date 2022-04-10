@@ -13,19 +13,25 @@ class Manga(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     start_date = models.DateField()
-    poster = models.ImageField(blank=True)
+    poster = models.URLField(blank=True, max_length=750)
+    anilist_id = models.PositiveIntegerField(blank=True)
+    mal_id = models.PositiveIntegerField(blank=True)
+    mangaupdates_id = models.PositiveIntegerField(blank=True)
+    anime_planet_slug = models.CharField(max_length=100, blank=True)
+    kitsu_id = models.PositiveIntegerField(blank=True)
+    volume_count = models.PositiveIntegerField(default=1)
 
     def __str__(self):
         return self.name
 
 class Chapter(models.Model):
     class Meta:
-        unique_together = (('volume_number', 'chapter_number', 'manga'),)
+        unique_together = (('volume', 'chapter_number', 'manga'),)
     
     name = models.CharField(max_length=100, blank=True, null=True)
-    volume_number = models.IntegerField(default=-1)
+    volume = models.IntegerField(default=-1)
     chapter_number = models.FloatField()
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.manga.name + ' Vol.' + str(self.volume_number) + ' Chp.' + str(self.chapter_number)
+        return self.manga.name + ' Chp.' + str(self.chapter_number)

@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from api.models import Manga, Chapter
 from django.views.generic import TemplateView, ListView
-from django.db.models import Q
+from django.db.models import Q, Count
 
 # Create your views here.
 def index(request):
@@ -22,10 +22,13 @@ class SearchResultsView(ListView):
     def get_context_data(self,**kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
         context['search_active'] = 'active'
+        q = self.request.GET.get("q")
+        if q:
+            context['query'] = q
         return context
 
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
-    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume_number__gt=0)
-    chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume_number=-1)
+    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gt=0)
+    chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume__lt=0)
     return render(request, 'web/detail.html', context={'manga': manga, 'chapters_volumed': chapters_volumed, 'chapters_nonvolumed': chapters_nonvolumed})
