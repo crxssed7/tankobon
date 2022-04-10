@@ -5,22 +5,24 @@ from django.db.models import Q
 
 # Create your views here.
 def index(request):
-    return render(request, 'web/index.html')
-
-def search(request):
-    return render(request, 'web/search.html')
+    return render(request, 'web/index.html', context={'home_active': 'active'})
 
 class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'
 
     def get_queryset(self): # new
-        query = self.request.GET.get("q", '')
+        query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
         else:
             object_list = Manga.objects.filter(name='')
         return object_list
+
+    def get_context_data(self,**kwargs):
+        context = super(SearchResultsView, self).get_context_data(**kwargs)
+        context['search_active'] = 'active'
+        return context
 
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
