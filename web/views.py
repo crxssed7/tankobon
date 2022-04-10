@@ -26,5 +26,6 @@ class SearchResultsView(ListView):
 
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
-    chapters = Chapter.objects.filter(manga=manga_id)
-    return render(request, 'web/detail.html', context={'manga': manga, 'chapters': chapters})
+    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume_number__gt=0)
+    chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume_number=-1)
+    return render(request, 'web/detail.html', context={'manga': manga, 'chapters_volumed': chapters_volumed, 'chapters_nonvolumed': chapters_nonvolumed})

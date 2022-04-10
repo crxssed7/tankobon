@@ -11,8 +11,12 @@
 </div>
 
 <div class="container section">
-    {% for c in chapters %}
-    <h3>{{ c }}</h3>
+    {% for c in chapters_volumed %}
+    {% if c.name %}
+    <h3>Chapter {{ c.chapter_number }} Volume {{ c.volume_number }} - {{ c.name }}</h3>
+    {% else %}
+    <h3>Chapter {{ c.chapter_number }} Volume {{ c.volume_number }}</h3>
+    {% endif %}
     {% endfor %}
 </div>
 
