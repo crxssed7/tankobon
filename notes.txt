@@ -1,0 +1,27 @@
+Tankobon Django Project
+
+Apps 
+[1] api
+[2] web
+
+Paths:
+[2]
+/
+/manga/
+/manga/s/<str:query>/
+/manga/<int:manga_id>/
+
+Models
+[1]
+Manga:
+    x Name -> Char Field (100)
+    x Romaji -> Char Field (100)
+    x Description -> Text Field
+    x Status -> Char Field (50)
+    x Start Date -> Date
+
+Chapter:
+    - Name -> Char Field (100)
+    x Volume -> Int
+    x Chapter Number -> Float
+    x Manga -> Foreign Key (Manga)

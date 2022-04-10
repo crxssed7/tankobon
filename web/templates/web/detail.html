@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ manga.name }} - Tankobon{% endblock %}
+
+{% block content %}
+
+<div class="feature">
+    <h1>
+        {{ manga.name }}
+    </h1>
+</div>
+
+<div class="container section">
+    {% for c in chapters %}
+    <h3>{{ c }}</h3>
+    {% endfor %}
+</div>
+
+{% endblock %}
