@@ -6,14 +6,14 @@
 
 <div class="feature">
     <h1>
-        Search for a Manga
+        Search for a manga
     </h1>
 </div>
 
 <div class="container section">
     <form class="d-flex" action="{% url 'search' %}" method="get">
         <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{ query }}">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 
     <br>
@@ -27,7 +27,7 @@
         <div class="card search-result" style="width: 18rem;">
             <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a></center>
             <div class="card-body">
-              <center><a href="{% url 'manga' manga.id %}"><h5 class="card-title">{{ manga.name }}</h5></a></center>
+              <center><a href="{% url 'manga' manga.id %}" class="link"><h5 class="card-title">{{ manga.name }}</h5></a></center>
               <center><p class="card-text">{{ manga.start_date }}</p></center>
             </div>
           </div>

@@ -21,33 +21,35 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-tank">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'index' %}">Tankōbon</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link {{ home_active }}" aria-current="page" href="{% url 'index' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ search_active }}" href="{% url 'search' %}">Manga</a>
-                    </li>
-                </ul>
-            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link {{ home_active }}" aria-current="page" href="{% url 'index' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ search_active }}" href="{% url 'search' %}">Manga</a>
+                </li>
+            </ul>
+            <form class="d-flex" action="{% url 'search' %}" method="get">
+                <input name="q" class="form-control me-2" type="search" placeholder="Search for a manga" aria-label="Search" value="{{ query }}">
+                <button class="btn btn-outline-dark" type="submit">Search</button>
+            </form>
+          </div>
         </div>
-    </nav>
+      </nav>
     <main>
         {% block content %}
         {% endblock %}
     </main>
-    <footer class="text-center text-lg-start bg-dark footer text-muted">
+    <footer class="text-center text-lg-start bg-tank footer">
         <div class="text-center p-4">
             Tankōbon
-        </div>
         </div>
     </footer>
 </body>
