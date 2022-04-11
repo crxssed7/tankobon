@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %}Manga - Tankōbon{% endblock %}
+
 {% block content %}
 
 <div class="feature">
@@ -16,15 +18,21 @@
 
     <br>
 
-    {% for manga in object_list %}
-    <div class="card" style="width: 18rem;">
-        <center><img src="{{ manga.poster }}" alt="poster" width="150"></center>
-        <div class="card-body">
-          <a href="{% url 'manga' manga.id %}"><h5 class="card-title">{{ manga.name }}</h5></a>
-          <p class="card-text">{{ manga.start_date }}</p>
-        </div>
-      </div>
-    {% endfor %}
+    {% if latest_msg %}
+    <h3>Latest manga:</h3>
+    {% endif %}
+
+    <div class="flex">
+        {% for manga in object_list %}
+        <div class="card search-result" style="width: 18rem;">
+            <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a></center>
+            <div class="card-body">
+              <center><a href="{% url 'manga' manga.id %}"><h5 class="card-title">{{ manga.name }}</h5></a></center>
+              <center><p class="card-text">{{ manga.start_date }}</p></center>
+            </div>
+          </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}

@@ -28,6 +28,40 @@ body {
     border-radius: 10px;
 }
 
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+.search-result {
+    margin: 10px !important;
+}
+
+details {
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+details > summary {
+    list-style-type: '';
+}
+
+details[open] > summary {
+    list-style-type: '';
+}
+
+summary {
+    padding: 8px 16px;
+    background-color: rgba(0,0,0,.03);
+}
+
+.chapter-li {
+    margin: 10px;
+}
+
 .badge {
     margin-right: 10px !important;
 }

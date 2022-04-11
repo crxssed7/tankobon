@@ -16,7 +16,7 @@ class SearchResultsView(ListView):
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
         else:
-            object_list = Manga.objects.filter(name='')
+            object_list = Manga.objects.all().order_by('-id')[:4]
         return object_list
 
     def get_context_data(self,**kwargs):
@@ -25,11 +25,13 @@ class SearchResultsView(ListView):
         q = self.request.GET.get("q")
         if q:
             context['query'] = q
+        else:
+            context['latest_msg'] = True
         return context
 
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
-    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gt=0)
+    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gt=0).order_by('volume')
 
     # Garbage, hard to read fuck it
     data = []
@@ -38,18 +40,20 @@ def detail(request, manga_id):
     chapter_count = chapters_volumed.count()
     for c in range(chapter_count):
         tmp = {'volume': current}
+        
         if current != chapters_volumed[c].volume:
             current = chapters_volumed[c].volume
             tmp.update({'chapters': chapters})
             data.append(tmp)
-            chapters = []  
+            chapters = []
+            
         chapters.append(chapters_volumed[c])
 
         if c == chapter_count - 1:
             current = chapters_volumed[c].volume
+            tmp = {'volume': current}
             tmp.update({'chapters': chapters})
             data.append(tmp)
-            chapters = []
 
-    chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume__lt=0)
+    chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume__lt=0).order_by('chapter_number')
     return render(request, 'web/detail.html', context={'manga': manga, 'data': data, 'chapters_nonvolumed': chapters_nonvolumed})

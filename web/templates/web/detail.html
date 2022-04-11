@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ manga.name }} - Tankobon{% endblock %}
+{% block title %}{{ manga.name }} - Tankōbon{% endblock %}
 
 {% block content %}
 
 <div class="feature">
+    {% if manga.poster %}
     <div>
         <center><img src="{{ manga.poster }}" alt="Poster" class="poster" width="150"></center>
     </div>
     <br>
+    {% endif %}
     <h1>
         {{ manga.name }}
     </h1>
@@ -17,16 +19,27 @@
 <div class="container section">
     <div class="row">
         <div class="col-sm-6">
+            {% if manga.banner %}
+            <img src="{{ manga.banner }}" alt="banner" class="poster" width="100%">
+            <br>
+            <br>
+            {% endif %}
             <div class="card mb-3" style="max-width: auto; height: auto;">
                 <div class="card-header">Info</div>
                 <div class="card-body text-dark">
                     {{ manga.description }}
+                    <hr>
+                    <b>Volumes: </b> {{ manga.volume_count }}
                     <hr>
                     <b>Romaji: </b> {{ manga.romaji }}
                     <hr>
                     <b>Status: </b> {{ manga.status }}
                     <hr>
                     <b>Start Date: </b> {{ manga.start_date }}
+                    {% if manga.magazine %}
+                    <hr>
+                    <b>Magazine: </b> {{ manga.magazine }}
+                    {% endif %}
                     <hr>
                     <div class="badge-section">
                         {% if manga.anilist_id %}
@@ -49,30 +62,43 @@
             </div>
         </div>
         <div class="col-sm-6">
-            <p>Chapters in this manga:</p>
+            {% if data %}
             {% for i in data %}
-            <h5>Volume {{ i.volume }}</h5>
-            <ul>
-                {% for chapter in i.chapters %}
-                {% if chapter.name %}
-                <li>Chapter {{ chapter.chapter_number }} - {{ chapter.name }}</li>
-                {% else %}
-                <li>Chapter {{ chapter.chapter_number }}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+            <details>
+                <summary>Volume {{ i.volume }}</summary>
+                <ul>
+                    {% for chapter in i.chapters %}
+                    {% if chapter.name %}
+                    <li class="chapter-li">Chapter {{ chapter.chapter_number }} - {{ chapter.name }}</li>
+                    {% else %}
+                    <li class="chapter-li">Chapter {{ chapter.chapter_number }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </details>
             {% endfor%}
+            {% else %}
+            <div class="card mb-3" style="max-width: auto; height: auto;">
+                <div class="card-header">There are no volumes yet.</div>
+            </div>
+            {% endif %}
             {% if chapters_nonvolumed %}
-            <p>Not yet in Tankōbon format:</p>
-            <ul>
-                {% for c in chapters_nonvolumed %}
-                {% if c.name %}
-                <li>Chapter {{ c.chapter_number }} - {{ c.name }}</li>
-                {% else %}
-                <li>Chapter {{ c.chapter_number }}</li>
-                {% endif %}
-                {% endfor %}
-            </ul>
+            <details>
+                <summary>No volume</summary>
+                <ul>
+                    {% for c in chapters_nonvolumed %}
+                    {% if c.name %}
+                    <li class="chapter-li">Chapter {{ c.chapter_number }} - {{ c.name }}</li>
+                    {% else %}
+                    <li class="chapter-li">Chapter {{ c.chapter_number }}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <div class="section">
+                    <h5>Why do these chapters have no volume?</h5>
+                    <p>This is because (for {{ manga.name }}) when a chapter is released, they aren't immediately put into volumes.</p>
+                </div>
+            </details>
             {% endif %}
         </div>
     </div>

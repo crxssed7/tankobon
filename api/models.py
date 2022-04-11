@@ -14,11 +14,13 @@ class Manga(models.Model):
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     start_date = models.DateField()
     poster = models.URLField(blank=True, max_length=750)
+    banner = models.URLField(blank=True, max_length=750)
     anilist_id = models.PositiveIntegerField(blank=True)
     mal_id = models.PositiveIntegerField(blank=True)
     mangaupdates_id = models.PositiveIntegerField(blank=True)
     anime_planet_slug = models.CharField(max_length=100, blank=True)
     kitsu_id = models.PositiveIntegerField(blank=True)
+    magazine = models.CharField(max_length=150, blank=True, null=True)
     volume_count = models.PositiveIntegerField(default=1)
 
     def __str__(self):
