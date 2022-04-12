@@ -28,6 +28,10 @@
     .badge-kitsu {
         background-color: rgb(72,48,72) !important;
     }
+
+    .badge-fandom {
+        background-color: rgb(250,0,90) !important;
+    }
     
     .badge-section {
         display: flex;
@@ -86,6 +90,9 @@
                         {% endif %}
                         {% if manga.kitsu_id %}
                         <a href="https://kitsu.io/manga/{{ manga.kitsu_id }}"><h5><span class="badge badge-kitsu">Kitsu</span></h5></a>
+                        {% endif %}
+                        {% if manga.fandom %}
+                        <a href="{{ manga.fandom }}"><h5><span class="badge badge-fandom">Fandom</span></h5></a>
                         {% endif %}
                     </div>
                 </div>

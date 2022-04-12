@@ -25,7 +25,9 @@
     <div class="flex">
         {% for manga in object_list %}
         <div class="card search-result" style="width: 18rem;">
+            {% if manga.poster %}
             <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a></center>
+            {% endif %}
             <div class="card-body">
               <center><a href="{% url 'manga' manga.id %}" class="link"><h5 class="card-title">{{ manga.name }}</h5></a></center>
               <center><p class="card-text">{{ manga.start_date }}</p></center>
