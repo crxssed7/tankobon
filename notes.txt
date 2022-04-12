@@ -25,11 +25,3 @@ Chapter:
     x Volume -> Int
     x Chapter Number -> Float
     x Manga -> Foreign Key (Manga)
-
-            {% for c in chapters_volumed %}
-            {% if c.name %}
-            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }} - {{ c.name }}</li>
-            {% else %}
-            <li>Chapter {{ c.chapter_number }} Volume {{ c.volume }}</li>
-            {% endif %}
-            {% endfor %}
