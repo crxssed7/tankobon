@@ -37,7 +37,7 @@ def detail(request, manga_id):
 
     # Garbage, hard to read fuck it
     data = []
-    current = 1
+    current = 0
     chapters = []
     chapter_count = len(chapters_volumed)
     for i in range(chapter_count):
@@ -48,9 +48,10 @@ def detail(request, manga_id):
 
         if current != chapters_volumed[i].volume:
             current = chapters_volumed[i].volume
-            tmp.update({'chapters': chapters})
-            data.append(tmp)
-            chapters = []
+            if chapters:
+                tmp.update({'chapters': chapters})
+                data.append(tmp)
+                chapters = []
             
         chapters.append(chapters_volumed[i])
 
