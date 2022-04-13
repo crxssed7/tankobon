@@ -63,7 +63,7 @@
             <div class="card mb-3" style="max-width: auto; height: auto;">
                 <div class="card-header">Info</div>
                 <div class="card-body text-dark">
-                    {{ manga.description }}
+                    {{ manga.description | safe }}
                     <hr>
                     <b>Volumes: </b> {{ manga.volume_count }}
                     <hr>
