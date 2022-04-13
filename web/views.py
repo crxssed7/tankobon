@@ -31,7 +31,7 @@ class SearchResultsView(ListView):
 
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
-    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gte=0).order_by('chapter_number').order_by('volume')
+    chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gte=0).order_by('chapter_number')
 
     print(chapters_volumed)
 
