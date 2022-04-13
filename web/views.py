@@ -33,12 +33,17 @@ def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
     chapters_volumed = Chapter.objects.filter(manga=manga_id, volume__gte=0).order_by('chapter_number').order_by('volume')
 
+    print(chapters_volumed)
+
     # Garbage, hard to read fuck it
     data = []
     current = 1
     chapters = []
     chapter_count = len(chapters_volumed)
     for i in range(chapter_count):
+        print('Index: ' + str(i))
+        print('Current chapter: ' + str(chapters_volumed[i]))
+
         tmp = {'volume': current}
 
         if current != chapters_volumed[i].volume:
