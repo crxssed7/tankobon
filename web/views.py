@@ -64,5 +64,6 @@ def detail(request, manga_id):
     # chapters_nonvolumed = Chapter.objects.filter(manga=manga_id, volume__lt=0).order_by('chapter_number')
 
     volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by('absolute_number')
-    nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0)
+    nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
+    print(nontankobon)
     return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon})

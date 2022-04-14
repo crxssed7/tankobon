@@ -117,13 +117,7 @@
             <details>
                 <summary>No volume</summary>
                 <ul>
-                    {% for c in chapters_nonvolumed %}
-                    {% if c.name %}
-                    <li class="chapter-li">Chapter {{ c.chapter_number }} - {{ c.name }}</li>
-                    {% else %}
-                    <li class="chapter-li">Chapter {{ c.chapter_number }}</li>
-                    {% endif %}
-                    {% endfor %}
+                    {{ chapters_nonvolumed.chapters | safe }}
                 </ul>
                 <div class="section">
                     <h5>Why do these chapters have no volume?</h5>
