@@ -119,7 +119,7 @@
             <details>
                 <summary>No volume</summary>
                 <ul>
-                    {{ chapters_nonvolumed.chapters | safe }}
+                    {{ chapters_nonvolumed.chapters | listify | safe }}
                 </ul>
                 <div class="section">
                     <h5>Why do these chapters have no volume?</h5>
