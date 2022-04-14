@@ -3,4 +3,7 @@ from .models import Manga, Volume
 
 # Register your models here.
 admin.site.register(Manga)
-admin.site.register(Volume)
+
+@admin.register(Volume)
+class VolumeAdmin(admin.ModelAdmin):
+    list_filter = ('manga',) 

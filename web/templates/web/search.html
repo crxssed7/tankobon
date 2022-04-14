@@ -30,7 +30,7 @@
             {% endif %}
             <div class="card-body">
               <center><a href="{% url 'manga' manga.id %}" class="link"><h5 class="card-title">{{ manga.name }}</h5></a></center>
-              <center><p class="card-text">{{ manga.start_date }}</p></center>
+              <center><p class="card-text text-muted">{{ manga.romaji }}</p></center>
             </div>
           </div>
         {% endfor %}
