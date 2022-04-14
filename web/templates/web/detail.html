@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load detail_tags %}
+
 {% block title %}{{ manga.name }} - Tankōbon{% endblock %}
 
 {% block content %}
@@ -104,7 +106,7 @@
             <details>
                 <summary>Volume {{ volume.absolute_number }}</summary>
                 <ul>
-                    {{ volume.chapters | safe }}
+                    {{ volume.chapters | listify | safe }}
                 </ul>
             </details>
             {% endfor %}
