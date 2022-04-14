@@ -100,20 +100,14 @@
         </div>
         <div class="col-sm-6">
             {% if data %}
-            {% for i in data %}
+            {% for volume in data %}
             <details>
-                <summary>Volume {{ i.volume }}</summary>
+                <summary>Volume {{ volume.absolute_number }}</summary>
                 <ul>
-                    {% for chapter in i.chapters %}
-                    {% if chapter.name %}
-                    <li class="chapter-li">Chapter {{ chapter.chapter_number }} - {{ chapter.name }}</li>
-                    {% else %}
-                    <li class="chapter-li">Chapter {{ chapter.chapter_number }}</li>
-                    {% endif %}
-                    {% endfor %}
+                    {{ volume.chapters | safe }}
                 </ul>
             </details>
-            {% endfor%}
+            {% endfor %}
             {% else %}
             <div class="card mb-3" style="max-width: auto; height: auto;">
                 <div class="card-header">There are no volumes yet.</div>
