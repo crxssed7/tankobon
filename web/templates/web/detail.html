@@ -39,6 +39,22 @@
         display: flex;
         flex-wrap: wrap;
     }
+
+    .edit-link:link { 
+        text-decoration: none !important; 
+    }
+    
+    .edit-link:visited {
+        text-decoration: none !important; 
+    }
+
+    .edit-link:hover { 
+        text-decoration: none !important; 
+    }
+
+    .edit-link:active { 
+        text-decoration: none !important; 
+    }
 </style>
 
 <div class="feature">
@@ -49,7 +65,7 @@
     <br>
     {% endif %}
     <h1>
-        {{ manga.name }}
+        {{ manga.name }} 
     </h1>
     <p class="text-muted">{{ manga.romaji }}</p>
 </div>
@@ -63,7 +79,16 @@
             <br>
             {% endif %}
             <div class="card mb-3" style="max-width: auto; height: auto;">
-                <div class="card-header">Info</div>
+                <div class="card-header">
+                    <div style="display: flex; justify-content: space-between">
+                        Info 
+                        {% if not manga.locked %}
+                        <a href="{% url 'edit_manga' manga.id %}" class="edit-link" title="Edit this manga">✏️</a>
+                        {% else %}
+                        <span title="Editing locked">🔒</span>
+                        {% endif %}
+                    </div>
+                </div>
                 <div class="card-body text-dark">
                     {{ manga.description | safe }}
                     <hr>
@@ -103,12 +128,23 @@
         <div class="col-sm-6">
             {% if data %}
             {% for volume in data %}
+            {% if volume.chapters %}
             <details>
-                <summary>Volume {{ volume.absolute_number }}</summary>
+                <summary>
+                    <div style="display: flex; justify-content: space-between">
+                        Volume {{ volume.absolute_number }} 
+                        {% if not volume.locked %}
+                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}" class="edit-link" title="Edit this volume">✏️</a>
+                        {% else %}
+                        <span title="Editing locked">🔒</span>
+                        {% endif %}
+                    </div>
+                </summary>
                 <ul>
                     {{ volume.chapters | listify | safe }}
                 </ul>
             </details>
+            {% endif %}
             {% endfor %}
             {% else %}
             <div class="card mb-3" style="max-width: auto; height: auto;">
@@ -116,8 +152,18 @@
             </div>
             {% endif %}
             {% if chapters_nonvolumed %}
+            {% if chapters_nonvolumed.chapters %}
             <details>
-                <summary>No volume</summary>
+                <summary>
+                    <div style="display: flex; justify-content: space-between">
+                        No volume
+                        {% if not chapters_nonvolumed.locked %}
+                        <a href="{% url 'edit_non_volume' manga.id %}" class="edit-link" title="Edit this volume">✏️</a>
+                        {% else %}
+                        <span title="Editing locked">🔒</span>
+                        {% endif %}
+                    </div>
+                </summary>
                 <ul>
                     {{ chapters_nonvolumed.chapters | listify | safe }}
                 </ul>
@@ -126,6 +172,10 @@
                     <p>This is because (for {{ manga.name }}) when a chapter is released, they aren't immediately put into volumes.</p>
                 </div>
             </details>
+            {% endif %}
+            {% endif %}
+            {% if not manga.locked %}
+            <a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
             {% endif %}
         </div>
     </div>

@@ -10,6 +10,10 @@ Paths:
 /manga/
 /manga/s/<str:query>/
 /manga/<int:manga_id>/
+/manga/new/ = Create a new manga record
+/manga/<int:manga_id>/edit/ = Edit a manga
+/manga/<int:manga_id>/edit/<int:volume_number>/ = Edit a volume of a manga
+/manga/<int:manga_id>/new/ = New volume
 
 Models
 [1]
@@ -19,9 +23,11 @@ Manga:
     x Description -> Text Field
     x Status -> Char Field (50)
     x Start Date -> Date
+    x Locked -> Bool
 
 Chapter:
     - Name -> Char Field (100)
     x Volume -> Int
     x Chapter Number -> Float
     x Manga -> Foreign Key (Manga)
+    x Locked -> Bool

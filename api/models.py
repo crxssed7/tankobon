@@ -23,29 +23,22 @@ class Manga(models.Model):
     fandom = models.URLField(blank=True, null=True)
     magazine = models.CharField(max_length=150, blank=True, null=True)
     volume_count = models.PositiveIntegerField(default=1)
+    locked = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
 
 class Volume(models.Model):
+    class Meta:
+        unique_together = ('absolute_number', 'manga')
+
     absolute_number = models.IntegerField(default=-1)
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     chapters = models.TextField()
+    locked = models.BooleanField(default=False)
 
     def __str__(self):
         if self.absolute_number >= 0:
             return self.manga.name + ' Volume ' + str(self.absolute_number)
         else:
             return self.manga.name + ' Non-tankobon'
-
-# class Chapter(models.Model):
-#     class Meta:
-#         unique_together = (('volume', 'chapter_number', 'manga'),)
-#     
-#     name = models.CharField(max_length=100, blank=True, null=True)
-#     volume = models.IntegerField(default=-1)
-#     chapter_number = models.FloatField()
-#     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
-# 
-#     def __str__(self):
-#         return self.manga.name + ' Chp.' + str(self.chapter_number)

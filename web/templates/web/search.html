@@ -12,7 +12,7 @@
 
 <div class="container section">
     <form class="d-flex" action="{% url 'search' %}" method="get">
-        <input name="q" class="form-control me-2" type="search" placeholder="Search" aria-label="Search" value="{{ query }}">
+        <input name="q" class="form-control me-2" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}">
         <button class="btn btn-outline-dark" type="submit">Search</button>
     </form>
 
@@ -35,6 +35,8 @@
           </div>
         {% endfor %}
     </div>
+
+    <center><code>Can't find the manga you're looking for? <a href="{% url 'new_manga' %}" class="link">Add it here!</a></code></center>
 </div>
 
 {% endblock %}
