@@ -19,11 +19,12 @@ class SignUpForm(UserCreationForm):
 
 class MangaForm(forms.ModelForm):
     start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
-    poster = forms.CharField(label='Poster URL', help_text='URL to an image file. Try to use an image from AniList or MAL.')
-    banner = forms.CharField(label='Banner URL', help_text='URL to an image file. Try to use an image from AniList or MAL.')
-    anilist_id = forms.IntegerField(label='AniList ID')
-    mal_id = forms.IntegerField(label='MyAnimeList ID')
-    anime_planet_slug = forms.CharField(label='Anime Planet Slug', help_text='You can find the Anime Planet slug at the and of the Anime Planet url. Example: https://www.anime-planet.com/manga/anime-planet-slug')
+    poster = forms.CharField(label='Poster URL', help_text='URL to an image file. Try to use an image from AniList or MAL.', required=False)
+    banner = forms.CharField(label='Banner URL', help_text='URL to an image file. Try to use an image from AniList or MAL.', required=False)
+    anilist_id = forms.IntegerField(label='AniList ID', required=False)
+    mal_id = forms.IntegerField(label='MyAnimeList ID', required=False)
+    anime_planet_slug = forms.CharField(label='Anime Planet Slug', help_text='You can find the Anime Planet slug at the and of the Anime Planet url. Example: https://www.anime-planet.com/manga/anime-planet-slug', required=False)
+    kitsu_id = forms.IntegerField(label='Kitsu ID', required=False)
 
     class Meta:
         model = Manga

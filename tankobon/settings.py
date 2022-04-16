@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'django_bleach'
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -149,3 +150,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = "index"
 LOGOUT_REDIRECT_URL = "index"
+
+BLEACH_ALLOWED_ATTRIBUTES = ['class']
+BLEACH_STRIP_TAGS = True

@@ -9,6 +9,7 @@ def listify(value):
     chapters = value.split('\n')
     output = ""
     for chapter in chapters:
-        c = "<li class=\"chapter-li\">" + chapter + "</li>\n"
-        output += c
+        if not chapter.isspace():
+            c = "<li class=\"chapter-li\">" + chapter + "</li>\n"
+            output += c
     return output
