@@ -12,7 +12,8 @@
 
 <div class="container section">
     <form class="d-flex" action="{% url 'search' %}" method="get">
-        <input name="q" class="form-control me-2" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}">
+        <input name="q" class="form-control me-2" id="search-box" type="search" placeholder="Search" aria-label="Search"
+            value="{{ query }}">
         <button class="btn btn-dark" type="submit">Search</button>
     </form>
 
@@ -26,17 +27,35 @@
         {% for manga in object_list %}
         <div class="card search-result" style="width: 18rem;">
             {% if manga.poster %}
-            <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a></center>
+            <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a>
+            </center>
             {% endif %}
             <div class="card-body">
-              <center><a href="{% url 'manga' manga.id %}" class="link"><h5 class="card-title">{{ manga.name }}</h5></a></center>
-              <center><p class="card-text text-muted">{{ manga.romaji }}</p></center>
+                <center><a href="{% url 'manga' manga.id %}" class="link">
+                        <h5 class="card-title">{{ manga.name }}</h5>
+                    </a></center>
+                <center>
+                    <p class="card-text text-muted">{{ manga.romaji }}</p>
+                </center>
             </div>
-          </div>
+        </div>
         {% endfor %}
     </div>
 
-    <center><code>Can't find the manga you're looking for? <a href="{% url 'new_manga' %}" class="link">Add it here!</a></code></center>
+    <center>
+        <code>Can't find the manga you're looking for? <a href="{% url 'new_manga' %}" class="link">Add it here!</a></code>
+    </center>
 </div>
+
+<script>
+    var searchBox = document.getElementById("search-box");
+
+    $(document).on('keydown', function (e) {
+        if (e.keyCode === 9) { // TAB key code
+            searchBox.value = '';
+            searchBox.focus();
+        }
+    });
+</script>
 
 {% endblock %}

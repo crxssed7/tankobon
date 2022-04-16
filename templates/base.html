@@ -49,7 +49,7 @@
                     <a class="nav-link" href="{% url 'logout' %}">Logout</a>
                     {% endif %}
                     <form class="d-flex" action="{% url 'search' %}" method="get">
-                        <input name="q" id="search-box" class="form-control me-2" type="search"
+                        <input name="q" class="form-control me-2" type="search"
                             placeholder="Search for a manga" aria-label="Search" value="{{ query }}">
                         <button class="btn btn-dark" type="submit">Search</button>
                     </form>

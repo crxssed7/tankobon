@@ -23,12 +23,13 @@ class MangaForm(forms.ModelForm):
     banner = forms.CharField(label='Banner URL', help_text='URL to an image file. Try to use an image from AniList or MAL.', required=False)
     anilist_id = forms.IntegerField(label='AniList ID', required=False)
     mal_id = forms.IntegerField(label='MyAnimeList ID', required=False)
-    anime_planet_slug = forms.CharField(label='Anime Planet Slug', help_text='You can find the Anime Planet slug at the and of the Anime Planet url. Example: https://www.anime-planet.com/manga/anime-planet-slug', required=False)
+    mangaupdates_id = forms.IntegerField(label='MangaUpdates ID', required=False)
+    anime_planet_slug = forms.CharField(label='Anime Planet Slug', help_text='You can find the Anime Planet slug at the end of the Anime Planet url. Example: https://www.anime-planet.com/manga/anime-planet-slug', required=False)
     kitsu_id = forms.IntegerField(label='Kitsu ID', required=False)
 
     class Meta:
         model = Manga
-        fields = ('name', 'romaji', 'description', 'status', 'start_date', 'poster', 'banner', 'anilist_id', 'mal_id', 'anime_planet_slug', 'kitsu_id', 'fandom', 'magazine', 'volume_count')
+        fields = ('name', 'romaji', 'description', 'status', 'start_date', 'poster', 'banner', 'anilist_id', 'mal_id', 'mangaupdates_id', 'anime_planet_slug', 'kitsu_id', 'fandom', 'magazine', 'volume_count')
 
 class VolumeEditForm(forms.ModelForm):
     class Meta:
