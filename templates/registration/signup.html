@@ -10,6 +10,7 @@
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
+        <p><b>You must read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before signing up.</b></p>
         <button type="submit" class="btn btn-dark">Sign Up</button>
     </form>
 </div>
