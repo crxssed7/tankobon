@@ -3,13 +3,16 @@
 {% load crispy_forms_tags %}
 {% load static %}
 
+{% block title %}{{ message }} - Tankōbon{% endblock %}
+
 {% block content %}
 <div class="container section">
-    <h1>{{ message }}</h1>
+    <h3>{{ message }}</h3>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-dark">Save</button>
+        <a href="{{ previous }}" class="btn btn-danger">Cancel</a>
     </form>
 </div>
 {% endblock %}

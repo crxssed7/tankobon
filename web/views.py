@@ -1,12 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from api.models import Manga, Volume
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 from django.db.models import Q, Count
-from .forms import MangaForm, VolumeEditForm, VolumeNewForm
+from .forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.urls import reverse_lazy
 
 # Create your views here.
+class SignUpView(CreateView):
+    form_class = SignUpForm
+    success_url = reverse_lazy("login")
+    template_name = "registration/signup.html"
+
 def index(request):
     return render(request, 'web/index.html', context={'home_active': 'active'})
 
@@ -51,7 +57,7 @@ def new_manga(request):
             return redirect('manga', manga_id=manga.id)
     else:
         form = MangaForm()
-    return render(request, 'web/create.html', {'form': form, 'message': 'Add a manga'})
+    return render(request, 'web/create.html', {'form': form, 'message': 'Add a manga', 'previous': '/manga/'})
 
 @login_required
 def edit_manga(request, manga_id):
@@ -128,6 +134,6 @@ def new_volume(request, manga_id):
                 return redirect('manga', manga_id=manga.id)
         else:
             form = VolumeNewForm()
-        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume | ' + manga.name})
+        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume | ' + manga.name, 'previous': '/manga/' + str(manga.id) + '/'})
     else:
         raise Http404("Page not found")

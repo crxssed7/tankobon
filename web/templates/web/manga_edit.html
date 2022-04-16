@@ -1,16 +1,18 @@
 {% extends 'base.html' %}
 
 {% load crispy_forms_tags %}
-{% load static %}
+
+{% block title %}Edit {{ manga.name }} - Tankōbon{% endblock %}
 
 {% block content %}
 {% if not locked %}
 <div class="container section">
-    <h1>Edit {{ manga.name }}</h1>
+    <h3>Edit {{ manga.name }}</h3>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-dark">Save</button>
+        <a href="{% url 'manga' manga.id %}" class="btn btn-danger">Cancel</a>
     </form>
 </div>
 {% else %}
