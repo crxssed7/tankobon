@@ -37,6 +37,7 @@ class VolumeEditForm(forms.ModelForm):
         fields = ('chapters',)
 
 class VolumeNewForm(forms.ModelForm):
+    absolute_number = forms.IntegerField(label='Volume Number', help_text='Volume number -1 is reserved for chapters that are not in tankobon format yet.')
     chapters = forms.CharField(widget=forms.Textarea(), help_text='Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here.')
 
     class Meta:
@@ -52,6 +53,9 @@ class VolumeNewForm(forms.ModelForm):
             pass
         else:
             raise ValidationError('Volume with this absolute_number already exists for this manga')
+
+        if cleaned_data['absolute_number'] < -1:
+            raise ValidationError('Volume Number cannot be less than -1')
 
         # Always return cleaned_data
         return cleaned_data

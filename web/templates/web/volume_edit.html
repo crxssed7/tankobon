@@ -12,6 +12,7 @@
     {% else %}
     <h3>Edit {{ volume.manga.name }} Volume {{ volume.absolute_number }}</h3>
     {% endif %}
+    <p><b>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before editing a record</b></p>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}

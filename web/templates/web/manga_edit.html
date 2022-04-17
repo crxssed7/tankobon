@@ -8,6 +8,7 @@
 {% if not locked %}
 <div class="container section">
     <h3>Edit {{ manga.name }}</h3>
+    <p><b>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before editing a record</b></p>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}

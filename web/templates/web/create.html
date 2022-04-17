@@ -7,6 +7,7 @@
 {% block content %}
 <div class="container section">
     <h3>{{ message }}</h3>
+    <p><b>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before adding a record</b></p>
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}

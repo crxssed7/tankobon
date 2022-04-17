@@ -1,8 +1,19 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% block title %}Manga - Tankōbon{% endblock %}
 
 {% block content %}
+
+<style>
+    .search-result {
+        margin: 5px !important;
+        height: 100%;
+        width: 150px; 
+        max-width: 150px;
+        border-radius: 10px !important;
+    }
+</style>
 
 <div class="feature">
     <h1>
@@ -25,23 +36,21 @@
 
     <div class="flex">
         {% for manga in object_list %}
-        <div class="card search-result" style="width: 18rem;">
-            {% if manga.poster %}
-            <center><a href="{% url 'manga' manga.id %}"><img src="{{ manga.poster }}" alt="poster" width="150"></a>
-            </center>
-            {% endif %}
-            <div class="card-body">
-                <center><a href="{% url 'manga' manga.id %}" class="link">
-                        <h5 class="card-title">{{ manga.name }}</h5>
-                    </a></center>
-                <center>
-                    <p class="card-text text-muted">{{ manga.romaji }}</p>
-                </center>
+        <a href="{% url 'manga' manga.id %}" class="link">
+            <div class="card search-result">
+                {% if manga.poster %}
+                <center><img src="{{ manga.poster }}" alt="poster" class="poster" width="150px" height="235px"></center>
+                {% else %}
+                <center><img src="{% static 'img/noposter.svg' %}" alt="poster" class="poster" width="150px" height="235px"></center>
+                {% endif %}
+                <div class="card-body">
+                    <center><h5 class="card-title" style="font-size: smaller;">{{ manga.name }}</h5></center>
+                </div>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
-
+    <br>
     <center>
         <code>Can't find the manga you're looking for? <a href="{% url 'new_manga' %}" class="link">Add it here!</a></code>
     </center>
@@ -51,7 +60,7 @@
     var searchBox = document.getElementById("search-box");
 
     $(document).on('keydown', function (e) {
-        if (e.keyCode === 9) { // TAB key code
+        if (e.keyCode === 27) { // 'ESC' key code
             searchBox.value = '';
             searchBox.focus();
         }
