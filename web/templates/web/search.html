@@ -7,11 +7,14 @@
 
 <style>
     .search-result {
-        margin: 5px !important;
         height: 100%;
         width: 150px; 
         max-width: 150px;
         border-radius: 10px !important;
+    }
+
+    .search-link {
+        margin: 5px !important;
     }
 </style>
 
@@ -36,7 +39,7 @@
 
     <div class="flex">
         {% for manga in object_list %}
-        <a href="{% url 'manga' manga.id %}" class="link">
+        <a href="{% url 'manga' manga.id %}" class="link search-link">
             <div class="card search-result">
                 {% if manga.poster %}
                 <center><img src="{{ manga.poster }}" alt="poster" class="poster" width="150px" height="235px"></center>
