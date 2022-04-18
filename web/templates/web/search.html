@@ -13,6 +13,19 @@
         border-radius: 10px !important;
     }
 
+    .search-img-container {
+        width: 150px;
+        height: 235px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .search-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
     .search-link {
         margin: 5px !important;
     }
@@ -41,11 +54,13 @@
         {% for manga in object_list %}
         <a href="{% url 'manga' manga.id %}" class="link search-link">
             <div class="card search-result">
-                {% if manga.poster %}
-                <center><img src="{{ manga.poster }}" alt="poster" class="poster" width="150px" height="235px"></center>
-                {% else %}
-                <center><img src="{% static 'img/noposter.svg' %}" alt="poster" class="poster" width="150px" height="235px"></center>
-                {% endif %}
+                <div class="search-img-container">
+                    {% if manga.poster %}
+                    <img src="{{ manga.poster }}" alt="poster" class="search-img">
+                    {% else %}
+                    <img src="{% static 'img/noposter.svg' %}" alt="poster" class="search-img">
+                    {% endif %}
+                </div>
                 <div class="card-body">
                     <center><h5 class="card-title" style="font-size: smaller;">{{ manga.name }}</h5></center>
                 </div>
