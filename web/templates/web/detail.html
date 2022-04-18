@@ -56,6 +56,31 @@
     .edit-link:active { 
         text-decoration: none !important; 
     }
+
+    .volume-poster {
+        margin: 10px;
+    }
+
+    .space-between {
+        display: flex; 
+        justify-content: space-between;
+    }
+
+    @media only screen and (max-width: 768px) {
+        /* For mobile phones: */
+        .volume-content {
+            flex-direction: column;
+        }
+
+        .volume-poster-div {
+            display: flex; 
+            justify-content: center;
+        }
+
+        .volume-poster {
+            width: 100px;
+        }
+    }
 </style>
 
 <div class="feature">
@@ -132,7 +157,7 @@
             {% if volume.chapters %}
             <details>
                 <summary>
-                    <div style="display: flex; justify-content: space-between">
+                    <div class="space-between">
                         Volume {{ volume.absolute_number }} 
                         {% if not volume.locked %}
                         <a href="{% url 'edit_volume' manga.id volume.absolute_number %}" class="edit-link" title="Edit this volume">✏️</a>
@@ -141,9 +166,16 @@
                         {% endif %}
                     </div>
                 </summary>
-                <ul>
-                    {{ volume.chapters | listify | bleach:"li" }}
-                </ul>
+                <div class="volume-content" style="display: flex;">
+                    {% if volume.poster %}
+                    <div class="volume-poster-div">
+                        <img src="{{ volume.poster }}" alt="volume" class="poster volume-poster" width="150px">
+                    </div>
+                    {% endif %}
+                    <ul>
+                        {{ volume.chapters | listify | bleach:"li" }}
+                    </ul>
+                </div>
             </details>
             {% endif %}
             {% endfor %}

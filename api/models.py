@@ -39,6 +39,7 @@ class Volume(models.Model):
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
+    poster = models.URLField(blank=True, max_length=750)
 
     def __str__(self):
         if self.absolute_number >= 0:
