@@ -29,7 +29,7 @@ class SearchResultsView(ListView):
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
         else:
-            object_list = Manga.objects.all().order_by('-id')[:8]
+            object_list = Manga.objects.all().order_by('-id')[:16]
         return object_list
 
     def get_context_data(self,**kwargs):

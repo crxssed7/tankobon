@@ -22,13 +22,13 @@
     <br>
     <center>
         <div style="margin: 5px;" class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn btn-dark" href="{% url 'search' %}">Search</a>
-            <a class="btn btn-dark" href="{% url 'new_manga' %}">Add manga</a>
+            <a class="btn btn-dark" href="{% url 'search' %}" style="padding: 15px !important;">Search</a>
+            <a class="btn btn-dark" href="{% url 'new_manga' %}" style="padding: 15px !important;">Add manga</a>
         </div>
         {% if not user.is_authenticated %}
         <div style="margin: 5px;" class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn btn-dark" href="{% url 'login' %}">Login</a>
-            <a class="btn btn-dark" href="{% url 'signup' %}">Signup</a>
+            <a class="btn btn-dark" href="{% url 'login' %}" style="padding: 15px !important;">Login</a>
+            <a class="btn btn-dark" href="{% url 'signup' %}" style="padding: 15px !important;">Signup</a>
         </div>
         {% endif %}
     </center>

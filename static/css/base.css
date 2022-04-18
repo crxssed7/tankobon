@@ -6,6 +6,10 @@ body {
     flex-direction: column;
 }
 
+h1, h2, h3, h4, h5, h6, p, div {
+    font-family: 'Courier New', Courier, monospace;
+}
+
 .feature {
     display: flex;
     flex-direction: column;
@@ -59,7 +63,7 @@ summary {
 }
 
 .bg-tank {
-    background-color: rgb(82, 185, 185);
+    background-color: rgb(82, 185, 185) !important;
 }
 
 code {
