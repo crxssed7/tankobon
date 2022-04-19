@@ -6,13 +6,15 @@
 
 {% block content %}
 {% if not locked %}
-<div class="container section">
+<div class="head">
     <h3>Edit {{ manga.name }}</h3>
-    <p><b>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before editing a record</b></p>
+</div>
+<div class="container section">    
     <form method="POST">
         {% csrf_token %}
         {{ form|crispy }}
-        <button type="submit" class="btn btn-dark">Save</button>
+        <p>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting</p>
+        <button type="submit" class="btn btn-dark">Submit</button>
         <a href="{% url 'manga' manga.id %}" class="btn btn-danger">Cancel</a>
     </form>
 </div>

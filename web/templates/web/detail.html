@@ -83,7 +83,7 @@
     }
 </style>
 
-<div class="feature">
+<div class="head">
     {% if manga.poster %}
     <div>
         <center><img src="{{ manga.poster }}" alt="Poster" class="poster" width="150"></center>
@@ -93,7 +93,7 @@
     <h1>
         {{ manga.name }} 
     </h1>
-    <p class="text-muted">{{ manga.romaji }}</p>
+    <p>{{ manga.romaji }}</p>
 </div>
 
 <div class="container section">
@@ -107,7 +107,7 @@
             <div class="card mb-3" style="max-width: auto; height: auto;">
                 <div class="card-header">
                     <div style="display: flex; justify-content: space-between">
-                        Info 
+                        <b>About {{ manga.name }}</b>
                         {% if not manga.locked %}
                         <a href="{% url 'edit_manga' manga.id %}" class="edit-link" title="Edit this manga">✏️</a>
                         {% else %}

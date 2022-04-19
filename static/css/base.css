@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
 
 body {
     min-height: 100vh;
@@ -7,7 +7,20 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6, p, div {
-    font-family: 'Courier New', Courier, monospace;
+    font-family: 'Montserrat';
+}
+
+.head {
+    background: linear-gradient(90deg, rgb(82, 185, 185), rgb(82, 218, 171));
+    margin: 25px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: 75px;
 }
 
 .feature {
@@ -63,11 +76,12 @@ summary {
 }
 
 .bg-tank {
-    background-color: rgb(82, 185, 185) !important;
+    background: linear-gradient(90deg, rgb(82, 185, 185), rgb(82, 218, 171));
 }
 
 code {
     color: rgb(10, 10, 10) !important;
+    font-weight: bold;
 }
 
 .link {

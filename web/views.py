@@ -15,7 +15,8 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 def index(request):
-    return render(request, 'web/index.html', context={'home_active': 'active'})
+    manga = Manga.objects.all().order_by('-id')[:4]
+    return render(request, 'web/index.html', context={'home_active': 'active', 'results': manga})
 
 def contrib(request):
     return render(request, 'web/contrib.html')
@@ -143,6 +144,6 @@ def new_volume(request, manga_id):
                 return redirect('manga', manga_id=manga.id)
         else:
             form = VolumeNewForm()
-        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume | ' + manga.name, 'previous': '/manga/' + str(manga.id) + '/'})
+        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume', 'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/'})
     else:
         raise Http404("Page not found")

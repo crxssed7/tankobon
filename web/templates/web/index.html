@@ -4,7 +4,38 @@
 
 {% block content %}
 
-<div class="feature">
+<style>
+    .itm-result {
+        height: 100%;
+        width: 500px;
+        border-radius: 10px !important;
+    }
+
+    .itm-img-container {
+        height: 200px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .itm-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .itm-link {
+        margin: 5px !important;
+    }
+
+    @media only screen and (max-width: 560px) {
+        /* For mobile phones: */
+        .itm-result {
+            width: 100%;
+        }
+    }
+</style>
+
+<div class="head">
     <img src="{% static 'img/logo.svg' %}" alt="" width="150">
     <br>
     <h1>
@@ -20,17 +51,26 @@
         Manga chapters are often split into volumes (think about how TV shows are split into seasons) which is what we call the Tankōbon format, however, so far I haven't found any central place that documents what chapter is in which volume. This hobby project is an attempt to fix that, and make life easier for those who categorise their manga into volumes.
     </p>
     <br>
+    <div class="flex">
+        {% for manga in results %}
+        <a href="{% url 'manga' manga.id %}" class="link itm-link">
+            <div class="card itm-result">
+                <div class="itm-img-container">
+                    <img src="{{ manga.banner }}" alt="poster" class="itm-img">
+                </div>
+                <div class="card-body">
+                    <center><h5 class="card-title" style="font-size: smaller;">{{ manga.name }}</h5></center>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+    <br>
     <center>
         <div style="margin: 5px;" class="btn-group" role="group" aria-label="Basic example">
             <a class="btn btn-dark" href="{% url 'search' %}" style="padding: 15px !important;">Search</a>
             <a class="btn btn-dark" href="{% url 'new_manga' %}" style="padding: 15px !important;">Add manga</a>
         </div>
-        {% if not user.is_authenticated %}
-        <div style="margin: 5px;" class="btn-group" role="group" aria-label="Basic example">
-            <a class="btn btn-dark" href="{% url 'login' %}" style="padding: 15px !important;">Login</a>
-            <a class="btn btn-dark" href="{% url 'signup' %}" style="padding: 15px !important;">Signup</a>
-        </div>
-        {% endif %}
     </center>
 </div>
 
