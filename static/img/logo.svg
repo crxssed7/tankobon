@@ -26,7 +26,7 @@
      units="px"
      width="1920px"
      inkscape:zoom="0.38796647"
-     inkscape:cx="563.193"
+     inkscape:cx="565.77054"
      inkscape:cy="703.66906"
      inkscape:window-width="1896"
      inkscape:window-height="1001"
@@ -43,9 +43,9 @@
     <g
        id="g2260"
        transform="translate(-312.44278,-5.8397505)"
-       style="fill:#ffffff">
+       style="fill:#212529;fill-opacity:1">
       <rect
-         style="fill:#ffffff;stroke-width:7.23423"
+         style="fill:#212529;stroke-width:7.23423;fill-opacity:1"
          id="rect950"
          width="88.56691"
          height="104.39439"
@@ -54,7 +54,7 @@
          ry="12.349845"
          transform="matrix(0.8360271,0.54868815,0,1,0,0)" />
       <rect
-         style="fill:#ffffff;stroke-width:7.23423"
+         style="fill:#212529;stroke-width:7.23423;fill-opacity:1"
          id="rect1032"
          width="88.56691"
          height="104.39439"

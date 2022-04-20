@@ -50,7 +50,7 @@
 
     <div class="flex">
         {% for manga in object_list %}
-        <a href="{% url 'manga' manga.id %}" class="link search-link">
+        <a href="{% url 'manga' manga.id %}" class="link card-link search-link">
             <div class="card search-result">
                 <div class="search-img-container">
                     {% if manga.poster %}
@@ -60,7 +60,7 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <center><h5 class="card-title" style="font-size: smaller;">{{ manga.name }}</h5></center>
+                    <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
                 </div>
             </div>
         </a>

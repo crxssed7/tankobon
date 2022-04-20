@@ -88,13 +88,18 @@ code {
     color: rgb(20, 20, 20) !important;
 }
 
+.card-link {
+    color: rgb(20, 20, 20) !important;
+    text-decoration: none;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
 
 ::selection {
     color: black;
-    background-color: rgb(82, 185, 185);
+    background-color: rgb(82, 218, 171)
 }
 
 ::-moz-selection {
