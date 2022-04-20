@@ -97,6 +97,14 @@ code {
     margin-bottom: 15px;
 }
 
+.navbar {
+    border-radius: 0px 0px 10px 10px;
+}
+
+.btn, .form-control {
+    border-radius: 10px !important;
+}
+
 ::selection {
     color: black;
     background-color: rgb(82, 218, 171)
