@@ -112,10 +112,30 @@ code {
 
 ::selection {
     color: black;
-    background-color: rgb(82, 218, 171)
+    background-color: rgb(82, 218, 171);
 }
 
 ::-moz-selection {
     color: black;
     background-color: rgb(82, 185, 185);
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 4px;
+}
+  
+/* Track */
+::-webkit-scrollbar-track {
+    background: white;
+}
+   
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: rgb(82, 218, 171); 
+}
+  
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(82, 185, 185);
 }
