@@ -32,7 +32,7 @@ class MangaForm(forms.ModelForm):
         fields = ('name', 'romaji', 'description', 'status', 'start_date', 'poster', 'banner', 'anilist_id', 'mal_id', 'mangaupdates_id', 'anime_planet_slug', 'kitsu_id', 'fandom', 'magazine', 'volume_count')
 
 class VolumeEditForm(forms.ModelForm):
-    chapters = forms.CharField(widget=forms.Textarea(), help_text='Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here.')
+    chapters = forms.CharField(widget=forms.Textarea(), help_text='Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here. To add an arc starting point use the format \'|Story Arc Name\'.')
     poster = forms.CharField(label='Poster URL', help_text='URL to an image file.', required=False)
 
     class Meta:
@@ -41,7 +41,7 @@ class VolumeEditForm(forms.ModelForm):
 
 class VolumeNewForm(forms.ModelForm):
     absolute_number = forms.IntegerField(label='Volume Number', help_text='Volume number -1 is reserved for chapters that are not in tankobon format yet.')
-    chapters = forms.CharField(widget=forms.Textarea(), help_text='Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here.')
+    chapters = forms.CharField(widget=forms.Textarea(), help_text='Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here.. To add an arc starting point use the format \'|Story Arc Name\'.')
     poster = forms.CharField(label='Poster URL', help_text='URL to an image file.', required=False)
 
     class Meta:
