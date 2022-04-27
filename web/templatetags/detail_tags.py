@@ -12,7 +12,7 @@ def listify(value):
     for chapter in chapters:
         if not chapter.isspace():
             if chapter.startswith('|'):
-                c = "<br><p><b>" + chapter.replace('|', '') + " arc starts here.</b></p>"
+                c = "<p><b>" + chapter.replace('|', '') + " arc starts here.</b></p>"
             else:
                 c = "<li class=\"chapter-li\">" + chapter + "</li>\n"
             output += c
