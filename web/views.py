@@ -6,7 +6,7 @@ from .forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse_lazy
-from tankobon.utils import matrix_notif
+from tankobon.utils import mongo_log
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -59,7 +59,7 @@ def new_manga(request):
             manga = form.save(commit=False)
             manga.locked = False
             manga.save()
-            matrix_notif('new manga', manga, request.POST, request.user)
+            mongo_log('New Manga', manga.name, request.POST, request.user.username)
             return redirect('manga', manga_id=manga.id)
     else:
         form = MangaForm()
@@ -74,7 +74,7 @@ def edit_manga(request, manga_id):
             form = MangaForm(request.POST, instance=manga_obj)
             if form.is_valid():
                 manga = form.save()
-                matrix_notif('edit manga', manga_obj, request.POST, request.user)
+                mongo_log('Edit Manga', manga_obj.name, request.POST, request.user.username)
                 return redirect('manga', manga_id=manga.id)
         else:
             form = MangaForm(instance=manga_obj)
@@ -95,7 +95,7 @@ def edit_volume(request, manga_id, volume_number):
                     v.absolute_number = volume.absolute_number
                     v.manga = volume.manga
                     v.save()
-                    matrix_notif('edit volume', volume.manga, str(v) + '\n' + v.chapters, request.user)
+                    mongo_log('Edit Volume', volume.manga.name, str(v) + '\n' + v.chapters, request.user.username)
                     return redirect('manga', manga_id=v.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
@@ -117,7 +117,7 @@ def edit_non_volume(request, manga_id):
                     v.absolute_number = volume.absolute_number
                     v.manga = volume.manga
                     v.save()
-                    matrix_notif('edit volume', volume.manga, str(v) + '\n' + v.chapters, request.user)
+                    mongo_log('Edit Volume', volume.manga.name, str(v) + '\n' + v.chapters, request.user.username)
                     return redirect('manga', manga_id=v.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
@@ -140,7 +140,7 @@ def new_volume(request, manga_id):
                 v.manga = manga
                 v.locked = False
                 v.save()
-                matrix_notif('new volume', manga, str(v) + '\n' + v.chapters, request.user)
+                mongo_log('New Volume', manga.name, str(v) + '\n' + v.chapters, request.user.username)
                 return redirect('manga', manga_id=manga.id)
         else:
             form = VolumeNewForm()
