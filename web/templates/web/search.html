@@ -27,6 +27,16 @@
     .search-link {
         margin: 5px !important;
     }
+
+    .manga-name {
+        height: 2em;
+        display: block; /* Fallback for non-webkit */
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+    }
 </style>
 
 <div class="feature">
@@ -51,7 +61,7 @@
     <div class="flex">
         {% for manga in object_list %}
         <a href="{% url 'manga' manga.id %}" class="link card-link search-link">
-            <div class="card search-result">
+            <div class="card search-result" title="{{ manga.name }}">
                 <div class="search-img-container">
                     {% if manga.poster %}
                     <img src="{{ manga.poster }}" alt="poster" class="search-img">
@@ -60,7 +70,11 @@
                     {% endif %}
                 </div>
                 <div class="card-body">
-                    <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
+                    <div class="manga-name">
+                        <center>
+                            <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5>
+                        </center>
+                    </div>
                 </div>
             </div>
         </a>
