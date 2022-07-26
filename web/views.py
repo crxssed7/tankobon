@@ -15,7 +15,7 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 def index(request):
-    manga = Manga.objects.all().order_by('-id')[:4]
+    manga = Manga.objects.all().order_by('-last_updated')[:4]
     return render(request, 'web/index.html', context={'home_active': 'active', 'results': manga})
 
 def contrib(request):
@@ -30,7 +30,7 @@ class SearchResultsView(ListView):
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
         else:
-            object_list = Manga.objects.all().order_by('-id')[:16]
+            object_list = Manga.objects.all().order_by('-last_updated')[:16]
         return object_list
 
     def get_context_data(self,**kwargs):

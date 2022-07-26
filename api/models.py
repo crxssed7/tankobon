@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.utils.timezone import datetime
 
 User._meta.get_field('email')._unique = True
 
@@ -27,6 +30,7 @@ class Manga(models.Model):
     magazine = models.CharField(max_length=150, blank=True, null=True)
     volume_count = models.PositiveIntegerField(default=1)
     locked = models.BooleanField(default=False)
+    last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -46,3 +50,11 @@ class Volume(models.Model):
             return self.manga.name + ' Volume ' + str(self.absolute_number)
         else:
             return self.manga.name + ' Non-tankobon'
+
+@receiver(post_save, sender=Volume)
+# Update the mangas last updated field
+def update_last_updated(sender, instance=None, created=False, **kwargs):
+    now = datetime.now()
+    manga = Manga.objects.get(id=instance.manga.id)
+    manga.last_updated = now
+    manga.save()

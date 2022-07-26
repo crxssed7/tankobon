@@ -16,5 +16,6 @@ class VolumeAdmin(admin.ModelAdmin):
     actions = (lock_records, unlock_records)
 
 @admin.register(Manga)
-class VolumeAdmin(admin.ModelAdmin):
+class MangaAdmin(admin.ModelAdmin):
+    list_display = ['name', 'last_updated']
     actions = (lock_records, unlock_records)
