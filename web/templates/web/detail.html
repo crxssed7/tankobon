@@ -93,7 +93,9 @@
     <h1>
         {{ manga.name }} 
     </h1>
+    {% if manga.name != manga.romaji %}
     <p>{{ manga.romaji }}</p>
+    {% endif %}
 </div>
 
 <div class="container section">
