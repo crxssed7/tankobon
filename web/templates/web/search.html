@@ -86,15 +86,4 @@
     </center>
 </div>
 
-<script>
-    var searchBox = document.getElementById("search-box");
-
-    $(document).on('keydown', function (e) {
-        if (e.keyCode === 27) { // 'ESC' key code
-            searchBox.value = '';
-            searchBox.focus();
-        }
-    });
-</script>
-
 {% endblock %}
