@@ -110,6 +110,10 @@ code {
     border-color: rgba(0,0,0,.1) !important;
 }
 
+.tank-fore {
+    color: rgb(82, 185, 185);
+}
+
 ::selection {
     color: black;
     background-color: rgb(82, 218, 171);

@@ -25,7 +25,7 @@ class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'
 
-    def get_queryset(self): # new
+    def get_queryset(self): 
         query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
@@ -49,7 +49,7 @@ def detail(request, manga_id):
     volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by('absolute_number')
     nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
 
-    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon})
+    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon, 'search_active': 'active'})
 
 @login_required
 def new_manga(request):
@@ -147,3 +147,8 @@ def new_volume(request, manga_id):
         return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume', 'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/'})
     else:
         raise Http404("Page not found")
+
+def all_manga(request):
+    manga = Manga.objects.all().order_by('name')[:8]
+    manga_count = Manga.objects.count()
+    return render(request, 'web/all.html', {'results': manga, 'count': manga_count, 'search_active': 'active'})

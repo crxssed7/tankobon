@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+{% block title %}All Manga - Tankōbon{% endblock %}
+
+{% block content %}
+
+<style>
+    .itm-result {
+        border-radius: 10px !important;
+    }
+
+    .itm-img-container {
+        height: 200px;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .itm-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .no-banner-div {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        align-content: center !important;
+        text-align: center !important;
+    }
+
+    #no-banner {
+        font-family: 'Courier New', Courier, monospace;
+        font-weight: bold;
+        font-size: x-large;
+        text-decoration: none;
+        color: #212529;
+    }
+</style>
+
+<div class="feature">
+    <h2 style="font-weight: bold;">We currently have <span class="tank-fore">{{ count }}</span> manga in the database.</h2>
+</div>
+
+<div class="container section">
+    <div class="row" id="content">
+        {% for manga in results %}
+        <div class="col-sm-6" style="padding: 12px !important;">
+            <a href="{% url 'manga' manga.id %}" class="card-link">
+                <div class="card itm-result">
+                    {% if manga.banner %}
+                    <div class="itm-img-container">
+                        <img src="{{ manga.banner }}" alt="poster" class="itm-img">
+                    </div>
+                    {% else %}
+                    <div class="itm-img-container bg-tank no-banner-div">
+                        <span id="no-banner">
+                            No Banner Found.
+                        </span>
+                    </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
+    </div>
+    <center>
+        <p><span id="amount">8</span> / <span id="total">{{ count }}</span> results</p>
+        <div class="load-more__btn mt-3" id="loadBtn">
+            <a class="btn btn-dark" style="padding: 15px !important; margin: 12px;">Load more</a>
+        </div>
+        <div class="spinner spinner-border mt-2 visually-hidden" role="status" id="spinner">
+        </div>
+    </center>
+</div>
+
+
+<script>
+    const loadBtn = document.getElementById('loadBtn');
+    const spinner = document.getElementById('spinner');
+    const amount = document.getElementById('amount');
+    const total = document.getElementById('total').textContent;
+
+    function loadMore() {
+        var offset = $('.itm-result').length;
+        const content_container = document.getElementById("content");
+        $.ajax({
+            url: '{% url "get_manga" %}',
+            type: 'GET',
+            data: {
+                'offset': offset
+            },
+            beforeSend: function () {
+                loadBtn.classList.add('visually-hidden');
+                spinner.classList.remove('visually-hidden');
+            },
+            success: function (response) {
+                const data = response.manga;
+                spinner.classList.add('visually-hidden');
+                data.map(manga => {
+                    console.log(manga.name);
+                    // Construct the inner html
+                    var new_html = `<div class="col-sm-6" style="padding: 12px !important;">
+                                                        <a href="/manga/${manga.id}/" class="card-link">
+                                                            <div class="card itm-result">`
+                    if (manga.banner) {
+                        new_html += `<div class="itm-img-container">
+                                        <img src="${manga.banner}" alt="poster" class="itm-img">
+                                    </div>`
+                    } else {
+                        new_html += `<div class="itm-img-container bg-tank no-banner-div">
+                                        <span id="no-banner">
+                                            No Banner Found.
+                                        </span>
+                                    </div>`
+                    }
+                    new_html += `<div class="card-body">
+                                    <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">${manga.name}</h5></center>
+                                </div>
+                            </div>
+                        </a>
+                    </div>`
+                    content_container.innerHTML += new_html;
+                })
+                current_amount = $('.itm-result').length;
+                amount.innerText = current_amount;
+                if (current_amount != total) {
+                    loadBtn.classList.remove('visually-hidden');
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            },
+        });
+    }
+
+    loadBtn.addEventListener('click', () => {
+        loadMore()
+    });
+</script>
+
+{% endblock %}
