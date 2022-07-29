@@ -16,7 +16,7 @@ def get_manga(request):
         offset = 0
     if sort:
         if sort.lower() == 'last_updated':
-            sort_field = 'last_updated'
+            sort_field = '-last_updated'
     limit = 8
     if _limit:
         try:
