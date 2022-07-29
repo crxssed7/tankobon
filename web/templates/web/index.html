@@ -2,6 +2,17 @@
 
 {% load static %}
 
+{% block extrahead %}
+<meta name="description" property="og:description" content="Tankōbon - manga chapters and volumes metadata">
+<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
+<meta property="og:title" content="Tankōbon - manga chapters and volumes metadata" />
+<meta property="og:image" content="https://github.com/crxssed7/tankobon/blob/master/brand/header.png" />
+<meta property="og:image:alt" content="Tankōbon logo" />
+<meta name="twitter:image" content="https://github.com/crxssed7/tankobon/blob/master/brand/header.png" />
+<meta property="twitter:image:alt" content="Tankōbon logo" />
+<meta name="twitter:card" content="summary_large_image" />
+{% endblock %}
+
 {% block content %}
 
 <style>
