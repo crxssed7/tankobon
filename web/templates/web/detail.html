@@ -6,7 +6,7 @@
 {% block title %}{{ manga.name }} - Tankōbon{% endblock %}
 
 {% block extrahead %}
-<meta property="og:description" content='{{ manga.name }} manga chapters and volumes.\n\n{{ manga.description | bleach:"br,b" }}'>
+<meta property="og:description" content="{{ manga.name }} manga chapters and volumes.<br><br>{{ manga.description }}">
 <meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}">
 <meta property="og:title" content="{{ manga.name }} - Tankōbon" />
 <meta property="og:image" content="{{ manga.poster }}" />
