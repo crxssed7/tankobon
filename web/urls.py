@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('contrib/', views.contrib, name='contrib'),
+    path('docs/', views.docs, name='docs'),
     path('manga/', views.SearchResultsView.as_view(), name='search'),
     path('manga/<int:manga_id>/', views.detail, name='manga'),
     path('manga/new/', views.new_manga, name='new_manga'),

@@ -31,7 +31,9 @@ def get_manga(request):
         manga = list(Manga.objects.values().order_by(sort_field)[offset:offset + limit])
     else:
         manga = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field)[offset:offset + limit])
+    total = Manga.objects.count()
     data = {
+        'total': total,
         'manga': manga
     }
     return JsonResponse(data=data)

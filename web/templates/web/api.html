@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}API Documentation - Tankōbon{% endblock %}
+
+{% block extrahead %}
+<meta property="og:description"
+    content="Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.">
+<meta name="keywords"
+    content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api">
+<meta property="og:title" content="Tankōbon - Simple GET API" />
+<meta property="og:image" content="{% static 'img/header.png' %}" />
+<meta property="og:image:alt" content="Tankōbon logo" />
+<meta name="twitter:image" content="{% static 'img/header.png' %}" />
+<meta property="twitter:image:alt" content="Tankōbon logo" />
+<meta name="twitter:card" content="summary_large_image" />
+{% endblock %}
+
+{% block content %}
+
+<style>
+    th,
+    td {
+        padding: 15px;
+        padding-left: 0px;
+    }
+</style>
+
+<div class="feature">
+    <h3>API Documentation</h3>
+</div>
+<div class="container section">
+    <p>Tankōbon has a simple GET API that you can use to integrate with your own applications. All requests sent to the
+        API should be sent with the GET method.</p>
+    <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card-header">
+            <b>Get a list of Manga</b>
+        </div>
+        <div class="card-body text-dark">
+            <code>Endpoint: /api/manga/</code>
+            <br><br>
+            <p><b>Query Parameters:</b></p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Default</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">offset</th>
+                        <td>0</td>
+                        <td>Offsets the results, for pagination.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">limit</th>
+                        <td>8</td>
+                        <td>Amount of results to return</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">q</th>
+                        <td></td>
+                        <td>Query string to filter by. Filters against the manga name and romaji.</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">sort</th>
+                        <td>name</td>
+                        <td>Sorts the results. The allowed values are <code>last_updated</code> and <code>name</code>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br><br>
+            <p><b>Example Response:</b></p>
+            <pre>
+{
+    "total": 26,
+    "manga": [
+        {
+            "id": 56,
+            "name": "Afro Samurai",
+            "romaji": "Afro Samurai",
+            "description": "In the bleak world of the swordsman, it is said that he who becomes the No. 1 samurai shall rule the world. And only No.2 is allowed to challenge No.1. Afro Samurai has assumed the mantle of No. 2, seeking vengeance against No.1, a gunman who killed his father years ago. But assassins lurk at every corner, seeking to rob Afro Samurai of the title of No. 2. Can Afro survive long enough to exact his revenge?",
+            "status": "FINISHED",
+            "start_date": "2008-09-02",
+            "poster": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx39935-5FrTNT7dGt7Y.jpg",
+            "banner": "https://s4.anilist.co/file/anilistcdn/media/manga/banner/9935.jpg",
+            "anilist_id": 39935,
+            "mal_id": 9935,
+            "mangaupdates_id": 19785,
+            "anime_planet_slug": "afro-samurai",
+            "kitsu_id": 19512,
+            "fandom": "https://afrosamurai.fandom.com/wiki/Afro_Samurai_Wiki",
+            "magazine": null,
+            "volume_count": 2,
+            "locked": true,
+            "last_updated": "2022-07-30T10:57:39.702Z"
+        },
+        ...
+    ]
+}
+            </pre>
+        </div>
+    </div>
+    <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card-header">
+            <b>Get a specific Manga</b>
+        </div>
+        <div class="card-body text-dark">
+            <code>Endpoint: /api/manga/&#60;manga_id&#62;/</code>
+            <br><br>
+            <p><b>Example Response:</b></p>
+            <pre>
+{
+    "name": "Afro Samurai",
+    "romaji": "Afro Samurai",
+    "description": "In the bleak world of the swordsman, it is said that he who becomes the No. 1 samurai shall rule the world. And only No.2 is allowed to challenge No.1. Afro Samurai has assumed the mantle of No. 2, seeking vengeance against No.1, a gunman who killed his father years ago. But assassins lurk at every corner, seeking to rob Afro Samurai of the title of No. 2. Can Afro survive long enough to exact his revenge?",
+    "status": "FINISHED",
+    "start_date": "2008-09-02",
+    "poster": "https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx39935-5FrTNT7dGt7Y.jpg",
+    "banner": "https://s4.anilist.co/file/anilistcdn/media/manga/banner/9935.jpg",
+    "anilist_id": 39935,
+    "mal_id": 9935,
+    "mangaupdates_id": 19785,
+    "anime_planet_slug": "afro-samurai",
+    "kitsu_id": 19512,
+    "fandom": "https://afrosamurai.fandom.com/wiki/Afro_Samurai_Wiki",
+    "magazine": null,
+    "volume_count": 2,
+    "locked": true,
+    "last_updated": "2022-07-30T10:57:39.702Z",
+    "id": 56
+}
+            </pre>
+        </div>
+    </div>
+    <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card-header">
+            <b>Get the volumes of a Manga</b>
+        </div>
+        <div class="card-body text-dark">
+            <code>Endpoint: /api/manga/&#60;manga_id&#62;/volumes/</code>
+            <br><br>
+            <p><b>Example Response:</b></p>
+            <pre>
+[
+    {
+        "number": 1,
+        "poster": "https://dyn.media.forbiddenplanet.com/q49aNfFLAn_hhJHr8GfAuQzuB_g=/trim/fit-in/394x600/filters:format(webp)/https://media.forbiddenplanet.com/products/eb/35/617d1f33ebf4d378bfb981d89c2e78741cfc.jpg",
+        "chapters": [
+            "Chapter 1",
+            "Chapter 2",
+            "Chapter 3",
+            "Chapter 4",
+            "Chapter 5"
+        ]
+    },
+    {
+      "number": 2,
+      "poster": "https://dyn.media.forbiddenplanet.com/2VX0VJeIV5DpFD1ajc4OhFHIA2U=/trim/fit-in/395x600/filters:format(webp)/https://media.forbiddenplanet.com/products/41/d3/f6f516767355478c878e090c5e35956ed7e2.jpg",
+      "chapters": [
+            "Chapter 6",
+            "Chapter 7",
+            "Chapter 8",
+            "Chapter 9",
+            "Chapter 10"
+      ]
+    }
+]
+            </pre>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

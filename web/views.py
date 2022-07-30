@@ -21,6 +21,9 @@ def index(request):
 def contrib(request):
     return render(request, 'web/contrib.html')
 
+def docs(request):
+    return render(request, 'web/api.html')
+
 class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'
