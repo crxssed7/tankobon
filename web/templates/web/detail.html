@@ -6,12 +6,12 @@
 {% block title %}{{ manga.name }} - Tankōbon{% endblock %}
 
 {% block extrahead %}
-<meta property="og:description" content="{{ manga.name }} manga chapters and volumes.">
-<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
-<meta property="og:title" content="{{ manga.name }} chapters and volumes" />
+<meta property="og:description" content='{{ manga.name }} manga chapters and volumes.\n\n{{ manga.description | bleach:"br,b" }}'>
+<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}">
+<meta property="og:title" content="{{ manga.name }} - Tankōbon" />
 <meta property="og:image" content="{{ manga.poster }}" />
 <meta property="og:image:alt" content="{{ manga.name }} poster" />
-<meta name="twitter:image" content="{{ manga.poster }}" />
+<meta name="twitter:image" content="{{ manga.banner }}" />
 <meta property="twitter:image:alt" content="{{ manga.name }} poster" />
 <meta name="twitter:card" content="summary_large_image" />
 {% endblock %}
