@@ -27,13 +27,19 @@ def get_manga(request):
         except:
             limit = 8
     manga = []
+    total_results = 0
     if not query:
-        manga = list(Manga.objects.values().order_by(sort_field)[offset:offset + limit])
+        results = list(Manga.objects.values().order_by(sort_field))
+        total_results = len(results)
+        manga = results[offset:offset + limit]
     else:
-        manga = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field)[offset:offset + limit])
+        results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field))
+        total_results = len(results)
+        manga = results[offset:offset + limit]
     total = Manga.objects.count()
     data = {
         'total': total,
+        'total_results': total_results,
         'manga': manga
     }
     return JsonResponse(data=data)
