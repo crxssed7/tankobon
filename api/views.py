@@ -54,7 +54,8 @@ def get_manga_volumes(request, manga_id):
     try:
         manga = Manga.objects.get(id=manga_id)
         # Get the volumes
-        volumes = Volume.objects.filter(manga=manga).order_by('absolute_number')
+        volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by('absolute_number')
+        volume_nt = Volume.objects.filter(manga=manga, absolute_number=-1).first()
         vols_data = []
         for volume in volumes:
             data = {
@@ -68,6 +69,21 @@ def get_manga_volumes(request, manga_id):
                     chapters.append(c)
             data.update({"chapters": chapters})
             vols_data.append(data)
+
+        if volume_nt:
+            # Add the no tankobon chapters
+            data = {
+                "number": volume_nt.absolute_number,
+                "poster": ""
+            }
+            chapters = []
+            chapters_str = volume_nt.chapters.strip().splitlines()
+            for c in chapters_str:
+                if not c.isspace():
+                    chapters.append(c)
+            data.update({"chapters": chapters})
+            vols_data.append(data)
+
         data = json.dumps(vols_data)
         return HttpResponse(data, content_type='application/json')
     except:
