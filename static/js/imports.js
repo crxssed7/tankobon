@@ -138,11 +138,7 @@ function importAnilist(modal) {
                 }
                 idAnilist.value = data.Media.id
                 malId.value = data.Media.idMal
-                if (data.Media.volumes) {
-                    volumeCount.value = data.Media.volumes
-                } else {
-                    volumeCount.value = 0
-                }
+                volumeCount.value = data.Media.volumes
 
                 modal.hide()
             },
