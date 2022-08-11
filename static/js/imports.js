@@ -117,7 +117,19 @@ function importAnilist(modal) {
                 } else if (data.Media.status === "FINISHED") {
                     status.selectedIndex = 2
                 }
-                startDate.value = data.Media.startDate.year + "-" + data.Media.startDate.month + "-" + data.Media.startDate.day
+                var MM = ""
+                if (data.Media.startDate.month < 10) {
+                    MM = "0" + data.Media.startDate.month
+                } else {
+                    MM = data.Media.startDate.month.toString()
+                }
+                var dd = ""
+                if (data.Media.startDate.day < 10) {
+                    dd = "0" + data.Media.startDate.day
+                } else {
+                    dd = data.Media.startDate.day.toString()
+                }
+                startDate.value = data.Media.startDate.year + "-" + MM + "-" + dd
                 if (data.Media.coverImage) {
                     poster.value = data.Media.coverImage.large
                 }

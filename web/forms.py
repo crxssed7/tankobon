@@ -18,7 +18,12 @@ class SignUpForm(UserCreationForm):
             ]
 
 class MangaForm(forms.ModelForm):
-    start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
+    # start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
+    start_date = forms.DateField(
+        widget=forms.TextInput(
+            attrs={'type': 'date'} 
+        )
+    )
     poster = forms.CharField(label='Poster URL', help_text='URL to an image file. Try to use an image from AniList or MAL.', required=False)
     banner = forms.CharField(label='Banner URL', help_text='URL to an image file. Try to use an image from AniList or MAL.', required=False)
     anilist_id = forms.IntegerField(label='AniList ID', required=False)
