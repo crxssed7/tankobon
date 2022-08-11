@@ -45,6 +45,7 @@
     {% endif %}
 
 </div>
+{% if type == 'manga'%}
 <div class="container">
     <div class="import-section">
         <button type="button" class="btn imprt btn-kitsu" data-bs-toggle="modal"
@@ -53,6 +54,7 @@
             data-bs-target="#anilistModal">AniList</button>
     </div>
 </div>
+{% endif %}
 <div class="container section">
     <form method="POST">
         {% csrf_token %}

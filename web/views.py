@@ -69,7 +69,7 @@ def new_manga(request):
             return redirect('manga', manga_id=manga.id)
     else:
         form = MangaForm()
-    return render(request, 'web/create.html', {'form': form, 'message': 'Add a manga', 'previous': '/manga/'})
+    return render(request, 'web/create.html', {'form': form, 'message': 'Add a manga', 'previous': '/manga/', 'type': 'manga'})
 
 @login_required
 def edit_manga(request, manga_id):
@@ -150,7 +150,7 @@ def new_volume(request, manga_id):
                 return redirect('manga', manga_id=manga.id)
         else:
             form = VolumeNewForm()
-        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume', 'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/'})
+        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume', 'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/', 'type': 'volume'})
     else:
         raise Http404("Page not found")
 
