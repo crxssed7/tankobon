@@ -24,6 +24,9 @@ def contrib(request):
 def docs(request):
     return render(request, 'web/api.html')
 
+def changelog(request):
+    return render(request, 'web/changelog.html')
+
 class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'

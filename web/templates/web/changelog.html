@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block extrahead %}
+<meta property="og:description" content="A centralised site that documents what chapter is in which volume of a manga.">
+<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
+<meta property="og:title" content="Tankōbon - manga chapters and volumes metadata" />
+<meta property="og:image" content="{% static 'img/header.png' %}" />
+<meta property="og:image:alt" content="Tankōbon logo" />
+<meta name="twitter:image" content="{% static 'img/header.png' %}" />
+<meta property="twitter:image:alt" content="Tankōbon logo" />
+<meta name="twitter:card" content="summary_large_image" />
+{% endblock %}
+
+{% block content %}
+
+<div class="feature">
+    <h3>Site Changelog</h3>
+</div>
+<div class="container section">
+    <h4><b>11th August 2022</b></h4>
+    <p>This initial log does not include any major updates.</p>
+    <ul>
+        <li>Addition of site changelog</li>
+    </ul>
+</div>
+
+{% endblock%}
