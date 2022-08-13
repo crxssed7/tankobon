@@ -52,10 +52,18 @@ class SearchResultsView(ListView):
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
 
+    open_vol_request = request.GET.get('volume')
+    open_vol = -1
+    try:
+        open_vol = int(open_vol_request)
+    except:
+        # If the volume the user provided is not a number, just default to the non tankobon chapters
+        open_vol = -1
+
     volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by('absolute_number')
     nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
 
-    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon, 'search_active': 'active'})
+    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon, 'search_active': 'active', 'open_vol': open_vol})
 
 @login_required
 def new_manga(request):

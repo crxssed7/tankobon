@@ -170,7 +170,11 @@
             {% if data %}
             {% for volume in data %}
             {% if volume.chapters %}
+            {% if volume.absolute_number == open_vol%}
+            <details open>
+            {% else %}
             <details>
+            {% endif %}
                 <summary>
                     <div class="space-between">
                         Volume {{ volume.absolute_number }} 
@@ -201,7 +205,11 @@
             {% endif %}
             {% if chapters_nonvolumed %}
             {% if chapters_nonvolumed.chapters %}
+            {% if chapters_nonvolumed.absolute_number == open_vol %}
+            <details open>
+            {% else %}
             <details>
+            {% endif %}
                 <summary>
                     <div style="display: flex; justify-content: space-between">
                         No volume
