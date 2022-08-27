@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,10 +24,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ['DEBUG']
+DEBUG = os.getenv('DEBUG')
+
+TANKOBON_LOGS = os.getenv('TANKOBON_LOGS')
 
 ALLOWED_HOSTS = ['*']
 
@@ -84,10 +89,10 @@ WSGI_APPLICATION = 'tankobon.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ['TANKOBON_DB_NAME'],
-        'USER': os.environ['TANKOBON_DB_USER'],
-        'PASSWORD': os.environ['TANKOBON_DB_PASS'],
-        'HOST': os.environ['TANKOBON_DB_HOST'],
+        'NAME': os.getenv('TANKOBON_DB_NAME'),
+        'USER': os.getenv('TANKOBON_DB_USER'),
+        'PASSWORD': os.getenv('TANKOBON_DB_PASS'),
+        'HOST': os.getenv('TANKOBON_DB_HOST'),
         'PORT': 5432
     },
     'sqlite': {
