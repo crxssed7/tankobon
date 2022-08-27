@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,13 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-_72ckz^#ggjb1@-$30f)2s$)s773kza-jrxi09nn#nc1oznb1*'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-DEPLOY = False
+DEBUG = os.environ['DEBUG']
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com', '.crxssed.dev']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -89,7 +87,7 @@ DATABASES = {
         'NAME': os.environ['TANKOBON_DB_NAME'],
         'USER': os.environ['TANKOBON_DB_USER'],
         'PASSWORD': os.environ['TANKOBON_DB_PASS'],
-        'HOST': 'localhost',
+        'HOST': os.environ['TANKOBON_DB_HOST'],
         'PORT': 5432
     },
     'sqlite': {
@@ -97,10 +95,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-if DEPLOY:
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
