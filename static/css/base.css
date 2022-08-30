@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5, h6, p, div {
     padding: 75px;
 }
 
+.feature > h3, .feature > h2, .feature > h1, .head > h1 {
+    font-weight: bold;
+}
+
 .section {
     padding: 25px;
 }
