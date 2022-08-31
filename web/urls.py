@@ -9,6 +9,7 @@ urlpatterns = [
     path('changelog/', views.changelog, name='changelog'),
     path('manga/', views.SearchResultsView.as_view(), name='search'),
     path('manga/<int:manga_id>/', views.detail, name='manga'),
+    path('manga/<int:manga_id>/widget/', views.widget, name='widget'),
     path('manga/new/', views.new_manga, name='new_manga'),
     path('manga/all/', views.all_manga, name='all_manga'),
     path('manga/<int:manga_id>/edit/', views.edit_manga, name='edit_manga'),

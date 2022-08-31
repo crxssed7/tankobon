@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse_lazy
 from tankobon.utils import mongo_log
+import textwrap
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -64,6 +65,24 @@ def detail(request, manga_id):
     nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
 
     return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon, 'search_active': 'active', 'open_vol': open_vol})
+
+def widget(request, manga_id):
+    manga = get_object_or_404(Manga, id=manga_id)
+    title = manga.name
+    n = 25
+    start = 9.6585464
+    # Wraps text so that it looks good in SVG
+    wrapper = textwrap.TextWrapper(width=n)
+    titles = wrapper.wrap(text=title)
+    dic = []
+    for i in range(len(titles)):
+        t = {}
+        t['value'] = titles[i]
+        t['step'] = start
+        dic.append(t)
+        start += 7
+
+    return render(request, 'web/widget.html', context={'manga': manga, 'titles': dic[:5]}, content_type="image/svg+xml")
 
 @login_required
 def new_manga(request):
