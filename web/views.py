@@ -8,6 +8,8 @@ from django.http import Http404
 from django.urls import reverse_lazy
 from tankobon.utils import mongo_log
 import textwrap
+import base64
+import requests
 
 # Create your views here.
 class SignUpView(CreateView):
@@ -82,7 +84,11 @@ def widget(request, manga_id):
         dic.append(t)
         start += 7
 
-    return render(request, 'web/widget.html', context={'manga': manga, 'titles': dic[:5]}, content_type="image/svg+xml")
+    # Get base64 of image
+    poster = ''
+    if manga.poster:
+        poster = 'data:image/png;base64,' + base64.b64encode(requests.get(manga.poster).content).decode('utf-8')
+    return render(request, 'web/widget.html', context={'manga': manga, 'titles': dic[:5], 'poster': poster}, content_type="image/svg+xml")
 
 @login_required
 def new_manga(request):
