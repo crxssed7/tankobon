@@ -7,6 +7,7 @@ urlpatterns = [
     path('contrib/', views.contrib, name='contrib'),
     path('docs/', views.docs, name='docs'),
     path('changelog/', views.changelog, name='changelog'),
+    path('help/', views.helpneeded, name='helpneeded'),
     path('manga/', views.SearchResultsView.as_view(), name='search'),
     path('manga/<int:manga_id>/', views.detail, name='manga'),
     path('manga/<int:manga_id>/widget/', views.widget, name='widget'),

@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load bleach_tags %}
+
+{% block extrahead %}
+<meta property="og:description" content="Help is needed! We need your help to make Tankōbon as accurate as possible.">
+<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
+<meta property="og:title" content="Tankōbon - Help is needed!" />
+<meta property="og:image" content="{% static 'img/header.png' %}" />
+<meta property="og:image:alt" content="Tankōbon logo" />
+<meta name="twitter:image" content="{% static 'img/header.png' %}" />
+<meta property="twitter:image:alt" content="Tankōbon logo" />
+<meta name="twitter:card" content="summary_large_image" />
+{% endblock %}
+
+{% block content %}
+
+<style>
+    .description {
+        height: 7.5em;
+        display: block;
+        /* Fallback for non-webkit */
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis !important;
+    }
+
+    .card {
+        border-radius: 10px !important;
+        overflow: hidden !important;
+    }
+
+    .card-img {
+        border-radius: 10px !important;
+    }
+</style>
+
+<div class="feature">
+    <h2>Help is needed!</h2>
+    <p>The records listed below need to be updated/modified.</p>
+    <p>
+        <a href="#no_volume" class="link">No Volumes</a> · <a href="#no_poster"
+            class="link">No Poster</a>
+    </p>
+</div>
+
+{% if no_volume %}
+<div class="container section">
+    <h4 style="font-weight: bold;" id="no_volume">
+        No Volumes:
+    </h4>
+    <p>These records have no volumes attached to them.</p>
+    <div class="row">
+        {% for manga in no_volume %}
+        <div class="col-sm-6" style="padding: 12px !important;">
+            <div class="card mb-3" style="max-width: 100%;">
+                <a href="{% url 'manga' manga.id %}" class="card-link" title="{{ manga.name }}">
+                    <div class="row no-gutters">
+                        <div class="col-md-4">
+                            {% if manga.poster %}
+                            <img src="{{ manga.poster }}" class="card-img" alt="...">
+                            {% else %}
+                            <img src="{% static 'img/noposter.svg' %}" class="card-img" alt="...">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-weight: bold;">{{ manga.name }}</h5>
+                                <div class="description">
+                                    <p class="card-text">{{ manga.description | bleach:"br,b" }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if no_poster %}
+<div class="container section">
+    <h4 style="font-weight: bold;" id="no_poster">
+        No Poster:
+    </h4>
+    <p>These records have no poster.</p>
+    <ul>
+        {% for manga in no_poster %}
+        <li><a href="{% url 'manga' manga.id %}" class="link" style="font-weight: bold;">{{ manga.name }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+
+{% endblock %}

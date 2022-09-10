@@ -30,6 +30,15 @@ def docs(request):
 def changelog(request):
     return render(request, 'web/changelog.html')
 
+def helpneeded(request):
+    no_volume = Manga.objects.exclude(status="PLANNED").annotate(cnt=Count('volume')).filter(cnt=0)
+    no_poster = Manga.objects.filter(poster='')
+    ctx = {
+        'no_volume': no_volume,
+        'no_poster': no_poster
+    }
+    return render(request, 'web/help.html', context=ctx)
+
 class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'

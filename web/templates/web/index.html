@@ -59,11 +59,17 @@
 </div>
 
 <div class="container section">
-    <h3>
+    <h3 style="font-weight: bold;">
         What is Tankōbon?
     </h3>
     <p>
         Manga chapters are often split into volumes (think about how TV shows are split into seasons) which is what we call the Tankōbon format, however, so far I haven't found any central place that documents what chapter is in which volume. This hobby project is an attempt to fix that, and make life easier for those who categorise their manga into volumes.
+    </p>
+    <h3 style="font-weight: bold;">
+        Where to start?
+    </h3>
+    <p>
+        If you want to contribute to Tankōbon but don't know where to start, you can check out the <a href="{% url 'helpneeded' %}" class="link">help</a> page. It lists all the records that are missing data.
     </p>
     <div class="row">
         {% for manga in results %}
@@ -89,10 +95,10 @@
         </div>
         {% endfor %}
     </div>
-    <center>
+<!--     <center>
         <a class="btn btn-dark" href="{% url 'search' %}" style="padding: 15px !important; margin: 12px;">Search</a>
         <a class="btn btn-dark" href="{% url 'new_manga' %}" style="padding: 15px !important; margin: 12px;">Add manga</a>
-    </center>
+    </center> -->
 </div>
 
 {% endblock %}
