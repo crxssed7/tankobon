@@ -7,16 +7,17 @@
    viewBox="0 0 1523.9999 508.00001"
    version="1.1"
    id="svg5"
-   inkscape:version="1.2 (dc2aedaf03, 2022-05-15)"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14, custom)"
    sodipodi:docname="header.svg"
    inkscape:export-filename="logo.png"
    inkscape:export-xdpi="25.4"
    inkscape:export-ydpi="25.4"
+   xml:space="preserve"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns="http://www.w3.org/2000/svg"
-   xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview
+   xmlns:svg="http://www.w3.org/2000/svg"><sodipodi:namedview
      id="namedview7"
      pagecolor="#505050"
      bordercolor="#eeeeee"
@@ -27,58 +28,66 @@
      inkscape:document-units="mm"
      showgrid="false"
      units="px"
-     inkscape:zoom="0.096991618"
-     inkscape:cx="2175.4457"
-     inkscape:cy="3000.2593"
+     inkscape:zoom="0.068583431"
+     inkscape:cx="466.585"
+     inkscape:cy="2114.2133"
      inkscape:window-width="1896"
-     inkscape:window-height="1001"
+     inkscape:window-height="1021"
      inkscape:window-x="10"
-     inkscape:window-y="65"
+     inkscape:window-y="45"
      inkscape:window-maximized="1"
      inkscape:current-layer="layer1"
      inkscape:showpageshadow="0"
-     inkscape:deskcolor="#505050" />
-  <defs
-     id="defs2" />
-  <g
+     inkscape:deskcolor="#505050" /><defs
+     id="defs2"><linearGradient
+       inkscape:collect="always"
+       id="linearGradient1151"><stop
+         style="stop-color:#52b9b9;stop-opacity:1;"
+         offset="0"
+         id="stop1147" /><stop
+         style="stop-color:#52daab;stop-opacity:1;"
+         offset="1"
+         id="stop1149" /></linearGradient><linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient1151"
+       id="linearGradient1153"
+       x1="-678.85449"
+       y1="71.163803"
+       x2="-170.85449"
+       y2="71.163803"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(3,0,0,1,2036.5635,182.83622)" /></defs><g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
-    <rect
-       style="fill:#52b9b9;stroke-width:1.32292;fill-opacity:1"
-       id="rect858"
+     id="layer1"><rect
+       style="fill:url(#linearGradient1153);fill-opacity:1;stroke-width:1.32292"
+       id="rect858-6"
        width="1524"
        height="508"
        x="0"
-       y="0"
-       inkscape:export-filename="/home/crxssed/projectstmp/tankobon/header.png"
+       y="-1.1368684e-13"
+       inkscape:export-filename="header.png"
        inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96" />
-    <g
+       inkscape:export-ydpi="96" /><g
        id="g2260"
        transform="translate(306.68222,105.28525)"
-       style="fill:#ffffff"
+       style="fill:#212529;fill-opacity:1"
        inkscape:export-filename="/home/crxssed/projectstmp/tankobon/header.png"
        inkscape:export-xdpi="96"
-       inkscape:export-ydpi="96">
-      <rect
-         style="fill:#ffffff;stroke-width:7.23423"
+       inkscape:export-ydpi="96"><rect
+         style="fill:#212529;stroke-width:7.23423;fill-opacity:1"
          id="rect950"
          width="88.56691"
          height="104.39439"
          x="447.03"
          y="-173.06032"
          ry="12.349845"
-         transform="matrix(0.8360271,0.54868815,0,1,0,0)" />
-      <rect
-         style="fill:#ffffff;stroke-width:7.23423"
+         transform="matrix(0.8360271,0.54868815,0,1,0,0)" /><rect
+         style="fill:#212529;stroke-width:7.23423;fill-opacity:1"
          id="rect1032"
          width="88.56691"
          height="104.39439"
          x="-642.21167"
          y="424.59369"
          ry="12.349845"
-         transform="matrix(-0.8360271,0.54868815,0,1,0,0)" />
-    </g>
-  </g>
-</svg>
+         transform="matrix(-0.8360271,0.54868815,0,1,0,0)" /></g></g></svg>
