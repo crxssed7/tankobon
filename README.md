@@ -14,7 +14,7 @@ Currently in development!
 
 <a href="https://github.com/crxssed7/tankobon_mobile">
   <img
-    alt="Get it on Google Play"
+    alt="View on GitHub"
     height="80"
     src="https://pngimg.com/uploads/github/github_PNG15.png"/>
 </a>
