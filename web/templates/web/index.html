@@ -71,6 +71,8 @@
     <p>
         If you want to contribute to Tankōbon but don't know where to start, you can check out the <a href="{% url 'helpneeded' %}" class="link">help</a> page. It lists all the records that are missing data.
     </p>
+    <a class="btn btn-dark" href="{% url 'new_manga' %}" >Add manga</a>
+    <a class="btn btn-dark" href="{% url 'helpneeded' %}" >Help needed!</a>
     <div class="row">
         {% for manga in results %}
         <div class="col-sm-6" style="padding: 12px !important;">

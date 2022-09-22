@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 
+{% load static %}
 {% load detail_tags %}
 {% load bleach_tags %}
 
@@ -247,13 +248,15 @@
                                 {% endif %}
                             </div>
                         </summary>
-                        <ul>
-                            {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
-                        </ul>
-                        <div class="section">
-                            <h5>Why do these chapters have no volume?</h5>
-                            <p>This is because when a chapter is released, they aren't
-                                immediately put into volumes.</p>
+                        <div class="volume-content">
+                            <ul>
+                                {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
+                            </ul>
+                            <div class="section">
+                                <h5>Why do these chapters have no volume?</h5>
+                                <p>This is because when a chapter is released, they aren't
+                                    immediately put into volumes.</p>
+                            </div>
                         </div>
                     </details>
                     {% endif %}
@@ -264,5 +267,7 @@
         </div>
     </div>
 </div>
+
+<script src="{% static 'js/volume.js' %}"></script>
 
 {% endblock %}

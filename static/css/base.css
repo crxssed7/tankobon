@@ -6,7 +6,14 @@ body {
     flex-direction: column;
 }
 
-h1, h2, h3, h4, h5, h6, p, div {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+div {
     font-family: 'Montserrat';
 }
 
@@ -33,7 +40,10 @@ h1, h2, h3, h4, h5, h6, p, div {
     padding: 75px;
 }
 
-.feature > h3, .feature > h2, .feature > h1, .head > h1 {
+.feature>h3,
+.feature>h2,
+.feature>h1,
+.head>h1 {
     font-weight: bold;
 }
 
@@ -57,22 +67,22 @@ h1, h2, h3, h4, h5, h6, p, div {
 }
 
 details {
-    border: 1px solid rgba(0,0,0,.125);
+    border: 1px solid rgba(0, 0, 0, .125);
     border-radius: 5px;
     margin-bottom: 10px;
 }
 
-details > summary {
+details>summary {
     list-style-type: '';
 }
 
-details[open] > summary {
+details[open]>summary {
     list-style-type: '';
 }
 
 summary {
     padding: 8px 16px;
-    background-color: rgba(0,0,0,.03);
+    background-color: rgba(0, 0, 0, .03);
 }
 
 .chapter-li {
@@ -105,13 +115,14 @@ code {
     border-radius: 0px 0px 10px 10px;
 }
 
-.btn, .form-control {
+.btn,
+.form-control {
     border-radius: 10px !important;
 }
 
 .navbar-light .navbar-toggler {
-    color: rgba(0,0,0,.3) !important;
-    border-color: rgba(0,0,0,.1) !important;
+    color: rgba(0, 0, 0, .3) !important;
+    border-color: rgba(0, 0, 0, .1) !important;
 }
 
 .tank-fore {
@@ -133,17 +144,17 @@ code {
     width: 4px;
     height: 4px;
 }
-  
+
 /* Track */
 ::-webkit-scrollbar-track {
     background: white;
 }
-   
+
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: rgb(82, 218, 171); 
+    background: rgb(82, 218, 171);
 }
-  
+
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(82, 185, 185);
