@@ -135,5 +135,9 @@
     anilistImport.addEventListener('click', () => {
         importAnilist(anilistModal, toast)
     });
+
+    document.querySelectorAll('input').forEach((el) => {
+        el.setAttribute('autocomplete', 'off')
+    });
 </script>
 {% endblock %}
