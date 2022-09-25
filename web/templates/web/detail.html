@@ -81,6 +81,12 @@
         justify-content: space-between;
     }
 
+    .manga-description {
+        overflow: hidden;
+        /* height: 12.1em; */
+        height: auto;
+    }
+
     @media only screen and (max-width: 768px) {
 
         /* For mobile phones: */
@@ -145,7 +151,10 @@
                         </div>
                     </div>
                     <div class="card-body text-dark">
-                        {{ manga.description | bleach:"br,b" }}
+                        <div class="manga-description">
+                            {{ manga.description | bleach:"br,b" }}
+                        </div>
+                        <a href="#" id="readmore" class="link">Read more</a>
                         <hr>
                         <b>Volumes: </b> {{ manga.volume_count }}
                         <hr>
@@ -320,5 +329,31 @@
         </div>
     </div>
 </div>
+
+<script>
+    // This code is all for the 'Read more' button on the manga description
+    var readMore = true;
+    const emToPx = 193.6;
+    
+    if (document.querySelector('.manga-description').clientHeight < emToPx) {
+        readMore = false;
+        document.querySelector('.manga-description').style.height = 'auto';
+        document.querySelector('#readmore').style.display = 'none'
+    } else {
+        document.querySelector('.manga-description').style.height = '12.1em';
+        document.querySelector('#readmore').addEventListener('click', function (e) {
+            e.preventDefault();
+            if (readMore === true) {
+                document.querySelector('.manga-description').style.height = 'auto';
+                this.innerText = 'Read less';
+                readMore = false;
+            } else {
+                document.querySelector('.manga-description').style.height = '12.1em';
+                this.innerText = 'Read more';
+                readMore = true;
+            }
+        });
+    }
+</script>
 
 {% endblock %}
