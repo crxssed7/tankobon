@@ -113,6 +113,14 @@
             top: 100px;
         }
     }
+
+    .volume-header {
+        border-bottom: none !important;
+    }
+
+    .collapse, .collapsing {
+        border-top: 1px solid rgba(0,0,0,.125);
+    }
 </style>
 
 <div class="head">
@@ -211,8 +219,8 @@
             {% if data %}
             {% for volume in data %}
             {% if volume.chapters %}
-            <div class="card volume-header">
-                <div class="card-header" id="heading{{volume.absolute_number}}">
+            <div class="card volume">
+                <div class="card-header volume-header" id="heading{{volume.absolute_number}}">
                     <div class="space-between">
                         <a class="link" style="width: 100%; text-decoration: none;" data-bs-toggle="collapse"
                             href="#collapse{{volume.absolute_number}}" role="button" aria-expanded="false"
@@ -271,8 +279,8 @@
             {% endif %}
             {% if chapters_nonvolumed %}
             {% if chapters_nonvolumed.chapters %}
-            <div class="card volume-header">
-                <div class="card-header" id="heading{{chapters_nonvolumed.absolute_number}}">
+            <div class="card volume">
+                <div class="card-header volume-header" id="heading{{chapters_nonvolumed.absolute_number}}">
                     <div class="space-between">
                         <a class="link" style="width: 100%; text-decoration: none;" data-bs-toggle="collapse"
                             href="#collapse{{chapters_nonvolumed.absolute_number}}" role="button" aria-expanded="false"
