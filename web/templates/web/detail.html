@@ -118,7 +118,7 @@
         border-bottom: none !important;
     }
 
-    .collapse, .collapsing {
+    .chapters {
         border-top: 1px solid rgba(0,0,0,.125);
     }
 </style>
@@ -237,7 +237,7 @@
                 </div>
 
                 {% if volume.absolute_number == open_vol%}
-                <div id="collapse{{volume.absolute_number}}" class="collapse show"
+                <div id="collapse{{volume.absolute_number}}" class="collapse show chapters"
                     aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
                     <div class="card-body" style="padding: 0px;">
                         <div class="volume-content" style="display: flex;">
@@ -253,7 +253,7 @@
                     </div>
                 </div>
                 {% else %}
-                <div id="collapse{{volume.absolute_number}}" class="collapse"
+                <div id="collapse{{volume.absolute_number}}" class="collapse chapters"
                     aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
                     <div class="card-body" style="padding: 0px;">
                         <div class="volume-content" style="display: flex;">
@@ -296,7 +296,7 @@
                 </div>
 
                 {% if chapters_nonvolumed.absolute_number == open_vol%}
-                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse show"
+                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse show chapters"
                     aria-labelledby="heading{{chapters_nonvolumed.absolute_number}}" data-parent="#accordion">
                     <div class="card-body" style="padding: 0px;">
                         <div class="volume-content">
@@ -312,7 +312,7 @@
                     </div>
                 </div>
                 {% else %}
-                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse"
+                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse chapters"
                     aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
                     <div class="card-body" style="padding: 0px;">
                         <div class="volume-content">
