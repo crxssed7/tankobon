@@ -12,6 +12,7 @@ def get_manga(request):
     _limit = request.GET.get('limit')
     query = request.GET.get('q')
     sort = request.GET.get('sort')
+    status = request.GET.get('status')
     sort_field = 'name'
     try:
         offset = int(offset)
@@ -29,11 +30,19 @@ def get_manga(request):
     manga = []
     total_results = 0
     if not query:
-        results = list(Manga.objects.values().order_by(sort_field))
+        results = list()
+        if status:
+            results = list(Manga.objects.filter(status=status.upper()).values().order_by(sort_field))
+        else:
+            results = list(Manga.objects.values().order_by(sort_field))
         total_results = len(results)
         manga = results[offset:offset + limit]
     else:
-        results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field))
+        results = list()
+        if status:
+            results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query), status=status.upper()).values().order_by(sort_field))
+        else:
+            results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field))
         total_results = len(results)
         manga = results[offset:offset + limit]
     total = Manga.objects.count()

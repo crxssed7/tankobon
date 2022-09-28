@@ -2,10 +2,28 @@
 
 {% load static %}
 
-{% block title %}All Manga - Tankōbon{% endblock %}
+{% block title %}
+{% if type == 'all' %}
+All Manga - Tankōbon
+{% elif type == 'releasing' %}
+All Releasing Manga - Tankōbon
+{% else %}
+All Completed Manga - Tankōbon
+{% endif %}
+{% endblock %}
 
 {% block extrahead %}
-<meta property="og:description" content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!">
+{% if type == 'all' %}
+<meta property="og:description"
+    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!">
+{% elif type == 'releasing' %}
+<meta property="og:description"
+    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!">
+{% else %}
+<meta property="og:description"
+    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!">
+{% endif %}
+
 <meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
 <meta property="og:title" content="Tankōbon - manga chapters and volumes metadata" />
 <meta property="og:image" content="{% static 'img/header.png' %}" />
@@ -53,7 +71,15 @@
 </style>
 
 <div class="feature">
+    {% if type == 'all' %}
     <h2>We currently have <span class="tank-fore">{{ count }}</span> manga in the database.</h2>
+    {% elif type == 'releasing' %}
+    <h2>We currently have <span class="tank-fore">{{ count }}</span> releasing manga in the database.</h2>
+    <a class="btn btn-outline-dark" href="{% url 'all_manga' %}" style="margin: 10px;">View all</a>
+    {% else %}
+    <h2>We currently have <span class="tank-fore">{{ count }}</span> completed manga in the database.</h2>
+    <a class="btn btn-outline-dark" href="{% url 'all_manga' %}" style="margin: 10px;">View all</a>
+    {% endif %}
 </div>
 
 <div class="container section">
@@ -74,7 +100,9 @@
                     </div>
                     {% endif %}
                     <div class="card-body">
-                        <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
+                        <center>
+                            <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5>
+                        </center>
                     </div>
                 </div>
             </a>
@@ -83,8 +111,8 @@
     </div>
     <center>
         <p><span id="amount">8</span> / <span id="total">{{ count }}</span> results</p>
-        <div class="load-more__btn mt-3" id="loadBtn">
-            <a class="btn btn-dark" style="padding: 15px !important; margin: 12px;">Load more</a>
+        <div class="load-more__btn mt-3">
+            <a id="loadBtn" class="btn btn-dark" style="padding: 15px !important; margin: 12px;">Load more</a>
         </div>
         <div class="spinner spinner-border mt-2 visually-hidden" role="status" id="spinner">
         </div>
@@ -97,16 +125,27 @@
     const spinner = document.getElementById('spinner');
     const amount = document.getElementById('amount');
     const total = document.getElementById('total').textContent;
+    var status = '{{ type }}';
+    if (status == 'completed') {
+        status = 'finished';
+    }
 
     function loadMore() {
         var offset = $('.itm-result').length;
+        data = {
+            'offset': offset
+        }
+        if (status != 'all') {
+            data = {
+                'offset': offset,
+                'status': status
+            }
+        }
         const content_container = document.getElementById("content");
         $.ajax({
             url: '{% url "get_manga" %}',
             type: 'GET',
-            data: {
-                'offset': offset
-            },
+            data: data,
             beforeSend: function () {
                 loadBtn.classList.add('visually-hidden');
                 spinner.classList.remove('visually-hidden');
