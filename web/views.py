@@ -6,6 +6,7 @@ from .forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from django.urls import reverse_lazy
+from random import sample
 from tankobon.utils import mongo_log
 import textwrap
 import base64
@@ -54,8 +55,8 @@ class SearchResultsView(ListView):
     def get_context_data(self,**kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
         context['recently_updated'] = Manga.objects.all().order_by('-last_updated')[:8]
-        context['releasing'] = Manga.objects.filter(status="RELEASING").order_by('-last_updated')[:5]
-        context['completed'] = Manga.objects.filter(status="FINISHED").order_by('-last_updated')[:5]
+        context['releasing'] = sample(list(Manga.objects.filter(status="RELEASING")), 5)
+        context['completed'] = sample(list(Manga.objects.filter(status="FINISHED")), 5)
         context['search_active'] = 'active'
         q = self.request.GET.get("q")
         if q:
