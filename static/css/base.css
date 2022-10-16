@@ -92,6 +92,18 @@ div {
     color: rgb(10, 10, 10) !important;
 }
 
+.spacer {
+    height: 10px;
+}
+
+.bmc-btn {
+    border-radius: 10px !important;
+}
+
+.bmc-btn:hover {
+    color: #000000 !important;
+}
+
 code {
     color: rgb(10, 10, 10) !important;
     font-weight: bold;
