@@ -16,5 +16,5 @@ Currently in development!
   <img
     alt="View on GitHub"
     height="80"
-    src="https://pngimg.com/uploads/github/github_PNG15.png"/>
+    src="https://raw.githubusercontent.com/crxssed7/tankobon/master/brand/badge_github.png"/>
 </a>
