@@ -4,18 +4,9 @@
 
 {% block title %}API Documentation - Tankōbon{% endblock %}
 
-{% block extrahead %}
-<meta property="og:description"
-    content="Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.">
-<meta name="keywords"
-    content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api">
-<meta property="og:title" content="Tankōbon - Simple GET API" />
-<meta property="og:image" content="{% static 'img/header.png' %}" />
-<meta property="og:image:alt" content="Tankōbon logo" />
-<meta name="twitter:image" content="{% static 'img/header.png' %}" />
-<meta property="twitter:image:alt" content="Tankōbon logo" />
-<meta name="twitter:card" content="summary_large_image" />
-{% endblock %}
+{% block meta_description %}Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.{% endblock %}
+{% block meta_tags %}tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api{% endblock %}
+{% block meta_title %}Tankōbon - Simple GET API{% endblock %}
 
 {% block content %}
 

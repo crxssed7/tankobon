@@ -12,28 +12,17 @@ All Completed Manga - Tankōbon
 {% endif %}
 {% endblock %}
 
-{% block extrahead %}
+{% block meta_description %}
 {% if type == 'all' %}
-<meta property="og:description"
-    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!">
+A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
 {% elif type == 'releasing' %}
-<meta property="og:description"
-    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!">
+A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!
 {% else %}
-<meta property="og:description"
-    content="A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!">
+A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
 {% endif %}
-
-<meta name="keywords" content="tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes">
-<meta property="og:title" content="Tankōbon - manga chapters and volumes metadata" />
-<meta property="og:image" content="{% static 'img/header.png' %}" />
-<meta property="og:image:alt" content="Tankōbon logo" />
-<meta name="twitter:image" content="{% static 'img/header.png' %}" />
-<meta property="twitter:image:alt" content="Tankōbon logo" />
-<meta name="twitter:card" content="summary_large_image" />
 {% endblock %}
 
-{% block content %}
+{% block content%}
 
 <style>
     .itm-result {
