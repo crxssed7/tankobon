@@ -18,6 +18,14 @@
         crossorigin="anonymous"></script>
     <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon/favicon.svg' %}">
     <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon.png' %}">
+    <meta property="og:description" content="{% block meta_description %}A centralised site that documents what chapter is in which volume of a manga.{% endblock %}">
+    <meta name="keywords" content="{% block meta_tags %}tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes{% endblock %}">
+    <meta property="og:title" content="{% block meta_title %}Tankōbon - manga chapters and volumes metadata{% endblock %}" />
+    <meta property="og:image" content="{% block meta_image %}{% static 'img/header.png' %}{% endblock %}" />
+    <meta property="og:image:alt" content="{% block meta_image_alt %}Tankōbon logo{% endblock %}" />
+    <meta name="twitter:image" content="{% block meta_twitter_image %}{% static 'img/header.png' %}{% endblock %}" />
+    <meta property="twitter:image:alt" content="{% block meta_twitter_image_alt %}Tankōbon logo{% endblock %}" />
+    <meta name="twitter:card" content="summary_large_image" />
     {% block extrahead %}
     {% endblock %}
 </head>
