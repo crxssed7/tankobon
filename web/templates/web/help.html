@@ -1,13 +1,22 @@
 {% extends "base.html" %}
+
 {% load static %}
 {% load bleach_tags %}
+
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
-          href="{% static 'css/shared/_poster_chip.css' %}" />
+          href="{% static 'css/shared/_poster_chip.css' %}"/>
 {% endblock extrahead %}
-{% block meta_description %}Help is needed! We need your help to make Tankōbon as accurate as possible.{% endblock meta_description %}
-{% block meta_title %}Tankōbon - Help is needed!{% endblock meta_title %}
+
+{% block meta_description %}
+    Help is needed! We need your help to make Tankōbon as accurate as possible.
+{% endblock meta_description %}
+
+{% block meta_title %}
+    Tankōbon - Help is needed!
+{% endblock meta_title %}
+
 {% block content %}
     <div class="feature">
         <h2>Help is needed!</h2>

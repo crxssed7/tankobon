@@ -1,10 +1,13 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
-          href="{% static 'css/shared/_banner_card.css' %}" />
+          href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
+
 {% block content %}
     <div class="head">
         <img src="{% static 'img/logo.svg' %}" alt="" width="150" />

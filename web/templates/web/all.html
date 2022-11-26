@@ -1,5 +1,7 @@
 {% extends "base.html" %}
+
 {% load static %}
+
 {% block title %}
     {% if type == 'all' %}
         All Manga - Tankōbon
@@ -9,11 +11,13 @@
         All Completed Manga - Tankōbon
     {% endif %}
 {% endblock title %}
+
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
-          href="{% static 'css/shared/_banner_card.css' %}" />
+          href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
+
 {% block meta_description %}
     {% if type == 'all' %}
         A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
@@ -23,6 +27,7 @@
         A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
     {% endif %}
 {% endblock meta_description %}
+
 {% block content %}
     <div class="feature">
         {% if type == 'all' %}

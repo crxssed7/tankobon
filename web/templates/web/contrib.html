@@ -1,6 +1,11 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
-{% block title %}Contribution Guidelines - Tankōbon{% endblock title %}
+
+{% block title %}
+    Contribution Guidelines - Tankōbon
+{% endblock title %}
+
 {% block content %}
     <style>
     .li-ind {
@@ -35,7 +40,9 @@
                     {custom} {chapter number} - {chapter name} | <code>1st Punch: One Punch</code>
                 </li>
             </ul>
-            <p class="li-ind">Follow this format to add arc starting points: <code>|Story Arc Name</code></p>
+            <p class="li-ind">
+                Follow this format to add arc starting points: <code>|Story Arc Name</code>
+            </p>
             <li class="li-ind">Check if the record you are adding already exists in the database.</li>
             <li class="li-ind">
                 Avoid adding sexually explicit content. Ecchi is fine (as long as the images do not contain any nudity) but h*ntai is not.

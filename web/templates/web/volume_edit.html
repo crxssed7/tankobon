@@ -1,8 +1,11 @@
 {% extends "base.html" %}
+
 {% load crispy_forms_tags %}
+
 {% block title %}
     Edit {{ volume.manga.name }} - Tankōbon
 {% endblock title %}
+
 {% block content %}
     {% if not locked %}
         <div class="head">

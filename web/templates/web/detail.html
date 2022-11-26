@@ -1,22 +1,47 @@
 {% extends "base.html" %}
+
 {% load static %}
 {% load detail_tags %}
 {% load bleach_tags %}
-{% block title %}{{ manga.name }} - Tankōbon{% endblock title %}
+
+{% block title %}
+    {{ manga.name }} - Tankōbon
+{% endblock title %}
+
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
-          href="{% static 'css/shared/_id_badges.css' %}" />
+          href="{% static 'css/shared/_id_badges.css' %}"/>
 {% endblock extrahead %}
-{% block meta_description %}{{ manga.description }}{% endblock meta_description %}
+
+{% block meta_description %}
+    {{ manga.description }}
+{% endblock meta_description %}
+
 {% block meta_tags %}
     tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}
 {% endblock meta_tags %}
-{% block meta_title %}{{ manga.name }} - Tankōbon{% endblock meta_title %}
-{% block meta_image %}{{ manga.poster }}{% endblock meta_image %}
-{% block meta_image_alt %}{{ manga.name }} poster{% endblock meta_image_alt %}
-{% block meta_twitter_image %}{{ manga.banner }}{% endblock meta_twitter_image %}
-{% block meta_twitter_image_alt %}{{ manga.name }} poster{% endblock meta_twitter_image_alt %}
+
+{% block meta_title %}
+    {{ manga.name }} - Tankōbon
+{% endblock meta_title %}
+
+{% block meta_image %}
+    {{ manga.poster }}
+{% endblock meta_image %}
+
+{% block meta_image_alt %}
+    {{ manga.name }} poster
+{% endblock meta_image_alt %}
+
+{% block meta_twitter_image %}
+    {{ manga.banner }}
+{% endblock meta_twitter_image %}
+
+{% block meta_twitter_image_alt %}
+    {{ manga.name }} poster
+{% endblock meta_twitter_image_alt %}
+
 {% block content %}
     <style>
     .edit-link:link {
@@ -177,7 +202,7 @@
                                                         <img src="{{ volume.poster }}"
                                                              alt="volume"
                                                              class="poster volume-poster"
-                                                             width="150px" />
+                                                             width="150px"/>
                                                     </div>
                                                 {% endif %}
                                                 <ul>
@@ -198,7 +223,7 @@
                                                         <img src="{{ volume.poster }}"
                                                              alt="volume"
                                                              class="poster volume-poster"
-                                                             width="150px" />
+                                                             width="150px"/>
                                                     </div>
                                                 {% endif %}
                                                 <ul>
