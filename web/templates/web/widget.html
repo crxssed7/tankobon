@@ -1,95 +1,108 @@
 {% load static %}
-<svg width="500" height="250" viewBox="0 0 132.29166 66.145833" version="1.1" id="svg5" xml:space="preserve"
-    inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)" sodipodi:docname="tankobon-widget.svg"
-    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
+<svg width="500"
+     height="250"
+     viewBox="0 0 132.29166 66.145833"
+     version="1.1"
+     id="svg5"
+     xml:space="preserve"
+     inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+     sodipodi:docname="tankobon-widget.svg"
+     xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+     xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:svg="http://www.w3.org/2000/svg">
     <sodipodi:namedview id="namedview7" pagecolor="#505050" bordercolor="#eeeeee" borderopacity="1"
-        inkscape:showpageshadow="0" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#505050"
-        inkscape:document-units="mm" showgrid="false" inkscape:zoom="1.5625561" inkscape:cx="246.71114"
-        inkscape:cy="149.11464" inkscape:window-width="1896" inkscape:window-height="1001" inkscape:window-x="10"
-        inkscape:window-y="65" inkscape:window-maximized="1" inkscape:current-layer="layer1" />
+    inkscape:showpageshadow="0" inkscape:pageopacity="0" inkscape:pagecheckerboard="0" inkscape:deskcolor="#505050"
+    inkscape:document-units="mm" showgrid="false" inkscape:zoom="1.5625561" inkscape:cx="246.71114"
+    inkscape:cy="149.11464" inkscape:window-width="1896" inkscape:window-height="1001" inkscape:window-x="10"
+    inkscape:window-y="65" inkscape:window-maximized="1" inkscape:current-layer="layer1" />
     <defs id="defs2">
-        <linearGradient inkscape:collect="always" id="linearGradient871">
-            <stop style="stop-color:#52b9b9;stop-opacity:1;" offset="0" id="stop867" />
-            <stop style="stop-color:#52daab;stop-opacity:1;" offset="1" id="stop869" />
-        </linearGradient>
-        <linearGradient inkscape:collect="always" xlink:href="#linearGradient871" id="linearGradient873" x1="0"
-            y1="33.072918" x2="132.29167" y2="33.072918" gradientUnits="userSpaceOnUse" />
-        <mask maskUnits="userSpaceOnUse" id="mask1216">
-            <rect style="fill:#ffffff;fill-opacity:1;stroke-width:1.32292" id="rect1218" width="132.29167"
-                height="66.145836" x="0" y="71.616577" ry="2.6458333" />
-        </mask>
-        <mask maskUnits="userSpaceOnUse" id="mask1222">
-            <rect style="fill:#ffffff;fill-opacity:1;stroke-width:1.32292" id="rect1224" width="38.771355"
-                height="60.854164" x="2.6458333" y="2.6458333" ry="2.6458333" />
-        </mask>
+    <linearGradient inkscape:collect="always" id="linearGradient871">
+    <stop style="stop-color:#52b9b9;stop-opacity:1;" offset="0" id="stop867" />
+    <stop style="stop-color:#52daab;stop-opacity:1;" offset="1" id="stop869" />
+    </linearGradient>
+    <linearGradient inkscape:collect="always" xlink:href="#linearGradient871" id="linearGradient873" x1="0"
+    y1="33.072918" x2="132.29167" y2="33.072918" gradientUnits="userSpaceOnUse" />
+    <mask maskUnits="userSpaceOnUse" id="mask1216">
+    <rect style="fill:#ffffff;fill-opacity:1;stroke-width:1.32292" id="rect1218" width="132.29167"
+    height="66.145836" x="0" y="71.616577" ry="2.6458333" />
+    </mask>
+    <mask maskUnits="userSpaceOnUse" id="mask1222">
+    <rect style="fill:#ffffff;fill-opacity:1;stroke-width:1.32292" id="rect1224" width="38.771355"
+    height="60.854164" x="2.6458333" y="2.6458333" ry="2.6458333" />
+    </mask>
     </defs>
     <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1">
-        <rect style="fill:url(#linearGradient873);fill-opacity:1;stroke-width:1.32292" id="rect788" width="132.29167"
-            height="66.145836" x="0" y="0" ry="2.6458333" />
-
-        {% if poster %}
-        <image width="38.771355" height="60.854168" preserveAspectRatio="none" xlink:href="{{ poster }}"
-            id="image1006" x="2.6458333" y="2.6458333" mask="url(#mask1222)"
-            transform="matrix(1.0869566,0,0,1.0869566,87.272983,-2.8759059)" />
-        {% else %}
-        <image width="38.771355" height="60.854168" preserveAspectRatio="none" xlink:href="{% static 'img/noposter.svg' %}"
-            id="image1006" x="2.6458333" y="2.6458333" mask="url(#mask1222)"
-            transform="matrix(1.0869566,0,0,1.0869566,87.272983,-2.8759059)" />
-        {% endif %}
-        
-        {% for title in titles%}
+    <rect style="fill:url(#linearGradient873);fill-opacity:1;stroke-width:1.32292" id="rect788" width="132.29167"
+    height="66.145836" x="0" y="0" ry="2.6458333" />
+    {% if poster %}
+        <image width="38.771355"
+               height="60.854168"
+               preserveAspectRatio="none"
+               xlink:href="{{ poster }}"
+               id="image1006"
+               x="2.6458333"
+               y="2.6458333"
+               mask="url(#mask1222)"
+               transform="matrix(1.0869566,0,0,1.0869566,87.272983,-2.8759059)"/>
+    {% else %}
+        <image width="38.771355"
+               height="60.854168"
+               preserveAspectRatio="none"
+               xlink:href="{% static 'img/noposter.svg' %}"
+               id="image1006"
+               x="2.6458333"
+               y="2.6458333"
+               mask="url(#mask1222)"
+               transform="matrix(1.0869566,0,0,1.0869566,87.272983,-2.8759059)"/>
+    {% endif %}
+    {% for title in titles %}
         <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29167px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="{{ title.step }}" id="text1117">
-            <tspan sodipodi:role="line" id="tspan1115"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29167px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="{{ title.step }}">{{ title.value }}</tspan>
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29167px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+        x="5.9725957" y="{{ title.step }}" id="text1117">
+        <tspan sodipodi:role="line" id="tspan1115"
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.29167px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+        x="5.9725957" y="{{ title.step }}">{{ title.value }}</tspan>
         </text>
-        {% endfor %}
-
+    {% endfor %}
+    <text xml:space="preserve"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+    x="5.9725957" y="45.707176" id="text3935">
+    <tspan sodipodi:role="line" id="tspan3933"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+    x="5.9725957" y="45.707176">{{ manga.volume_count }} volumes</tspan>
+    </text>
+    <text xml:space="preserve"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+    x="5.9725957" y="50.707176" id="text3935">
+    <tspan sodipodi:role="line" id="tspan3933"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+    x="5.9725957" y="50.707176">{{ manga.status }}</tspan>
+    </text>
+    <text xml:space="preserve"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+    x="5.9725957" y="55.707176" id="text3935">
+    <tspan sodipodi:role="line" id="tspan3933"
+    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+    x="5.9725957" y="55.707176">{{ manga.start_date.year }}</tspan>
+    </text>
+    {% if manga.magazine %}
         <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="45.707176" id="text3935">
-            <tspan sodipodi:role="line" id="tspan3933"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="45.707176">{{ manga.volume_count }} volumes</tspan>
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+        x="5.9725957" y="60.707176" id="text3935">
+        <tspan sodipodi:role="line" id="tspan3933"
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+        x="5.9725957" y="60.707176">{{ manga.magazine }}</tspan>
         </text>
-
+    {% else %}
         <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="50.707176" id="text3935">
-            <tspan sodipodi:role="line" id="tspan3933"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="50.707176">{{ manga.status }}</tspan>
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
+        x="5.9725957" y="60.707176" id="text3935">
+        <tspan sodipodi:role="line" id="tspan3933"
+        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
+        x="5.9725957" y="60.707176">No magazine found</tspan>
         </text>
-
-        <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="55.707176" id="text3935">
-            <tspan sodipodi:role="line" id="tspan3933"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="55.707176">{{ manga.start_date.year }}</tspan>
-        </text>
-
-        {% if manga.magazine %}
-        <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="60.707176" id="text3935">
-            <tspan sodipodi:role="line" id="tspan3933"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="60.707176">{{ manga.magazine }}</tspan>
-        </text>
-        {% else %}
-        <text xml:space="preserve"
-            style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-            x="5.9725957" y="60.707176" id="text3935">
-            <tspan sodipodi:role="line" id="tspan3933"
-                style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-                x="5.9725957" y="60.707176">No magazine found</tspan>
-        </text>
-        {% endif %}
-
+    {% endif %}
     </g>
 </svg>

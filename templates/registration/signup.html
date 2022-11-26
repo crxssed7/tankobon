@@ -1,17 +1,16 @@
 {% extends "base.html" %}
-
 {% load crispy_forms_tags %}
-
-{% block title %}Sign Up{% endblock %}
-
+{% block title %}Sign Up{% endblock title %}
 {% block content %}
-<div class="container section">
-    <h3>Sign up</h3>
-    <form method="post">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <p><b>You must read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before signing up.</b></p>
-        <button type="submit" class="btn btn-dark">Sign Up</button>
-    </form>
-</div>
-{% endblock %}
+    <div class="container section">
+        <h3>Sign up</h3>
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p>
+                <b>You must read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before signing up.</b>
+            </p>
+            <button type="submit" class="btn btn-dark">Sign Up</button>
+        </form>
+    </div>
+{% endblock content %}

@@ -1,57 +1,51 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 {% load bleach_tags %}
-
 {% block extrahead %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_poster_chip.css' %}">
-{% endblock %}
-
-
-{% block meta_description %}Help is needed! We need your help to make Tankōbon as accurate as possible.{% endblock %}
-{% block meta_title %}Tankōbon - Help is needed!{% endblock %}
-
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/shared/_poster_chip.css' %}" />
+{% endblock extrahead %}
+{% block meta_description %}Help is needed! We need your help to make Tankōbon as accurate as possible.{% endblock meta_description %}
+{% block meta_title %}Tankōbon - Help is needed!{% endblock meta_title %}
 {% block content %}
-<div class="feature">
-    <h2>Help is needed!</h2>
-    <p>The records listed below need to be updated/modified.</p>
-    <p>
-        <a href="#no_volume" class="link">No Volumes</a> · <a href="#no_poster"
-            class="link">No Poster</a>
-    </p>
-</div>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <h4 style="font-weight: bold;" id="no_volume">
-                No Volumes:
-            </h4>
-            {% if no_volume %}
-            <p>These records have no volumes attached to them.</p>
-            {% for manga in no_volume %}
-            {% include "web/shared/_poster_chip.html" with manga=manga only %}
-            {% endfor %}
-            {% else %}
-            <p>There are no records with missing volumes. 👏</p>
-            {% endif %}
-        </div>
-
-        <div class="col-sm-6">
-            <h4 style="font-weight: bold;" id="no_poster">
-                No Poster:
-            </h4>
-            {% if no_poster %}
-            <p>These records have no poster.</p>
-            <ul>
-                {% for manga in no_poster %}
-                <li><a href="{% url 'manga' manga.id %}" class="link" style="font-weight: bold;">{{ manga.name }}</a></li>
-                {% endfor %}
-            </ul>
-            {% else %}
-            <p>There are no records with missing posters. Yay!</p>
-            {% endif %}
+    <div class="feature">
+        <h2>Help is needed!</h2>
+        <p>The records listed below need to be updated/modified.</p>
+        <p>
+            <a href="#no_volume" class="link">No Volumes</a> · <a href="#no_poster" class="link">No Poster</a>
+        </p>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <h4 style="font-weight: bold;" id="no_volume">No Volumes:</h4>
+                {% if no_volume %}
+                    <p>These records have no volumes attached to them.</p>
+                    {% for manga in no_volume %}
+                        {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                    {% endfor %}
+                {% else %}
+                    <p>There are no records with missing volumes. 👏</p>
+                {% endif %}
+            </div>
+            <div class="col-sm-6">
+                <h4 style="font-weight: bold;" id="no_poster">No Poster:</h4>
+                {% if no_poster %}
+                    <p>These records have no poster.</p>
+                    <ul>
+                        {% for manga in no_poster %}
+                            <li>
+                                <a href="{% url 'manga' manga.id %}"
+                                   class="link"
+                                   style="font-weight: bold">{{ manga.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>There are no records with missing posters. Yay!</p>
+                {% endif %}
+            </div>
         </div>
     </div>
-</div>
-{% endblock %}
+{% endblock content %}

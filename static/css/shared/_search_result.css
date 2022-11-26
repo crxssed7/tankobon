@@ -30,3 +30,8 @@
     overflow: hidden;
     text-overflow: ellipsis !important;
 }
+
+.manga-name h5 {
+    font-size: smaller; 
+    margin: 0px;
+}

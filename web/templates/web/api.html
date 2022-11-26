@@ -1,78 +1,86 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
-
-{% block title %}API Documentation - Tankōbon{% endblock %}
-
-{% block meta_description %}Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.{% endblock %}
-{% block meta_tags %}tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api{% endblock %}
-{% block meta_title %}Tankōbon - Simple GET API{% endblock %}
-
+{% block title %}API Documentation - Tankōbon{% endblock title %}
+{% block meta_description %}
+    Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.
+{% endblock meta_description %}
+{% block meta_tags %}
+    tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api
+{% endblock meta_tags %}
+{% block meta_title %}Tankōbon - Simple GET API{% endblock meta_title %}
 {% block content %}
-
-<style>
+    <style>
     th,
     td {
         padding: 15px;
         padding-left: 0px;
     }
-</style>
-
-<div class="feature">
-    <h3>API Documentation</h3>
-</div>
-<div class="container section">
-    <p>Tankōbon has a simple GET API that you can use to integrate with your own applications. All requests sent to the
-        API should be sent with the GET method.</p>
-    <div class="card mb-3" style="max-width: auto; height: auto;">
-        <div class="card-header">
-            <b>Get a list of Manga</b>
-        </div>
-        <div class="card-body text-dark">
-            <code>Endpoint: /api/manga/</code>
-            <br><br>
-            <p><b>Query Parameters:</b></p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Default</th>
-                        <th scope="col">Description</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">offset</th>
-                        <td>0</td>
-                        <td>Offsets the results, for pagination.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">limit</th>
-                        <td>8</td>
-                        <td>Amount of results to return</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">q</th>
-                        <td></td>
-                        <td>Query string to filter by. Filters against the manga name and romaji.</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">sort</th>
-                        <td>name</td>
-                        <td>Sorts the results. The allowed values are <code>last_updated</code> and <code>name</code>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">status</th>
-                        <td></td>
-                        <td>Filter by status. The allowed values are <code>releasing</code>, <code>finished</code> and <code>releasing</code>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br><br>
-            <p><b>Example Response:</b></p>
-            <pre>
+    </style>
+    <div class="feature">
+        <h3>API Documentation</h3>
+    </div>
+    <div class="container section">
+        <p>
+            Tankōbon has a simple GET API that you can use to integrate with your own applications. All requests sent to the
+            API should be sent with the GET method.
+        </p>
+        <div class="card mb-3" style="max-width: auto; height: auto;">
+            <div class="card-header">
+                <b>Get a list of Manga</b>
+            </div>
+            <div class="card-body text-dark">
+                <code>Endpoint: /api/manga/</code>
+                <br />
+                <br />
+                <p>
+                    <b>Query Parameters:</b>
+                </p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Default</th>
+                            <th scope="col">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row">offset</th>
+                            <td>0</td>
+                            <td>Offsets the results, for pagination.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">limit</th>
+                            <td>8</td>
+                            <td>Amount of results to return</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">q</th>
+                            <td></td>
+                            <td>Query string to filter by. Filters against the manga name and romaji.</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">sort</th>
+                            <td>name</td>
+                            <td>
+                                Sorts the results. The allowed values are <code>last_updated</code> and <code>name</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">status</th>
+                            <td></td>
+                            <td>
+                                Filter by status. The allowed values are <code>releasing</code>, <code>finished</code> and <code>releasing</code>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br />
+                <br />
+                <p>
+                    <b>Example Response:</b>
+                </p>
+                <pre>
 {
     "total": 26,
     "manga": [
@@ -100,17 +108,20 @@
     ]
 }
             </pre>
+            </div>
         </div>
-    </div>
-    <div class="card mb-3" style="max-width: auto; height: auto;">
-        <div class="card-header">
-            <b>Get a specific Manga</b>
-        </div>
-        <div class="card-body text-dark">
-            <code>Endpoint: /api/manga/&#60;manga_id&#62;/</code>
-            <br><br>
-            <p><b>Example Response:</b></p>
-            <pre>
+        <div class="card mb-3" style="max-width: auto; height: auto;">
+            <div class="card-header">
+                <b>Get a specific Manga</b>
+            </div>
+            <div class="card-body text-dark">
+                <code>Endpoint: /api/manga/&#60;manga_id&#62;/</code>
+                <br />
+                <br />
+                <p>
+                    <b>Example Response:</b>
+                </p>
+                <pre>
 {
     "name": "Afro Samurai",
     "romaji": "Afro Samurai",
@@ -132,17 +143,20 @@
     "id": 56
 }
             </pre>
+            </div>
         </div>
-    </div>
-    <div class="card mb-3" style="max-width: auto; height: auto;">
-        <div class="card-header">
-            <b>Get the volumes of a Manga</b>
-        </div>
-        <div class="card-body text-dark">
-            <code>Endpoint: /api/manga/&#60;manga_id&#62;/volumes/</code>
-            <br><br>
-            <p><b>Example Response:</b></p>
-            <pre>
+        <div class="card mb-3" style="max-width: auto; height: auto;">
+            <div class="card-header">
+                <b>Get the volumes of a Manga</b>
+            </div>
+            <div class="card-body text-dark">
+                <code>Endpoint: /api/manga/&#60;manga_id&#62;/volumes/</code>
+                <br />
+                <br />
+                <p>
+                    <b>Example Response:</b>
+                </p>
+                <pre>
 [
     {
         "number": 1,
@@ -168,8 +182,7 @@
     }
 ]
             </pre>
+            </div>
         </div>
     </div>
-</div>
-
-{% endblock %}
+{% endblock content %}

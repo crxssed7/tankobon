@@ -1,20 +1,20 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 {% load bleach_tags %}
-
-{% block title %}Manga - Tankōbon{% endblock %}
-
+{% block title %}Manga - Tankōbon{% endblock title %}
 {% block extrahead %}
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_poster_chip.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_search_result.css' %}">
-{% endblock %}
-
+    <!-- Link Swiper's CSS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/shared/_poster_chip.css' %}" />
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/shared/_search_result.css' %}" />
+{% endblock extrahead %}
 {% block content %}
-
-<style>
+    <style>
     .swiper-slide {
         background-color: rgb(82, 218, 171);
         width: 100%;
@@ -67,55 +67,55 @@
     :root {
         --swiper-theme-color: rgb(10, 10, 10);
     }
-</style>
-
-<div class="slider">
-    <!-- Swiper -->
-    <div class="swiper mySwiper">
-        <div class="swiper-wrapper">
-            {% for manga in recently_updated %}
-            <div class="swiper-slide" style="background-image: url('{{ manga.banner }}');">
-                <div class="gradient-bg">
-                    <div class="container">
-                        <div class="swiper-details">
-                            <h1 style="font-weight: bold;">
-                                {{ manga.name }}
-                            </h1>
-                            <div style="display: flex; flex-wrap: wrap;">
-                                <p><span class="badge bg-tank fore-tank">{{ manga.volume_count }} volumes</span></p>
-                                <p><span class="badge bg-tank fore-tank">{{ manga.status }}</span></p>
+    </style>
+    <div class="slider">
+        <!-- Swiper -->
+        <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+                {% for manga in recently_updated %}
+                    <div class="swiper-slide"
+                         style="background-image: url('{{ manga.banner }}')">
+                        <div class="gradient-bg">
+                            <div class="container">
+                                <div class="swiper-details">
+                                    <h1 style="font-weight: bold;">{{ manga.name }}</h1>
+                                    <div style="display: flex; flex-wrap: wrap;">
+                                        <p>
+                                            <span class="badge bg-tank fore-tank">{{ manga.volume_count }} volumes</span>
+                                        </p>
+                                        <p>
+                                            <span class="badge bg-tank fore-tank">{{ manga.status }}</span>
+                                        </p>
+                                    </div>
+                                    <div class="swiper-manga-description-wrapper mobile-hidden">
+                                        <p>
+                                            <small>{{ manga.description | bleach:"br,b" }}</small>
+                                        </p>
+                                    </div>
+                                    <a class="btn btn-dark" href="{% url 'manga' manga.id %}">View</a>
+                                </div>
                             </div>
-                            <div class="swiper-manga-description-wrapper mobile-hidden">
-                                <p><small>{{ manga.description | bleach:"br,b" }}</small></p>
-                            </div>
-                            <a class="btn btn-dark" href="{% url 'manga' manga.id %}">View</a>
+                        </div>
+                    </div>
+                {% endfor %}
+                <div class="swiper-slide">
+                    <div class="gradient-bg">
+                        <div class="center final-slide">
+                            <img src="{% static 'img/logo.svg' %}" alt="" width="150" />
+                            <br />
+                            <h3 style="font-weight: bold;">We have alot more manga in our database!</h3>
+                            <br />
+                            <a class="btn btn-dark" href="{% url 'all_manga' %}">View all</a>
                         </div>
                     </div>
                 </div>
             </div>
-            {% endfor %}
-            <div class="swiper-slide">
-                <div class="gradient-bg">
-                    <div class="center final-slide">
-                        <img src="{% static 'img/logo.svg' %}" alt="" width="150">
-                        <br>
-                        <h3 style="font-weight: bold;">
-                            We have alot more manga in our database!
-                        </h3>
-                        <br>
-                        <a class="btn btn-dark" href="{% url 'all_manga' %}">View all</a>
-                    </div>
-                </div>
-            </div>
+            <div class="swiper-pagination"></div>
         </div>
-        <div class="swiper-pagination"></div>
-    </div>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
+        <!-- Swiper JS -->
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+        <!-- Initialize Swiper -->
+        <script>
         var swiper = new Swiper(".mySwiper", {
             loop: true,
             autoplay: {
@@ -127,104 +127,105 @@
                 dynamicBullets: true,
             },
         });
-    </script>
-</div>
-
-<div class="container section">
-    <form class="d-flex" action="{% url 'search' %}" method="get">
-        <input name="q" class="form-control me-2" id="search-box" type="search" placeholder="Search" aria-label="Search"
-            value="{{ query }}">
-        <button class="btn btn-outline-dark" type="submit">Search</button>
-    </form>
-
-    <br>
-
-    <div class="flex">
-        {% for manga in object_list %}
-        {% include "web/shared/_search_result.html" with manga=manga only %}
-        {% endfor %}
+        </script>
     </div>
-    <br>
-</div>
-
-<!-- CTA's -->
-
-<style>
+    <div class="container section">
+        <form class="d-flex" action="{% url 'search' %}" method="get">
+            <input name="q"
+                   class="form-control me-2"
+                   id="search-box"
+                   type="search"
+                   placeholder="Search"
+                   aria-label="Search"
+                   value="{{ query }}" />
+            <button class="btn btn-outline-dark" type="submit">Search</button>
+        </form>
+        <br />
+        <div class="flex">
+            {% for manga in object_list %}
+                {% include "web/shared/_search_result.html" with manga=manga only %}
+            {% endfor %}
+        </div>
+        <br />
+    </div>
+    <!-- CTA's -->
+    <style>
     .cta {
         min-height: 250px;
         border-radius: 5px;
         padding: 25px;
         margin: 10px;
     }
-</style>
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="cta" style="background-color: rgb(82, 185, 185);">
-                <h5 style="font-weight: bold;">
-                    Can't find your favourite manga?
-                </h5>
-                <p>
-                    Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="link">create an account</a> and add it yourself!
-                </p>
-                <div>
-                    <a class="btn btn-outline-dark" href="{% url 'new_manga' %}">Add manga!</a>
+    </style>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="cta" style="background-color: rgb(82, 185, 185);">
+                    <h5 style="font-weight: bold;">Can't find your favourite manga?</h5>
+                    <p>
+                        Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="link">create an account</a> and add it yourself!
+                    </p>
+                    <div>
+                        <a class="btn btn-outline-dark" href="{% url 'new_manga' %}">Add manga!</a>
+                    </div>
+                    <p style="margin-top: 16px; margin-bottom: 0px;">
+                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
+                    </p>
                 </div>
-                <p style="margin-top: 16px; margin-bottom: 0px;"><small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small></p>
             </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="cta" style="background-color: rgb(82, 218, 171);">
-                <h5 style="font-weight: bold;">
-                    We need your help!
-                </h5>
-                <p>
-                    If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
-                </p>
-                <div>
-                    <a class="btn btn-outline-dark" href="{% url 'help_needed' %}">Help!</a>
+            <div class="col-sm-6">
+                <div class="cta" style="background-color: rgb(82, 218, 171);">
+                    <h5 style="font-weight: bold;">We need your help!</h5>
+                    <p>
+                        If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
+                    </p>
+                    <div>
+                        <a class="btn btn-outline-dark" href="{% url 'help_needed' %}">Help!</a>
+                    </div>
+                    <p style="margin-top: 16px; margin-bottom: 0px;">
+                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
+                    </p>
                 </div>
-                <p style="margin-top: 16px; margin-bottom: 0px;"><small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small></p>
             </div>
         </div>
     </div>
-</div>
-
-<!-- CHIP STUFF -->
-
-<div class="container">
-    <div class="row">
-        <div class="col-sm-6">
-            <center>
-                <h3 id="releasing" style="font-weight: bold; margin-bottom: 20px; margin-top: 20px;">
-                    Releasing Manga
-                </h3>
-            </center>
-            {% for manga in releasing %}
-            {% include "web/shared/_poster_chip.html" with manga=manga only %}
-            {% endfor %}
-            <center>
-                <a class="btn btn-outline-dark" href="{% url 'all_manga_releasing' %}" style="margin: 10px;">View all releasing
+    <!-- CHIP STUFF -->
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <center>
+                    <h3 id="releasing"
+                        style="font-weight: bold;
+                               margin-bottom: 20px;
+                               margin-top: 20px">Releasing Manga</h3>
+                </center>
+                {% for manga in releasing %}
+                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                {% endfor %}
+                <center>
+                    <a class="btn btn-outline-dark"
+                       href="{% url 'all_manga_releasing' %}"
+                       style="margin: 10px">View all releasing
                     series</a>
-            </center>
-        </div>
-
-        <div class="col-sm-6">
-            <center>
-                <h3 id="completed" style="font-weight: bold; margin-bottom: 20px; margin-top: 20px;">
-                    Completed Manga
-                </h3>
-            </center>
-            {% for manga in completed %}
-            {% include "web/shared/_poster_chip.html" with manga=manga only %}
-            {% endfor %}
-            <center>
-                <a class="btn btn-outline-dark" href="{% url 'all_manga_completed' %}" style="margin: 10px;">View all completed
+                </center>
+            </div>
+            <div class="col-sm-6">
+                <center>
+                    <h3 id="completed"
+                        style="font-weight: bold;
+                               margin-bottom: 20px;
+                               margin-top: 20px">Completed Manga</h3>
+                </center>
+                {% for manga in completed %}
+                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                {% endfor %}
+                <center>
+                    <a class="btn btn-outline-dark"
+                       href="{% url 'all_manga_completed' %}"
+                       style="margin: 10px">View all completed
                     series</a>
-            </center>
+                </center>
+            </div>
         </div>
     </div>
-</div>
-
-{% endblock %}
+{% endblock content %}

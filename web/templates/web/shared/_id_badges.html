@@ -1,37 +1,54 @@
 <div class="badge-section">
     {% if manga.anilist_id %}
-    <a href="https://anilist.co/manga/{{ manga.anilist_id }}" target="_blank"
-        rel="noopener noreferrer">
-        <h5><span class="badge badge-anilist">AniList</span></h5>
-    </a>
+        <a href="https://anilist.co/manga/{{ manga.anilist_id }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-anilist">AniList</span>
+            </h5>
+        </a>
     {% endif %}
     {% if manga.mal_id %}
-    <a href="https://myanimelist.net/manga/{{ manga.mal_id }}" target="_blank"
-        rel="noopener noreferrer">
-        <h5><span class="badge badge-mal">MAL</span></h5>
-    </a>
+        <a href="https://myanimelist.net/manga/{{ manga.mal_id }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-mal">MAL</span>
+            </h5>
+        </a>
     {% endif %}
     {% if manga.mangaupdates_id %}
-    <a href="https://www.mangaupdates.com/series.html?id={{ manga.mangaupdates_id }}"
-        target="_blank" rel="noopener noreferrer">
-        <h5><span class="badge badge-mangaupdates">MangaUpdates</span></h5>
-    </a>
+        <a href="https://www.mangaupdates.com/series.html?id={{ manga.mangaupdates_id }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-mangaupdates">MangaUpdates</span>
+            </h5>
+        </a>
     {% endif %}
     {% if manga.anime_planet_slug %}
-    <a href="https://www.anime-planet.com/manga/{{ manga.anime_planet_slug }}" target="_blank"
-        rel="noopener noreferrer">
-        <h5><span class="badge badge-anime-planet">Anime Planet</span></h5>
-    </a>
+        <a href="https://www.anime-planet.com/manga/{{ manga.anime_planet_slug }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-anime-planet">Anime Planet</span>
+            </h5>
+        </a>
     {% endif %}
     {% if manga.kitsu_id %}
-    <a href="https://kitsu.io/manga/{{ manga.kitsu_id }}" target="_blank"
-        rel="noopener noreferrer">
-        <h5><span class="badge badge-kitsu">Kitsu</span></h5>
-    </a>
+        <a href="https://kitsu.io/manga/{{ manga.kitsu_id }}"
+           target="_blank"
+           rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-kitsu">Kitsu</span>
+            </h5>
+        </a>
     {% endif %}
     {% if manga.fandom %}
-    <a href="{{ manga.fandom }}" target="_blank" rel="noopener noreferrer">
-        <h5><span class="badge badge-fandom">Fandom</span></h5>
-    </a>
+        <a href="{{ manga.fandom }}" target="_blank" rel="noopener noreferrer">
+            <h5>
+                <span class="badge badge-fandom">Fandom</span>
+            </h5>
+        </a>
     {% endif %}
 </div>

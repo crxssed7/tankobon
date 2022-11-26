@@ -1,62 +1,72 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
-
 {% block title %}
-{% if type == 'all' %}
-All Manga - Tankōbon
-{% elif type == 'releasing' %}
-All Releasing Manga - Tankōbon
-{% else %}
-All Completed Manga - Tankōbon
-{% endif %}
-{% endblock %}
-
-{% block extrahead %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_banner_card.css' %}">
-{% endblock %}
-
-{% block meta_description %}
-{% if type == 'all' %}
-A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
-{% elif type == 'releasing' %}
-A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!
-{% else %}
-A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
-{% endif %}
-{% endblock %}
-
-{% block content %}
-<div class="feature">
     {% if type == 'all' %}
-    <h2>We currently have <span class="tank-fore">{{ count }}</span> manga in the database.</h2>
+        All Manga - Tankōbon
     {% elif type == 'releasing' %}
-    <h2>We currently have <span class="tank-fore">{{ count }}</span> releasing manga in the database.</h2>
-    <a class="btn btn-outline-dark" href="{% url 'all_manga' %}" style="margin: 10px;">View all</a>
+        All Releasing Manga - Tankōbon
     {% else %}
-    <h2>We currently have <span class="tank-fore">{{ count }}</span> completed manga in the database.</h2>
-    <a class="btn btn-outline-dark" href="{% url 'all_manga' %}" style="margin: 10px;">View all</a>
+        All Completed Manga - Tankōbon
     {% endif %}
-</div>
-
-<div class="container section">
-    <div class="row" id="content">
-        {% for manga in results %}
-        {% include "web/shared/_banner_card.html" with manga=manga only %}
-        {% endfor %}
+{% endblock title %}
+{% block extrahead %}
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/shared/_banner_card.css' %}" />
+{% endblock extrahead %}
+{% block meta_description %}
+    {% if type == 'all' %}
+        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
+    {% elif type == 'releasing' %}
+        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!
+    {% else %}
+        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
+    {% endif %}
+{% endblock meta_description %}
+{% block content %}
+    <div class="feature">
+        {% if type == 'all' %}
+            <h2>
+                We currently have <span class="tank-fore">{{ count }}</span> manga in the database.
+            </h2>
+        {% elif type == 'releasing' %}
+            <h2>
+                We currently have <span class="tank-fore">{{ count }}</span> releasing manga in the database.
+            </h2>
+            <a class="btn btn-outline-dark"
+               href="{% url 'all_manga' %}"
+               style="margin: 10px">View all</a>
+        {% else %}
+            <h2>
+                We currently have <span class="tank-fore">{{ count }}</span> completed manga in the database.
+            </h2>
+            <a class="btn btn-outline-dark"
+               href="{% url 'all_manga' %}"
+               style="margin: 10px">View all</a>
+        {% endif %}
     </div>
-    <center>
-        <p><span id="amount">8</span> / <span id="total">{{ count }}</span> results</p>
-        <div class="load-more__btn mt-3">
-            <a id="loadBtn" class="btn btn-dark" style="padding: 15px !important; margin: 12px;">Load more</a>
+    <div class="container section">
+        <div class="row" id="content">
+            {% for manga in results %}
+                {% include "web/shared/_banner_card.html" with manga=manga only %}
+            {% endfor %}
         </div>
-        <div class="spinner spinner-border mt-2 visually-hidden" role="status" id="spinner">
-        </div>
-    </center>
-</div>
-
-
-<script>
+        <center>
+            <p>
+                <span id="amount">8</span> / <span id="total">{{ count }}</span> results
+            </p>
+            <div class="load-more__btn mt-3">
+                <a id="loadBtn"
+                   class="btn btn-dark"
+                   style="padding: 15px !important;
+                          margin: 12px">Load more</a>
+            </div>
+            <div class="spinner spinner-border mt-2 visually-hidden"
+                 role="status"
+                 id="spinner"></div>
+        </center>
+    </div>
+    <script>
     const loadBtn = document.getElementById('loadBtn');
     const spinner = document.getElementById('spinner');
     const amount = document.getElementById('amount');
@@ -102,9 +112,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
                                     </div>`
                     } else {
                         new_html += `<div class="banner-card-img-container bg-tank no-banner-div">
-                                        <span class="no-banner">
-                                            No Banner Found.
-                                        </span>
+                                        <span class="no-banner">No Banner Found.</span>
                                     </div>`
                     }
                     new_html += `<div class="card-body">
@@ -130,6 +138,5 @@ A centralised site that documents what chapter is in which volume of a manga. Th
     loadBtn.addEventListener('click', () => {
         loadMore()
     });
-</script>
-
-{% endblock %}
+    </script>
+{% endblock content %}

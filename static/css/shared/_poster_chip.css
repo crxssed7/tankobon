@@ -27,3 +27,11 @@
     overflow: hidden;
     text-overflow: ellipsis !important;
 }
+
+.chip-name-wrapper h5 {
+    font-weight: bold;
+}
+
+.chip-card p {
+    margin-bottom: 0px;
+}

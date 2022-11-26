@@ -1,59 +1,75 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load crispy_forms_tags %}
-
-{% block title %}Contribution Guidelines - Tankōbon{% endblock %}
-
+{% block title %}Contribution Guidelines - Tankōbon{% endblock title %}
 {% block content %}
-<style>
+    <style>
     .li-ind {
         margin-bottom: 15px;
     }
-</style>
-
-<div class="feature">
-    <h3>Contribution Guidelines 📑</h3>
-</div>
-<div class="container section">
-    <p>Tankōbon would not be possible without the help of user contributions, however there are a few rules you must
-        read before you can contribute.</p>
-    <h5>Rules</h5>
-    <ol>
-        <li class="li-ind">Only add manga that follow the <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon"
-                class="link">Tankōbon</a> format.</li>
-        <li>Follow the correct formatting for chapters. Example for One Punch Man:</li>
+    </style>
+    <div class="feature">
+        <h3>Contribution Guidelines 📑</h3>
+    </div>
+    <div class="container section">
+        <p>
+            Tankōbon would not be possible without the help of user contributions, however there are a few rules you must
+            read before you can contribute.
+        </p>
+        <h5>Rules</h5>
+        <ol>
+            <li class="li-ind">
+                Only add manga that follow the <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" class="link">Tankōbon</a> format.
+            </li>
+            <li>Follow the correct formatting for chapters. Example for One Punch Man:</li>
+            <ul>
+                <li>
+                    Chapter {chapter number} | <code>Chapter 1</code>
+                </li>
+                <li>
+                    Chapter {chapter number} - {chapter name} | <code>Chapter 1: One Punch</code>
+                </li>
+                <li>
+                    {custom} {chapter number} | <code>1st Punch</code>
+                </li>
+                <li>
+                    {custom} {chapter number} - {chapter name} | <code>1st Punch: One Punch</code>
+                </li>
+            </ul>
+            <p class="li-ind">Follow this format to add arc starting points: <code>|Story Arc Name</code></p>
+            <li class="li-ind">Check if the record you are adding already exists in the database.</li>
+            <li class="li-ind">
+                Avoid adding sexually explicit content. Ecchi is fine (as long as the images do not contain any nudity) but h*ntai is not.
+            </li>
+            <li class="li-ind">Do not add oneshots.</li>
+        </ol>
+        <p>Failure to follow any of the above rules will result in a ban.</p>
+        <h5>How do I contribute?</h5>
+        <p>
+            That's easy! Simply <a href="{% url 'signup' %}" class="link">signup</a>, and click the ✏️ icon on any manga page
+            to start editing! After signing up, you can also start <a href="{% url 'new_manga' %}" class="link">adding
+            manga</a>.
+        </p>
+        <p>
+            If you don't want to contribute directly to the site, you can also help contribute with the development. Either
+            send bug fixes (if you're a developer) or submit bug reports (if you're not a developer) to the Tankōbon <a href="https://github.com/crxssed7/tankobon" class="link">Github</a> page.
+        </p>
+    </div>
+    <div class="feature">
+        <h3>Contribution Notes</h3>
+    </div>
+    <div class="container section">
+        <h5>Locked Records</h5>
+        <p>
+            While browsing the site you may see the 🔒 icon. This indicates that the record you are viewing is locked and
+            cannot be edited any further.
+        </p>
+        <p>A record will be locked when:</p>
         <ul>
-            <li>Chapter {chapter number} | <code>Chapter 1</code></li>
-            <li>Chapter {chapter number} - {chapter name} | <code>Chapter 1: One Punch</code></li>
-            <li>{custom} {chapter number} | <code>1st Punch</code></li>
-            <li>{custom} {chapter number} - {chapter name} | <code>1st Punch: One Punch</code></li>
+            <li class="li-ind">The manga/volume has finished releasing.</li>
+            <li class="li-ind">The data related to the manga is complete.</li>
         </ul>
-        <p class="li-ind"">Follow this format to add arc starting points: <code>|Story Arc Name</code></p>
-        <li class="li-ind">Check if the record you are adding already exists in the database.</li>
-        <li class="li-ind">Avoid adding sexually explicit content. Ecchi is fine (as long as the images do not contain any nudity) but h*ntai is not.</li>
-        <li class="li-ind">Do not add oneshots.</li>
-    </ol>
-    <p>Failure to follow any of the above rules will result in a ban.</p>
-    <h5>How do I contribute?</h5>
-    <p>That's easy! Simply <a href="{% url 'signup' %}" class="link">signup</a>, and click the ✏️ icon on any manga page
-        to start editing! After signing up, you can also start <a href="{% url 'new_manga' %}" class="link">adding
-            manga</a>.</p>
-    <p>If you don't want to contribute directly to the site, you can also help contribute with the development. Either
-        send bug fixes (if you're a developer) or submit bug reports (if you're not a developer) to the Tankōbon <a
-            href="https://github.com/crxssed7/tankobon" class="link">Github</a> page.</p>
-</div>
-<div class="feature">
-    <h3>Contribution Notes</h3>
-</div>
-<div class="container section">
-    <h5>Locked Records</h5>
-    <p>While browsing the site you may see the 🔒 icon. This indicates that the record you are viewing is locked and
-        cannot be edited any further.</p>
-    <p> A record will be locked when:</p>
-    <ul>
-        <li class="li-ind">The manga/volume has finished releasing.</li>
-        <li class="li-ind">The data related to the manga is complete.</li>
-    </ul>
-    <p>If a locked record has incorrect data, <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="link">report it</a>.</p>
-</div>
-{% endblock %}
+        <p>
+            If a locked record has incorrect data, <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="link">report it</a>.
+        </p>
+    </div>
+{% endblock content %}

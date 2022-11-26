@@ -1,27 +1,24 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 {% load detail_tags %}
 {% load bleach_tags %}
-
-{% block title %}{{ manga.name }} - Tankōbon{% endblock %}
-
+{% block title %}{{ manga.name }} - Tankōbon{% endblock title %}
 {% block extrahead %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_id_badges.css' %}">
-{% endblock %}
-
-{% block meta_description %}{{ manga.description }}{% endblock %}
-{% block meta_tags %}tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}{% endblock %}
-{% block meta_title %}{{ manga.name }} - Tankōbon{% endblock %}
-{% block meta_image %}{{ manga.poster }}{% endblock %}
-{% block meta_image_alt %}{{ manga.name }} poster{% endblock %}
-{% block meta_twitter_image %}{{ manga.banner }}{% endblock %}
-{% block meta_twitter_image_alt %}{{ manga.name }} poster{% endblock %}
-
-
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/shared/_id_badges.css' %}" />
+{% endblock extrahead %}
+{% block meta_description %}{{ manga.description }}{% endblock meta_description %}
+{% block meta_tags %}
+    tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}
+{% endblock meta_tags %}
+{% block meta_title %}{{ manga.name }} - Tankōbon{% endblock meta_title %}
+{% block meta_image %}{{ manga.poster }}{% endblock meta_image %}
+{% block meta_image_alt %}{{ manga.name }} poster{% endblock meta_image_alt %}
+{% block meta_twitter_image %}{{ manga.banner }}{% endblock meta_twitter_image %}
+{% block meta_twitter_image_alt %}{{ manga.name }} poster{% endblock meta_twitter_image_alt %}
 {% block content %}
-
-<style>
+    <style>
     .edit-link:link {
         text-decoration: none !important;
     }
@@ -87,188 +84,217 @@
     .chapters {
         border-top: 1px solid rgba(0,0,0,.125);
     }
-</style>
-
-<div class="head">
-    {% if manga.poster %}
-    <div>
-        <center><img src="{{ manga.poster }}" alt="Poster" class="poster" width="150"></center>
+    </style>
+    <div class="head">
+        {% if manga.poster %}
+            <div>
+                <center>
+                    <img src="{{ manga.poster }}" alt="Poster" class="poster" width="150" />
+                </center>
+            </div>
+            <br />
+        {% endif %}
+        <h1>{{ manga.name }}</h1>
+        {% if manga.name != manga.romaji %}<p>{{ manga.romaji }}</p>{% endif %}
     </div>
-    <br>
-    {% endif %}
-    <h1>
-        {{ manga.name }}
-    </h1>
-    {% if manga.name != manga.romaji %}
-    <p>{{ manga.romaji }}</p>
-    {% endif %}
-</div>
-
-<div class="container section">
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="sticky">
-                {% if manga.banner %}
-                <img src="{{ manga.banner }}" alt="banner" class="poster" width="100%">
-                <br>
-                <br>
+    <div class="container section">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="sticky">
+                    {% if manga.banner %}
+                        <img src="{{ manga.banner }}" alt="banner" class="poster" width="100%" />
+                        <br />
+                        <br />
+                    {% endif %}
+                    <div class="card mb-3" style="max-width: auto; height: auto;">
+                        <div class="card-header">
+                            <div style="display: flex; justify-content: space-between">
+                                <b>About {{ manga.name }}</b>
+                                {% if not manga.locked %}
+                                    <a href="{% url 'edit_manga' manga.id %}"
+                                       class="edit-link"
+                                       title="Edit this manga">✏️</a>
+                                {% else %}
+                                    <span title="Editing locked">🔒</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="card-body text-dark">
+                            <div class="manga-description">{{ manga.description | bleach:"br,b" }}</div>
+                            <a href="#" id="readmore" class="link">Read more</a>
+                            <hr />
+                            <b>Volumes: </b> {{ manga.volume_count }}
+                            <hr />
+                            <b>Status: </b> {{ manga.status }}
+                            <hr />
+                            <b>Start Date: </b> {{ manga.start_date }}
+                            {% if manga.magazine %}
+                                <hr />
+                                <b>Magazine: </b> {{ manga.magazine }}
+                            {% endif %}
+                            <hr />
+                            {% include "web/shared/_id_badges.html" with manga=manga only %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                {% if data %}
+                    {% for volume in data %}
+                        {% if volume.chapters %}
+                            <div class="card volume">
+                                <div class="card-header volume-header"
+                                     id="heading{{ volume.absolute_number }}">
+                                    <div class="space-between">
+                                        <a class="link"
+                                           style="width: 100%;
+                                                  text-decoration: none"
+                                           data-bs-toggle="collapse"
+                                           href="#collapse{{ volume.absolute_number }}"
+                                           role="button"
+                                           aria-expanded="false"
+                                           aria-controls="collapse{{ volume.absolute_number }}">
+                                            Volume {{ volume.absolute_number }}
+                                        </a>
+                                        {% if not volume.locked %}
+                                            <a href="{% url 'edit_volume' manga.id volume.absolute_number %}"
+                                               class="edit-link"
+                                               title="Edit this volume">✏️</a>
+                                        {% else %}
+                                            <span title="Editing locked">🔒</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                {% if volume.absolute_number == open_vol %}
+                                    <div id="collapse{{ volume.absolute_number }}"
+                                         class="collapse show chapters"
+                                         aria-labelledby="heading{{ volume.absolute_number }}"
+                                         data-parent="#accordion">
+                                        <div class="card-body" style="padding: 0px;">
+                                            <div class="volume-content" style="display: flex;">
+                                                {% if volume.poster %}
+                                                    <div class="volume-poster-div">
+                                                        <img src="{{ volume.poster }}"
+                                                             alt="volume"
+                                                             class="poster volume-poster"
+                                                             width="150px" />
+                                                    </div>
+                                                {% endif %}
+                                                <ul>
+                                                    {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div id="collapse{{ volume.absolute_number }}"
+                                         class="collapse chapters"
+                                         aria-labelledby="heading{{ volume.absolute_number }}"
+                                         data-parent="#accordion">
+                                        <div class="card-body" style="padding: 0px;">
+                                            <div class="volume-content" style="display: flex;">
+                                                {% if volume.poster %}
+                                                    <div class="volume-poster-div">
+                                                        <img src="{{ volume.poster }}"
+                                                             alt="volume"
+                                                             class="poster volume-poster"
+                                                             width="150px" />
+                                                    </div>
+                                                {% endif %}
+                                                <ul>
+                                                    {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    <div class="card mb-3"
+                         style="max-width: auto;
+                                height: auto;
+                                border-bottom: none">
+                        <div class="card-header">There are no volumes yet.</div>
+                    </div>
                 {% endif %}
-                <div class="card mb-3" style="max-width: auto; height: auto;">
-                    <div class="card-header">
-                        <div style="display: flex; justify-content: space-between">
-                            <b>About {{ manga.name }}</b>
-                            {% if not manga.locked %}
-                            <a href="{% url 'edit_manga' manga.id %}" class="edit-link" title="Edit this manga">✏️</a>
+                {% if chapters_nonvolumed %}
+                    {% if chapters_nonvolumed.chapters %}
+                        <div class="card volume">
+                            <div class="card-header volume-header"
+                                 id="heading{{ chapters_nonvolumed.absolute_number }}">
+                                <div class="space-between">
+                                    <a class="link"
+                                       style="width: 100%;
+                                              text-decoration: none"
+                                       data-bs-toggle="collapse"
+                                       href="#collapse{{ chapters_nonvolumed.absolute_number }}"
+                                       role="button"
+                                       aria-expanded="false"
+                                       aria-controls="collapse{{ chapters_nonvolumed.absolute_number }}">
+                                        No volume
+                                    </a>
+                                    {% if not volume.locked %}
+                                        <a href="{% url 'edit_non_volume' manga.id %}"
+                                           class="edit-link"
+                                           title="Edit this volume">✏️</a>
+                                    {% else %}
+                                        <span title="Editing locked">🔒</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            {% if chapters_nonvolumed.absolute_number == open_vol %}
+                                <div id="collapse{{ chapters_nonvolumed.absolute_number }}"
+                                     class="collapse show chapters"
+                                     aria-labelledby="heading{{ chapters_nonvolumed.absolute_number }}"
+                                     data-parent="#accordion">
+                                    <div class="card-body" style="padding: 0px;">
+                                        <div class="volume-content">
+                                            <ul>
+                                                {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
+                                            </ul>
+                                            <div class="section">
+                                                <h5>Why do these chapters have no volume?</h5>
+                                                <p>
+                                                    This is because when a chapter is released, they aren't
+                                                    immediately put into volumes.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% else %}
-                            <span title="Editing locked">🔒</span>
+                                <div id="collapse{{ chapters_nonvolumed.absolute_number }}"
+                                     class="collapse chapters"
+                                     aria-labelledby="heading{{ volume.absolute_number }}"
+                                     data-parent="#accordion">
+                                    <div class="card-body" style="padding: 0px;">
+                                        <div class="volume-content">
+                                            <ul>
+                                                {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
+                                            </ul>
+                                            <div class="section">
+                                                <h5>Why do these chapters have no volume?</h5>
+                                                <p>
+                                                    This is because when a chapter is released, they aren't
+                                                    immediately put into volumes.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             {% endif %}
                         </div>
-                    </div>
-                    <div class="card-body text-dark">
-                        <div class="manga-description">
-                            {{ manga.description | bleach:"br,b" }}
-                        </div>
-                        <a href="#" id="readmore" class="link">Read more</a>
-                        <hr>
-                        <b>Volumes: </b> {{ manga.volume_count }}
-                        <hr>
-                        <b>Status: </b> {{ manga.status }}
-                        <hr>
-                        <b>Start Date: </b> {{ manga.start_date }}
-                        {% if manga.magazine %}
-                        <hr>
-                        <b>Magazine: </b> {{ manga.magazine }}
-                        {% endif %}
-                        <hr>
-                        {% include "web/shared/_id_badges.html" with manga=manga only %}
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            {% if data %}
-            {% for volume in data %}
-            {% if volume.chapters %}
-            <div class="card volume">
-                <div class="card-header volume-header" id="heading{{volume.absolute_number}}">
-                    <div class="space-between">
-                        <a class="link" style="width: 100%; text-decoration: none;" data-bs-toggle="collapse"
-                            href="#collapse{{volume.absolute_number}}" role="button" aria-expanded="false"
-                            aria-controls="collapse{{volume.absolute_number}}">
-                            Volume {{ volume.absolute_number }}
-                        </a>
-                        {% if not volume.locked %}
-                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}" class="edit-link"
-                            title="Edit this volume">✏️</a>
-                        {% else %}
-                        <span title="Editing locked">🔒</span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if volume.absolute_number == open_vol%}
-                <div id="collapse{{volume.absolute_number}}" class="collapse show chapters"
-                    aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
-                    <div class="card-body" style="padding: 0px;">
-                        <div class="volume-content" style="display: flex;">
-                            {% if volume.poster %}
-                            <div class="volume-poster-div">
-                                <img src="{{ volume.poster }}" alt="volume" class="poster volume-poster" width="150px">
-                            </div>
-                            {% endif %}
-                            <ul>
-                                {{ volume.chapters | listify | bleach:"li,p,b,br" }}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div id="collapse{{volume.absolute_number}}" class="collapse chapters"
-                    aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
-                    <div class="card-body" style="padding: 0px;">
-                        <div class="volume-content" style="display: flex;">
-                            {% if volume.poster %}
-                            <div class="volume-poster-div">
-                                <img src="{{ volume.poster }}" alt="volume" class="poster volume-poster" width="150px">
-                            </div>
-                            {% endif %}
-                            <ul>
-                                {{ volume.chapters | listify | bleach:"li,p,b,br" }}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    {% endif %}
+                {% endif %}
+                {% if not manga.locked %}
+                    <a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
                 {% endif %}
             </div>
-            {% endif %}
-            {% endfor %}
-            {% else %}
-            <div class="card mb-3" style="max-width: auto; height: auto; border-bottom: none;">
-                <div class="card-header">There are no volumes yet.</div>
-            </div>
-            {% endif %}
-            {% if chapters_nonvolumed %}
-            {% if chapters_nonvolumed.chapters %}
-            <div class="card volume">
-                <div class="card-header volume-header" id="heading{{chapters_nonvolumed.absolute_number}}">
-                    <div class="space-between">
-                        <a class="link" style="width: 100%; text-decoration: none;" data-bs-toggle="collapse"
-                            href="#collapse{{chapters_nonvolumed.absolute_number}}" role="button" aria-expanded="false"
-                            aria-controls="collapse{{chapters_nonvolumed.absolute_number}}">
-                            No volume
-                        </a>
-                        {% if not volume.locked %}
-                        <a href="{% url 'edit_non_volume' manga.id %}" class="edit-link" title="Edit this volume">✏️</a>
-                        {% else %}
-                        <span title="Editing locked">🔒</span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if chapters_nonvolumed.absolute_number == open_vol%}
-                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse show chapters"
-                    aria-labelledby="heading{{chapters_nonvolumed.absolute_number}}" data-parent="#accordion">
-                    <div class="card-body" style="padding: 0px;">
-                        <div class="volume-content">
-                            <ul>
-                                {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
-                            </ul>
-                            <div class="section">
-                                <h5>Why do these chapters have no volume?</h5>
-                                <p>This is because when a chapter is released, they aren't
-                                    immediately put into volumes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% else %}
-                <div id="collapse{{chapters_nonvolumed.absolute_number}}" class="collapse chapters"
-                    aria-labelledby="heading{{volume.absolute_number}}" data-parent="#accordion">
-                    <div class="card-body" style="padding: 0px;">
-                        <div class="volume-content">
-                            <ul>
-                                {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
-                            </ul>
-                            <div class="section">
-                                <h5>Why do these chapters have no volume?</h5>
-                                <p>This is because when a chapter is released, they aren't
-                                    immediately put into volumes.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-            {% endif %}
-            {% endif %}
-            {% if not manga.locked %}
-            <a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
-            {% endif %}
         </div>
     </div>
-</div>
-
-<script>
+    <script>
     // This code is all for the 'Read more' button on the manga description
     var readMore = true;
     const emToPx = 193.6;
@@ -292,6 +318,5 @@
             }
         });
     }
-</script>
-
-{% endblock %}
+    </script>
+{% endblock content %}

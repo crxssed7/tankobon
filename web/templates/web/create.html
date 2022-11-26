@@ -1,17 +1,12 @@
-{% extends 'base.html' %}
-
+{% extends "base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
-
-{% block title %}{{ message }} - Tankōbon{% endblock %}
-
+{% block title %}{{ message }} - Tankōbon{% endblock title %}
 {% block extrahead %}
-<script src="{% static 'js/imports.js' %}"></script>
-{% endblock %}
-
+    <script src="{% static 'js/imports.js' %}"></script>
+{% endblock extrahead %}
 {% block content %}
-
-<style>
+    <style>
     .import-section {
         display: flex;
         flex-wrap: wrap;
@@ -36,90 +31,117 @@
         background-color: rgb(46, 81, 162) !important;
         color: white !important;
     }
-</style>
-
-<div class="head">
-    <h3>{{ message }}</h3>
-    {% if subnote %}
-    <p>{{ subnote }}</p>
+    </style>
+    <div class="head">
+        <h3>{{ message }}</h3>
+        {% if subnote %}<p>{{ subnote }}</p>{% endif %}
+    </div>
+    {% if type == 'manga' %}
+        <div class="container">
+            <div class="import-section">
+                <button type="button"
+                        class="btn imprt btn-kitsu"
+                        data-bs-toggle="modal"
+                        data-bs-target="#kitsuModal">Kitsu</button>
+                <button type="button"
+                        class="btn imprt btn-anilist"
+                        data-bs-toggle="modal"
+                        data-bs-target="#anilistModal">
+                    AniList
+                </button>
+            </div>
+        </div>
     {% endif %}
-
-</div>
-{% if type == 'manga'%}
-<div class="container">
-    <div class="import-section">
-        <button type="button" class="btn imprt btn-kitsu" data-bs-toggle="modal"
-            data-bs-target="#kitsuModal">Kitsu</button>
-        <button type="button" class="btn imprt btn-anilist" data-bs-toggle="modal"
-            data-bs-target="#anilistModal">AniList</button>
+    <div class="container section">
+        <form method="post">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <p>
+                Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
+            </p>
+            <button type="submit" class="btn btn-dark">Submit</button>
+            <a href="{{ previous }}" class="btn btn-danger">Cancel</a>
+        </form>
     </div>
-</div>
-{% endif %}
-<div class="container section">
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        <p>Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting</p>
-        <button type="submit" class="btn btn-dark">Submit</button>
-        <a href="{{ previous }}" class="btn btn-danger">Cancel</a>
-
-    </form>
-</div>
-
-<!-- Kitsu -->
-<div class="modal fade" id="kitsuModal" tabindex="-1" aria-labelledby="kitsuModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-tank">
-                <h5 class="modal-title" id="kitsuModalLabel">Import from Kitsu</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Enter the Kitsu ID:</p>
-                <input type="number" name="kitsuId" id="kitsuId" class="numberinput form-control">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-dark" id="kitsuImport">Import</button>
+    <!-- Kitsu -->
+    <div class="modal fade"
+         id="kitsuModal"
+         tabindex="-1"
+         aria-labelledby="kitsuModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-tank">
+                    <h5 class="modal-title" id="kitsuModalLabel">Import from Kitsu</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter the Kitsu ID:</p>
+                    <input type="number"
+                           name="kitsuId"
+                           id="kitsuId"
+                           class="numberinput form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" id="kitsuImport">Import</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<!-- Anilist -->
-<div class="modal fade" id="anilistModal" tabindex="-1" aria-labelledby="anilistModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-tank">
-                <h5 class="modal-title" id="anilistModalLabel">Import from AniList</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <p>Enter the AniList ID:</p>
-                <input type="number" name="anilistId" id="anilistId" class="numberinput form-control">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-dark" id="anilistImport">Import</button>
+    <!-- Anilist -->
+    <div class="modal fade"
+         id="anilistModal"
+         tabindex="-1"
+         aria-labelledby="anilistModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-tank">
+                    <h5 class="modal-title" id="anilistModalLabel">Import from AniList</h5>
+                    <button type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Enter the AniList ID:</p>
+                    <input type="number"
+                           name="anilistId"
+                           id="anilistId"
+                           class="numberinput form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-dark" id="anilistImport">Import</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-
-<div class="toast-container position-fixed bottom-0 end-0 p-3">
-    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="toast-header bg-tank" style="color: #212529 !important;">
-            <img src="{% static 'img/logo.svg' %}" class="rounded me-2" width="50px" alt="Logo">
-            <b class="me-auto">Tankōbon</b>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            There was an error retrieving this manga. The ID may not exist.
+    <div class="toast-container position-fixed bottom-0 end-0 p-3">
+        <div id="liveToast"
+             class="toast"
+             role="alert"
+             aria-live="assertive"
+             aria-atomic="true">
+            <div class="toast-header bg-tank" style="color: #212529 !important;">
+                <img src="{% static 'img/logo.svg' %}"
+                     class="rounded me-2"
+                     width="50px"
+                     alt="Logo" />
+                <b class="me-auto">Tankōbon</b>
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="toast"
+                        aria-label="Close"></button>
+            </div>
+            <div class="toast-body">There was an error retrieving this manga. The ID may not exist.</div>
         </div>
     </div>
-</div>
-
-<script>
+    <script>
     const kitsuImport = document.getElementById("kitsuImport");
     const kitsuModal = new bootstrap.Modal('#kitsuModal');
 
@@ -139,5 +161,5 @@
     document.querySelectorAll('input').forEach((el) => {
         el.setAttribute('autocomplete', 'off')
     });
-</script>
-{% endblock %}
+    </script>
+{% endblock content %}

@@ -14,6 +14,10 @@
     object-fit: cover;
 }
 
+.banner-card-parent {
+    padding: 12px !important;
+}
+
 .no-banner-div {
     display: flex !important;
     flex-direction: column !important;
@@ -29,4 +33,8 @@
     font-size: x-large;
     text-decoration: none;
     color: #212529;
+}
+
+.manga-title h5 {
+    font-size: smaller; margin: 0px;
 }

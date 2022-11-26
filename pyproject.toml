@@ -1,0 +1,7 @@
+[tool]
+
+[tool.djlint]
+ignore="H006,H021,H023"
+profile="django"
+blank_line_after_tag="block,endblock"
+blank_line_before_tag="block,endblock"
