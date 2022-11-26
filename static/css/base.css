@@ -19,8 +19,6 @@ div {
 
 .head {
     background: linear-gradient(90deg, rgb(82, 185, 185), rgb(82, 218, 171));
-    margin: 25px;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,7 +63,7 @@ div {
 }
 
 .poster {
-    border-radius: 10px;
+    border-radius: 5px;
 }
 
 .flex {
@@ -122,13 +120,9 @@ code {
     margin-bottom: 15px;
 }
 
-.navbar {
-    border-radius: 0px 0px 10px 10px;
-}
-
 .btn,
 .form-control {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .navbar-light .navbar-toggler {
