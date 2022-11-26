@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import Http404
 from tankobon.utils import mongo_log
 
+
 @login_required
 def edit_volume(request, manga_id, volume_number):
     volume = Volume.objects.filter(manga=manga_id, absolute_number=volume_number).first()
@@ -26,6 +27,7 @@ def edit_volume(request, manga_id, volume_number):
             return render(request, 'web/volume_edit.html', {'locked': True})
     else:
         raise Http404("Page not found")
+
 
 @login_required
 def edit_non_volume(request, manga_id):
@@ -49,6 +51,7 @@ def edit_non_volume(request, manga_id):
     else:
         raise Http404("Page not found")
 
+
 @login_required
 def new_volume(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
@@ -66,6 +69,7 @@ def new_volume(request, manga_id):
                 return redirect('manga', manga_id=manga.id)
         else:
             form = VolumeNewForm()
-        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume', 'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/', 'type': 'volume'})
+        return render(request, 'web/create.html', {'form': form, 'message': 'Add a volume',
+                      'subnote': manga.name, 'previous': '/manga/' + str(manga.id) + '/', 'type': 'volume'})
     else:
         raise Http404("Page not found")

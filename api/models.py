@@ -7,6 +7,8 @@ from django.utils.timezone import datetime
 User._meta.get_field('email')._unique = True
 
 # Create your models here.
+
+
 class Manga(models.Model):
     STATUS_CHOICES = (
         ("RELEASING", "Releasing"),
@@ -35,6 +37,7 @@ class Manga(models.Model):
     def __str__(self):
         return self.name
 
+
 class Volume(models.Model):
     class Meta:
         unique_together = ('absolute_number', 'manga')
@@ -50,6 +53,7 @@ class Volume(models.Model):
             return self.manga.name + ' Volume ' + str(self.absolute_number)
         else:
             return self.manga.name + ' Non-tankobon'
+
 
 @receiver(post_save, sender=Volume)
 # Update the mangas last updated field

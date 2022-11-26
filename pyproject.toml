@@ -1,6 +1,12 @@
 [tool]
 
 [tool.djlint]
-ignore="H006,H021,H023"
-profile="django"
-blank_line_after_tag="endblock,load,extends"
+ignore = "H006,H021,H023"
+profile = "django"
+blank_line_after_tag = "endblock,load,extends"
+
+[tool.autopep8]
+max_line_length = 150
+in-place = true
+recursive = true
+aggressive = 1

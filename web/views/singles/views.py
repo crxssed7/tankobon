@@ -6,29 +6,32 @@ from web.forms import SignUpForm
 from django.urls import reverse_lazy
 from random import sample
 
+
 class IndexView(TemplateView):
     template_name = 'web/index.html'
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context['home_active'] = 'active'
         context['results'] = Manga.objects.all().order_by('-last_updated')[:4]
         return context
 
+
 class HelpNeededView(TemplateView):
     template_name = 'web/help.html'
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super(HelpNeededView, self).get_context_data(**kwargs)
         context['no_volume'] = Manga.objects.exclude(status="PLANNED").annotate(cnt=Count('volume')).filter(cnt=0)
         context['no_poster'] = Manga.objects.filter(poster='')
         return context
 
+
 class SearchResultsView(ListView):
     model = Manga
     template_name = 'web/search.html'
 
-    def get_queryset(self): 
+    def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
@@ -36,7 +39,7 @@ class SearchResultsView(ListView):
             object_list = []
         return object_list
 
-    def get_context_data(self,**kwargs):
+    def get_context_data(self, **kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
         context['recently_updated'] = Manga.objects.all().order_by('-last_updated')[:8]
         releasing = list(Manga.objects.filter(status="RELEASING"))
@@ -49,16 +52,20 @@ class SearchResultsView(ListView):
             context['query'] = q
         return context
 
+
 class SignUpView(CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy("login")
     template_name = "registration/signup.html"
 
+
 def contrib(request):
     return render(request, 'web/contrib.html')
 
+
 def docs(request):
     return render(request, 'web/api.html')
+
 
 def changelog(request):
     return render(request, 'web/changelog.html')

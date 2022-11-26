@@ -7,6 +7,8 @@ from django.db.models import Q
 import json
 
 # Create your views here.
+
+
 def get_manga(request):
     offset = request.GET.get('offset')
     _limit = request.GET.get('limit')
@@ -16,7 +18,7 @@ def get_manga(request):
     sort_field = 'name'
     try:
         offset = int(offset)
-    except:
+    except BaseException:
         offset = 0
     if sort:
         if sort.lower() == 'last_updated':
@@ -25,7 +27,7 @@ def get_manga(request):
     if _limit:
         try:
             limit = int(_limit)
-        except:
+        except BaseException:
             limit = 8
     manga = []
     total_results = 0
@@ -40,7 +42,8 @@ def get_manga(request):
     else:
         results = list()
         if status:
-            results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query), status=status.upper()).values().order_by(sort_field))
+            results = list(Manga.objects.filter(Q(name__icontains=query) | Q(
+                romaji__icontains=query), status=status.upper()).values().order_by(sort_field))
         else:
             results = list(Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query)).values().order_by(sort_field))
         total_results = len(results)
@@ -53,6 +56,7 @@ def get_manga(request):
     }
     return JsonResponse(data=data)
 
+
 def get_specific_manga(request, manga_id):
     try:
         manga = Manga.objects.get(id=manga_id)
@@ -62,8 +66,9 @@ def get_specific_manga(request, manga_id):
         struct.update({'id': manga_id})
         data = json.dumps(struct)
         return HttpResponse(data, content_type='application/json')
-    except:
+    except BaseException:
         return HttpResponse(json.dumps({'error': 'Manga does not exist'}), content_type='application/json', status=404)
+
 
 def get_manga_volumes(request, manga_id):
     try:
@@ -101,5 +106,5 @@ def get_manga_volumes(request, manga_id):
 
         data = json.dumps(vols_data)
         return HttpResponse(data, content_type='application/json')
-    except:
+    except BaseException:
         return HttpResponse(json.dumps({'error': 'Manga does not exist'}), content_type='application/json', status=404)

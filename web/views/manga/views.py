@@ -7,6 +7,7 @@ import textwrap
 import base64
 import requests
 
+
 def detail(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
 
@@ -14,14 +15,16 @@ def detail(request, manga_id):
     open_vol = -1
     try:
         open_vol = int(open_vol_request)
-    except:
+    except BaseException:
         # If the volume the user provided is not a number, just default to the non tankobon chapters
         open_vol = -1
 
     volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by('absolute_number')
     nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
 
-    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes, 'chapters_nonvolumed': nontankobon, 'search_active': 'active', 'open_vol': open_vol})
+    return render(request, 'web/detail.html', context={'manga': manga, 'data': volumes,
+                  'chapters_nonvolumed': nontankobon, 'search_active': 'active', 'open_vol': open_vol})
+
 
 def widget(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
@@ -45,6 +48,7 @@ def widget(request, manga_id):
         poster = 'data:image/png;base64,' + base64.b64encode(requests.get(manga.poster).content).decode('utf-8')
     return render(request, 'web/widget.html', context={'manga': manga, 'titles': dic[:5], 'poster': poster}, content_type="image/svg+xml")
 
+
 @login_required
 def new_manga(request):
     if request.method == 'POST':
@@ -58,6 +62,7 @@ def new_manga(request):
     else:
         form = MangaForm()
     return render(request, 'web/create.html', {'form': form, 'message': 'Add a manga', 'previous': '/manga/', 'type': 'manga'})
+
 
 @login_required
 def edit_manga(request, manga_id):
@@ -77,15 +82,18 @@ def edit_manga(request, manga_id):
         # Manga cannot be edited
         return render(request, 'web/manga_edit.html', {'locked': True})
 
+
 def all_manga(request):
     manga = Manga.objects.all().order_by('name')[:8]
     manga_count = Manga.objects.count()
     return render(request, 'web/all.html', {'results': manga, 'count': manga_count, 'search_active': 'active', 'type': 'all'})
 
+
 def all_manga_completed(request):
     manga = Manga.objects.filter(status="FINISHED").order_by('name')[:8]
     manga_count = Manga.objects.filter(status="FINISHED").count()
     return render(request, 'web/all.html', {'results': manga, 'count': manga_count, 'search_active': 'active', 'type': 'completed'})
+
 
 def all_manga_releasing(request):
     manga = Manga.objects.filter(status="RELEASING").order_by('name')[:8]
