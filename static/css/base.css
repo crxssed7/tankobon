@@ -17,6 +17,11 @@ div {
     font-family: 'Montserrat';
 }
 
+hr {
+    border-top: 1px solid #212529 !important;
+    opacity: 1 !important;
+}
+
 .head {
     background: linear-gradient(90deg, rgb(82, 185, 185), rgb(82, 218, 171));
     display: flex;
@@ -116,6 +121,14 @@ code {
     text-decoration: none;
 }
 
+.card {
+    border: 1px solid #212529 !important;
+}
+
+.card-header {
+    border-bottom: 1px solid #212529 !important;
+}
+
 .form-group {
     margin-bottom: 15px;
 }
@@ -174,18 +187,22 @@ code {
     background: rgb(82, 185, 185);
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #212529 !important;
-    opacity: 1 !important; /* Firefox */
-  }
-  
-  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    opacity: 1 !important;
+    /* Firefox */
+}
+
+:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
     color: #212529 !important;
-  }
-  
-  ::-ms-input-placeholder { /* Microsoft Edge */
+}
+
+::-ms-input-placeholder {
+    /* Microsoft Edge */
     color: #212529 !important;
-  }
+}
 
 @media only screen and (max-width: 768px) {
 

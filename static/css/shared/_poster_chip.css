@@ -1,7 +1,7 @@
 .chip-card {
     margin: 10px;
     padding: 10px;
-    border: 1px solid rgba(0, 0, 0, .125);
+    border: 1px solid #212529;
     border-radius: 5px !important;
 }
 
