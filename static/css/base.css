@@ -129,6 +129,11 @@ code {
     border: 1px solid #212529 !important;
 }
 
+.navbar-bg {
+    background: rgb(82, 185, 185);
+    transition: background .1s ease-out;
+}
+
 .navbar-light .navbar-toggler {
     color: rgba(0, 0, 0, .3) !important;
     border-color: rgba(0, 0, 0, .1) !important;
@@ -187,5 +192,9 @@ code {
     /* Mobile phones */
     .mobile-hidden {
         display: none !important;
+    }
+
+    .nav-actions {
+        margin-top: 8px !important;
     }
 }
