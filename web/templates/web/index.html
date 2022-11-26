@@ -2,43 +2,11 @@
 
 {% load static %}
 
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_banner_card.css' %}">
+{% endblock %}
+
 {% block content %}
-
-<style>
-    .itm-result {
-        border-radius: 10px !important;
-    }
-
-    .itm-img-container {
-        height: 200px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .itm-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .no-banner-div {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        align-content: center !important;
-        text-align: center !important;
-    }
-
-    #no-banner {
-        font-family: 'Courier New', Courier, monospace;
-        font-weight: bold;
-        font-size: x-large;
-        text-decoration: none;
-        color: #212529;
-    }
-</style>
-
 <div class="head">
     <img src="{% static 'img/logo.svg' %}" alt="" width="150">
     <br>
@@ -74,26 +42,7 @@
     <a class="btn btn-dark" href="{% url 'help_needed' %}" >Help needed!</a>
     <div class="row">
         {% for manga in results %}
-        <div class="col-sm-6" style="padding: 12px !important;">
-            <a href="{% url 'manga' manga.id %}" class="card-link">
-                <div class="card itm-result">
-                    {% if manga.banner %}
-                    <div class="itm-img-container">
-                        <img src="{{ manga.banner }}" alt="poster" class="itm-img">
-                    </div>
-                    {% else %}
-                    <div class="itm-img-container bg-tank no-banner-div">
-                        <span id="no-banner">
-                            No Banner Found.
-                        </span>
-                    </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
-                    </div>
-                </div>
-            </a>
-        </div>
+        {% include "web/shared/_banner_card.html" with manga=manga only %}
         {% endfor %}
     </div>
     <div class="card" style="border-radius: 10px;">

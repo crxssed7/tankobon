@@ -8,44 +8,13 @@
 {% block extrahead %}
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_poster_chip.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_search_result.css' %}">
 {% endblock %}
 
 {% block content %}
 
 <style>
-    .search-result {
-        height: 100%;
-        width: 150px;
-        border-radius: 10px !important;
-    }
-
-    .search-img-container {
-        height: 235px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .search-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .search-link {
-        margin: 5px !important;
-    }
-
-    .manga-name {
-        height: 2em;
-        display: block;
-        /* Fallback for non-webkit */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis !important;
-    }
-
     .swiper-slide {
         background-color: rgb(82, 218, 171);
         width: 100%;
@@ -172,24 +141,7 @@
 
     <div class="flex">
         {% for manga in object_list %}
-        <a href="{% url 'manga' manga.id %}" class="link card-link search-link">
-            <div class="card search-result" title="{{ manga.name }}">
-                <div class="search-img-container">
-                    {% if manga.poster %}
-                    <img src="{{ manga.poster }}" alt="poster" class="search-img">
-                    {% else %}
-                    <img src="{% static 'img/noposter.svg' %}" alt="poster" class="search-img">
-                    {% endif %}
-                </div>
-                <div class="card-body">
-                    <div class="manga-name">
-                        <center>
-                            <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </a>
+        {% include "web/shared/_search_result.html" with manga=manga only %}
         {% endfor %}
     </div>
     <br>
@@ -241,38 +193,6 @@
 
 <!-- CHIP STUFF -->
 
-<style>
-    .chip-card {
-        margin: 10px;
-        padding: 10px;
-        border: 1px solid rgba(0, 0, 0, .125);
-        border-radius: 10px !important;
-    }
-
-    .chip-img {
-        margin-right: 10px;
-        min-width: 100px;
-        height: 150px;
-        background-color: rgb(82, 218, 171);
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-        border-radius: 10px !important;
-    }
-
-    .chip-name-wrapper {
-        height: 3em;
-        line-height: 2em;
-        display: block;
-        /* Fallback for non-webkit */
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-        text-overflow: ellipsis !important;
-    }
-</style>
-
 <div class="container">
     <div class="row">
         <div class="col-sm-6">
@@ -282,26 +202,7 @@
                 </h3>
             </center>
             {% for manga in releasing %}
-            <div class="chip-card">
-                <a href="{% url 'manga' manga.id %}" class="link card-link">
-                    <div style="display: flex;">
-                        {% if manga.poster %}
-                        <div class="chip-img" style="background-image: url('{{ manga.poster }}');"></div>
-                        {% else %}
-                        <div class="chip-img"></div>
-                        {% endif %}
-                        <div>
-                            <div class="chip-name-wrapper">
-                                <h5 style="font-weight: bold;">{{ manga.name }}</h5>
-                            </div>
-                            <p style="margin-bottom: 0px;"><small class="text-muted">{{ manga.volume_count }} volumes</small></p>
-                            {% if manga.magazine %}
-                            <p><small class="text-muted">{{ manga.magazine }}</small></p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </a>
-            </div>
+            {% include "web/shared/_poster_chip.html" with manga=manga only %}
             {% endfor %}
             <center>
                 <a class="btn btn-outline-dark" href="{% url 'all_manga_releasing' %}" style="margin: 10px;">View all releasing
@@ -316,26 +217,7 @@
                 </h3>
             </center>
             {% for manga in completed %}
-            <div class="chip-card">
-                <a href="{% url 'manga' manga.id %}" class="link card-link">
-                    <div style="display: flex;">
-                        {% if manga.poster %}
-                        <div class="chip-img" style="background-image: url('{{ manga.poster }}');"></div>
-                        {% else %}
-                        <div class="chip-img"></div>
-                        {% endif %}
-                        <div>
-                            <div class="chip-name-wrapper">
-                                <h5 style="font-weight: bold;">{{ manga.name }}</h5>
-                            </div>
-                            <p style="margin-bottom: 0px;"><small class="text-muted">{{ manga.volume_count }} volumes</small></p>
-                            {% if manga.magazine %}
-                            <p><small class="text-muted">{{ manga.magazine }}</small></p>
-                            {% endif %}
-                        </div>
-                    </div>
-                </a>
-            </div>
+            {% include "web/shared/_poster_chip.html" with manga=manga only %}
             {% endfor %}
             <center>
                 <a class="btn btn-outline-dark" href="{% url 'all_manga_completed' %}" style="margin: 10px;">View all completed

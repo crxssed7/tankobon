@@ -1,0 +1,32 @@
+.banner-card {
+    border-radius: 10px !important;
+}
+
+.banner-card-img-container {
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.banner-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.no-banner-div {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+    text-align: center !important;
+}
+
+.no-banner {
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: x-large;
+    text-decoration: none;
+    color: #212529;
+}

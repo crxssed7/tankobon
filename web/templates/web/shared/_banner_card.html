@@ -1,0 +1,20 @@
+<div class="col-sm-6" style="padding: 12px !important;">
+    <a href="{% url 'manga' manga.id %}" class="card-link">
+        <div class="card banner-card">
+            {% if manga.banner %}
+            <div class="banner-card-img-container">
+                <img src="{{ manga.banner }}" alt="poster" class="banner-card-img">
+            </div>
+            {% else %}
+            <div class="banner-card-img-container bg-tank no-banner-div">
+                <span class="no-banner">
+                    No Banner Found.
+                </span>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5></center>
+            </div>
+        </div>
+    </a>
+</div>

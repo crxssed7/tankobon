@@ -12,6 +12,10 @@ All Completed Manga - Tankōbon
 {% endif %}
 {% endblock %}
 
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/shared/_banner_card.css' %}">
+{% endblock %}
+
 {% block meta_description %}
 {% if type == 'all' %}
 A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
@@ -23,42 +27,6 @@ A centralised site that documents what chapter is in which volume of a manga. Th
 {% endblock %}
 
 {% block content %}
-
-<style>
-    .itm-result {
-        border-radius: 10px !important;
-    }
-
-    .itm-img-container {
-        height: 200px;
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .itm-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .no-banner-div {
-        display: flex !important;
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
-        align-content: center !important;
-        text-align: center !important;
-    }
-
-    #no-banner {
-        font-family: 'Courier New', Courier, monospace;
-        font-weight: bold;
-        font-size: x-large;
-        text-decoration: none;
-        color: #212529;
-    }
-</style>
-
 <div class="feature">
     {% if type == 'all' %}
     <h2>We currently have <span class="tank-fore">{{ count }}</span> manga in the database.</h2>
@@ -74,28 +42,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
 <div class="container section">
     <div class="row" id="content">
         {% for manga in results %}
-        <div class="col-sm-6" style="padding: 12px !important;">
-            <a href="{% url 'manga' manga.id %}" class="card-link">
-                <div class="card itm-result">
-                    {% if manga.banner %}
-                    <div class="itm-img-container">
-                        <img src="{{ manga.banner }}" alt="poster" class="itm-img">
-                    </div>
-                    {% else %}
-                    <div class="itm-img-container bg-tank no-banner-div">
-                        <span id="no-banner">
-                            No Banner Found.
-                        </span>
-                    </div>
-                    {% endif %}
-                    <div class="card-body">
-                        <center>
-                            <h5 class="card-title" style="font-size: smaller; margin: 0px;">{{ manga.name }}</h5>
-                        </center>
-                    </div>
-                </div>
-            </a>
-        </div>
+        {% include "web/shared/_banner_card.html" with manga=manga only %}
         {% endfor %}
     </div>
     <center>
@@ -120,7 +67,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
     }
 
     function loadMore() {
-        var offset = $('.itm-result').length;
+        var offset = $('.banner-card').length;
         data = {
             'offset': offset
         }
@@ -141,20 +88,21 @@ A centralised site that documents what chapter is in which volume of a manga. Th
             },
             success: function (response) {
                 const data = response.manga;
+                console.log(data)
                 spinner.classList.add('visually-hidden');
                 data.map(manga => {
                     console.log(manga.name);
                     // Construct the inner html
                     var new_html = `<div class="col-sm-6" style="padding: 12px !important;">
                                                         <a href="/manga/${manga.id}/" class="card-link">
-                                                            <div class="card itm-result">`
+                                                            <div class="card banner-card">`
                     if (manga.banner) {
-                        new_html += `<div class="itm-img-container">
-                                        <img src="${manga.banner}" alt="poster" class="itm-img">
+                        new_html += `<div class="banner-card-img-container">
+                                        <img src="${manga.banner}" alt="poster" class="banner-card-img">
                                     </div>`
                     } else {
-                        new_html += `<div class="itm-img-container bg-tank no-banner-div">
-                                        <span id="no-banner">
+                        new_html += `<div class="banner-card-img-container bg-tank no-banner-div">
+                                        <span class="no-banner">
                                             No Banner Found.
                                         </span>
                                     </div>`
@@ -167,7 +115,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
                     </div>`
                     content_container.innerHTML += new_html;
                 })
-                current_amount = $('.itm-result').length;
+                current_amount = $('.banner-card').length;
                 amount.innerText = current_amount;
                 if (current_amount != total) {
                     loadBtn.classList.remove('visually-hidden');
