@@ -1,12 +1,12 @@
 .search-result {
     height: 100%;
     width: 150px;
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .search-img-container {
     height: 235px;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
 }
 

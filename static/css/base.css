@@ -125,6 +125,10 @@ code {
     border-radius: 5px !important;
 }
 
+.form-control {
+    border: 1px solid #212529 !important;
+}
+
 .navbar-light .navbar-toggler {
     color: rgba(0, 0, 0, .3) !important;
     border-color: rgba(0, 0, 0, .1) !important;
@@ -164,6 +168,19 @@ code {
 ::-webkit-scrollbar-thumb:hover {
     background: rgb(82, 185, 185);
 }
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #212529 !important;
+    opacity: 1 !important; /* Firefox */
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    color: #212529 !important;
+  }
+  
+  ::-ms-input-placeholder { /* Microsoft Edge */
+    color: #212529 !important;
+  }
 
 @media only screen and (max-width: 768px) {
 

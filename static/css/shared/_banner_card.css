@@ -1,10 +1,10 @@
 .banner-card {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .banner-card-img-container {
     height: 200px;
-    border-radius: 10px;
+    border-radius: 5px;
     overflow: hidden;
 }
 
