@@ -43,6 +43,12 @@ hr {
     margin: 10px;
 }
 
+.register-form {
+    padding: 25px;
+    border-radius: 5px;
+    margin-bottom: 25px;
+}
+
 .cta-left {
     background-color: rgb(82, 185, 185);
 }

@@ -7,12 +7,18 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container section">
-        <h3>Log In</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-dark">Log In</button>
-        </form>
+    <div class="head">
+        <h3>Welcome home!</h3>
+        <p>お帰りなさい!</p>
+    </div>
+    <br />
+    <div class="container">
+        <div class="register-form bg-tank">
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-dark">Log In</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}

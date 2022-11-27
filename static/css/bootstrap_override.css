@@ -27,3 +27,7 @@
 .toast-header {
     color: #212529 !important;
 }
+
+small.form-text {
+    color: #2a2d30 !important;
+}

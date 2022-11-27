@@ -69,8 +69,8 @@
                     <a class="btn btn-dark me-2 nav-actions" href="{% url 'login' %}" title="Login">Login</a>
                     <a class="btn btn-dark me-2 nav-actions" href="{% url 'signup' %}" title="Signup">Signup</a>
                     {% else %}
-                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                     <a class="btn btn-dark me-2 nav-actions" href="#" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
                     <a class="btn btn-dark me-2 nav-actions" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
                     {% endif %}
                 </div>

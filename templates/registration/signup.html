@@ -7,15 +7,18 @@
 {% endblock title %}
 
 {% block content %}
-    <div class="container section">
-        <h3>Sign up</h3>
+<div class="head">
+    <h3>Welcome!</h3>
+    <p>ようこそ！</p>
+</div>
+<br />
+<div class="container">
+    <div class="register-form bg-tank">
         <form method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <p>
-                <b>You must read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before signing up.</b>
-            </p>
-            <button type="submit" class="btn btn-dark">Sign Up</button>
+            <button type="submit" class="btn btn-dark">Signup</button>
         </form>
     </div>
+</div>
 {% endblock content %}
