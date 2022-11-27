@@ -96,44 +96,34 @@
 
     <script>
         // This is a bloody mess. Try and find better examples online.
-        const nav = document.querySelector('.navbar')
-        const offset = 50
-        var opened = false
-        var colored = false
-
-        if(window.pageYOffset > offset){
-            nav.classList.add('navbar-bg')
-            colored = true
-        }
+        const nav = document.querySelector('.navbar');
+        const collapse = document.querySelector('.navbar-collapse');
+        const offset = 25;
+        // colored = nav.classList.contains('navbar-bg')
+        // opened = collapse.classList.contains('show')
 
         const getOffset = () => {
-            if(window.pageYOffset > offset){
-                nav.classList.add('navbar-bg')
-                colored = true
+            if(window.pageYOffset > offset) {
+                nav.classList.add('navbar-bg');
             }
-            if(window.pageYOffset < offset && opened === false && colored === true){
-                nav.classList.remove('navbar-bg')
-                nav.style.transition = 'background .1s ease-out'
-                colored = false
+            if(window.pageYOffset < offset && collapse.classList.contains('show') === false && nav.classList.contains('navbar-bg') === true) {
+                nav.classList.remove('navbar-bg');
+                nav.style.transition = 'background .1s ease-out';
             }
         }
 
-        window.addEventListener('scroll', getOffset)
+        getOffset();
+
+        window.addEventListener('scroll', getOffset);
 
         function navChangeColor() {
-            if (opened === true) {
+            if (collapse.classList.contains('show') === true) {
                 if(window.pageYOffset < offset){
-                    nav.classList.remove('navbar-bg')
-                    nav.style.transition = 'background .1s ease-out'
-                    colored = false
-                } else {
-                    colored = true
+                    nav.classList.remove('navbar-bg');
+                    nav.style.transition = 'background .1s ease-out';
                 }
-                opened = false
             } else {
-                nav.classList.add('navbar-bg')
-                opened = true
-                colored = true
+                nav.classList.add('navbar-bg');
             }
         }
     </script>
