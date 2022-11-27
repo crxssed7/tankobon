@@ -11,14 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from environs import Env
 import os
-import environ
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-env = environ.Env()
-environ.Env.read_env(env_file=str(BASE_DIR / "tankobon/.env.debug"), overwrite=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,6 +32,7 @@ DEBUG = env.bool('DEBUG', default=False)
 TANKOBON_LOGS = env.str('TANKOBON_LOGS')
 
 ALLOWED_HOSTS = ['*']
+
 
 
 # Application definition
@@ -87,14 +88,7 @@ WSGI_APPLICATION = 'tankobon.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': env.str('TANKOBON_DB_NAME'),
-        'USER': env.str('TANKOBON_DB_USER'),
-        'PASSWORD': env.str('TANKOBON_DB_PASS'),
-        'HOST': env.str('TANKOBON_DB_HOST'),
-        'PORT': 5432
-    },
+    'default': env.dj_db_url("DATABASE_URL"),
     'sqlite': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
@@ -136,9 +130,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (str(BASE_DIR / "static"),)
 STATIC_ROOT = str(BASE_DIR / "staticfiles")
-STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = str(BASE_DIR / 'media')
 

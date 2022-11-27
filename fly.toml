@@ -1,4 +1,4 @@
-# fly.toml file generated for tankobon on 2022-08-27T15:50:37+01:00
+# fly.toml file generated for tankobon on 2022-11-27T13:34:53Z
 
 app = "tankobon"
 kill_signal = "SIGINT"
