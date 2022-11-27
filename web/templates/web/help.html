@@ -28,7 +28,7 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h4 style="font-weight: bold;" id="no_volume">No Volumes:</h4>
+                <h4 id="no_volume"><b>No Volumes:</b></h4>
                 {% if no_volume %}
                     <p>These records have no volumes attached to them.</p>
                     {% for manga in no_volume %}
@@ -39,15 +39,14 @@
                 {% endif %}
             </div>
             <div class="col-sm-6">
-                <h4 style="font-weight: bold;" id="no_poster">No Poster:</h4>
+                <h4 id="no_poster"><b>No Poster:</b></h4>
                 {% if no_poster %}
                     <p>These records have no poster.</p>
                     <ul>
                         {% for manga in no_poster %}
                             <li>
                                 <a href="{% url 'manga' manga.id %}"
-                                   class="link"
-                                   style="font-weight: bold">{{ manga.name }}</a>
+                                   class="link"><b>{{ manga.name }}</b></a>
                             </li>
                         {% endfor %}
                     </ul>

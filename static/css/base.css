@@ -6,14 +6,7 @@ body {
     flex-direction: column;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-div {
+* {
     font-family: 'Montserrat';
 }
 
@@ -33,15 +26,6 @@ hr {
     padding: 75px;
 }
 
-.center {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    text-align: center;
-}
-
 .feature {
     display: flex;
     flex-direction: column;
@@ -52,10 +36,22 @@ hr {
     padding: 75px;
 }
 
-.feature>h3,
-.feature>h2,
-.feature>h1,
-.head>h1 {
+.cta {
+    min-height: 250px;
+    border-radius: 5px;
+    padding: 25px;
+    margin: 10px;
+}
+
+.cta-left {
+    background-color: rgb(82, 185, 185);
+}
+
+.cta-right {
+    background-color: rgb(82, 218, 171);
+}
+
+.feature > *, .head > *, .header {
     font-weight: bold;
 }
 
@@ -78,6 +74,14 @@ hr {
     justify-content: center;
 }
 
+.display-flex {
+    display: flex;
+}
+
+.wrap {
+    flex-wrap: wrap;
+}
+
 .volume {
     border-radius: 5px;
     margin-bottom: 10px;
@@ -85,6 +89,43 @@ hr {
 
 .chapter-li {
     margin: 10px;
+}
+
+.text-small {
+    font-size: small;
+    margin-bottom: 0px;
+}
+
+.mg-10 {
+    margin: 10px !important;
+}
+
+.mg-12 {
+    margin: 12px !important;
+}
+
+.mg-tp-16 {
+    margin-top: 16px !important;
+}
+
+.mg-tp-20 {
+    margin-top: 20px !important;
+}
+
+.mg-bt-20 {
+    margin-bottom: 20px !important;
+}
+
+.no-mg {
+    margin: 0px;
+}
+
+.pd-15 {
+    margin: 15px !important;
+}
+
+.no-pd {
+    padding: 0px;
 }
 
 .bg-tank {
@@ -99,8 +140,13 @@ hr {
     height: 10px;
 }
 
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
 .bmc-btn {
-    border-radius: 10px !important;
+    border-radius: 5px !important;
 }
 
 .bmc-btn:hover {
@@ -116,40 +162,31 @@ code {
     color: rgb(20, 20, 20) !important;
 }
 
+.volume-link {
+    color: rgb(20, 20, 20) !important;
+    width: 100%;
+    text-decoration: none;
+}
+
 .card-link {
     color: rgb(20, 20, 20) !important;
     text-decoration: none;
 }
 
-.card {
-    border: 1px solid #212529 !important;
+.card-link > div {
+    /* box-shadow: 0 1px 2px rgba(0, 0, 0, 0); */
+    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+    transition: box-shadow 0.3s ease-in-out;
 }
-
-.card-header {
-    border-bottom: 1px solid #212529 !important;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.btn,
-.form-control {
-    border-radius: 5px !important;
-}
-
-.form-control {
-    border: 1px solid #212529 !important;
+  
+.card-link > div:hover {
+    /* box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8); */
+    box-shadow: 10px 10px 0px -2px rgba(0, 0, 0, 0.8);
 }
 
 .navbar-bg {
     background: rgb(82, 185, 185);
     transition: background .1s ease-out;
-}
-
-.navbar-light .navbar-toggler {
-    color: rgba(0, 0, 0, .3) !important;
-    border-color: rgba(0, 0, 0, .1) !important;
 }
 
 .tank-fore {
@@ -213,5 +250,13 @@ code {
 
     .nav-actions {
         margin-top: 8px !important;
+    }
+}
+
+@media only screen and (min-width: 992px) {
+
+    /* Desktop */
+    .desktop-hidden {
+        display: none !important;
     }
 }

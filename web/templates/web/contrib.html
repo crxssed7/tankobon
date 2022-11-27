@@ -1,17 +1,17 @@
 {% extends "base.html" %}
 
+{% load static %}
 {% load crispy_forms_tags %}
 
 {% block title %}
     Contribution Guidelines - Tankōbon
 {% endblock title %}
 
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/web/contrib.css' %}" />
+{% endblock extrahead %}
+
 {% block content %}
-    <style>
-    .li-ind {
-        margin-bottom: 15px;
-    }
-    </style>
     <div class="head">
         <h3>Contribution Guidelines 📑</h3>
     </div>

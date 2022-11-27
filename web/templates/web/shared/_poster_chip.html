@@ -1,23 +1,25 @@
-<div class="chip-card">
-    <a href="{% url 'manga' manga.id %}" class="link card-link">
-        <div style="display: flex;">
-            {% if manga.poster %}
-                <div class="chip-img" style="background-image: url('{{ manga.poster }}');"></div>
-            {% else %}
-                <div class="chip-img"></div>
-            {% endif %}
-            <div>
-                <div class="chip-name-wrapper">
-                    <h5>{{ manga.name }}</h5>
-                </div>
-                <p>
-                    <small class="text-muted">{{ manga.volume_count }} volumes</small>
-                </p>
-                {% if manga.magazine %}
-                    <p>
-                        <small class="text-muted">{{ manga.magazine }}</small>
-                    </p>
+<div>
+    <a href="{% url 'manga' manga.id %}" class="card-link">
+        <div class="chip-card">
+            <div class="display-flex">
+                {% if manga.poster %}
+                    <div class="chip-img" style="background-image: url('{{ manga.poster }}');"></div>
+                {% else %}
+                    <div class="chip-img"></div>
                 {% endif %}
+                <div>
+                    <div class="chip-name-wrapper">
+                        <h5>{{ manga.name }}</h5>
+                    </div>
+                    <p>
+                        <small class="text-muted">{{ manga.volume_count }} volumes</small>
+                    </p>
+                    {% if manga.magazine %}
+                        <p>
+                            <small class="text-muted">{{ manga.magazine }}</small>
+                        </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </a>

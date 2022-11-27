@@ -15,23 +15,15 @@
         <h1>Tankōbon</h1>
     </div>
     <div class="container section">
-        <div class="card" style="border-radius: 10px;">
-            <div class="card-body">
-                <h3 style="font-weight: bold;">What is Tankōbon?</h3>
-                <p style="margin-bottom: 0px;">
-                    Manga chapters are often split into volumes (think about how TV shows are split into seasons) which is what we call the Tankōbon format, however, so far I haven't found any central place that documents what chapter is in which volume. This hobby project is an attempt to fix that, and make life easier for those who categorise their manga into volumes.
-                </p>
-            </div>
-        </div>
+        <h3><b>What is Tankōbon?</b></h3>
+        <p>
+            Manga chapters are often split into volumes (think about how TV shows are split into seasons) which is what we call the Tankōbon format, however, so far I haven't found any central place that documents what chapter is in which volume. This hobby project is an attempt to fix that, and make life easier for those who categorise their manga into volumes.
+        </p>
         <div class="spacer"></div>
-        <div class="card" style="border-radius: 10px;">
-            <div class="card-body">
-                <h3 style="font-weight: bold;">Where to start?</h3>
-                <p style="margin-bottom: 0px;">
-                    If you want to contribute to Tankōbon but don't know where to start, you can check out the <a href="{% url 'help_needed' %}" class="link">help</a> page. It lists all the records that are missing data.
-                </p>
-            </div>
-        </div>
+        <h3><b>Where to start?</b></h3>
+        <p>
+            If you want to contribute to Tankōbon but don't know where to start, you can check out the <a href="{% url 'help_needed' %}" class="link">help</a> page. It lists all the records that are missing data.
+        </p>
         <div class="spacer"></div>
         <a class="btn btn-dark" href="{% url 'new_manga' %}">Add manga</a>
         <a class="btn btn-dark" href="{% url 'help_needed' %}">Help needed!</a>
@@ -40,25 +32,21 @@
                 {% include "web/shared/_banner_card.html" with manga=manga only %}
             {% endfor %}
         </div>
-        <div class="card" style="border-radius: 10px;">
-            <div class="card-body">
-                <h3 style="font-weight: bold;">Support the project!</h3>
-                <p style="margin-bottom: 0px;">
-                    If you want to support the project you can donate <a href="https://www.buymeacoffee.com/crxssed" class="link">here</a>. You don't need to, but it definitely helps!
-                </p>
-                <div class="spacer"></div>
-                <script type="text/javascript"
-                        src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
-                        data-name="bmc-button"
-                        data-slug="crxssed"
-                        data-color="#52b9b9"
-                        data-emoji="🚀"
-                        data-font="Poppins"
-                        data-text="Donate!"
-                        data-outline-color="#000000"
-                        data-font-color="#000000"
-                        data-coffee-color="#FFDD00"></script>
-            </div>
-        </div>
+        <h3><b>Support the project!</b></h3>
+        <p>
+            If you want to support the project you can donate <a href="https://www.buymeacoffee.com/crxssed" class="link">here</a>. You don't need to, but it definitely helps!
+        </p>
+        <div class="spacer"></div>
+        <script type="text/javascript"
+                src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
+                data-name="bmc-button"
+                data-slug="crxssed"
+                data-color="#52b9b9"
+                data-emoji="🚀"
+                data-font="Poppins"
+                data-text="Donate!"
+                data-outline-color="#000000"
+                data-font-color="#000000"
+                data-coffee-color="#FFDD00"></script>
     </div>
 {% endblock content %}

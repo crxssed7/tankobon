@@ -9,35 +9,10 @@
 
 {% block extrahead %}
     <script src="{% static 'js/imports.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/web/create.css' %}" />
 {% endblock extrahead %}
 
 {% block content %}
-    <style>
-    .import-section {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .imprt {
-        margin: 5px;
-    }
-
-    .btn-kitsu {
-        background-color: rgb(72, 48, 72) !important;
-        color: white !important;
-    }
-
-    .btn-anilist {
-        background-color: rgb(11, 22, 34) !important;
-        color: white !important;
-    }
-
-    .btn-mal {
-        background-color: rgb(46, 81, 162) !important;
-        color: white !important;
-    }
-    </style>
     <div class="head">
         <h3>{{ message }}</h3>
         {% if subnote %}<p>{{ subnote }}</p>{% endif %}
@@ -133,7 +108,7 @@
              role="alert"
              aria-live="assertive"
              aria-atomic="true">
-            <div class="toast-header bg-tank" style="color: #212529 !important;">
+            <div class="toast-header bg-tank">
                 <img src="{% static 'img/logo.svg' %}"
                      class="rounded me-2"
                      width="50px"

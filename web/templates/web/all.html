@@ -29,25 +29,23 @@
 {% endblock meta_description %}
 
 {% block content %}
-    <div class="feature">
+    <div class="head">
         {% if type == 'all' %}
             <h2>
-                We currently have <span class="tank-fore">{{ count }}</span> manga in the database.
+                We currently have {{ count }} manga in the database.
             </h2>
         {% elif type == 'releasing' %}
             <h2>
-                We currently have <span class="tank-fore">{{ count }}</span> releasing manga in the database.
+                We currently have {{ count }} releasing manga in the database.
             </h2>
-            <a class="btn btn-outline-dark"
-               href="{% url 'all_manga' %}"
-               style="margin: 10px">View all</a>
+            <a class="btn btn-outline-dark mg-10"
+               href="{% url 'all_manga' %}">View all</a>
         {% else %}
             <h2>
-                We currently have <span class="tank-fore">{{ count }}</span> completed manga in the database.
+                We currently have {{ count }} completed manga in the database.
             </h2>
-            <a class="btn btn-outline-dark"
-               href="{% url 'all_manga' %}"
-               style="margin: 10px">View all</a>
+            <a class="btn btn-outline-dark mg-10"
+               href="{% url 'all_manga' %}">View all</a>
         {% endif %}
     </div>
     <div class="container section">
@@ -62,9 +60,7 @@
             </p>
             <div class="load-more__btn mt-3">
                 <a id="loadBtn"
-                   class="btn btn-dark"
-                   style="padding: 15px !important;
-                          margin: 12px">Load more</a>
+                   class="btn btn-dark pd-15 mg-12">Load more</a>
             </div>
             <div class="spinner spinner-border mt-2 visually-hidden"
                  role="status"
@@ -108,7 +104,7 @@
                 data.map(manga => {
                     console.log(manga.name);
                     // Construct the inner html
-                    var new_html = `<div class="col-sm-6" style="padding: 12px !important;">
+                    var new_html = `<div class="col-sm-6 banner-card-parent">
                                                         <a href="/manga/${manga.id}/" class="card-link">
                                                             <div class="card banner-card">`
                     if (manga.banner) {
@@ -120,8 +116,8 @@
                                         <span class="no-banner">No Banner Found.</span>
                                     </div>`
                     }
-                    new_html += `<div class="card-body">
-                                    <center><h5 class="card-title" style="font-size: smaller; margin: 0px;">${manga.name}</h5></center>
+                    new_html += `<div class="card-body manga-title">
+                                    <center><h5 class="card-title">${manga.name}</h5></center>
                                 </div>
                             </div>
                         </a>

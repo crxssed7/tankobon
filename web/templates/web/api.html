@@ -6,6 +6,10 @@
     API Documentation - Tankōbon
 {% endblock title %}
 
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/web/api.css' %}" />
+{% endblock extrahead %}
+
 {% block meta_description %}
     Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.
 {% endblock meta_description %}
@@ -19,13 +23,6 @@
 {% endblock meta_title %}
 
 {% block content %}
-    <style>
-    th,
-    td {
-        padding: 15px;
-        padding-left: 0px;
-    }
-    </style>
     <div class="head">
         <h3>API Documentation</h3>
     </div>
@@ -34,7 +31,7 @@
             Tankōbon has a simple GET API that you can use to integrate with your own applications. All requests sent to the
             API should be sent with the GET method.
         </p>
-        <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card mb-3">
             <div class="card-header">
                 <b>Get a list of Manga</b>
             </div>
@@ -120,7 +117,7 @@
             </pre>
             </div>
         </div>
-        <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card mb-3">
             <div class="card-header">
                 <b>Get a specific Manga</b>
             </div>
@@ -155,7 +152,7 @@
             </pre>
             </div>
         </div>
-        <div class="card mb-3" style="max-width: auto; height: auto;">
+        <div class="card mb-3">
             <div class="card-header">
                 <b>Get the volumes of a Manga</b>
             </div>

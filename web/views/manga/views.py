@@ -46,7 +46,7 @@ def widget(request, manga_id):
     poster = ''
     if manga.poster:
         poster = 'data:image/png;base64,' + base64.b64encode(requests.get(manga.poster).content).decode('utf-8')
-    return render(request, 'web/widget.html', context={'manga': manga, 'titles': dic[:5], 'poster': poster}, content_type="image/svg+xml")
+    return render(request, 'web/widget.svg', context={'manga': manga, 'titles': dic[:5], 'poster': poster}, content_type="image/svg+xml")
 
 
 @login_required

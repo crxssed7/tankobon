@@ -1,0 +1,48 @@
+.swiper-slide {
+    background-color: rgb(82, 218, 171);
+    width: 100%;
+    height: 500px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.gradient-bg {
+    background: linear-gradient(90deg, rgba(82, 185, 185, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    width: 100%;
+    height: 100%;
+}
+
+@media only screen and (max-width: 768px) {
+
+    /* Mobile phones */
+    .swiper-slide {
+        height: 350px;
+    }
+}
+
+.swiper-details {
+    position: absolute;
+    bottom: 25px;
+}
+
+.swiper-manga-description-wrapper {
+    height: 7.3em;
+    max-width: 25em;
+    display: block;
+    /* Fallback for non-webkit */
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis !important;
+    margin-bottom: 15px;
+}
+
+.badge {
+    margin-right: 10px !important;
+}
+
+:root {
+    --swiper-theme-color: rgb(10, 10, 10);
+}

@@ -12,6 +12,9 @@
     <link rel="stylesheet"
           type="text/css"
           href="{% static 'css/shared/_id_badges.css' %}"/>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/web/detail.css' %}"/>
 {% endblock extrahead %}
 
 {% block meta_description %}
@@ -43,73 +46,6 @@
 {% endblock meta_twitter_image_alt %}
 
 {% block content %}
-    <style>
-    .edit-link:link {
-        text-decoration: none !important;
-    }
-
-    .edit-link:visited {
-        text-decoration: none !important;
-    }
-
-    .edit-link:hover {
-        text-decoration: none !important;
-    }
-
-    .edit-link:active {
-        text-decoration: none !important;
-    }
-
-    .volume-poster {
-        margin: 10px;
-    }
-
-    .space-between {
-        display: flex;
-        justify-content: space-between;
-    }
-
-    .manga-description {
-        overflow: hidden;
-        /* height: 12.1em; */
-        height: auto;
-    }
-
-    @media only screen and (max-width: 768px) {
-
-        /* For mobile phones: */
-        .volume-content {
-            flex-direction: column;
-        }
-
-        .volume-poster-div {
-            display: flex;
-            justify-content: center;
-        }
-
-        .volume-poster {
-            width: 100px;
-        }
-    }
-
-    @media only screen and (min-width: 575px) {
-
-        /* For desktop: */
-        div.sticky {
-            position: -webkit-sticky;
-            position: sticky;
-            top: 100px;
-        }
-    }
-
-    .volume-header {
-        border-bottom: none !important;
-    }
-
-    .chapters {
-        border-top: 1px solid #212529;
-    }
-    </style>
     <div class="head">
         {% if manga.poster %}
             <div>
@@ -131,9 +67,9 @@
                         <br />
                         <br />
                     {% endif %}
-                    <div class="card mb-3" style="max-width: auto; height: auto;">
+                    <div class="card mb-3">
                         <div class="card-header">
-                            <div style="display: flex; justify-content: space-between">
+                            <div class="space-between">
                                 <b>About {{ manga.name }}</b>
                                 {% if not manga.locked %}
                                     <a href="{% url 'edit_manga' manga.id %}"
@@ -171,9 +107,7 @@
                                 <div class="card-header volume-header"
                                      id="heading{{ volume.absolute_number }}">
                                     <div class="space-between">
-                                        <a class="link"
-                                           style="width: 100%;
-                                                  text-decoration: none"
+                                        <a class="volume-link"
                                            data-bs-toggle="collapse"
                                            href="#collapse{{ volume.absolute_number }}"
                                            role="button"
@@ -195,8 +129,8 @@
                                          class="collapse show chapters"
                                          aria-labelledby="heading{{ volume.absolute_number }}"
                                          data-parent="#accordion">
-                                        <div class="card-body" style="padding: 0px;">
-                                            <div class="volume-content" style="display: flex;">
+                                        <div class="card-body display-flex">
+                                            <div class="volume-content display-flex">
                                                 {% if volume.poster %}
                                                     <div class="volume-poster-div">
                                                         <img src="{{ volume.poster }}"
@@ -216,8 +150,8 @@
                                          class="collapse chapters"
                                          aria-labelledby="heading{{ volume.absolute_number }}"
                                          data-parent="#accordion">
-                                        <div class="card-body" style="padding: 0px;">
-                                            <div class="volume-content" style="display: flex;">
+                                        <div class="card-body no-pd">
+                                            <div class="volume-content display-flex">
                                                 {% if volume.poster %}
                                                     <div class="volume-poster-div">
                                                         <img src="{{ volume.poster }}"
@@ -237,11 +171,8 @@
                         {% endif %}
                     {% endfor %}
                 {% else %}
-                    <div class="card mb-3"
-                         style="max-width: auto;
-                                height: auto;
-                                border-bottom: none">
-                        <div class="card-header">There are no volumes yet.</div>
+                    <div class="card mb-3">
+                        <div class="card-body">There are no volumes yet.</div>
                     </div>
                 {% endif %}
                 {% if chapters_nonvolumed %}
@@ -250,9 +181,7 @@
                             <div class="card-header volume-header"
                                  id="heading{{ chapters_nonvolumed.absolute_number }}">
                                 <div class="space-between">
-                                    <a class="link"
-                                       style="width: 100%;
-                                              text-decoration: none"
+                                    <a class="volume-link"
                                        data-bs-toggle="collapse"
                                        href="#collapse{{ chapters_nonvolumed.absolute_number }}"
                                        role="button"
@@ -274,7 +203,7 @@
                                      class="collapse show chapters"
                                      aria-labelledby="heading{{ chapters_nonvolumed.absolute_number }}"
                                      data-parent="#accordion">
-                                    <div class="card-body" style="padding: 0px;">
+                                    <div class="card-body no-pd">
                                         <div class="volume-content">
                                             <ul>
                                                 {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
@@ -294,7 +223,7 @@
                                      class="collapse chapters"
                                      aria-labelledby="heading{{ volume.absolute_number }}"
                                      data-parent="#accordion">
-                                    <div class="card-body" style="padding: 0px;">
+                                    <div class="card-body no-pd">
                                         <div class="volume-content">
                                             <ul>
                                                 {{ chapters_nonvolumed.chapters | listify | bleach:"li,p,b,br" }}
