@@ -8,13 +8,13 @@ Manga chapters are often split into volumes (think about how TV shows are split 
 
 ## Linting
 
-Check linting errors in HTML files:
+Fix linting errors in HTML files:
 
 ```bash
 djlint .
 ```
 
-Check linting errors in Python files:
+Check linting errors in HTML files:
 
 ```bash
 djlint --list-fixes .
@@ -24,4 +24,16 @@ Fix linting errors in Python files:
 
 ```bash
 autopep8 .
+```
+
+Fix linting errors in CSS files:
+
+```bash
+npm run lint:styles
+```
+
+Fix linting errors in JavaScript files:
+
+```bash
+npm run lint:js
 ```
