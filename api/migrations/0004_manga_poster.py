@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0003_alter_chapter_name'),
+        ("api", "0003_alter_chapter_name"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='manga',
-            name='poster',
-            field=models.ImageField(blank=True, upload_to=''),
+            model_name="manga",
+            name="poster",
+            field=models.ImageField(blank=True, upload_to=""),
         ),
     ]

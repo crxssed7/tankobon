@@ -6,19 +6,19 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0005_alter_manga_poster'),
+        ("api", "0005_alter_manga_poster"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='manga',
-            name='anilist_id',
+            model_name="manga",
+            name="anilist_id",
             field=models.PositiveIntegerField(blank=True, default=1),
             preserve_default=False,
         ),
         migrations.AddField(
-            model_name='manga',
-            name='mal_id',
+            model_name="manga",
+            name="mal_id",
             field=models.PositiveIntegerField(blank=True, default=1),
             preserve_default=False,
         ),

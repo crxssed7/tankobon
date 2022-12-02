@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0007_auto_20220410_1633'),
+        ("api", "0007_auto_20220410_1633"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='manga',
-            name='volume_count',
+            model_name="manga",
+            name="volume_count",
             field=models.PositiveIntegerField(default=1),
         ),
     ]

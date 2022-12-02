@@ -8,32 +8,58 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Manga',
+            name="Manga",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('romaji', models.CharField(max_length=150)),
-                ('description', models.TextField()),
-                ('status', models.CharField(choices=[(1, 'Releasing'), (2, 'Finished'), (3, 'Planned')], max_length=15)),
-                ('start_date', models.DateField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("romaji", models.CharField(max_length=150)),
+                ("description", models.TextField()),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[(1, "Releasing"), (2, "Finished"), (3, "Planned")],
+                        max_length=15,
+                    ),
+                ),
+                ("start_date", models.DateField()),
             ],
         ),
         migrations.CreateModel(
-            name='Chapter',
+            name="Chapter",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('volume_number', models.IntegerField(default=-1)),
-                ('chapter_number', models.FloatField()),
-                ('manga', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.manga')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                ("volume_number", models.IntegerField(default=-1)),
+                ("chapter_number", models.FloatField()),
+                (
+                    "manga",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.manga"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('volume_number', 'chapter_number', 'manga')},
+                "unique_together": {("volume_number", "chapter_number", "manga")},
             },
         ),
     ]

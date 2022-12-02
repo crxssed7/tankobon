@@ -7,32 +7,50 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0008_manga_volume_count'),
+        ("api", "0008_manga_volume_count"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Volume',
+            name="Volume",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('volume_number', models.IntegerField(default=1)),
-                ('manga', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='api.manga')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("volume_number", models.IntegerField(default=1)),
+                (
+                    "manga",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="api.manga"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('volume_number', 'manga')},
+                "unique_together": {("volume_number", "manga")},
             },
         ),
         migrations.AddField(
-            model_name='chapter',
-            name='volume',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='api.volume'),
+            model_name="chapter",
+            name="volume",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="api.volume",
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='chapter',
-            unique_together={('volume', 'chapter_number', 'manga')},
+            name="chapter",
+            unique_together={("volume", "chapter_number", "manga")},
         ),
         migrations.RemoveField(
-            model_name='chapter',
-            name='volume_number',
+            model_name="chapter",
+            name="volume_number",
         ),
     ]

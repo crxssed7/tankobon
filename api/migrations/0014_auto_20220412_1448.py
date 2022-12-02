@@ -6,33 +6,33 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0013_manga_fandom'),
+        ("api", "0013_manga_fandom"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='manga',
-            name='anilist_id',
+            model_name="manga",
+            name="anilist_id",
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='manga',
-            name='anime_planet_slug',
+            model_name="manga",
+            name="anime_planet_slug",
             field=models.CharField(blank=True, max_length=100, null=True),
         ),
         migrations.AlterField(
-            model_name='manga',
-            name='kitsu_id',
+            model_name="manga",
+            name="kitsu_id",
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='manga',
-            name='mal_id',
+            model_name="manga",
+            name="mal_id",
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
         migrations.AlterField(
-            model_name='manga',
-            name='mangaupdates_id',
+            model_name="manga",
+            name="mangaupdates_id",
             field=models.PositiveIntegerField(blank=True, null=True),
         ),
     ]

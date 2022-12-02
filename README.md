@@ -23,7 +23,7 @@ djlint --list-fixes .
 Fix linting errors in Python files:
 
 ```bash
-autopep8 .
+black .
 ```
 
 Fix linting errors in CSS files:

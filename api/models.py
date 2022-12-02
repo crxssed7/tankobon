@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import datetime
 
-User._meta.get_field('email')._unique = True
+User._meta.get_field("email")._unique = True
 
 # Create your models here.
 
@@ -40,7 +40,7 @@ class Manga(models.Model):
 
 class Volume(models.Model):
     class Meta:
-        unique_together = ('absolute_number', 'manga')
+        unique_together = ("absolute_number", "manga")
 
     absolute_number = models.IntegerField(default=-1)
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
@@ -50,9 +50,9 @@ class Volume(models.Model):
 
     def __str__(self):
         if self.absolute_number >= 0:
-            return self.manga.name + ' Volume ' + str(self.absolute_number)
+            return self.manga.name + " Volume " + str(self.absolute_number)
         else:
-            return self.manga.name + ' Non-tankobon'
+            return self.manga.name + " Non-tankobon"
 
 
 @receiver(post_save, sender=Volume)

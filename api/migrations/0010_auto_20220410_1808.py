@@ -6,16 +6,16 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('api', '0009_auto_20220410_1740'),
+        ("api", "0009_auto_20220410_1740"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='chapter',
-            name='volume',
+            model_name="chapter",
+            name="volume",
             field=models.IntegerField(default=-1),
         ),
         migrations.DeleteModel(
-            name='Volume',
+            name="Volume",
         ),
     ]

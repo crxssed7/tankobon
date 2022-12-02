@@ -13,7 +13,7 @@ chapter_in = """
 62. The Strong Reign
 """
 
-chapters = chapter_in.split('\n')
+chapters = chapter_in.split("\n")
 output = ""
 for c in chapters:
     if c:

@@ -8,48 +8,54 @@ from random import sample
 
 
 class IndexView(TemplateView):
-    template_name = 'web/index.html'
+    template_name = "web/index.html"
 
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
-        context['home_active'] = 'active'
-        context['results'] = Manga.objects.all().order_by('-last_updated')[:4]
+        context["home_active"] = "active"
+        context["results"] = Manga.objects.all().order_by("-last_updated")[:4]
         return context
 
 
 class HelpNeededView(TemplateView):
-    template_name = 'web/help.html'
+    template_name = "web/help.html"
 
     def get_context_data(self, **kwargs):
         context = super(HelpNeededView, self).get_context_data(**kwargs)
-        context['no_volume'] = Manga.objects.exclude(status="PLANNED").annotate(cnt=Count('volume')).filter(cnt=0)
-        context['no_poster'] = Manga.objects.filter(poster='')
+        context["no_volume"] = (
+            Manga.objects.exclude(status="PLANNED")
+            .annotate(cnt=Count("volume"))
+            .filter(cnt=0)
+        )
+        context["no_poster"] = Manga.objects.filter(poster="")
         return context
 
 
 class SearchResultsView(ListView):
     model = Manga
-    template_name = 'web/search.html'
+    template_name = "web/search.html"
 
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
-            object_list = Manga.objects.filter(Q(name__icontains=query) | Q(romaji__icontains=query))
+            object_list = Manga.objects.filter(
+                Q(name__icontains=query) | Q(romaji__icontains=query)
+            )
         else:
             object_list = []
         return object_list
 
     def get_context_data(self, **kwargs):
         context = super(SearchResultsView, self).get_context_data(**kwargs)
-        context['recently_updated'] = Manga.objects.all().order_by('-last_updated')[:8]
+        context["recently_updated"] = Manga.objects.all().order_by("-last_updated")[:8]
         releasing = list(Manga.objects.filter(status="RELEASING"))
         completed = list(Manga.objects.filter(status="FINISHED"))
-        context['releasing'] = sample(releasing, 5) if len(releasing) > 5 else releasing
-        context['completed'] = sample(completed, 5) if len(completed) > 5 else completed
-        context['search_active'] = 'active'
+        context["releasing"] = sample(releasing, 5) if len(releasing) > 5 else releasing
+        context["completed"] = sample(completed, 5) if len(completed) > 5 else completed
+        context["search_active"] = "active"
         q = self.request.GET.get("q")
         if q:
-            context['query'] = q
+            context["query"] = q
         return context
 
 
@@ -60,12 +66,12 @@ class SignUpView(CreateView):
 
 
 def contrib(request):
-    return render(request, 'web/contrib.html')
+    return render(request, "web/contrib.html")
 
 
 def docs(request):
-    return render(request, 'web/api.html')
+    return render(request, "web/api.html")
 
 
 def changelog(request):
-    return render(request, 'web/changelog.html')
+    return render(request, "web/changelog.html")
