@@ -1,38 +1,39 @@
 .search-result {
-    height: 100%;
-    width: 150px;
-    border-radius: 5px !important;
-    border: 1px solid #212529 !important;
+  height: 100%;
+  width: 150px;
+  border-radius: 5px !important;
+  border: 1px solid #212529 !important;
 }
 
 .search-img-container {
-    height: 235px;
-    border-radius: 5px 5px 0px 0px;
-    overflow: hidden;
+  height: 235px;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
 }
 
 .search-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .search-link {
-    margin: 5px !important;
+  margin: 5px !important;
 }
 
 .manga-name {
-    height: 2em;
-    display: block;
-    /* Fallback for non-webkit */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis !important;
+  height: 2em;
+  display: block;
+
+  /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis !important;
 }
 
 .manga-name h5 {
-    font-size: smaller; 
-    margin: 0px;
+  font-size: smaller;
+  margin: 0;
 }

@@ -1,60 +1,58 @@
 .edit-link:link {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .edit-link:visited {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .edit-link:hover {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .edit-link:active {
-    text-decoration: none !important;
+  text-decoration: none !important;
 }
 
 .volume-poster {
-    margin: 10px;
+  margin: 10px;
 }
 
 .manga-description {
-    overflow: hidden;
-    /* height: 12.1em; */
-    height: auto;
+  overflow: hidden;
+
+  /* height: 12.1em; */
+  height: auto;
 }
 
 @media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .volume-content {
+    flex-direction: column;
+  }
 
-    /* For mobile phones: */
-    .volume-content {
-        flex-direction: column;
-    }
+  .volume-poster-div {
+    display: flex;
+    justify-content: center;
+  }
 
-    .volume-poster-div {
-        display: flex;
-        justify-content: center;
-    }
-
-    .volume-poster {
-        width: 100px;
-    }
+  .volume-poster {
+    width: 100px;
+  }
 }
 
 @media only screen and (min-width: 575px) {
-
-    /* For desktop: */
-    div.sticky {
-        position: -webkit-sticky;
-        position: sticky;
-        top: 100px;
-    }
+  /* For desktop: */
+  div.sticky {
+    position: sticky;
+    top: 100px;
+  }
 }
 
 .volume-header {
-    border-bottom: none !important;
+  border-bottom: none !important;
 }
 
 .chapters {
-    border-top: 1px solid #212529;
+  border-top: 1px solid #212529;
 }

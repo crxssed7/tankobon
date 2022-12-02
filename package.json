@@ -1,0 +1,13 @@
+{
+  "devDependencies": {
+    "eslint": "^8.28.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "stylelint": "^14.15.0",
+    "stylelint-config-standard": "^29.0.0"
+  },
+  "scripts": {
+    "lint:styles": "npx stylelint '**/*.css' --fix",
+    "lint:js": "npx eslint static/js --fix"
+  }
+}

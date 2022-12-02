@@ -1,19 +1,19 @@
 .import-section {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .imprt {
-    margin: 5px;
+  margin: 5px;
 }
 
 .btn-kitsu {
-    background-color: rgb(72, 48, 72) !important;
-    color: white !important;
+  background-color: rgb(72 48 72) !important;
+  color: white !important;
 }
 
 .btn-anilist {
-    background-color: rgb(11, 22, 34) !important;
-    color: white !important;
+  background-color: rgb(11 22 34) !important;
+  color: white !important;
 }

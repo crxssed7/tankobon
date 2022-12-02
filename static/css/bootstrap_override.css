@@ -1,33 +1,33 @@
 .card {
-    border: 1px solid #212529 !important;
+  border: 1px solid #212529 !important;
 }
 
 .card-header {
-    border-bottom: 1px solid #212529 !important;
+  border-bottom: 1px solid #212529 !important;
 }
 
 .form-group {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 .btn,
 .form-control {
-    border-radius: 5px !important;
+  border-radius: 5px !important;
 }
 
 .form-control {
-    border: 1px solid #212529 !important;
+  border: 1px solid #212529 !important;
 }
 
 .navbar-light .navbar-toggler {
-    color: #212529 !important;
-    border: 1px solid #212529 !important;
+  color: #212529 !important;
+  border: 1px solid #212529 !important;
 }
 
 .toast-header {
-    color: #212529 !important;
+  color: #212529 !important;
 }
 
 small.form-text {
-    color: #2a2d30 !important;
+  color: #2a2d30 !important;
 }
