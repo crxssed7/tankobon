@@ -71,12 +71,14 @@
                         <div class="card-header">
                             <div class="space-between">
                                 <b>About {{ manga.name }}</b>
+                                {% if user.is_authenticated %}
                                 {% if not manga.locked %}
                                     <a href="{% url 'edit_manga' manga.id %}"
-                                       class="edit-link"
-                                       title="Edit this manga">✏️</a>
+                                       class="edit-link link"
+                                       title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
                                 {% else %}
-                                    <span title="Editing locked">🔒</span>
+                                    <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                                {% endif %}
                                 {% endif %}
                             </div>
                         </div>
@@ -115,12 +117,14 @@
                                            aria-controls="collapse{{ volume.absolute_number }}">
                                             Volume {{ volume.absolute_number }}
                                         </a>
+                                        {% if user.is_authenticated %}
                                         {% if not volume.locked %}
                                             <a href="{% url 'edit_volume' manga.id volume.absolute_number %}"
-                                               class="edit-link"
-                                               title="Edit this volume">✏️</a>
+                                               class="edit-link link"
+                                               title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
                                         {% else %}
-                                            <span title="Editing locked">🔒</span>
+                                            <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                                        {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
@@ -189,12 +193,14 @@
                                        aria-controls="collapse{{ chapters_nonvolumed.absolute_number }}">
                                         No volume
                                     </a>
+                                    {% if user.is_authenticated %}
                                     {% if not volume.locked %}
                                         <a href="{% url 'edit_non_volume' manga.id %}"
-                                           class="edit-link"
-                                           title="Edit this volume">✏️</a>
+                                           class="edit-link link"
+                                           title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
                                     {% else %}
-                                        <span title="Editing locked">🔒</span>
+                                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                                    {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
@@ -244,6 +250,9 @@
                 {% endif %}
                 {% if not manga.locked %}
                     <a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
+                {% endif %}
+                {% if user.is_staff %}
+                    <a href="{% url 'admin:api_manga_change' manga.id %}" class="btn btn-dark">Admin</a>
                 {% endif %}
             </div>
         </div>

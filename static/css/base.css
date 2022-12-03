@@ -241,15 +241,19 @@ code {
   .mobile-hidden {
     display: none !important;
   }
+}
 
-  .nav-actions {
-    margin-top: 8px !important;
-  }
+.nav-actions {
+  margin-top: 8px !important;
 }
 
 @media only screen and (min-width: 992px) {
   /* Desktop */
   .desktop-hidden {
     display: none !important;
+  }
+
+  .nav-actions {
+    margin-top: 0 !important;
   }
 }

@@ -8,9 +8,9 @@ class ReadMore {
       text.style.height = 'auto';
       btn.style.display = 'none';
     } else {
-      text.style.height = height;
+      text.style.height = `${height}px`;
       btn.addEventListener('click', this.trigger, false);
-      btn.height = height;
+      btn.height = `${height}px`;
       btn.textSelector = textSelector;
       btn.readMore = true;
     }
@@ -30,4 +30,4 @@ class ReadMore {
   }
 }
 
-new ReadMore().init('193.6px', '.manga-description', '#readmore');
+new ReadMore().init(193.6, '.manga-description', '#readmore');
