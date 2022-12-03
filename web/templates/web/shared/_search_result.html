@@ -1,12 +1,8 @@
-{% load static %}
-
 <a href="{% url 'manga' manga.id %}" class="link card-link search-link">
     <div class="card search-result" title="{{ manga.name }}">
         <div class="search-img-container">
             {% if manga.poster %}
                 <img src="{{ manga.poster }}" alt="poster" class="search-img" />
-            {% else %}
-                <img src="{% static 'img/noposter.svg' %}" alt="poster" class="search-img" />
             {% endif %}
         </div>
         <div class="card-body">
