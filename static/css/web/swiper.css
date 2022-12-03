@@ -46,3 +46,13 @@
 :root {
   --swiper-theme-color: rgb(10 10 10);
 }
+
+.swiper-name {
+  font-size: 1.2rem;
+}
+
+@media screen and (min-width: 576px) {
+  .swiper-name {
+    font-size: calc(1.375rem + 1.5vw);
+  }
+}
