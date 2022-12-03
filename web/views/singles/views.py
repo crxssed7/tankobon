@@ -71,7 +71,3 @@ def contrib(request):
 
 def docs(request):
     return render(request, "web/api.html")
-
-
-def changelog(request):
-    return render(request, "web/changelog.html")

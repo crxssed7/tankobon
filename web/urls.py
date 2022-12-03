@@ -3,7 +3,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from web.views.singles.views import (
     contrib,
     docs,
-    changelog,
     IndexView,
     HelpNeededView,
     SearchResultsView,
@@ -25,7 +24,6 @@ urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("guidelines/", contrib, name="contrib"),
     path("docs/", docs, name="docs"),
-    path("changelog/", changelog, name="changelog"),
     path("help/", HelpNeededView.as_view(), name="help_needed"),
     path("manga/", SearchResultsView.as_view(), name="search"),
     path("manga/new/", new_manga, name="new_manga"),
