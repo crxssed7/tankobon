@@ -60,6 +60,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tankobon.middleware.SqlPrintMiddleware",
 ]
 
 ROOT_URLCONF = "tankobon.urls"
@@ -146,3 +147,20 @@ LOGOUT_REDIRECT_URL = "index"
 
 BLEACH_ALLOWED_ATTRIBUTES = ["class"]
 BLEACH_STRIP_TAGS = True
+
+# Logging to console
+LOGGING = {
+    "version": 1,
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+        }
+    },
+    "loggers": {
+        "django.db.backends": {
+            "level": "DEBUG",
+            "handlers": ["console"],
+        }
+    },
+}
