@@ -11,7 +11,6 @@
         {% block title %}
         Tankōbon
         {% endblock title %}
-
     </title>
     <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap_override.css' %}" />
@@ -36,51 +35,13 @@
     <meta name="twitter:card" content="summary_large_image" />
     {% block extrahead %}
     {% endblock extrahead %}
-
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'index' %}">
-                <img src="{% static 'img/logo.svg' %}" alt="brand icon" class="navbar-brand" width="35px" />
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation" onclick="navChangeColor()">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link {{ home_active }}" aria-current="page" href="{% url 'index' %}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ search_active }}" href="{% url 'search' %}">Manga</a>
-                    </li>
-                </ul>
-                <div class="navbar-nav">
-                    <form class="d-flex" action="{% url 'search' %}" method="get">
-                        <input name="q" class="form-control me-2" type="search" placeholder="Search for a manga"
-                            aria-label="Search" value="{{ query }}" />
-                        <button class="btn btn-dark me-2" type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
-                    {% if not user.is_authenticated %}
-                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'login' %}" title="Login">Login</a>
-                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'signup' %}" title="Signup">Signup</a>
-                    {% else %}
-                    <a class="btn btn-dark me-2 nav-actions" href="#" title="Your Profile"><i class="fa-solid fa-user"></i></a>
-                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-                    <a class="btn btn-dark me-2 nav-actions" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </nav>
+    {% include "shared/_navbar.html" %}
     <main>
         {% block content %}
         {% endblock content %}
-
     </main>
     <footer class="text-lg-start bg-tank footer">
         <div class="container p-4">
@@ -93,40 +54,6 @@
             </p>
         </div>
     </footer>
-
-    <script>
-        // This is a bloody mess. Try and find better examples online.
-        const nav = document.querySelector('.navbar');
-        const collapse = document.querySelector('.navbar-collapse');
-        const offset = 25;
-        // colored = nav.classList.contains('navbar-bg')
-        // opened = collapse.classList.contains('show')
-
-        const getOffset = () => {
-            if(window.pageYOffset > offset) {
-                nav.classList.add('navbar-bg');
-            }
-            if(window.pageYOffset < offset && collapse.classList.contains('show') === false && nav.classList.contains('navbar-bg') === true) {
-                nav.classList.remove('navbar-bg');
-                nav.style.transition = 'background .1s ease-out';
-            }
-        }
-
-        getOffset();
-
-        window.addEventListener('scroll', getOffset);
-
-        function navChangeColor() {
-            if (collapse.classList.contains('show') === true) {
-                if(window.pageYOffset < offset){
-                    nav.classList.remove('navbar-bg');
-                    nav.style.transition = 'background .1s ease-out';
-                }
-            } else {
-                nav.classList.add('navbar-bg');
-            }
-        }
-    </script>
 </body>
 
 </html>
