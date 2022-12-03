@@ -19,6 +19,7 @@ from web.views.manga.views import (
     all_manga_releasing,
 )
 from web.views.volume.views import edit_non_volume, edit_volume, new_volume
+from web.views.users.views import UserDetailView
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
@@ -44,4 +45,5 @@ urlpatterns = [
     path("accounts/login/", LoginView.as_view(), name="login"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
     path("accounts/signup/", SignUpView.as_view(), name="signup"),
+    path("users/<slug>/", UserDetailView.as_view(), name="user"),
 ]

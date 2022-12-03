@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block title %}
+    {{ object.username }} - Tankōbon
+{% endblock title %}
+
+{% block extrahead %}
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/web/user.css' %}"/>
+{% endblock extrahead %}
+
+{% block meta_description %}
+    Check out {{ object.username }}'s manga collection on Tankobon
+{% endblock meta_description %}
+
+{% block meta_title %}
+    {{ object.username }} - Tankōbon
+{% endblock meta_title %}
+
+{% block content %}
+    <div class="head">
+        <div>
+            <center>
+                <img src="{{ avatar }}" alt="Avatar" class="avatar" width="150" />
+            </center>
+        </div>
+        <br />
+        <h1>{{ object.username }}</h1>
+        {% if object.is_staff %}<span class="badge bg-dark">ADMIN</span>{% endif %}
+    </div>
+    <div class="container section">
+        <p>Manga collections are coming to Tankōbon really soon!</p>
+    </div>
+{% endblock content %}

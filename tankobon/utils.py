@@ -1,6 +1,13 @@
 import requests
 import pymongo
 from tankobon.settings import TANKOBON_LOGS
+from libgravatar import Gravatar
+
+
+def get_user_image(email) -> str:
+    g = Gravatar(email)
+    image = g.get_image(default="retro")
+    return image
 
 
 def mongo_log(tpe, record_name, data, user):
