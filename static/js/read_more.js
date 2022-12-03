@@ -1,23 +1,33 @@
-// This code is all for the 'Read more' button on the manga description
-let readMore = true;
-const emToPx = 193.6;
+class ReadMore {
+  init(height, textSelector, btnSelector) {
+    const text = document.querySelector(textSelector);
+    const btn = document.querySelector(btnSelector);
 
-if (document.querySelector('.manga-description').clientHeight < emToPx) {
-  readMore = false;
-  document.querySelector('.manga-description').style.height = 'auto';
-  document.querySelector('#readmore').style.display = 'none';
-} else {
-  document.querySelector('.manga-description').style.height = '12.1em';
-  document.querySelector('#readmore').addEventListener('click', (e) => {
-    e.preventDefault();
-    if (readMore === true) {
-      document.querySelector('.manga-description').style.height = 'auto';
-      this.innerText = 'Read less';
-      readMore = false;
+    if (text.clientHeight < height) {
+      btn.readMore = false;
+      text.style.height = 'auto';
+      btn.style.display = 'none';
     } else {
-      document.querySelector('.manga-description').style.height = '12.1em';
-      this.innerText = 'Read more';
-      readMore = true;
+      text.style.height = height;
+      btn.addEventListener('click', this.trigger, false);
+      btn.height = height;
+      btn.textSelector = textSelector;
+      btn.readMore = true;
     }
-  });
+  }
+
+  trigger(e) {
+    e.preventDefault();
+    if (e.currentTarget.readMore === true) {
+      document.querySelector(e.currentTarget.textSelector).style.height = 'auto';
+      this.innerText = 'Read less';
+      e.currentTarget.readMore = false;
+    } else {
+      document.querySelector(e.currentTarget.textSelector).style.height = e.currentTarget.height;
+      this.innerText = 'Read more';
+      e.currentTarget.readMore = true;
+    }
+  }
 }
+
+new ReadMore().init('193.6px', '.manga-description', '#readmore');
