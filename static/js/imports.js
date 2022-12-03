@@ -1,3 +1,80 @@
+class Importer {
+  static async searchKitsu(query) {
+    const url = `https://kitsu.io/api/edge/manga?filter[text]=${query}`;
+    const options = {};
+
+    const result = await fetch(url, options).then(this.handleResponse)
+      .then(this.handleData)
+      .catch(this.handleError);
+    return result;
+  }
+
+  static async searchAniList(query) {
+    const graphql = `
+    {
+      Page(page: 1, perPage: 50) {
+        media(type: MANGA, search: "${query}") {
+          title {
+            romaji
+            english
+            native
+            userPreferred
+          }
+          description
+          status
+          startDate {
+            year
+            month
+            day
+          }
+          coverImage {
+            extraLarge
+            large
+            medium
+            color
+          }
+          bannerImage
+          id
+          idMal
+          volumes
+        }
+      }
+    }
+    `;
+
+    const url = 'https://graphql.anilist.co';
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+      body: JSON.stringify({
+        query: graphql,
+      }),
+    };
+
+    const result = await fetch(url, options).then(this.handleResponse)
+      .then(this.handleData)
+      .catch(this.handleError);
+    return result;
+  }
+
+  static handleResponse(response) {
+    return response.json().then((json) => (response.ok ? json : Promise.reject(json)));
+  }
+
+  static handleData(data) {
+    return data;
+  }
+
+  static handleError(error) {
+    console.error(error);
+  }
+}
+
+// Importer.searchKitsu('demon slayer').then((daq) => { console.log(daq); });
+
 function importKitsu(modal, toast) {
   const kitsuId = document.getElementById('kitsuId').value;
   if (kitsuId) {

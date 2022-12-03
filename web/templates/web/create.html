@@ -60,11 +60,13 @@
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Enter the Kitsu ID:</p>
-                    <input type="number"
-                           name="kitsuId"
-                           id="kitsuId"
+                    <p>Search for a manga on Kitsu:</p>
+                    <input name="kitsuQuery"
+                           id="kitsuQuery"
                            class="numberinput form-control"/>
+                    <div id="kitsuContent">
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -89,11 +91,13 @@
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p>Enter the AniList ID:</p>
-                    <input type="number"
-                           name="anilistId"
-                           id="anilistId"
+                    <p>Search for a manga on AniList:</p>
+                    <input name="anilistQuery"
+                           id="anilistQuery"
                            class="numberinput form-control"/>
+                    <div id="anilistContent">
+
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
@@ -125,6 +129,7 @@
     <script>
     const kitsuImport = document.getElementById("kitsuImport");
     const kitsuModal = new bootstrap.Modal('#kitsuModal');
+    const kitsuContent = document.getElementById('kitsuContent')
 
     const anilistImport = document.getElementById("anilistImport");
     const anilistModal = new bootstrap.Modal('#anilistModal');
@@ -132,11 +137,25 @@
     const toast = new bootstrap.Toast('#liveToast');
 
     kitsuImport.addEventListener('click', () => {
-        importKitsu(kitsuModal, toast)
+        const kitsuValue = document.getElementById('kitsuQuery').value;
+        Importer.searchKitsu(kitsuValue).then((data) => { 
+            console.log(data);
+            kitsuContent.innerText = "";
+            data['data'].forEach((d) => {
+                var title = d['attributes']['titles']['en'];
+                if (title === null) {
+                    title = d['attributes']['titles']['en_jp'];
+                }
+                kitsuContent.innerText += title;
+            });
+        });
     });
 
     anilistImport.addEventListener('click', () => {
-        importAnilist(anilistModal, toast)
+        const anilistValue = document.getElementById('anilistQuery').value;
+        Importer.searchAniList(anilistValue).then((daq) => { 
+            console.log(data);
+        });
     });
 
     document.querySelectorAll('input').forEach((el) => {
