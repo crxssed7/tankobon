@@ -26,16 +26,14 @@ def edit_volume(request, manga_id, volume_number):
                         str(v) + "\n" + v.chapters,
                         request.user.username,
                     )
-                    return redirect("manga", manga_id=v.manga.id)
+                    return redirect("manga", manga_id=volume.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
             return render(
                 request, "web/volume_edit.html", {"form": form, "volume": volume}
             )
-        else:
-            return render(request, "web/volume_edit.html", {"locked": True})
-    else:
-        raise Http404("Page not found")
+        return render(request, "web/volume_edit.html", {"locked": True})
+    raise Http404("Page not found")
 
 
 @login_required
@@ -56,16 +54,14 @@ def edit_non_volume(request, manga_id):
                         str(v) + "\n" + v.chapters,
                         request.user.username,
                     )
-                    return redirect("manga", manga_id=v.manga.id)
+                    return redirect("manga", manga_id=volume.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
             return render(
                 request, "web/volume_edit.html", {"form": form, "volume": volume}
             )
-        else:
-            return render(request, "web/volume_edit.html", {"locked": True})
-    else:
-        raise Http404("Page not found")
+        return render(request, "web/volume_edit.html", {"locked": True})
+    raise Http404("Page not found")
 
 
 @login_required
@@ -101,5 +97,4 @@ def new_volume(request, manga_id):
                 "type": "volume",
             },
         )
-    else:
-        raise Http404("Page not found")
+    raise Http404("Page not found")

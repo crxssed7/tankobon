@@ -40,17 +40,17 @@ def detail(request, manga_id):
 def widget(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id)
     title = manga.name
-    n = 25
+    number = 25
     start = 9.6585464
     # Wraps text so that it looks good in SVG
-    wrapper = textwrap.TextWrapper(width=n)
+    wrapper = textwrap.TextWrapper(width=number)
     titles = wrapper.wrap(text=title)
     dic = []
     for i in range(len(titles)):
-        t = {}
-        t["value"] = titles[i]
-        t["step"] = start
-        dic.append(t)
+        _title = {}
+        _title["value"] = titles[i]
+        _title["step"] = start
+        dic.append(_title)
         start += 7
 
     # Get base64 of image
