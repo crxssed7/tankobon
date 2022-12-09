@@ -1,4 +1,4 @@
-ARG PYTHON_VERSION=3.7
+ARG PYTHON_VERSION=3.10
 
 FROM python:${PYTHON_VERSION}
 
@@ -12,8 +12,11 @@ RUN apt-get update && apt-get install -y \
 RUN mkdir -p /app
 WORKDIR /app
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+RUN pip install pipenv
+
+COPY Pipfile .
+COPY Pipfile.lock .
+RUN pipenv install --system --deploy
 
 COPY . .
 
