@@ -1,5 +1,5 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
+
 from .views import get_manga, get_specific_manga, get_manga_volumes
 
 urlpatterns = [

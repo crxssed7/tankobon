@@ -48,12 +48,12 @@ ignore=CVS
 # ignore-list. The regex matches against paths and can be in Posix or Windows
 # format. Because '\' represents the directory delimiter on Windows systems, it
 # can't be used as an escape character.
-ignore-paths=
+ignore-paths=.*/migrations
 
 # Files or directories matching the regular expression patterns are skipped.
 # The regex matches against base names, not paths. The default value ignores
 # Emacs file locks
-ignore-patterns=test_.*?py
+ignore-patterns=test_.*?py,manage.py
 
 # List of module names for which member attributes should not be checked
 # (useful for modules/projects where namespaces are manipulated during runtime
@@ -180,6 +180,7 @@ good-names=i,
            k,
            q,
            v,
+           c,
            ex,
            Run,
            _
@@ -417,6 +418,7 @@ disable=raw-checker-failed,
         deprecated-pragma,
         use-symbolic-message-instead,
         line-too-long,
+        protected-access,
         missing-module-docstring,
         missing-class-docstring,
         missing-function-docstring,
@@ -426,7 +428,9 @@ disable=raw-checker-failed,
         too-few-public-methods,
         too-many-ancestors,
         missing-timeout,
-        consider-using-enumerate
+        consider-using-enumerate,
+        unused-argument,
+        super-with-arguments
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option

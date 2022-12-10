@@ -1,10 +1,12 @@
-from django.shortcuts import render
-from api.models import Manga
-from django.views.generic import TemplateView, ListView, CreateView
-from django.db.models import Q, Count
-from web.forms import SignUpForm
-from django.urls import reverse_lazy
 from random import sample
+
+from django.db.models import Q, Count
+from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import TemplateView, ListView, CreateView
+
+from api.models import Manga
+from web.forms import SignUpForm
 
 
 class IndexView(TemplateView):

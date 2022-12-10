@@ -1,9 +1,10 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from api.models import Manga, Volume
-from web.forms import VolumeEditForm, VolumeNewForm
 from django.contrib.auth.decorators import login_required
 from django.http import Http404
+from django.shortcuts import render, get_object_or_404, redirect
+
+from api.models import Manga, Volume
 from tankobon.utils import mongo_log
+from web.forms import VolumeEditForm, VolumeNewForm
 
 
 @login_required

@@ -36,7 +36,7 @@ class Manga(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
 
 
 class Volume(models.Model):
@@ -54,8 +54,7 @@ class Volume(models.Model):
     def __str__(self):
         if self.absolute_number >= 0:
             return self.manga.name + " Volume " + str(self.absolute_number)
-        else:
-            return self.manga.name + " Non-tankobon"
+        return self.manga.name + " Non-tankobon"
 
 
 @receiver(post_save, sender=Volume)

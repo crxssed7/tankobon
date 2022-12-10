@@ -1,10 +1,10 @@
-from django.shortcuts import render
-from django.http import JsonResponse
-from django.http import HttpResponse
-from django.core import serializers
-from .models import Manga, Volume
-from django.db.models import Q
 import json
+
+from django.core import serializers
+from django.db.models import Q
+from django.http import JsonResponse, HttpResponse
+
+from .models import Manga, Volume
 
 # Create your views here.
 
@@ -32,7 +32,7 @@ def get_manga(request):
     manga = []
     total_results = 0
     if not query:
-        results = list()
+        results = []
         if status:
             results = list(
                 Manga.objects.filter(status=status.upper())
@@ -44,7 +44,7 @@ def get_manga(request):
         total_results = len(results)
         manga = results[offset : offset + limit]
     else:
-        results = list()
+        results = []
         if status:
             results = list(
                 Manga.objects.filter(
