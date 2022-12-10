@@ -1,5 +1,15 @@
 from django.urls import path
 from django.contrib.auth.views import LoginView, LogoutView
+
+from web.views.manga.views import (
+    edit_manga,
+    new_manga,
+    all_manga,
+    all_manga_completed,
+    all_manga_releasing,
+    MangaDetailView,
+    MangaWidgetView,
+)
 from web.views.singles.views import (
     contrib,
     docs,
@@ -8,17 +18,8 @@ from web.views.singles.views import (
     SearchResultsView,
     SignUpView,
 )
-from web.views.manga.views import (
-    detail,
-    edit_manga,
-    new_manga,
-    widget,
-    all_manga,
-    all_manga_completed,
-    all_manga_releasing,
-)
-from web.views.volume.views import edit_non_volume, edit_volume, new_volume
 from web.views.users.views import UserDetailView
+from web.views.volume.views import edit_non_volume, edit_volume, new_volume
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
@@ -30,8 +31,8 @@ urlpatterns = [
     path("manga/all/", all_manga, name="all_manga"),
     path("manga/all/completed/", all_manga_completed, name="all_manga_completed"),
     path("manga/all/releasing/", all_manga_releasing, name="all_manga_releasing"),
-    path("manga/<int:manga_id>/", detail, name="manga"),
-    path("manga/<int:manga_id>/widget/", widget, name="widget"),
+    path("manga/<pk>/", MangaDetailView.as_view(), name="manga"),
+    path("manga/<pk>/widget/", MangaWidgetView.as_view(), name="widget"),
     path("manga/<int:manga_id>/edit/", edit_manga, name="edit_manga"),
     path(
         "manga/<int:manga_id>/edit/<int:volume_number>/",

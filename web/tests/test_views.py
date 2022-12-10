@@ -5,6 +5,7 @@ from django.utils.timezone import datetime
 
 from api.models import Manga
 
+
 class TestSingleViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -39,6 +40,7 @@ class TestSingleViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/api.html")
 
+
 class TestMangaViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -47,11 +49,10 @@ class TestMangaViews(TestCase):
             romaji="Berserk",
             description="Berserk manga",
             status="RELEASING",
-            start_date=datetime.now()
+            start_date=datetime.now(),
         )
         self.user = User.objects.create(
-            username="BobbyBadBoi",
-            email="bobby@badboi.com"
+            username="BobbyBadBoi", email="bobby@badboi.com"
         )
         self.user.set_password("bobbyisabadboi101")
         self.user.save()
@@ -101,12 +102,12 @@ class TestMangaViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/all.html")
 
+
 class TestAccountViews(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create(
-            username="BobbyBadBoi",
-            email="bobby@badboi.com"
+            username="BobbyBadBoi", email="bobby@badboi.com"
         )
         self.user.set_password("bobbyisabadboi101")
         self.user.save()

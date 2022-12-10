@@ -1,70 +1,79 @@
-from django.shortcuts import render, get_object_or_404, redirect
-from api.models import Manga, Volume
-from web.forms import MangaForm
-from django.contrib.auth.decorators import login_required
-from tankobon.utils import mongo_log
-import textwrap
 import base64
+import textwrap
 import requests
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic.detail import DetailView
 
-def detail(request, manga_id):
-    manga = get_object_or_404(Manga, id=manga_id)
+from api.models import Manga, Volume
+from tankobon.utils import mongo_log
+from web.forms import MangaForm
 
-    open_vol_request = request.GET.get("volume")
-    open_vol = -1
-    try:
-        open_vol = int(open_vol_request)
-    except BaseException:
-        # If the volume the user provided is not a number, just default to the non tankobon chapters
+
+class MangaDetailView(DetailView):
+    template_name = "web/detail.html"
+    context_object_name = "manga"
+    model = Manga
+
+    def get_context_data(self, **kwargs):
+        context = super(MangaDetailView, self).get_context_data(**kwargs)
+        manga = context["manga"]
+        open_vol_request = self.request.GET.get("volume")
         open_vol = -1
+        try:
+            open_vol = int(open_vol_request)
+        except BaseException:
+            # If the volume the user provided is not a number, just default to the non tankobon chapters
+            open_vol = -1
 
-    volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by(
-        "absolute_number"
-    )
-    nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
-
-    return render(
-        request,
-        "web/detail.html",
-        context={
-            "manga": manga,
-            "data": volumes,
-            "chapters_nonvolumed": nontankobon,
-            "search_active": "active",
-            "open_vol": open_vol,
-        },
-    )
+        volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by(
+            "absolute_number"
+        )
+        nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
+        context.update(
+            {
+                "data": volumes,
+                "chapters_nonvolumed": nontankobon,
+                "search_active": "active",
+                "open_vol": open_vol,
+            }
+        )
+        return context
 
 
-def widget(request, manga_id):
-    manga = get_object_or_404(Manga, id=manga_id)
-    title = manga.name
-    number = 25
-    start = 9.6585464
-    # Wraps text so that it looks good in SVG
-    wrapper = textwrap.TextWrapper(width=number)
-    titles = wrapper.wrap(text=title)
-    dic = []
-    for i in range(len(titles)):
-        _title = {}
-        _title["value"] = titles[i]
-        _title["step"] = start
-        dic.append(_title)
-        start += 7
+class MangaWidgetView(DetailView):
+    template_name = "web/widget.svg"
+    content_type = "image/svg+xml"
+    context_object_name = "manga"
+    model = Manga
 
-    # Get base64 of image
-    poster = ""
-    if manga.poster:
-        poster = "data:image/png;base64," + base64.b64encode(
-            requests.get(manga.poster).content
-        ).decode("utf-8")
-    return render(
-        request,
-        "web/widget.svg",
-        context={"manga": manga, "titles": dic[:5], "poster": poster},
-        content_type="image/svg+xml",
-    )
+    def get_context_data(self, **kwargs):
+        context = super(MangaWidgetView, self).get_context_data(**kwargs)
+        manga = context["manga"]
+        title = manga.name
+        number = 25
+        start = 9.6585464
+        # Wraps text so that it looks good in SVG
+        wrapper = textwrap.TextWrapper(width=number)
+        titles = wrapper.wrap(text=title)
+        dic = []
+        for i in range(len(titles)):
+            _title = {}
+            _title["value"] = titles[i]
+            _title["step"] = start
+            dic.append(_title)
+            start += 7
+
+        # Get base64 of image
+        poster = ""
+        if manga.poster:
+            poster = "data:image/png;base64," + base64.b64encode(
+                requests.get(manga.poster).content
+            ).decode("utf-8")
+
+        context.update({"titles": dic[:5], "poster": poster})
+        return context
 
 
 @login_required
@@ -109,9 +118,8 @@ def edit_manga(request, manga_id):
         return render(
             request, "web/manga_edit.html", {"form": form, "manga": manga_obj}
         )
-    else:
-        # Manga cannot be edited
-        return render(request, "web/manga_edit.html", {"locked": True})
+    # Manga cannot be edited
+    return render(request, "web/manga_edit.html", {"locked": True})
 
 
 def all_manga(request):
