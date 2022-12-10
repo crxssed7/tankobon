@@ -103,15 +103,12 @@ class VolumeNewForm(forms.ModelForm):
                 absolute_number=cleaned_data["absolute_number"],
                 manga=self.data["manga"],
             )
+        except KeyError as e:
+            self.add_error(str(e).replace("'", ""), 'This field is required')
         except Volume.DoesNotExist:
+            # The volume does not exist with the given absolute_number, it can be added. Yay!
             pass
         else:
-            raise ValidationError(
-                "Volume with this absolute_number already exists for this manga"
-            )
+            self.add_error('absolute_number', 'Volume with this absolute_number already exists for this manga')
 
-        if cleaned_data["absolute_number"] < -1:
-            raise ValidationError("Volume Number cannot be less than -1")
-
-        # Always return cleaned_data
         return cleaned_data
