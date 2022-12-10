@@ -26,7 +26,7 @@ def edit_volume(request, manga_id, volume_number):
                         str(v) + "\n" + v.chapters,
                         request.user.username,
                     )
-                    return redirect("manga", manga_id=volume.manga.id)
+                    return redirect("manga", pk=volume.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
             return render(
@@ -54,7 +54,7 @@ def edit_non_volume(request, manga_id):
                         str(v) + "\n" + v.chapters,
                         request.user.username,
                     )
-                    return redirect("manga", manga_id=volume.manga.id)
+                    return redirect("manga", pk=volume.manga.id)
             else:
                 form = VolumeEditForm(instance=volume)
             return render(
@@ -83,7 +83,7 @@ def new_volume(request, manga_id):
                     str(v) + "\n" + v.chapters,
                     request.user.username,
                 )
-                return redirect("manga", manga_id=manga.id)
+                return redirect("manga", pk=manga.id)
         else:
             form = VolumeNewForm()
         return render(

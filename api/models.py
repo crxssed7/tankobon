@@ -59,6 +59,6 @@ class Volume(models.Model):
 # Update the mangas last updated field
 def update_last_updated(sender, instance=None, created=False, **kwargs):
     now = datetime.now()
-    manga = Manga.objects.get(id=instance.manga.id)
+    manga = instance.manga
     manga.last_updated = now
     manga.save()

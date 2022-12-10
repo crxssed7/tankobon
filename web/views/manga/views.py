@@ -85,7 +85,7 @@ def new_manga(request):
             manga.locked = False
             manga.save()
             mongo_log("New Manga", manga.name, request.POST, request.user.username)
-            return redirect("manga", manga_id=manga.id)
+            return redirect("manga", pk=manga.id)
     else:
         form = MangaForm()
     return render(
@@ -112,7 +112,7 @@ def edit_manga(request, manga_id):
                 mongo_log(
                     "Edit Manga", manga_obj.name, request.POST, request.user.username
                 )
-                return redirect("manga", manga_id=manga.id)
+                return redirect("manga", pk=manga.id)
         else:
             form = MangaForm(instance=manga_obj)
         return render(
