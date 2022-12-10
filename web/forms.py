@@ -1,10 +1,8 @@
 from django import forms
-from api.models import Manga, Volume
-from django.core.exceptions import ValidationError
-from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
-# Sign Up Form
+from api.models import Manga, Volume
 
 
 class SignUpForm(UserCreationForm):
@@ -103,12 +101,15 @@ class VolumeNewForm(forms.ModelForm):
                 absolute_number=cleaned_data["absolute_number"],
                 manga=self.data["manga"],
             )
-        except KeyError as e:
-            self.add_error(str(e).replace("'", ""), 'This field is required')
+        except KeyError as exception:
+            self.add_error(str(exception).replace("'", ""), "This field is required")
         except Volume.DoesNotExist:
             # The volume does not exist with the given absolute_number, it can be added. Yay!
             pass
         else:
-            self.add_error('absolute_number', 'Volume with this absolute_number already exists for this manga')
+            self.add_error(
+                "absolute_number",
+                "Volume with this absolute_number already exists for this manga",
+            )
 
         return cleaned_data

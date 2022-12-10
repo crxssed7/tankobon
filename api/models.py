@@ -43,7 +43,9 @@ class Volume(models.Model):
     class Meta:
         unique_together = ("absolute_number", "manga")
 
-    absolute_number = models.IntegerField(default=-1, validators=[MinValueValidator(-1)])
+    absolute_number = models.IntegerField(
+        default=-1, validators=[MinValueValidator(-1)]
+    )
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     chapters = models.TextField()
     locked = models.BooleanField(default=False)

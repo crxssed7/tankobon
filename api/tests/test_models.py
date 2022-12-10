@@ -3,6 +3,7 @@ from django.utils.timezone import datetime
 
 from api.models import Manga, Volume
 
+
 class TestMangaModel(TestCase):
     def setUp(self):
         self.manga = Manga.objects.create(
@@ -16,6 +17,7 @@ class TestMangaModel(TestCase):
     def test_manga_converts_to_string(self):
         self.assertEquals(str(self.manga), "SPY x FAMILY")
 
+
 class TestVolumeModel(TestCase):
     def setUp(self):
         self.manga = Manga.objects.create(
@@ -25,13 +27,9 @@ class TestVolumeModel(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        self.volume = Volume.objects.create(
-            absolute_number=0,
-            manga=self.manga
-        )
+        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga)
         self.volume_nontankobon = Volume.objects.create(
-            absolute_number=-1,
-            manga=self.manga
+            absolute_number=-1, manga=self.manga
         )
 
     def test_volume_converts_to_string(self):

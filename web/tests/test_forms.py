@@ -4,56 +4,59 @@ from django.utils.timezone import datetime
 from api.models import Volume, Manga
 from web.forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
 
+
 class TestMangaForms(SimpleTestCase):
     def test_manga_form_with_valid_data(self):
-        form = MangaForm(data={
-            'name': 'Two Piece',
-            'romaji': 'Two Piece',
-            'description': 'haha funi',
-            'status': 'RELEASING',
-            'start_date': '2012-05-15',
-            'poster': '',
-            'banner': '',
-            'anilist_id': '',
-            'mal_id': '',
-            'mangaupdates_id': '',
-            'anime_planet_slug': '',
-            'kitsu_id': '',
-            'fandom': '',
-            'magazine': '',
-            'volume_count': 23,
-        })
+        form = MangaForm(
+            data={
+                "name": "Two Piece",
+                "romaji": "Two Piece",
+                "description": "haha funi",
+                "status": "RELEASING",
+                "start_date": "2012-05-15",
+                "poster": "",
+                "banner": "",
+                "anilist_id": "",
+                "mal_id": "",
+                "mangaupdates_id": "",
+                "anime_planet_slug": "",
+                "kitsu_id": "",
+                "fandom": "",
+                "magazine": "",
+                "volume_count": 23,
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
     def test_manga_form_with_invalid_data(self):
-        form = MangaForm(data={
-            'name': 'Two Piece',
-            'romaji': 'Two Piece',
-            'description': 'haha funi',
-            'status': 'RELEASING',
-            'start_date': '2012-05-15',
-            'poster': '',
-            'banner': '',
-            'anilist_id': '',
-            'mal_id': '',
-            'mangaupdates_id': '',
-            'anime_planet_slug': '',
-            'kitsu_id': '',
-            'fandom': '',
-            'magazine': '',
-            'volume_count': 'this should be a number',
-        })
+        form = MangaForm(
+            data={
+                "name": "Two Piece",
+                "romaji": "Two Piece",
+                "description": "haha funi",
+                "status": "RELEASING",
+                "start_date": "2012-05-15",
+                "poster": "",
+                "banner": "",
+                "anilist_id": "",
+                "mal_id": "",
+                "mangaupdates_id": "",
+                "anime_planet_slug": "",
+                "kitsu_id": "",
+                "fandom": "",
+                "magazine": "",
+                "volume_count": "this should be a number",
+            }
+        )
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 1)
 
+
 class TestVolumeForms(TestCase):
     def test_volume_edit_form_with_valid_data(self):
-        form = VolumeEditForm(data={
-            'poster': '',
-            'chapters': 'Chapter 1\nChapter 2'
-        })
+        form = VolumeEditForm(data={"poster": "", "chapters": "Chapter 1\nChapter 2"})
 
         self.assertTrue(form.is_valid())
 
@@ -71,15 +74,15 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        volume = Volume.objects.create(
-            absolute_number=1,
-            manga=manga
+        volume = Volume.objects.create(absolute_number=1, manga=manga)
+        form = VolumeEditForm(
+            data={
+                "absolute_number": 2,
+                "poster": "",
+                "chapters": "Chapter 1\nChapter 2",
+            },
+            instance=volume,
         )
-        form = VolumeEditForm(data={
-            'absolute_number': 2,
-            'poster': '',
-            'chapters': 'Chapter 1\nChapter 2'
-        }, instance=volume)
         v = form.save()
 
         self.assertEquals(v.absolute_number, 1)
@@ -93,12 +96,14 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        form = VolumeNewForm(data={
-            'absolute_number': 1,
-            'poster': '',
-            'chapters': 'Chapter 1\nChapter 2',
-            'manga': manga
-        })
+        form = VolumeNewForm(
+            data={
+                "absolute_number": 1,
+                "poster": "",
+                "chapters": "Chapter 1\nChapter 2",
+                "manga": manga,
+            }
+        )
 
         self.assertTrue(form.is_valid())
 
@@ -116,16 +121,47 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        volume = Volume.objects.create(
-            absolute_number=1,
-            manga=manga
+        volume = Volume.objects.create(absolute_number=1, manga=manga)
+        form = VolumeNewForm(
+            data={
+                "absolute_number": 1,
+                "poster": "",
+                "chapters": "Chapter 1\nChapter 2",
+                "manga": manga,
+            }
         )
-        form = VolumeNewForm(data={
-            'absolute_number': 1,
-            'poster': '',
-            'chapters': 'Chapter 1\nChapter 2',
-            'manga': manga
-        })
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 1)
+
+
+class TestAccountForms(TestCase):
+    def test_signup_form_with_valid_data(self):
+        form = SignUpForm(
+            data={
+                "username": "HelloThere",
+                "email": "obaewankenobi@itsatrap.com",
+                "password1": "GENERALKENOBI!",
+                "password2": "GENERALKENOBI!",
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+    def test_signup_form_with_invalid_data(self):
+        form = SignUpForm(data={})
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 4)
+
+    def test_signup_form_email_is_required(self):
+        form = SignUpForm(
+            data={
+                "username": "HelloThere",
+                "password1": "GENERALKENOBI!",
+                "password2": "GENERALKENOBI!",
+            }
+        )
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 1)
