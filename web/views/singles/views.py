@@ -67,9 +67,9 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 
-def contrib(request):
-    return render(request, "web/contrib.html")
+class GuidelinesView(TemplateView):
+    template_name = "web/contrib.html"
 
 
-def docs(request):
-    return render(request, "web/api.html")
+class DocsView(TemplateView):
+    template_name = "web/api.html"

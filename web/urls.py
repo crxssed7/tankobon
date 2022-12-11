@@ -10,12 +10,12 @@ from web.views.manga.views import (
     ListMangaView,
 )
 from web.views.singles.views import (
-    contrib,
-    docs,
     IndexView,
     HelpNeededView,
     SearchResultsView,
     SignUpView,
+    GuidelinesView,
+    DocsView,
 )
 from web.views.users.views import UserDetailView
 from web.views.volume.views import edit_volume, new_volume
@@ -24,8 +24,8 @@ register_converter(NegativeIntConverter, "negint")
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
-    path("guidelines/", contrib, name="contrib"),
-    path("docs/", docs, name="docs"),
+    path("guidelines/", GuidelinesView.as_view(), name="contrib"),
+    path("docs/", DocsView.as_view(), name="docs"),
     path("help/", HelpNeededView.as_view(), name="help_needed"),
     path("manga/", SearchResultsView.as_view(), name="search"),
     path("manga/new/", new_manga, name="new_manga"),

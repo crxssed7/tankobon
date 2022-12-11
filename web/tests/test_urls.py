@@ -12,11 +12,11 @@ from web.views.manga.views import (
 from web.views.volume.views import edit_volume, new_volume
 from web.views.singles.views import (
     IndexView,
-    contrib,
-    docs,
     HelpNeededView,
     SearchResultsView,
     SignUpView,
+    GuidelinesView,
+    DocsView
 )
 from web.views.users.views import UserDetailView
 
@@ -28,11 +28,11 @@ class TestMiscUrls(SimpleTestCase):
 
     def test_contrib_url_is_resolved(self):
         url = reverse("contrib")
-        self.assertEquals(resolve(url).func, contrib)
+        self.assertEquals(resolve(url).func.__name__, GuidelinesView.as_view().__name__)
 
     def test_docs_url_is_resolved(self):
         url = reverse("docs")
-        self.assertEquals(resolve(url).func, docs)
+        self.assertEquals(resolve(url).func.__name__, DocsView.as_view().__name__)
 
     def test_help_needed_url_is_resolved(self):
         url = reverse("help_needed")
