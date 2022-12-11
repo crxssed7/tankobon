@@ -1,7 +1,7 @@
 from django.test import SimpleTestCase, TestCase
 from django.utils.timezone import datetime
 
-from api.models import Volume, Manga
+from api.models import Volume, Manga, Edition
 from web.forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
 
 
@@ -97,21 +97,29 @@ class TestVolumeForms(TestCase):
             start_date=datetime.now(),
         )
         form = VolumeNewForm(
+            manga=manga,
             data={
                 "absolute_number": 1,
                 "poster": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
+                "edition": Edition.objects.first()
             }
         )
-
         self.assertTrue(form.is_valid())
 
     def test_volume_new_form_with_invalid_data(self):
-        form = VolumeNewForm(data={})
+        manga = Manga.objects.create(
+            name="Demon Slayer",
+            romaji="Demon Slayer",
+            description="Demon Slayer manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        form = VolumeNewForm(manga=manga, data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 2)
+        self.assertEquals(len(form.errors), 3)
 
     def test_volume_new_form_when_absolute_number_exists(self):
         manga = Manga.objects.create(
@@ -121,13 +129,16 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        volume = Volume.objects.create(absolute_number=1, manga=manga)
+        edition = Edition.objects.first()
+        volume = Volume.objects.create(absolute_number=1, manga=manga, edition=edition)
         form = VolumeNewForm(
+            manga=manga,
             data={
                 "absolute_number": 1,
                 "poster": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
+                "edition": edition
             }
         )
 

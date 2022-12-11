@@ -1,0 +1,85 @@
+{% extends "web/detail.html" %}
+
+{% load detail_tags %}
+{% load bleach_tags %}
+{% load utility %}
+
+{% block volume_details %}
+<h3><b>{% capitalize edition %} Edition</b></h3>
+<div class="btn-group">
+    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        Editions
+    </button>
+    <ul class="dropdown-menu">
+        {% for edition in editions %}
+            <li><a href="{% url 'manga' manga.id %}{% urlparams edition=edition %}" class="dropdown-item">{% capitalize edition %}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+<br />
+<br />
+{% if data %}
+{% for volume in data %}
+    {% if volume.chapters %}
+        <div class="card volume">
+            <div class="card-header volume-header"
+                 id="heading{{ volume.absolute_number }}">
+                <div class="space-between">
+                    <a class="volume-link"
+                       data-bs-toggle="collapse"
+                       href="#collapse{{ volume.absolute_number }}"
+                       role="button"
+                       aria-expanded="false"
+                       aria-controls="collapse{{ volume.absolute_number }}">
+                       {% if volume.absolute_number == -1 %}
+                            No volume - {% capitalize volume.edition.name %} Edition
+                        {% else %}
+                            Volume {{ volume.absolute_number }} - {% capitalize volume.edition.name %} Edition
+                        {% endif %}
+                    </a>
+                    {% if user.is_authenticated %}
+                    {% if not volume.locked %}
+                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+                           class="edit-link link"
+                           title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+                    {% else %}
+                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                    {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <div id="collapse{{ volume.absolute_number }}"
+                class="collapse chapters"
+                aria-labelledby="heading{{ volume.absolute_number }}"
+                data-parent="#accordion">
+                <div class="card-body no-pd">
+                    <div class="volume-content display-flex">
+                        {% if volume.poster %}
+                           <div class="volume-poster-div">
+                               <img src="{{ volume.poster }}"
+                                    alt="volume"
+                                    class="poster volume-poster"
+                                    width="150px"/>
+                           </div>
+                        {% endif %}
+                        <ul>
+                           {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endfor %}
+{% else %}
+<div class="card mb-3">
+    <div class="card-body">There are no volumes yet for this edition.</div>
+</div>
+{% endif %}
+{% if not manga.locked %}
+<a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
+{% endif %}
+{% if user.is_staff %}
+<a href="{% url 'admin:api_manga_change' manga.id %}" class="btn btn-dark">Admin</a>
+{% endif %}
+{% endblock volume_details %}

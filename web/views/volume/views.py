@@ -1,14 +1,24 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
-from api.models import Manga, Volume
+from api.models import Manga, Volume, Edition
 from web.forms import VolumeEditForm, VolumeNewForm
 
 
 @login_required
 def edit_volume(request, manga_id, volume_number):
+    e = request.GET.get("edition")
+    if e:
+        edition = Edition.objects.filter(name=e.lower(), manga=manga_id).first()
+    else:
+        edition = Edition.objects.filter(name="standard", manga=manga_id).first()
+
+    if not edition:
+        raise Http404("This edition does not exist")
+
     volume = get_object_or_404(
-        Volume, manga=manga_id, absolute_number=volume_number, locked=False
+        Volume, manga=manga_id, absolute_number=volume_number, locked=False, edition=edition
     )
 
     if request.method == "POST":

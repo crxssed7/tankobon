@@ -7,36 +7,39 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
-from api.models import Manga, Volume
+from api.models import Manga, Volume, Edition
 from web.forms import MangaForm
 
 
 class MangaDetailView(DetailView):
-    template_name = "web/detail.html"
+    template_name = "web/manga_volumes.html"
     context_object_name = "manga"
     model = Manga
 
     def get_context_data(self, **kwargs):
         context = super(MangaDetailView, self).get_context_data(**kwargs)
         manga = context["manga"]
-        open_vol_request = self.request.GET.get("volume")
-        open_vol = -1
-        try:
-            open_vol = int(open_vol_request)
-        except BaseException:
-            # If the volume the user provided is not a number, just default to the non tankobon chapters
-            open_vol = -1
+        edition = self.request.GET.get("edition")
 
-        volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by(
+        editions = list(Edition.objects.filter(manga=manga).values_list("name", flat=True))
+
+        if not edition:
+            edition = "standard"
+        else:
+            edition = edition.lower()
+            if edition not in editions:
+                self.template_name = "web/no_edition_found.html"
+
+        volumes = Volume.objects.filter(manga=manga, edition__name=edition).order_by(
             "absolute_number"
         )
-        nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
+
         context.update(
             {
                 "data": volumes,
-                "chapters_nonvolumed": nontankobon,
                 "search_active": "active",
-                "open_vol": open_vol,
+                "editions": editions,
+                "edition": edition
             }
         )
         return context
