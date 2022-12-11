@@ -1,4 +1,7 @@
+from simple_history.admin import SimpleHistoryAdmin
+
 from django.contrib import admin
+
 from .models import Manga, Volume
 
 # Register your models here.
@@ -15,12 +18,12 @@ def unlock_records(modeladmin, request, queryset):
 
 
 @admin.register(Volume)
-class VolumeAdmin(admin.ModelAdmin):
+class VolumeAdmin(SimpleHistoryAdmin):
     list_filter = ("manga",)
     actions = (lock_records, unlock_records)
 
 
 @admin.register(Manga)
-class MangaAdmin(admin.ModelAdmin):
+class MangaAdmin(SimpleHistoryAdmin):
     list_display = ["name", "last_updated"]
     actions = (lock_records, unlock_records)

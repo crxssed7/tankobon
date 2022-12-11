@@ -7,7 +7,6 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic.detail import DetailView
 
 from api.models import Manga, Volume
-from tankobon.utils import mongo_log
 from web.forms import MangaForm
 
 
@@ -84,7 +83,6 @@ def new_manga(request):
             manga = form.save(commit=False)
             manga.locked = False
             manga.save()
-            mongo_log("New Manga", manga.name, request.POST, request.user.username)
             return redirect("manga", pk=manga.id)
     else:
         form = MangaForm()
@@ -108,7 +106,6 @@ def edit_manga(request, manga_id):
         form = MangaForm(request.POST, instance=manga_obj)
         if form.is_valid():
             manga = form.save()
-            mongo_log("Edit Manga", manga_obj.name, request.POST, request.user.username)
             return redirect("manga", pk=manga.id)
     else:
         form = MangaForm(instance=manga_obj)
