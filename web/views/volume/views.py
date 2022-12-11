@@ -1,5 +1,4 @@
 from django.contrib.auth.decorators import login_required
-from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 from api.models import Manga, Volume
@@ -9,7 +8,9 @@ from web.forms import VolumeEditForm, VolumeNewForm
 
 @login_required
 def edit_volume(request, manga_id, volume_number):
-    volume = get_object_or_404(Volume, manga=manga_id, absolute_number=volume_number, locked=False)
+    volume = get_object_or_404(
+        Volume, manga=manga_id, absolute_number=volume_number, locked=False
+    )
 
     if request.method == "POST":
         form = VolumeEditForm(request.POST, instance=volume)
@@ -27,15 +28,13 @@ def edit_volume(request, manga_id, volume_number):
             return redirect("manga", pk=volume.manga.id)
     else:
         form = VolumeEditForm(instance=volume)
-    return render(
-        request, "web/volume_edit.html", {"form": form, "volume": volume}
-    )
+    return render(request, "web/volume_edit.html", {"form": form, "volume": volume})
 
 
 @login_required
 def new_volume(request, manga_id):
     manga = get_object_or_404(Manga, id=manga_id, locked=False)
-    
+
     if request.method == "POST":
         data = request.POST.copy()
         data["manga"] = manga.id

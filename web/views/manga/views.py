@@ -108,18 +108,13 @@ def edit_manga(request, manga_id):
         form = MangaForm(request.POST, instance=manga_obj)
         if form.is_valid():
             manga = form.save()
-            mongo_log(
-                "Edit Manga", manga_obj.name, request.POST, request.user.username
-            )
+            mongo_log("Edit Manga", manga_obj.name, request.POST, request.user.username)
             return redirect("manga", pk=manga.id)
     else:
         form = MangaForm(instance=manga_obj)
-    return render(
-        request, "web/manga_edit.html", {"form": form, "manga": manga_obj}
-    )
+    return render(request, "web/manga_edit.html", {"form": form, "manga": manga_obj})
 
 
-# TODO: Rewrite these to use one ListView
 def all_manga(request):
     manga = Manga.objects.all().order_by("name")[:8]
     manga_count = Manga.objects.count()

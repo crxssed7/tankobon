@@ -22,7 +22,7 @@ from web.views.singles.views import (
 from web.views.users.views import UserDetailView
 from web.views.volume.views import edit_volume, new_volume
 
-register_converter(NegativeIntConverter, 'negint')
+register_converter(NegativeIntConverter, "negint")
 
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),

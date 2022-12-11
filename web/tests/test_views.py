@@ -119,7 +119,7 @@ class TestMangaViews(TestCase):
             description="Locked Record",
             status="RELEASING",
             start_date=datetime.now(),
-            locked=True
+            locked=True,
         )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_manga", args=[locked_record.id]))
@@ -161,7 +161,9 @@ class TestVolumeViews(TestCase):
         self.assertEquals(response.status_code, 302)
 
     def test_edit_volume_locked_GET(self):
-        locked_record = Volume.objects.create(absolute_number=1, manga=self.manga, locked=True)
+        locked_record = Volume.objects.create(
+            absolute_number=1, manga=self.manga, locked=True
+        )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_volume", args=[self.manga.id, 1]))
         self.assertEquals(response.status_code, 404)
@@ -197,12 +199,13 @@ class TestVolumeViews(TestCase):
             description="Locked Record",
             status="RELEASING",
             start_date=datetime.now(),
-            locked=True
+            locked=True,
         )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("new_volume", args=[locked_record.id]))
         self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
+
 
 class TestAccountViews(TestCase):
     def setUp(self):
