@@ -2,9 +2,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from django.contrib import admin
 
-from .models import Manga, Volume
-
-# Register your models here.
+from .models import Manga, Volume, Edition
 
 
 @admin.action(description="Mark selected as locked")
@@ -17,8 +15,14 @@ def unlock_records(modeladmin, request, queryset):
     queryset.update(locked=False)
 
 
+@admin.register(Edition)
+class EditionAdmin(SimpleHistoryAdmin):
+    list_display = ["manga", "name"]
+
+
 @admin.register(Volume)
 class VolumeAdmin(SimpleHistoryAdmin):
+    list_display = ["manga", "absolute_number", "edition"]
     list_filter = ("manga",)
     actions = (lock_records, unlock_records)
 

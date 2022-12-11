@@ -42,6 +42,21 @@ class Manga(models.Model):
         return str(self.name)
 
 
+class Edition(models.Model):
+    name = models.CharField(max_length=150)
+    manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
+    history = HistoricalRecords()
+
+    def __str__(self):
+        return f"{self.manga.name}: {self.name.capitalize()} Edition"
+
+    def save(self, *args, **kwargs):
+        self.name = self.name.lower().strip()
+        if self.name.endswith("edition"):
+            self.name = self.name.replace("edition", "").strip()
+        super(Edition, self).save(*args, **kwargs)
+
+
 class Volume(models.Model):
     class Meta:
         unique_together = ("absolute_number", "manga")
@@ -53,6 +68,7 @@ class Volume(models.Model):
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
     poster = models.URLField(blank=True, max_length=750)
+    edition = models.ForeignKey(Edition, blank=True, null=True, on_delete=models.CASCADE)
     history = HistoricalRecords()
 
     def __str__(self):
