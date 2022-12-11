@@ -1,7 +1,6 @@
 from random import sample
 
 from django.db.models import Q, Count
-from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView
 

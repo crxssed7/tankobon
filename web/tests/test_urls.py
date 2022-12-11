@@ -16,7 +16,7 @@ from web.views.singles.views import (
     SearchResultsView,
     SignUpView,
     GuidelinesView,
-    DocsView
+    DocsView,
 )
 from web.views.users.views import UserDetailView
 
