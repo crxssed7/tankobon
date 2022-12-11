@@ -4,6 +4,7 @@ import requests
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
 from api.models import Manga, Volume
@@ -112,46 +113,30 @@ def edit_manga(request, manga_id):
     return render(request, "web/manga_edit.html", {"form": form, "manga": manga_obj})
 
 
-def all_manga(request):
-    manga = Manga.objects.all().order_by("name")[:8]
-    manga_count = Manga.objects.count()
-    return render(
-        request,
-        "web/all.html",
-        {
-            "results": manga,
-            "count": manga_count,
-            "search_active": "active",
-            "type": "all",
-        },
-    )
+class ListMangaView(ListView):
+    model = Manga
+    template_name = "web/all.html"
+    context_object_name = "results"
 
+    def get_queryset(self):
+        status = str(self.request.GET.get("status")).lower()
+        choices = ["releasing", "finished"]
+        if status not in choices:
+            # We need to get all manga.
+            queryset = Manga.objects.all().order_by("name")[:8]
+        else:
+            queryset = Manga.objects.filter(status=status.upper()).order_by("name")[:8]
+        return queryset
 
-def all_manga_completed(request):
-    manga = Manga.objects.filter(status="FINISHED").order_by("name")[:8]
-    manga_count = Manga.objects.filter(status="FINISHED").count()
-    return render(
-        request,
-        "web/all.html",
-        {
-            "results": manga,
-            "count": manga_count,
-            "search_active": "active",
-            "type": "completed",
-        },
-    )
-
-
-def all_manga_releasing(request):
-    manga = Manga.objects.filter(status="RELEASING").order_by("name")[:8]
-    manga_count = Manga.objects.filter(status="RELEASING").count()
-    return render(
-        request,
-        "web/all.html",
-        {
-            "results": manga,
-            "count": manga_count,
-            "search_active": "active",
-            "type": "releasing",
-        },
-    )
+    def get_context_data(self, **kwargs):
+        context = super(ListMangaView, self).get_context_data(**kwargs)
+        status = str(self.request.GET.get("status")).lower()
+        choices = ["releasing", "finished"]
+        if status not in choices:
+            context["count"] = Manga.objects.count()
+            context["type"] = "all"
+        else:
+            context["count"] = Manga.objects.filter(status=status.upper()).count()
+            context["type"] = status
+        context["search_active"] = "active"
+        return context

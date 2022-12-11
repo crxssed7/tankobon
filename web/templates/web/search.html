@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load bleach_tags %}
+{% load url_params %}
 
 {% block title %}
     Manga - Tankōbon
@@ -145,7 +146,7 @@
                 {% endfor %}
                 <center>
                     <a class="btn btn-outline-dark mg-10"
-                       href="{% url 'all_manga_releasing' %}">View all releasing
+                       href="{% url 'all_manga' %}{% urlparams status='releasing' %}">View all releasing
                     series</a>
                 </center>
             </div>
@@ -159,7 +160,7 @@
                 {% endfor %}
                 <center>
                     <a class="btn btn-outline-dark mg-10"
-                       href="{% url 'all_manga_completed' %}">View all completed
+                       href="{% url 'all_manga' %}{% urlparams status='finished' %}">View all completed
                     series</a>
                 </center>
             </div>

@@ -5,11 +5,9 @@ from web.converters import NegativeIntConverter
 from web.views.manga.views import (
     edit_manga,
     new_manga,
-    all_manga,
-    all_manga_completed,
-    all_manga_releasing,
     MangaDetailView,
     MangaWidgetView,
+    ListMangaView,
 )
 from web.views.singles.views import (
     contrib,
@@ -31,9 +29,7 @@ urlpatterns = [
     path("help/", HelpNeededView.as_view(), name="help_needed"),
     path("manga/", SearchResultsView.as_view(), name="search"),
     path("manga/new/", new_manga, name="new_manga"),
-    path("manga/all/", all_manga, name="all_manga"),
-    path("manga/all/completed/", all_manga_completed, name="all_manga_completed"),
-    path("manga/all/releasing/", all_manga_releasing, name="all_manga_releasing"),
+    path("manga/all/", ListMangaView.as_view(), name="all_manga"),
     path("manga/<pk>/", MangaDetailView.as_view(), name="manga"),
     path("manga/<pk>/widget/", MangaWidgetView.as_view(), name="widget"),
     path("manga/<int:manga_id>/edit/", edit_manga, name="edit_manga"),

@@ -92,16 +92,6 @@ class TestMangaViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/all.html")
 
-    def test_all_manga_releasing_GET(self):
-        response = self.client.get(reverse("all_manga_releasing"))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/all.html")
-
-    def test_all_manga_completed_GET(self):
-        response = self.client.get(reverse("all_manga_completed"))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/all.html")
-
     def test_edit_manga_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_manga", args=[self.manga.id]))

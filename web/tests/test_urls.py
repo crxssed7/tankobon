@@ -4,12 +4,10 @@ from django.urls import reverse, resolve
 
 from web.views.manga.views import (
     new_manga,
-    all_manga,
-    all_manga_completed,
-    all_manga_releasing,
     edit_manga,
     MangaDetailView,
     MangaWidgetView,
+    ListMangaView,
 )
 from web.views.volume.views import edit_volume, new_volume
 from web.views.singles.views import (
@@ -54,15 +52,7 @@ class TestMangaUrls(SimpleTestCase):
 
     def test_all_manga_url_is_resolved(self):
         url = reverse("all_manga")
-        self.assertEquals(resolve(url).func, all_manga)
-
-    def test_all_manga_completed_url_is_resolved(self):
-        url = reverse("all_manga_completed")
-        self.assertEquals(resolve(url).func, all_manga_completed)
-
-    def test_all_manga_releasing_url_is_resolved(self):
-        url = reverse("all_manga_releasing")
-        self.assertEquals(resolve(url).func, all_manga_releasing)
+        self.assertEquals(resolve(url).func.__name__, ListMangaView.as_view().__name__)
 
     def test_manga_url_is_resolved(self):
         url = reverse("manga", args=[1])
