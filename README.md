@@ -20,6 +20,12 @@ Check linting errors in HTML files:
 djlint --list-fixes .
 ```
 
+Check linting errors in Python files:
+
+```bash
+pylint $(git ls-files '*.py')
+```
+
 Fix linting errors in Python files:
 
 ```bash

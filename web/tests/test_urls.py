@@ -11,7 +11,7 @@ from web.views.manga.views import (
     MangaDetailView,
     MangaWidgetView,
 )
-from web.views.volume.views import edit_volume, edit_non_volume, new_volume
+from web.views.volume.views import edit_volume, new_volume
 from web.views.singles.views import (
     IndexView,
     contrib,
@@ -86,9 +86,9 @@ class TestVolumeUrls(SimpleTestCase):
         url = reverse("edit_volume", args=[1, 1])
         self.assertEquals(resolve(url).func, edit_volume)
 
-    def test_edit_non_volume_url_is_resolved(self):
-        url = reverse("edit_non_volume", args=[1])
-        self.assertEquals(resolve(url).func, edit_non_volume)
+    def test_edit_non_tankobon_volume_url_is_resolved(self):
+        url = reverse("edit_volume", args=[1, -1])
+        self.assertEquals(resolve(url).func, edit_volume)
 
     def test_new_volume_url_is_resolved(self):
         url = reverse("new_volume", args=[1])

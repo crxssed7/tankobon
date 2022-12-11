@@ -102,26 +102,24 @@ def new_manga(request):
 
 @login_required
 def edit_manga(request, manga_id):
-    manga_obj = get_object_or_404(Manga, id=manga_id)
+    manga_obj = get_object_or_404(Manga, id=manga_id, locked=False)
 
-    if manga_obj.locked == False:
-        if request.method == "POST":
-            form = MangaForm(request.POST, instance=manga_obj)
-            if form.is_valid():
-                manga = form.save()
-                mongo_log(
-                    "Edit Manga", manga_obj.name, request.POST, request.user.username
-                )
-                return redirect("manga", pk=manga.id)
-        else:
-            form = MangaForm(instance=manga_obj)
-        return render(
-            request, "web/manga_edit.html", {"form": form, "manga": manga_obj}
-        )
-    # Manga cannot be edited
-    return render(request, "web/manga_edit.html", {"locked": True})
+    if request.method == "POST":
+        form = MangaForm(request.POST, instance=manga_obj)
+        if form.is_valid():
+            manga = form.save()
+            mongo_log(
+                "Edit Manga", manga_obj.name, request.POST, request.user.username
+            )
+            return redirect("manga", pk=manga.id)
+    else:
+        form = MangaForm(instance=manga_obj)
+    return render(
+        request, "web/manga_edit.html", {"form": form, "manga": manga_obj}
+    )
 
 
+# TODO: Rewrite these to use one ListView
 def all_manga(request):
     manga = Manga.objects.all().order_by("name")[:8]
     manga_count = Manga.objects.count()

@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils.timezone import datetime
 
-from api.models import Manga
+from api.models import Manga, Volume
 
 
 class TestSingleViews(TestCase):
@@ -102,6 +102,107 @@ class TestMangaViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/all.html")
 
+    def test_edit_manga_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_manga", args=[self.manga.id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "web/manga_edit.html")
+
+    def test_edit_manga_GET_no_login(self):
+        response = self.client.get(reverse("edit_manga", args=[self.manga.id]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_edit_manga_locked_GET(self):
+        locked_record = Manga.objects.create(
+            name="Locked Record",
+            romaji="Locked Record",
+            description="Locked Record",
+            status="RELEASING",
+            start_date=datetime.now(),
+            locked=True
+        )
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_manga", args=[locked_record.id]))
+        self.assertEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+
+    def test_edit_manga_does_not_exist_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_manga", args=[12]))
+        self.assertEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+
+
+class TestVolumeViews(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.manga = Manga.objects.create(
+            name="Berserk",
+            romaji="Berserk",
+            description="Berserk manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga)
+        self.user = User.objects.create(
+            username="BobbyBadBoi", email="bobby@badboi.com"
+        )
+        self.user.set_password("bobbyisabadboi101")
+        self.user.save()
+
+    def test_edit_volume_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "web/volume_edit.html")
+
+    def test_edit_volume_GET_no_login(self):
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_edit_volume_locked_GET(self):
+        locked_record = Volume.objects.create(absolute_number=1, manga=self.manga, locked=True)
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 1]))
+        self.assertEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+
+    def test_edit_volume_does_not_exist_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]))
+        self.assertEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
+
+    def test_edit_non_tankobon_volume_GET(self):
+        non_tankobon = Volume.objects.create(absolute_number=-1, manga=self.manga)
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "web/volume_edit.html")
+
+    def test_new_volume_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("new_volume", args=[self.manga.id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "web/create.html")
+
+    def test_new_volume_GET_no_login(self):
+        response = self.client.get(reverse("new_volume", args=[self.manga.id]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_new_volume_manga_is_locked_GET(self):
+        locked_record = Manga.objects.create(
+            name="Locked Record",
+            romaji="Locked Record",
+            description="Locked Record",
+            status="RELEASING",
+            start_date=datetime.now(),
+            locked=True
+        )
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("new_volume", args=[locked_record.id]))
+        self.assertEquals(response.status_code, 404)
+        self.assertTemplateUsed(response, "404.html")
 
 class TestAccountViews(TestCase):
     def setUp(self):

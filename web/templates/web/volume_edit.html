@@ -7,31 +7,23 @@
 {% endblock title %}
 
 {% block content %}
-    {% if not locked %}
-        <div class="head">
-            <h3>Edit Volume</h3>
-            {% if volume.absolute_number < 0 %}
-                <p>{{ volume.manga.name }} non-tankobon chapters</p>
-            {% else %}
-                <p>{{ volume.manga.name }} Volume {{ volume.absolute_number }}</p>
-            {% endif %}
-        </div>
-        <div class="container section">
-            <form method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <p>
-                    Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
-                </p>
-                <button type="submit" class="btn btn-dark">Submit</button>
-                <a href="{% url 'manga' volume.manga.id %}" class="btn btn-danger">Cancel</a>
-            </form>
-        </div>
+<div class="head">
+    <h3>Edit Volume</h3>
+    {% if volume.absolute_number < 0 %}
+        <p>{{ volume.manga.name }} non-tankobon chapters</p>
     {% else %}
-        <div class="feature">
-            <h1><i class="fa-solid fa-lock"></i></h1>
-            <br />
-            <h3>Editing for this record is locked.</h3>
-        </div>
+        <p>{{ volume.manga.name }} Volume {{ volume.absolute_number }}</p>
     {% endif %}
+</div>
+<div class="container section">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <p>
+            Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
+        </p>
+        <button type="submit" class="btn btn-dark">Submit</button>
+        <a href="{% url 'manga' volume.manga.id %}" class="btn btn-danger">Cancel</a>
+    </form>
+</div>
 {% endblock content %}

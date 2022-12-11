@@ -195,7 +195,7 @@
                                     </a>
                                     {% if user.is_authenticated %}
                                     {% if not volume.locked %}
-                                        <a href="{% url 'edit_non_volume' manga.id %}"
+                                        <a href="{% url 'edit_volume' manga.id chapters_nonvolumed.absolute_number %}"
                                            class="edit-link link"
                                            title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
                                     {% else %}
