@@ -59,7 +59,7 @@ class Edition(models.Model):
 
 class Volume(models.Model):
     class Meta:
-        unique_together = ("absolute_number", "manga")
+        unique_together = ("absolute_number", "manga", "edition")
 
     absolute_number = models.IntegerField(
         default=-1, validators=[MinValueValidator(-1)]
@@ -84,3 +84,9 @@ def update_last_updated(sender, instance=None, created=False, **kwargs):
     manga = instance.manga
     manga.last_updated = now
     manga.save()
+
+# When a new manga is created, we want to create a standard Edition for it
+@receiver(post_save, sender=Manga)
+def create_standard_edtion(sender, instance=None, created=False, **kwargs):
+    if created:
+        Edition.objects.create(name="standard", manga=instance)

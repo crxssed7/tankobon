@@ -31,7 +31,7 @@ def new_volume(request, manga_id):
     if request.method == "POST":
         data = request.POST.copy()
         data["manga"] = manga.id
-        form = VolumeNewForm(data)
+        form = VolumeNewForm(manga, data)
         if form.is_valid():
             v = form.save(commit=False)
             v.manga = manga
@@ -39,7 +39,7 @@ def new_volume(request, manga_id):
             v.save()
             return redirect("manga", pk=manga.id)
     else:
-        form = VolumeNewForm()
+        form = VolumeNewForm(manga=manga)
     return render(
         request,
         "web/create.html",
