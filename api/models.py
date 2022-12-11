@@ -5,6 +5,8 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.timezone import datetime
 
+from simple_history.models import HistoricalRecords
+
 User._meta.get_field("email")._unique = True
 
 # Create your models here.
@@ -34,6 +36,7 @@ class Manga(models.Model):
     volume_count = models.PositiveIntegerField(default=1)
     locked = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
+    history = HistoricalRecords()
 
     def __str__(self):
         return str(self.name)
@@ -50,6 +53,7 @@ class Volume(models.Model):
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
     poster = models.URLField(blank=True, max_length=750)
+    history = HistoricalRecords()
 
     def __str__(self):
         if self.absolute_number >= 0:

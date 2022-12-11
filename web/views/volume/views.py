@@ -2,7 +2,6 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from api.models import Manga, Volume
-from tankobon.utils import mongo_log
 from web.forms import VolumeEditForm, VolumeNewForm
 
 
@@ -19,12 +18,6 @@ def edit_volume(request, manga_id, volume_number):
             v.absolute_number = volume.absolute_number
             v.manga = volume.manga
             v.save()
-            mongo_log(
-                "Edit Volume",
-                volume.manga.name,
-                str(v) + "\n" + v.chapters,
-                request.user.username,
-            )
             return redirect("manga", pk=volume.manga.id)
     else:
         form = VolumeEditForm(instance=volume)
@@ -44,12 +37,6 @@ def new_volume(request, manga_id):
             v.manga = manga
             v.locked = False
             v.save()
-            mongo_log(
-                "New Volume",
-                manga.name,
-                str(v) + "\n" + v.chapters,
-                request.user.username,
-            )
             return redirect("manga", pk=manga.id)
     else:
         form = VolumeNewForm()

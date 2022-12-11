@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "crispy_forms",
     "django_bleach",
+    "simple_history",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -60,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tankobon.middleware.SqlPrintMiddleware",
+    'simple_history.middleware.HistoryRequestMiddleware',
 ]
 
 ROOT_URLCONF = "tankobon.urls"

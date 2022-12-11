@@ -11,10 +11,10 @@ django-crispy-forms = "*"
 gunicorn = "*"
 libgravatar = "*"
 psycopg2 = "*"
-pymongo = "*"
 requests = "*"
 whitenoise = "*"
 pytz = "*"
+django-simple-history = "*"
 
 [dev-packages]
 black = "*"
