@@ -42,17 +42,16 @@ class TestVolumeModel(TestCase):
 class TestEditionModel(TestCase):
     def setUp(self):
         self.manga = Manga.objects.create(
-            name="Demon Slayer",
-            romaji="Demon Slayer",
-            description="Demon Slayer manga",
+            name="Berserk",
+            romaji="Berserk",
+            description="Berserk",
             status="RELEASING",
             start_date=datetime.now(),
         )
-        self.edition = Edition.objects.create(name="Standard Edition ", manga=self.manga)
-        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga, edition=self.edition)
+        self.edition = Edition.objects.create(name="Deluxe Edition ", manga=self.manga)
 
     def test_edition_converts_to_string(self):
-        self.assertEquals(str(self.edition), "Demon Slayer: Standard Edition")
+        self.assertEquals(str(self.edition), "Berserk: Deluxe Edition")
 
     def test_edition_correctly_formats_name(self):
-        self.assertEquals(str(self.edition.name), "standard")
+        self.assertEquals(str(self.edition.name), "deluxe")

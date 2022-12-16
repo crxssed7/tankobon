@@ -5,41 +5,28 @@
 {% load utility %}
 
 {% block volume_details %}
-<h3><b>{% capitalize edition %} Edition</b></h3>
-<div class="btn-group">
-    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-        Editions
-    </button>
-    <ul class="dropdown-menu">
-        {% for edition in editions %}
-            <li><a href="{% url 'manga' manga.id %}{% urlparams edition=edition %}" class="dropdown-item">{% capitalize edition %}</a></li>
-        {% endfor %}
-    </ul>
-</div>
-<br />
-<br />
-{% if data %}
-{% for volume in data %}
-    {% if volume.chapters %}
+{% for edition in editions %}
+    <h3><b>{% capitalize edition.name %} Edition</b></h3>
+    {% for volume in edition.volume_set.all %}
         <div class="card volume">
             <div class="card-header volume-header"
                  id="heading{{ volume.absolute_number }}">
                 <div class="space-between">
                     <a class="volume-link"
                        data-bs-toggle="collapse"
-                       href="#collapse{{ volume.absolute_number }}"
+                       href="#collapse{{ volume.absolute_number }}{{ edition.name }}"
                        role="button"
                        aria-expanded="false"
-                       aria-controls="collapse{{ volume.absolute_number }}">
+                       aria-controls="collapse{{ volume.absolute_number }}{{ edition.name }}">
                        {% if volume.absolute_number == -1 %}
-                            No volume - {% capitalize volume.edition.name %} Edition
+                            No volume - {% capitalize edition.name %} Edition
                         {% else %}
-                            Volume {{ volume.absolute_number }} - {% capitalize volume.edition.name %} Edition
+                            Volume {{ volume.absolute_number }} - {% capitalize edition.name %} Edition
                         {% endif %}
                     </a>
                     {% if user.is_authenticated %}
                     {% if not volume.locked %}
-                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}{% urlparams edition=edition.name %}"
                            class="edit-link link"
                            title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
                     {% else %}
@@ -48,9 +35,9 @@
                     {% endif %}
                 </div>
             </div>
-            <div id="collapse{{ volume.absolute_number }}"
+            <div id="collapse{{ volume.absolute_number }}{{ edition.name }}"
                 class="collapse chapters"
-                aria-labelledby="heading{{ volume.absolute_number }}"
+                aria-labelledby="heading{{ volume.absolute_number }}{{ edition.name }}"
                 data-parent="#accordion">
                 <div class="card-body no-pd">
                     <div class="volume-content display-flex">
@@ -69,13 +56,8 @@
                 </div>
             </div>
         </div>
-    {% endif %}
+    {% endfor %}
 {% endfor %}
-{% else %}
-<div class="card mb-3">
-    <div class="card-body">There are no volumes yet for this edition.</div>
-</div>
-{% endif %}
 {% if not manga.locked %}
 <a href="{% url 'new_volume' manga.id %}" class="btn btn-dark">Add volume</a>
 {% endif %}

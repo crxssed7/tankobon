@@ -12,6 +12,7 @@ def urlparams(*_, **kwargs):
         return f"?{urlencode(safe_args)}"
     return ""
 
+
 @register.simple_tag
 def capitalize(value):
     return str(value).capitalize()

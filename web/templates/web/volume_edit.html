@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% load crispy_forms_tags %}
+{% load utility %}
 
 {% block title %}
     Edit {{ volume.manga.name }} - Tankōbon
@@ -12,7 +13,7 @@
     {% if volume.absolute_number == -1 %}
         <p>{{ volume.manga.name }} non-tankobon chapters</p>
     {% else %}
-        <p>{{ volume.manga.name }} {{ volume.edition.name }} Volume {{ volume.absolute_number }}</p>
+        <p>{{ volume.manga.name }} {% capitalize volume.edition.name %} Edition Volume {{ volume.absolute_number }}</p>
     {% endif %}
 </div>
 <div class="container section">

@@ -134,7 +134,9 @@ class TestVolumeViews(TestCase):
             start_date=datetime.now(),
         )
         self.edition = Edition.objects.first()
-        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga, edition=self.edition)
+        self.volume = Volume.objects.create(
+            absolute_number=0, manga=self.manga, edition=self.edition
+        )
         self.user = User.objects.create(
             username="BobbyBadBoi", email="bobby@badboi.com"
         )
@@ -167,7 +169,9 @@ class TestVolumeViews(TestCase):
         self.assertTemplateUsed(response, "404.html")
 
     def test_edit_non_tankobon_volume_GET(self):
-        non_tankobon = Volume.objects.create(absolute_number=-1, manga=self.manga, edition=self.edition)
+        non_tankobon = Volume.objects.create(
+            absolute_number=-1, manga=self.manga, edition=self.edition
+        )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]))
         self.assertEquals(response.status_code, 200)

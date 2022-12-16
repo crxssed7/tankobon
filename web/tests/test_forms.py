@@ -103,8 +103,8 @@ class TestVolumeForms(TestCase):
                 "poster": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
-                "edition": Edition.objects.first()
-            }
+                "edition": Edition.objects.first(),
+            },
         )
         self.assertTrue(form.is_valid())
 
@@ -138,8 +138,8 @@ class TestVolumeForms(TestCase):
                 "poster": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
-                "edition": edition
-            }
+                "edition": edition,
+            },
         )
 
         self.assertFalse(form.is_valid())

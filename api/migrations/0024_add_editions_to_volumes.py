@@ -26,6 +26,4 @@ class Migration(migrations.Migration):
         ("api", "0023_historicaledition_edition_historicalvolume_edition_and_more"),
     ]
 
-    operations = [
-        migrations.RunPython(generate_editions_for_volumes)
-    ]
+    operations = [migrations.RunPython(generate_editions_for_volumes)]

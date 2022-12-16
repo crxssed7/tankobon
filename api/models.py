@@ -43,6 +43,9 @@ class Manga(models.Model):
 
 
 class Edition(models.Model):
+    class Meta:
+        unique_together = ("name", "manga")
+
     name = models.CharField(max_length=150)
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     history = HistoricalRecords()
@@ -68,7 +71,9 @@ class Volume(models.Model):
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
     poster = models.URLField(blank=True, max_length=750)
-    edition = models.ForeignKey(Edition, blank=True, null=True, on_delete=models.CASCADE)
+    edition = models.ForeignKey(
+        Edition, blank=True, null=True, on_delete=models.CASCADE
+    )
     history = HistoricalRecords()
 
     def __str__(self):
@@ -84,6 +89,7 @@ def update_last_updated(sender, instance=None, created=False, **kwargs):
     manga = instance.manga
     manga.last_updated = now
     manga.save()
+
 
 # When a new manga is created, we want to create a standard Edition for it
 @receiver(post_save, sender=Manga)

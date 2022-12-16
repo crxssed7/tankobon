@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
-from api.models import Manga, Volume, Edition
+from api.models import Manga, Edition
 from web.forms import MangaForm
 
 
@@ -19,29 +19,9 @@ class MangaDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(MangaDetailView, self).get_context_data(**kwargs)
         manga = context["manga"]
-        edition = self.request.GET.get("edition")
+        editions = Edition.objects.filter(manga=manga).prefetch_related("volume_set")
 
-        editions = list(Edition.objects.filter(manga=manga).values_list("name", flat=True))
-
-        if not edition:
-            edition = "standard"
-        else:
-            edition = edition.lower()
-            if edition not in editions:
-                self.template_name = "web/no_edition_found.html"
-
-        volumes = Volume.objects.filter(manga=manga, edition__name=edition).order_by(
-            "absolute_number"
-        )
-
-        context.update(
-            {
-                "data": volumes,
-                "search_active": "active",
-                "editions": editions,
-                "edition": edition
-            }
-        )
+        context.update({"search_active": "active", "editions": editions})
         return context
 
 
