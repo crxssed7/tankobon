@@ -19,7 +19,7 @@ function getOffset() {
   }
   if (window.pageYOffset < offset && collapse.classList.contains('show') === false && nav.classList.contains('navbar-bg') === true) {
     navChangeColor(false);
-    nav.style.transition = 'background .1s ease-out';
+    nav.style.transition = 'background .25s ease-out';
   }
 }
 

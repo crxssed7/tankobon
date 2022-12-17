@@ -37,10 +37,10 @@
                                     <h1 class="swiper-name"><b>{{ manga.name }}</b></h1>
                                     <div class="display-flex wrap">
                                         <p>
-                                            <span class="badge bg-tank fore-tank">{{ manga.volume_count }} volumes</span>
+                                            <span class="badge bg-dark">{{ manga.volume_count }} volumes</span>
                                         </p>
                                         <p>
-                                            <span class="badge bg-tank fore-tank">{{ manga.status }}</span>
+                                            <span class="badge bg-dark">{{ manga.status }}</span>
                                         </p>
                                     </div>
                                     <div class="swiper-manga-description-wrapper mobile-hidden">
@@ -48,7 +48,7 @@
                                             <small>{{ manga.description | bleach:"br,b" }}</small>
                                         </p>
                                     </div>
-                                    <a class="btn btn-dark" href="{% url 'manga' manga.id %}">View</a>
+                                    <a class="btn btn-tankobon" href="{% url 'manga' manga.id %}">View</a>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +84,7 @@
                        placeholder="Search"
                        aria-label="Search"
                        value="{{ query }}"/>
-                <button class="btn btn-dark" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="btn btn-tankobon" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
             </form>
             <br />
         </div>
@@ -109,8 +109,8 @@
                         Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="link">create an account</a> and add it yourself!
                     </p>
                     <div>
-                        <a class="btn btn-outline-dark" href="{% url 'new_manga' %}">Add manga!</a>
-                        <a class="btn btn-outline-dark" href="{% url 'all_manga' %}">View all</a>
+                        <a class="btn btn-tankobon" href="{% url 'new_manga' %}">Add manga!</a>
+                        <a class="btn btn-tankobon" href="{% url 'all_manga' %}">View all</a>
                     </div>
                     <p class="no-mg mg-tp-16">
                         <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
@@ -124,7 +124,7 @@
                         If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
                     </p>
                     <div>
-                        <a class="btn btn-outline-dark" href="{% url 'help_needed' %}">Help!</a>
+                        <a class="btn btn-tankobon" href="{% url 'help_needed' %}">Help!</a>
                     </div>
                     <p class="no-mg mg-tp-16">
                         <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
@@ -145,7 +145,7 @@
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}
                 {% endfor %}
                 <center>
-                    <a class="btn btn-outline-dark mg-10"
+                    <a class="btn btn-tankobon mg-10"
                        href="{% url 'all_manga' %}{% urlparams status='releasing' %}">View all releasing
                     series</a>
                 </center>
@@ -159,7 +159,7 @@
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}
                 {% endfor %}
                 <center>
-                    <a class="btn btn-outline-dark mg-10"
+                    <a class="btn btn-tankobon mg-10"
                        href="{% url 'all_manga' %}{% urlparams status='finished' %}">View all completed
                     series</a>
                 </center>

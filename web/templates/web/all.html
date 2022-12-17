@@ -38,13 +38,13 @@
             <h2>
                 We currently have {{ count }} releasing manga in the database.
             </h2>
-            <a class="btn btn-outline-dark mg-10"
+            <a class="btn btn-tankobon mg-10"
                href="{% url 'all_manga' %}">View all</a>
         {% else %}
             <h2>
                 We currently have {{ count }} completed manga in the database.
             </h2>
-            <a class="btn btn-outline-dark mg-10"
+            <a class="btn btn-tankobon mg-10"
                href="{% url 'all_manga' %}">View all</a>
         {% endif %}
     </div>
@@ -60,7 +60,7 @@
             </p>
             <div class="load-more__btn mt-3">
                 <a id="loadBtn"
-                   class="btn btn-dark pd-15 mg-12">Load more</a>
+                   class="btn btn-tankobon pd-15 mg-12">Load more</a>
             </div>
             <div class="spinner spinner-border mt-2 visually-hidden"
                  role="status"

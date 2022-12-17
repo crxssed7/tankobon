@@ -34,15 +34,17 @@
         </div>
     {% endif %}
     <div class="container section">
-        <form method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <p>
-                Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
-            </p>
-            <button type="submit" class="btn btn-dark">Submit</button>
-            <a href="{{ previous }}" class="btn btn-danger">Cancel</a>
-        </form>
+        <div class="register-form bg-tank">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p>
+                    Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
+                </p>
+                <button type="submit" class="btn btn-tankobon">Submit</button>
+                <a href="{{ previous }}" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
     </div>
     <!-- Kitsu -->
     <div class="modal fade"
@@ -68,7 +70,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-dark" id="kitsuImport">Import</button>
+                    <button type="button" class="btn btn-tankobon" id="kitsuImport">Import</button>
                 </div>
             </div>
         </div>
@@ -97,7 +99,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-dark" id="anilistImport">Import</button>
+                    <button type="button" class="btn btn-tankobon" id="anilistImport">Import</button>
                 </div>
             </div>
         </div>

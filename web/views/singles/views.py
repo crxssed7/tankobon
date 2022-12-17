@@ -14,7 +14,6 @@ class IndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(IndexView, self).get_context_data(**kwargs)
         context["home_active"] = "active"
-        context["results"] = Manga.objects.all().order_by("-last_updated")[:4]
         return context
 
 

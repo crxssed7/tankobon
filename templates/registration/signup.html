@@ -14,10 +14,10 @@
 <br />
 <div class="container">
     <div class="register-form bg-tank">
-        <form method="post">
+        <form class="form" method="post">
             {% csrf_token %}
             {{ form|crispy }}
-            <button type="submit" class="btn btn-dark">Signup</button>
+            <button type="submit" class="btn btn-tankobon">Signup</button>
         </form>
     </div>
 </div>

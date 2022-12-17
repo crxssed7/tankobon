@@ -1,3 +1,7 @@
+:root {
+  --bs-primary: #0B0B0B;
+}
+
 .card {
   border: 1px solid #212529 !important;
 }
@@ -6,13 +10,17 @@
   border-bottom: 1px solid #212529 !important;
 }
 
+.form {
+  color: #EFEFEF !important;
+}
+
 .form-group {
   margin-bottom: 15px;
 }
 
-.btn,
 .form-control {
   border-radius: 5px !important;
+  border: 1px solid #212529 !important;
 }
 
 .form-control {
@@ -26,8 +34,4 @@
 
 .toast-header {
   color: #212529 !important;
-}
-
-small.form-text {
-  color: #2a2d30 !important;
 }
