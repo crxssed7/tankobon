@@ -5,6 +5,7 @@ from web.converters import NegativeIntConverter
 from web.views.manga.views import (
     edit_manga,
     new_manga,
+    new_edition,
     MangaDetailView,
     MangaWidgetView,
     ListMangaView,
@@ -44,6 +45,7 @@ urlpatterns = [
         name="edit_volume",
     ),
     path("manga/<int:manga_id>/new/", new_volume, name="new_volume"),
+    path("edition/new/", new_edition, name="new_edition"),
     path("accounts/login/", LoginView.as_view(), name="login"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
     path("accounts/signup/", SignUpView.as_view(), name="signup"),

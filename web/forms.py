@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from api.models import Manga, Volume
+from api.models import Manga, Volume, Edition
 
 
 class SignUpForm(UserCreationForm):
@@ -88,18 +88,25 @@ class VolumeNewForm(forms.ModelForm):
     poster = forms.CharField(
         label="Poster URL", help_text="URL to an image file.", required=False
     )
+    manga = None
 
     class Meta:
         model = Volume
-        fields = ("absolute_number", "poster", "chapters")
+        fields = ("absolute_number", "poster", "edition", "chapters")
+
+    def __init__(self, manga, *args, **kwargs):
+        super(VolumeNewForm, self).__init__(*args, **kwargs)
+        self.manga = manga
+        self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
+        self.fields["edition"].required = True
 
     def clean(self):
         cleaned_data = self.cleaned_data
-
         try:
             Volume.objects.get(
                 absolute_number=cleaned_data["absolute_number"],
-                manga=self.data["manga"],
+                edition=cleaned_data["edition"],
+                manga=self.manga,
             )
         except KeyError as exception:
             self.add_error(str(exception).replace("'", ""), "This field is required")
@@ -109,7 +116,13 @@ class VolumeNewForm(forms.ModelForm):
         else:
             self.add_error(
                 "absolute_number",
-                "Volume with this absolute_number already exists for this manga",
+                "Volume with this absolute_number already exists for this manga edition",
             )
 
         return cleaned_data
+
+
+class EditionForm(forms.ModelForm):
+    class Meta:
+        model = Edition
+        fields = ("manga", "name")

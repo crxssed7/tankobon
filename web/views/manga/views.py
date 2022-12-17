@@ -7,38 +7,21 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
-from api.models import Manga, Volume
-from web.forms import MangaForm
+from api.models import Manga, Edition
+from web.forms import MangaForm, EditionForm
 
 
 class MangaDetailView(DetailView):
-    template_name = "web/detail.html"
+    template_name = "web/manga_volumes.html"
     context_object_name = "manga"
     model = Manga
 
     def get_context_data(self, **kwargs):
         context = super(MangaDetailView, self).get_context_data(**kwargs)
         manga = context["manga"]
-        open_vol_request = self.request.GET.get("volume")
-        open_vol = -1
-        try:
-            open_vol = int(open_vol_request)
-        except BaseException:
-            # If the volume the user provided is not a number, just default to the non tankobon chapters
-            open_vol = -1
+        editions = Edition.objects.filter(manga=manga).prefetch_related("volume_set")
 
-        volumes = Volume.objects.filter(manga=manga, absolute_number__gte=0).order_by(
-            "absolute_number"
-        )
-        nontankobon = Volume.objects.filter(manga=manga, absolute_number__lt=0).first()
-        context.update(
-            {
-                "data": volumes,
-                "chapters_nonvolumed": nontankobon,
-                "search_active": "active",
-                "open_vol": open_vol,
-            }
-        )
+        context.update({"search_active": "active", "editions": editions})
         return context
 
 
@@ -140,3 +123,24 @@ class ListMangaView(ListView):
             context["type"] = status
         context["search_active"] = "active"
         return context
+
+
+@login_required
+def new_edition(request):
+    if request.method == "POST":
+        form = EditionForm(request.POST)
+        if form.is_valid():
+            edition = form.save(commit=True)
+            return redirect("manga", pk=edition.manga.id)
+    else:
+        form = EditionForm()
+    return render(
+        request,
+        "web/create.html",
+        {
+            "form": form,
+            "message": "Add an edition",
+            "previous": "/manga/",
+            "type": "edition",
+        },
+    )
