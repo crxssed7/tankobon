@@ -63,7 +63,7 @@ class Edition(models.Model):
 class Volume(models.Model):
     class Meta:
         unique_together = ("absolute_number", "manga", "edition")
-        ordering = ['absolute_number']
+        ordering = ["absolute_number"]
 
     absolute_number = models.IntegerField(
         default=-1, validators=[MinValueValidator(-1)]
