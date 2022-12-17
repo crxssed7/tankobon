@@ -8,7 +8,7 @@ from django.views.generic import ListView
 from django.views.generic.detail import DetailView
 
 from api.models import Manga, Edition
-from web.forms import MangaForm
+from web.forms import MangaForm, EditionForm
 
 
 class MangaDetailView(DetailView):
@@ -123,3 +123,24 @@ class ListMangaView(ListView):
             context["type"] = status
         context["search_active"] = "active"
         return context
+
+
+@login_required
+def new_edition(request):
+    if request.method == "POST":
+        form = EditionForm(request.POST)
+        if form.is_valid():
+            edition = form.save(commit=True)
+            return redirect("manga", pk=edition.manga.id)
+    else:
+        form = EditionForm()
+    return render(
+        request,
+        "web/create.html",
+        {
+            "form": form,
+            "message": "Add an edition",
+            "previous": "/manga/",
+            "type": "edition",
+        },
+    )

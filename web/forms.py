@@ -120,3 +120,9 @@ class VolumeNewForm(forms.ModelForm):
             )
 
         return cleaned_data
+
+
+class EditionForm(forms.ModelForm):
+    class Meta:
+        model = Edition
+        fields = ("manga", "name")

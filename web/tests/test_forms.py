@@ -2,7 +2,7 @@ from django.test import SimpleTestCase, TestCase
 from django.utils.timezone import datetime
 
 from api.models import Volume, Manga, Edition
-from web.forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm
+from web.forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm, EditionForm
 
 
 class TestMangaForms(SimpleTestCase):
@@ -52,6 +52,26 @@ class TestMangaForms(SimpleTestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 1)
+
+
+class TestEditionForm(TestCase):
+    def test_edition_form_with_valid_data(self):
+        manga = Manga.objects.create(
+            name="Fullmetal Alchemist",
+            romaji="Fullmetal Alchemist",
+            description="Fullmetal Alchemist manga",
+            status="FINISHED",
+            start_date=datetime.now(),
+        )
+        form = EditionForm(data={"manga": manga, "name": "fullmetal"})
+
+        self.assertTrue(form.is_valid())
+
+    def test_edition_form_with_invalid_data(self):
+        form = EditionForm(data={})
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 2)
 
 
 class TestVolumeForms(TestCase):
