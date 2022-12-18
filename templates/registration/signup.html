@@ -1,24 +1,21 @@
 {% extends "base.html" %}
-
 {% load crispy_forms_tags %}
-
 {% block title %}
     Sign Up
 {% endblock title %}
-
 {% block content %}
-<div class="head">
-    <h3>Welcome!</h3>
-    <p>ようこそ！</p>
-</div>
-<br />
-<div class="container">
-    <div class="form-container bg-tank">
-        <form class="form" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <button type="submit" class="btn btn-tankobon">Signup</button>
-        </form>
+    <div class="head">
+        <h3>Welcome!</h3>
+        <p>ようこそ！</p>
     </div>
-</div>
+    <br />
+    <div class="container">
+        <div class="form-container bg-tank">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-tankobon">Signup</button>
+            </form>
+        </div>
+    </div>
 {% endblock content %}

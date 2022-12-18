@@ -1,27 +1,22 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 {% block title %}
     API Documentation - Tankōbon
 {% endblock title %}
-
 {% block extrahead %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/web/api.css' %}" />
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static 'css/web/api.css' %}"/>
 {% endblock extrahead %}
-
 {% block meta_description %}
     Tankōbon has a simple GET API that allows you to integrate Tankōbon data with other applications.
 {% endblock meta_description %}
-
 {% block meta_tags %}
     tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, tankobon api, manga api
 {% endblock meta_tags %}
-
 {% block meta_title %}
     Tankōbon - Simple GET API
 {% endblock meta_title %}
-
 {% block content %}
     <div class="head">
         <h3>API Documentation</h3>

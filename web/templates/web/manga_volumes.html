@@ -1,68 +1,69 @@
 {% extends "web/detail.html" %}
-
 {% load detail_tags %}
 {% load bleach_tags %}
 {% load utility %}
-
 {% block volume_details %}
-{% for edition in editions %}
-    <h3><b>{% capitalize edition.name %} Edition</b></h3>
-    {% for volume in edition.volume_set.all %}
-        <div class="card volume">
-            <div class="card-header volume-header"
-                 id="heading{{ volume.absolute_number }}">
-                <div class="space-between">
-                    <a class="volume-link"
-                       data-bs-toggle="collapse"
-                       href="#collapse{{ volume.absolute_number }}{{ edition.name }}"
-                       role="button"
-                       aria-expanded="false"
-                       aria-controls="collapse{{ volume.absolute_number }}{{ edition.name }}">
-                       {% if volume.absolute_number == -1 %}
-                            No volume - {% capitalize edition.name %} Edition
-                        {% else %}
-                            Volume {{ volume.absolute_number }} - {% capitalize edition.name %} Edition
+    {% for edition in editions %}
+        <h3>
+            <b>{% capitalize edition.name %} Edition</b>
+        </h3>
+        {% for volume in edition.volume_set.all %}
+            <div class="card volume">
+                <div class="card-header volume-header"
+                     id="heading{{ volume.absolute_number }}">
+                    <div class="space-between">
+                        <a class="volume-link"
+                           data-bs-toggle="collapse"
+                           href="#collapse{{ volume.absolute_number }}{{ edition.name }}"
+                           role="button"
+                           aria-expanded="false"
+                           aria-controls="collapse{{ volume.absolute_number }}{{ edition.name }}">
+                            {% if volume.absolute_number == -1 %}
+                                No volume - {% capitalize edition.name %} Edition
+                            {% else %}
+                                Volume {{ volume.absolute_number }} - {% capitalize edition.name %} Edition
+                            {% endif %}
+                        </a>
+                        {% if user.is_authenticated %}
+                            {% if not volume.locked %}
+                                <a href="{% url 'edit_volume' manga.id volume.absolute_number %}{% urlparams edition=edition.name %}"
+                                   class="edit-link link"
+                                   title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+                            {% else %}
+                                <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                            {% endif %}
                         {% endif %}
-                    </a>
-                    {% if user.is_authenticated %}
-                    {% if not volume.locked %}
-                        <a href="{% url 'edit_volume' manga.id volume.absolute_number %}{% urlparams edition=edition.name %}"
-                           class="edit-link link"
-                           title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
-                    {% else %}
-                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
-                    {% endif %}
-                    {% endif %}
+                    </div>
                 </div>
-            </div>
-            <div id="collapse{{ volume.absolute_number }}{{ edition.name }}"
-                class="collapse chapters"
-                aria-labelledby="heading{{ volume.absolute_number }}{{ edition.name }}"
-                data-parent="#accordion">
-                <div class="card-body no-pd">
-                    <div class="volume-content display-flex">
-                        {% if volume.poster %}
-                           <div class="volume-poster-div">
-                               <img src="{{ volume.poster }}"
-                                    alt="volume"
-                                    class="poster volume-poster"
-                                    width="150px"/>
-                           </div>
-                        {% endif %}
-                        <ul>
-                           {{ volume.chapters | listify | bleach:"li,p,b,br" }}
-                        </ul>
+                <div id="collapse{{ volume.absolute_number }}{{ edition.name }}"
+                     class="collapse chapters"
+                     aria-labelledby="heading{{ volume.absolute_number }}{{ edition.name }}"
+                     data-parent="#accordion">
+                    <div class="card-body no-pd">
+                        <div class="volume-content display-flex">
+                            {% if volume.poster %}
+                                <div class="volume-poster-div">
+                                    <img src="{{ volume.poster }}"
+                                         alt="volume"
+                                         class="poster volume-poster"
+                                         width="150px"/>
+                                </div>
+                            {% endif %}
+                            <ul>
+                                {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     {% endfor %}
-{% endfor %}
-{% if not manga.locked %}
-<a href="{% url 'new_volume' manga.id %}" class="btn btn-tankobon"><i class="fa-solid fa-plus"></i> Volume</a>
-<a href="{% url 'new_edition' %}" class="btn btn-tankobon"><i class="fa-solid fa-plus"></i> Edition</a>
-{% endif %}
-{% if user.is_staff %}
-<a href="{% url 'admin:api_manga_change' manga.id %}" class="btn btn-tankobon">Admin</a>
-{% endif %}
+    {% if not manga.locked %}
+        <a href="{% url 'new_volume' manga.id %}" class="btn btn-tankobon"><i class="fa-solid fa-plus"></i> Volume</a>
+        <a href="{% url 'new_edition' %}" class="btn btn-tankobon"><i class="fa-solid fa-plus"></i> Edition</a>
+    {% endif %}
+    {% if user.is_staff %}
+        <a href="{% url 'admin:api_manga_change' manga.id %}"
+           class="btn btn-tankobon">Admin</a>
+    {% endif %}
 {% endblock volume_details %}

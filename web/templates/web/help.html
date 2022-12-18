@@ -1,22 +1,17 @@
 {% extends "base.html" %}
-
 {% load static %}
 {% load bleach_tags %}
-
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
           href="{% static 'css/shared/_poster_chip.css' %}"/>
 {% endblock extrahead %}
-
 {% block meta_description %}
     Help is needed! We need your help to make Tankōbon as accurate as possible.
 {% endblock meta_description %}
-
 {% block meta_title %}
     Tankōbon - Help is needed!
 {% endblock meta_title %}
-
 {% block content %}
     <div class="head">
         <h2>Help is needed!</h2>
@@ -29,7 +24,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-6">
-                <h4 id="no_volume"><b>No Volumes:</b></h4>
+                <h4 id="no_volume">
+                    <b>No Volumes:</b>
+                </h4>
                 {% if no_volume %}
                     <p>These records have no volumes attached to them.</p>
                     {% for manga in no_volume %}
@@ -40,14 +37,15 @@
                 {% endif %}
             </div>
             <div class="col-sm-6">
-                <h4 id="no_poster"><b>No Poster:</b></h4>
+                <h4 id="no_poster">
+                    <b>No Poster:</b>
+                </h4>
                 {% if no_poster %}
                     <p>These records have no poster.</p>
                     <ul>
                         {% for manga in no_poster %}
                             <li>
-                                <a href="{% url 'manga' manga.id %}"
-                                   class="link"><b>{{ manga.name }}</b></a>
+                                <a href="{% url 'manga' manga.id %}" class="link"><b>{{ manga.name }}</b></a>
                             </li>
                         {% endfor %}
                     </ul>

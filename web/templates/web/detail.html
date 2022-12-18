@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-
 {% load static %}
 {% load bleach_tags %}
 {% load utility %}
-
 {% block title %}
     {{ manga.name }} - Tankōbon
 {% endblock title %}
-
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
@@ -16,35 +13,27 @@
           type="text/css"
           href="{% static 'css/web/detail.css' %}"/>
 {% endblock extrahead %}
-
 {% block meta_description %}
     {{ manga.description }}
 {% endblock meta_description %}
-
 {% block meta_tags %}
     tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}
 {% endblock meta_tags %}
-
 {% block meta_title %}
     {{ manga.name }} - Tankōbon
 {% endblock meta_title %}
-
 {% block meta_image %}
     {{ manga.poster }}
 {% endblock meta_image %}
-
 {% block meta_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_image_alt %}
-
 {% block meta_twitter_image %}
     {{ manga.banner }}
 {% endblock meta_twitter_image %}
-
 {% block meta_twitter_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_twitter_image_alt %}
-
 {% block content %}
     <div class="head">
         {% if manga.poster %}
@@ -72,13 +61,13 @@
                             <div class="space-between">
                                 <b>About {{ manga.name }}</b>
                                 {% if user.is_authenticated %}
-                                {% if not manga.locked %}
-                                    <a href="{% url 'edit_manga' manga.id %}"
-                                       class="edit-link link"
-                                       title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
-                                {% else %}
-                                    <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
-                                {% endif %}
+                                    {% if not manga.locked %}
+                                        <a href="{% url 'edit_manga' manga.id %}"
+                                           class="edit-link link"
+                                           title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
+                                    {% else %}
+                                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                         </div>

@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
           href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
-
 {% block content %}
     <div class="head">
         <img src="{% static 'img/logo.svg' %}" alt="" width="150" />
@@ -18,15 +15,25 @@
     <div class="container section">
         <div class="row">
             <div class="col-sm-6 information">
-                <h2><b>The Tankōbon format<span class="hint">.</span></b></h2>
-                <p>In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.</p>
+                <h2>
+                    <b>The Tankōbon format<span class="hint">.</span></b>
+                </h2>
+                <p>
+                    In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.
+                </p>
                 <p>This site is community-driven, meaning even you can add or edit data as long as you have an account.</p>
-                <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" target="_blank" rel="noopener noreferrer" class="btn btn-tankobon">Read more</a>
+                <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="btn btn-tankobon">Read more</a>
             </div>
             <div class="col-sm-6 information">
                 <div class="pd-15">
                     <center>
-                        <img src="{% static 'img/covers.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi"  max-width="320px" width="50%" />
+                        <img src="{% static 'img/covers.png' %}"
+                             alt="Bakuman: Moritaka Mashiro and Akito Takagi"
+                             max-width="320px"
+                             width="50%"/>
                     </center>
                 </div>
             </div>
@@ -35,14 +42,21 @@
             <div class="col-sm-6 information">
                 <div class="pd-15">
                     <center>
-                        <img src="{% static 'img/bakuman.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi"  max-width="320px" width="50%" />
+                        <img src="{% static 'img/bakuman.png' %}"
+                             alt="Bakuman: Moritaka Mashiro and Akito Takagi"
+                             max-width="320px"
+                             width="50%"/>
                     </center>
                 </div>
             </div>
             <div class="col-sm-6 information">
-                <h2><b>Your manga collection<span class="hint">.</span></b></h2>
+                <h2>
+                    <b>Your manga collection<span class="hint">.</span></b>
+                </h2>
                 <p>With Tankōbon you can easily track which volumes of manga you own across multiple editions.</p>
-                <p><i>* This feature is currently being developed.</i></p>
+                <p>
+                    <i>* This feature is currently being developed.</i>
+                </p>
                 {% if user.is_authenticated %}
                     <a href="{% url 'search' %}" class="btn btn-tankobon">Start collecting</a>
                 {% else %}

@@ -1,13 +1,10 @@
 {% extends "base.html" %}
-
 {% load static %}
 {% load bleach_tags %}
 {% load utility %}
-
 {% block title %}
     Manga - Tankōbon
 {% endblock title %}
-
 {% block extrahead %}
     <!-- Link Swiper's CSS -->
     <link rel="stylesheet"
@@ -22,7 +19,6 @@
           type="text/css"
           href="{% static 'css/web/swiper.css' %}"/>
 {% endblock extrahead %}
-
 {% block content %}
     <div class="slider">
         <!-- Swiper -->
@@ -34,7 +30,9 @@
                         <div class="gradient-bg">
                             <div class="container">
                                 <div class="swiper-details">
-                                    <h1 class="swiper-name"><b>{{ manga.name }}</b></h1>
+                                    <h1 class="swiper-name">
+                                        <b>{{ manga.name }}</b>
+                                    </h1>
                                     <div class="display-flex wrap">
                                         <p>
                                             <span class="badge bg-dark">{{ manga.volume_count }} volumes</span>
@@ -84,19 +82,21 @@
                        placeholder="Search"
                        aria-label="Search"
                        value="{{ query }}"/>
-                <button class="btn btn-tankobon" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="btn btn-tankobon" type="submit">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
             </form>
             <br />
         </div>
         {% if object_list %}
-        <center>
-            <h3 class="header">Search results:</h3>
-        </center>
-        <div class="flex">
-            {% for manga in object_list %}
-                {% include "web/shared/_search_result.html" with manga=manga only %}
-            {% endfor %}
-        </div>
+            <center>
+                <h3 class="header">Search results:</h3>
+            </center>
+            <div class="flex">
+                {% for manga in object_list %}
+                    {% include "web/shared/_search_result.html" with manga=manga only %}
+                {% endfor %}
+            </div>
         {% endif %}
     </div>
     <!-- CTA's -->
@@ -104,7 +104,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="cta cta-left">
-                    <h5><b>Can't find your favourite manga?</b></h5>
+                    <h5>
+                        <b>Can't find your favourite manga?</b>
+                    </h5>
                     <p>
                         Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="link">create an account</a> and add it yourself!
                     </p>
@@ -119,7 +121,9 @@
             </div>
             <div class="col-sm-6">
                 <div class="cta cta-right">
-                    <h5><b>We need your help!</b></h5>
+                    <h5>
+                        <b>We need your help!</b>
+                    </h5>
                     <p>
                         If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
                     </p>
@@ -138,8 +142,9 @@
         <div class="row">
             <div class="col-sm-6">
                 <center>
-                    <h3 id="releasing"
-                        class="mg-bt-20 mg-tp-20"><b>Releasing Manga</b></h3>
+                    <h3 id="releasing" class="mg-bt-20 mg-tp-20">
+                        <b>Releasing Manga</b>
+                    </h3>
                 </center>
                 {% for manga in releasing %}
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}
@@ -152,8 +157,9 @@
             </div>
             <div class="col-sm-6">
                 <center>
-                    <h3 id="completed"
-                        class="mg-bt-20 mg-tp-20"><b>Completed Manga</b></h3>
+                    <h3 id="completed" class="mg-bt-20 mg-tp-20">
+                        <b>Completed Manga</b>
+                    </h3>
                 </center>
                 {% for manga in completed %}
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}

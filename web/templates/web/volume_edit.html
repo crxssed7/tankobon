@@ -1,32 +1,29 @@
 {% extends "base.html" %}
-
 {% load crispy_forms_tags %}
 {% load utility %}
-
 {% block title %}
     Edit {{ volume.manga.name }} - Tankōbon
 {% endblock title %}
-
 {% block content %}
-<div class="head">
-    <h3>Edit Volume</h3>
-    {% if volume.absolute_number == -1 %}
-        <p>{{ volume.manga.name }} non-tankobon chapters</p>
-    {% else %}
-        <p>{{ volume.manga.name }} {% capitalize volume.edition.name %} Edition Volume {{ volume.absolute_number }}</p>
-    {% endif %}
-</div>
-<div class="container section">
-    <div class="form-container bg-tank">
-        <form class="form" method="post">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <p>
-                Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
-            </p>
-            <button type="submit" class="btn btn-tankobon">Submit</button>
-            <a href="{% url 'manga' volume.manga.id %}" class="btn btn-danger">Cancel</a>
-        </form>
+    <div class="head">
+        <h3>Edit Volume</h3>
+        {% if volume.absolute_number == -1 %}
+            <p>{{ volume.manga.name }} non-tankobon chapters</p>
+        {% else %}
+            <p>{{ volume.manga.name }} {% capitalize volume.edition.name %} Edition Volume {{ volume.absolute_number }}</p>
+        {% endif %}
     </div>
-</div>
+    <div class="container section">
+        <div class="form-container bg-tank">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <p>
+                    Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
+                </p>
+                <button type="submit" class="btn btn-tankobon">Submit</button>
+                <a href="{% url 'manga' volume.manga.id %}" class="btn btn-danger">Cancel</a>
+            </form>
+        </div>
+    </div>
 {% endblock content %}

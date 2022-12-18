@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% load static %}
-
 {% block title %}
     {% if type == 'all' %}
         All Manga - Tankōbon
@@ -11,13 +9,11 @@
         All Completed Manga - Tankōbon
     {% endif %}
 {% endblock title %}
-
 {% block extrahead %}
     <link rel="stylesheet"
           type="text/css"
           href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
-
 {% block meta_description %}
     {% if type == 'all' %}
         A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
@@ -27,25 +23,16 @@
         A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
     {% endif %}
 {% endblock meta_description %}
-
 {% block content %}
     <div class="head">
         {% if type == 'all' %}
-            <h2>
-                We currently have {{ count }} manga in the database.
-            </h2>
+            <h2>We currently have {{ count }} manga in the database.</h2>
         {% elif type == 'releasing' %}
-            <h2>
-                We currently have {{ count }} releasing manga in the database.
-            </h2>
-            <a class="btn btn-tankobon mg-10"
-               href="{% url 'all_manga' %}">View all</a>
+            <h2>We currently have {{ count }} releasing manga in the database.</h2>
+            <a class="btn btn-tankobon mg-10" href="{% url 'all_manga' %}">View all</a>
         {% else %}
-            <h2>
-                We currently have {{ count }} completed manga in the database.
-            </h2>
-            <a class="btn btn-tankobon mg-10"
-               href="{% url 'all_manga' %}">View all</a>
+            <h2>We currently have {{ count }} completed manga in the database.</h2>
+            <a class="btn btn-tankobon mg-10" href="{% url 'all_manga' %}">View all</a>
         {% endif %}
     </div>
     <div class="container section">
@@ -59,8 +46,7 @@
                 <span id="amount">8</span> / <span id="total">{{ count }}</span> results
             </p>
             <div class="load-more__btn mt-3">
-                <a id="loadBtn"
-                   class="btn btn-tankobon pd-15 mg-12">Load more</a>
+                <a id="loadBtn" class="btn btn-tankobon pd-15 mg-12">Load more</a>
             </div>
             <div class="spinner spinner-border mt-2 visually-hidden"
                  role="status"

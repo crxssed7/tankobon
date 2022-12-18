@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 
 :root {
-  --tankobon-black: #0B0B0B;
-  --tankobon-white: #FEFEFE;
+  --tankobon-black: #0b0b0b;
+  --tankobon-white: #fefefe;
   --tankobon-hint: #29cf95;
 }
 
@@ -31,7 +31,7 @@ hr {
   align-content: center;
   text-align: center;
   padding: 75px;
-  color: var(--tankobon-white)
+  color: var(--tankobon-white);
 }
 
 .head > h1 {
