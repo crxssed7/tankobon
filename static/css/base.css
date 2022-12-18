@@ -18,7 +18,7 @@ body {
 }
 
 hr {
-  border-top: 1px solid #212529 !important;
+  border-top: 1px solid var(--tankobon-black) !important;
   opacity: 1 !important;
 }
 
@@ -267,7 +267,7 @@ code {
 }
 
 ::placeholder {
-  color: #212529 !important;
+  color: var(--tankobon-black) !important;
   opacity: 1 !important;
 }
 
