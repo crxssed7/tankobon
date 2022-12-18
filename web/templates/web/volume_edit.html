@@ -17,7 +17,7 @@
     {% endif %}
 </div>
 <div class="container section">
-    <div class="register-form bg-tank">
+    <div class="form-container bg-tank">
         <form class="form" method="post">
             {% csrf_token %}
             {{ form|crispy }}
