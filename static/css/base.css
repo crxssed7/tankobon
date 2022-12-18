@@ -1,6 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
 
+:root {
+  --tankobon-black: #0B0B0B;
+  --tankobon-white: #FEFEFE;
+  --tankobon-hint: #29cf95;
+}
+
 body {
+  background-color: var(--tankobon-white) !important;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -11,12 +18,12 @@ body {
 }
 
 hr {
-  border-top: 1px solid #212529 !important;
+  border-top: 1px solid var(--tankobon-black) !important;
   opacity: 1 !important;
 }
 
 .head {
-  background: linear-gradient(90deg, rgb(82 185 185), rgb(82 218 171));
+  background: var(--tankobon-black);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,6 +31,13 @@ hr {
   align-content: center;
   text-align: center;
   padding: 75px;
+  color: var(--tankobon-white)
+}
+
+.head > h1 {
+  text-decoration: underline;
+  text-decoration-color: var(--tankobon-hint);
+  text-decoration-thickness: 5px;
 }
 
 .feature {
@@ -36,25 +50,32 @@ hr {
   padding: 75px;
 }
 
+.btn-tankobon {
+  border-radius: 5px !important;
+  border: 1px solid var(--tankobon-hint) !important;
+  color: var(--tankobon-hint) !important;
+  background-color: var(--tankobon-black) !important;
+}
+
+.btn-tankobon:hover {
+  background-color: var(--tankobon-hint) !important;
+  color: var(--tankobon-black) !important;
+  border: 1px solid var(--tankobon-black) !important;
+}
+
 .cta {
   min-height: 250px;
   border-radius: 5px;
   padding: 25px;
   margin: 10px;
+  background-color: var(--tankobon-black);
+  color: var(--tankobon-white);
 }
 
-.register-form {
+.form-container {
   padding: 25px;
   border-radius: 5px;
   margin-bottom: 25px;
-}
-
-.cta-left {
-  background-color: rgb(82 185 185);
-}
-
-.cta-right {
-  background-color: rgb(82 218 171);
 }
 
 .feature > *,
@@ -69,6 +90,8 @@ hr {
 
 .footer {
   margin-top: auto;
+  background-color: var(--tankobon-black);
+  color: var(--tankobon-white);
 }
 
 .poster {
@@ -137,7 +160,7 @@ hr {
 }
 
 .bg-tank {
-  background: linear-gradient(90deg, rgb(82 185 185), rgb(82 218 171));
+  background: var(--tankobon-black);
 }
 
 .fore-tank {
@@ -167,7 +190,7 @@ code {
 }
 
 .link {
-  color: rgb(20 20 20) !important;
+  color: var(--tankobon-hint) !important;
 }
 
 .volume-link {
@@ -188,17 +211,29 @@ code {
 .card-link > div:hover {
   transform: translate(-6px, -6px);
   box-shadow:
-    1px 1px 0 #212529,
-    2px 2px 0 #212529,
-    3px 3px 0 #212529,
-    4px 4px 0 #212529,
-    5px 5px 0 #212529,
-    6px 6px 0 #212529;
+    1px 1px 0 var(--tankobon-hint),
+    2px 2px 0 var(--tankobon-hint),
+    3px 3px 0 var(--tankobon-hint),
+    4px 4px 0 var(--tankobon-hint),
+    5px 5px 0 var(--tankobon-hint),
+    6px 6px 0 var(--tankobon-hint);
 }
 
 .navbar-bg {
-  background: rgb(82 185 185);
-  transition: background 0.1s ease-out;
+  background: var(--tankobon-black);
+  transition: background 0.25s ease-out;
+}
+
+.hint {
+  color: var(--tankobon-hint);
+}
+
+.information {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
 }
 
 .tank-fore {
@@ -206,8 +241,8 @@ code {
 }
 
 ::selection {
-  color: black;
-  background-color: rgb(82 218 171);
+  color: var(--tankobon-white);
+  background-color: var(--tankobon-black);
 }
 
 /* width */
@@ -218,21 +253,21 @@ code {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: white;
+  background: var(--tankobon-white);
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: rgb(82 218 171);
+  background: var(--tankobon-hint);
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: rgb(82 185 185);
+  background: var(--tankobon-hint);
 }
 
 ::placeholder {
-  color: #212529 !important;
+  color: var(--tankobon-black) !important;
   opacity: 1 !important;
 }
 
@@ -240,6 +275,10 @@ code {
   /* Mobile phones */
   .mobile-hidden {
     display: none !important;
+  }
+
+  .information {
+    min-height: 250px;
   }
 }
 

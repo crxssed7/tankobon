@@ -36,7 +36,7 @@ class Manga(models.Model):
     volume_count = models.PositiveIntegerField(default=1)
     locked = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
-    history = HistoricalRecords()
+    history = HistoricalRecords(excluded_fields=['last_updated'])
 
     def __str__(self):
         return str(self.name)

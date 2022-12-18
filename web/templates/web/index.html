@@ -16,38 +16,39 @@
         <p>単行本</p>
     </div>
     <div class="container section">
-        <h3><b>What is Tankōbon?</b></h3>
-        <p>
-            Manga chapters are often split into volumes (think about how TV shows are split into seasons) which is what we call the Tankōbon format, however, so far I haven't found any central place that documents what chapter is in which volume. This hobby project is an attempt to fix that, and make life easier for those who categorise their manga into volumes.
-        </p>
-        <div class="spacer"></div>
-        <h3><b>Where to start?</b></h3>
-        <p>
-            If you want to contribute to Tankōbon but don't know where to start, you can check out the <a href="{% url 'help_needed' %}" class="link">help</a> page. It lists all the records that are missing data.
-        </p>
-        <div class="spacer"></div>
-        <a class="btn btn-dark" href="{% url 'new_manga' %}">Add manga</a>
-        <a class="btn btn-dark" href="{% url 'help_needed' %}">Help needed!</a>
         <div class="row">
-            {% for manga in results %}
-                {% include "web/shared/_banner_card.html" with manga=manga only %}
-            {% endfor %}
+            <div class="col-sm-6 information">
+                <h2><b>The Tankōbon format<span class="hint">.</span></b></h2>
+                <p>In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.</p>
+                <p>This site is community-driven, meaning even you can add or edit data as long as you have an account.</p>
+                <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" target="_blank" rel="noopener noreferrer" class="btn btn-tankobon">Read more</a>
+            </div>
+            <div class="col-sm-6 information">
+                <div class="pd-15">
+                    <center>
+                        <img src="{% static 'img/covers.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi"  max-width="320px" width="50%" />
+                    </center>
+                </div>
+            </div>
         </div>
-        <h3><b>Support the project!</b></h3>
-        <p>
-            If you want to support the project you can donate <a href="https://www.buymeacoffee.com/crxssed" class="link">here</a>. You don't need to, but it definitely helps!
-        </p>
-        <div class="spacer"></div>
-        <script type="text/javascript"
-                src="https://cdnjs.buymeacoffee.com/1.0.0/button.prod.min.js"
-                data-name="bmc-button"
-                data-slug="crxssed"
-                data-color="#52b9b9"
-                data-emoji="🚀"
-                data-font="Poppins"
-                data-text="Donate!"
-                data-outline-color="#000000"
-                data-font-color="#000000"
-                data-coffee-color="#FFDD00"></script>
+        <div class="row">
+            <div class="col-sm-6 information">
+                <div class="pd-15">
+                    <center>
+                        <img src="{% static 'img/bakuman.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi"  max-width="320px" width="50%" />
+                    </center>
+                </div>
+            </div>
+            <div class="col-sm-6 information">
+                <h2><b>Your manga collection<span class="hint">.</span></b></h2>
+                <p>With Tankōbon you can easily track which volumes of manga you own across multiple editions.</p>
+                <p><i>* This feature is currently being developed.</i></p>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'search' %}" class="btn btn-tankobon">Start collecting</a>
+                {% else %}
+                    <a href="{% url 'signup' %}" class="btn btn-tankobon">Start collecting</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endblock content %}

@@ -1,6 +1,6 @@
 {% load static %}
 
-<nav class="navbar fixed-top navbar-expand-lg navbar-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="{% url 'index' %}">
             <img src="{% static 'img/logo.svg' %}" alt="brand icon" class="navbar-brand" width="35px" />
@@ -23,15 +23,15 @@
                 <form class="d-flex" action="{% url 'search' %}" method="get">
                     <input name="q" id="main-search" class="form-control me-2" type="search" placeholder="Search for a manga"
                         aria-label="Search" value="{{ query }}" />
-                    <button class="btn btn-dark me-2" type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
+                    <button class="btn btn-tankobon me-2" type="submit" title="Search"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
                 {% if not user.is_authenticated %}
-                <a class="btn btn-dark me-2 nav-actions" href="{% url 'login' %}" title="Login">Login</a>
-                <a class="btn btn-dark me-2 nav-actions" href="{% url 'signup' %}" title="Signup">Signup</a>
+                <a class="btn btn-tankobon me-2 nav-actions" href="{% url 'login' %}" title="Login">Login</a>
+                <a class="btn btn-tankobon me-2 nav-actions" href="{% url 'signup' %}" title="Signup">Signup</a>
                 {% else %}
-                <a class="btn btn-dark me-2 nav-actions" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
-                <a class="btn btn-dark me-2 nav-actions" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-                <a class="btn btn-dark me-2 nav-actions" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
+                <a class="btn btn-tankobon me-2 nav-actions" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                <a class="btn btn-tankobon me-2 nav-actions" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a class="btn btn-tankobon me-2 nav-actions" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
                 {% endif %}
             </div>
         </div>

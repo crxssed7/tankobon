@@ -62,6 +62,5 @@ def new_volume(request, manga_id):
             "message": "Add a volume",
             "subnote": manga.name,
             "previous": "/manga/" + str(manga.id) + "/",
-            "type": "volume",
         },
     )

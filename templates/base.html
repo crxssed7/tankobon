@@ -24,10 +24,10 @@
     <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon/favicon.svg' %}" />
     <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon.png' %}" />
     <script src="https://kit.fontawesome.com/f1da3ec963.js" crossorigin="anonymous"></script>
-    <meta name="description" content="A centralised site that documents what chapter is in which volume of a manga." />
-    <meta property="og:description" content=" {% block meta_description %} A centralised site that documents what chapter is in which volume of a manga. {% endblock meta_description %}" />
-    <meta name="keywords" content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes {% endblock meta_tags %}" />
-    <meta property="og:title" content=" {% block meta_title %} Tankōbon - manga chapters and volumes metadata {% endblock meta_title %}" />
+    <meta name="description" content="Track your manga collection with ease." />
+    <meta property="og:description" content=" {% block meta_description %} Track your manga collection with ease. {% endblock meta_description %}" />
+    <meta name="keywords" content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, manga collecting {% endblock meta_tags %}" />
+    <meta property="og:title" content=" {% block meta_title %} Tankōbon - manga collecting {% endblock meta_title %}" />
     <meta property="og:image" content=" {% block meta_image %} {% static 'img/header.png' %} {% endblock meta_image %}" />
     <meta property="og:image:alt" content=" {% block meta_image_alt %} Tankōbon logo {% endblock meta_image_alt %}" />
     <meta name="twitter:image" content=" {% block meta_twitter_image %} {% static 'img/header.png' %} {% endblock meta_twitter_image %}" />
@@ -43,7 +43,7 @@
         {% block content %}
         {% endblock content %}
     </main>
-    <footer class="text-lg-start bg-tank footer">
+    <footer class="text-lg-start footer">
         <div class="container p-4">
             <p class="text-small">
                 <a href="https://github.com/crxssed7/tankobon" class="link">Tankōbon</a> developed by <a
@@ -53,6 +53,7 @@
             </p>
         </div>
     </footer>
+    <script src="{% static 'js/disable_autocomplete.js' %}"></script>
 </body>
 
 </html>

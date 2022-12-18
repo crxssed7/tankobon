@@ -2,14 +2,14 @@
   height: 100%;
   width: 150px;
   border-radius: 5px !important;
-  border: 1px solid #212529 !important;
+  border: 1px solid #0B0B0B !important;
 }
 
 .search-img-container {
   height: 235px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
-  background-color: rgb(82 218 171);
+  background-color: #29cf95;
 }
 
 .search-img {
