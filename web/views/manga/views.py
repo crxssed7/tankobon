@@ -77,7 +77,6 @@ def new_manga(request):
             "form": form,
             "message": "Add a manga",
             "previous": "/manga/",
-            "type": "manga",
         },
     )
 
@@ -141,6 +140,5 @@ def new_edition(request):
             "form": form,
             "message": "Add an edition",
             "previous": "/manga/",
-            "type": "edition",
         },
     )
