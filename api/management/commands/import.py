@@ -1,6 +1,7 @@
 import requests
 
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
+from django.db import Error
 from django.utils.timezone import datetime
 
 from api.models import Manga
@@ -49,8 +50,9 @@ query ($id: Int) {
         # We need to send a request to AniList API
         query = self._graphql(manga_id=manga_id)
         variables = {"id": manga_id}
-        url = "https://graphql.anilist.co"
-        response = requests.post(url, json={"query": query, "variables": variables})
+        response = requests.post(
+            "https://graphql.anilist.co", json={"query": query, "variables": variables}
+        )
         if response.status_code == 200:
             json = response.json()
 
@@ -99,13 +101,13 @@ query ($id: Int) {
                     description=json["data"]["Media"]["description"],
                     status=status.upper(),
                     start_date=start_date,
-                    poster=json["data"]["Media"]["coverImage"]["large"],
-                    banner=banner,
+                    poster_url=json["data"]["Media"]["coverImage"]["large"],
+                    banner_url=banner,
                     anilist_id=manga_id,
                     mal_id=json["data"]["Media"]["idMal"],
                     volume_count=volume_count,
                 )
-            except Exception as exception:
+            except Error as exception:
                 print("There was an error:")
                 print(exception)
         else:

@@ -14,8 +14,8 @@ class TestMangaForms(SimpleTestCase):
                 "description": "haha funi",
                 "status": "RELEASING",
                 "start_date": "2012-05-15",
-                "poster": "",
-                "banner": "",
+                "poster_url": "",
+                "banner_url": "",
                 "anilist_id": "",
                 "mal_id": "",
                 "mangaupdates_id": "",
@@ -37,8 +37,8 @@ class TestMangaForms(SimpleTestCase):
                 "description": "haha funi",
                 "status": "RELEASING",
                 "start_date": "2012-05-15",
-                "poster": "",
-                "banner": "",
+                "poster_url": "",
+                "banner_url": "",
                 "anilist_id": "",
                 "mal_id": "",
                 "mangaupdates_id": "",
@@ -76,7 +76,9 @@ class TestEditionForm(TestCase):
 
 class TestVolumeForms(TestCase):
     def test_volume_edit_form_with_valid_data(self):
-        form = VolumeEditForm(data={"poster": "", "chapters": "Chapter 1\nChapter 2"})
+        form = VolumeEditForm(
+            data={"poster_url": "", "chapters": "Chapter 1\nChapter 2"}
+        )
 
         self.assertTrue(form.is_valid())
 
@@ -98,7 +100,7 @@ class TestVolumeForms(TestCase):
         form = VolumeEditForm(
             data={
                 "absolute_number": 2,
-                "poster": "",
+                "poster_url": "",
                 "chapters": "Chapter 1\nChapter 2",
             },
             instance=volume,
@@ -120,7 +122,7 @@ class TestVolumeForms(TestCase):
             manga=manga,
             data={
                 "absolute_number": 1,
-                "poster": "",
+                "poster_url": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": Edition.objects.first(),
@@ -155,7 +157,7 @@ class TestVolumeForms(TestCase):
             manga=manga,
             data={
                 "absolute_number": 1,
-                "poster": "",
+                "poster_url": "",
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": edition,

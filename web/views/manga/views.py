@@ -50,9 +50,9 @@ class MangaWidgetView(DetailView):
 
         # Get base64 of image
         poster = ""
-        if manga.poster:
+        if manga.poster_url:
             poster = "data:image/png;base64," + base64.b64encode(
-                requests.get(manga.poster).content
+                requests.get(manga.poster_url).content
             ).decode("utf-8")
 
         context.update({"titles": dic[:5], "poster": poster})

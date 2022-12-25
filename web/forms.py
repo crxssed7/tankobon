@@ -21,12 +21,12 @@ class SignUpForm(UserCreationForm):
 class MangaForm(forms.ModelForm):
     # start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
     start_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
-    poster = forms.CharField(
+    poster_url = forms.CharField(
         label="Poster URL",
         help_text="URL to an image file. Try to use an image from AniList or MAL.",
         required=False,
     )
-    banner = forms.CharField(
+    banner_url = forms.CharField(
         label="Banner URL",
         help_text="URL to an image file. Try to use an image from AniList or MAL.",
         required=False,
@@ -49,8 +49,8 @@ class MangaForm(forms.ModelForm):
             "description",
             "status",
             "start_date",
-            "poster",
-            "banner",
+            "poster_url",
+            "banner_url",
             "anilist_id",
             "mal_id",
             "mangaupdates_id",
@@ -67,13 +67,13 @@ class VolumeEditForm(forms.ModelForm):
         widget=forms.Textarea(),
         help_text="Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here. To add an arc starting point use the format '|Story Arc Name'.",
     )
-    poster = forms.CharField(
+    poster_url = forms.CharField(
         label="Poster URL", help_text="URL to an image file.", required=False
     )
 
     class Meta:
         model = Volume
-        fields = ("poster", "chapters")
+        fields = ("poster_url", "chapters")
 
 
 class VolumeNewForm(forms.ModelForm):
@@ -85,14 +85,14 @@ class VolumeNewForm(forms.ModelForm):
         widget=forms.Textarea(),
         help_text="Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here.. To add an arc starting point use the format '|Story Arc Name'.",
     )
-    poster = forms.CharField(
+    poster_url = forms.CharField(
         label="Poster URL", help_text="URL to an image file.", required=False
     )
     manga = None
 
     class Meta:
         model = Volume
-        fields = ("absolute_number", "poster", "edition", "chapters")
+        fields = ("absolute_number", "poster_url", "edition", "chapters")
 
     def __init__(self, manga, *args, **kwargs):
         super(VolumeNewForm, self).__init__(*args, **kwargs)

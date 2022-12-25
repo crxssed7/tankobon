@@ -1,8 +1,13 @@
+import io
+import requests
+
 from django.contrib.auth.models import User
+from django.core.files.images import ImageFile
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.utils.text import slugify
 from django.utils.timezone import datetime
 
 from simple_history.models import HistoricalRecords
@@ -24,8 +29,10 @@ class Manga(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     start_date = models.DateField()
-    poster = models.URLField(blank=True, max_length=750)
-    banner = models.URLField(blank=True, max_length=750)
+    poster_url = models.URLField(blank=True, max_length=750)
+    poster_file = models.ImageField(upload_to="posters", blank=True, null=True)
+    banner_url = models.URLField(blank=True, max_length=750)
+    banner_file = models.ImageField(upload_to="banners", blank=True, null=True)
     anilist_id = models.PositiveIntegerField(blank=True, null=True)
     mal_id = models.PositiveIntegerField(blank=True, null=True)
     mangaupdates_id = models.PositiveIntegerField(blank=True, null=True)
@@ -38,8 +45,58 @@ class Manga(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     history = HistoricalRecords(excluded_fields=["last_updated"])
 
+    _original_poster = None
+    _original_banner = None
+
+    def __init__(self, *args, **kwargs):
+        super(Manga, self).__init__(*args, **kwargs)
+        self._original_poster = self.poster_url
+        self._original_banner = self.banner_url
+
     def __str__(self):
         return str(self.name)
+
+    def get_remote_banner(self):
+        if self.banner_url:
+            result = requests.get(self.banner_url)
+            if result.status_code == 200:
+                content_type = result.headers["Content-Type"]
+                if content_type.startswith("image/"):
+                    ext = content_type.split("/")[-1]
+                    self.banner_file.delete(save=False)
+                    image = ImageFile(
+                        io.BytesIO(result.content),
+                        name=f"{slugify(self.name)}_banner.{ext}",
+                    )
+                    self.banner_file = image
+        else:
+            if self.banner_file:
+                self.banner_file.delete(save=False)
+
+    def get_remote_poster(self):
+        if self.poster_url:
+            result = requests.get(self.poster_url)
+            if result.status_code == 200:
+                content_type = result.headers["Content-Type"]
+                if content_type.startswith("image/"):
+                    ext = content_type.split("/")[-1]
+                    self.poster_file.delete(save=False)
+                    image = ImageFile(
+                        io.BytesIO(result.content),
+                        name=f"{slugify(self.name)}_poster.{ext}",
+                    )
+                    self.poster_file = image
+        else:
+            if self.poster_file:
+                self.poster_file.delete(save=False)
+
+    def save(self, *args, **kwargs):
+        if self._original_poster != self.poster_url:
+            self.get_remote_poster()
+
+        if self._original_banner != self.banner_url:
+            self.get_remote_banner()
+        super(Manga, self).save(*args, **kwargs)
 
 
 class Edition(models.Model):
@@ -71,11 +128,40 @@ class Volume(models.Model):
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
-    poster = models.URLField(blank=True, max_length=750)
+    poster_url = models.URLField(blank=True, max_length=750)
+    poster_file = models.ImageField(upload_to="posters", blank=True, null=True)
     edition = models.ForeignKey(
         Edition, blank=True, null=True, on_delete=models.CASCADE
     )
     history = HistoricalRecords()
+
+    _original_poster = None
+
+    def __init__(self, *args, **kwargs):
+        super(Volume, self).__init__(*args, **kwargs)
+        self._original_poster = self.poster_url
+
+    def get_remote_poster(self):
+        if self.poster_url:
+            result = requests.get(self.poster_url)
+            if result.status_code == 200:
+                content_type = result.headers["Content-Type"]
+                if content_type.startswith("image/"):
+                    ext = content_type.split("/")[-1]
+                    self.poster_file.delete(save=False)
+                    image = ImageFile(
+                        io.BytesIO(result.content),
+                        name=f"{slugify(self.manga.name)}_{self.edition.name}_volume_{self.absolute_number}.{ext}",
+                    )
+                    self.poster_file = image
+        else:
+            if self.poster_file:
+                self.poster_file.delete(save=False)
+
+    def save(self, *args, **kwargs):
+        if self._original_poster != self.poster_url:
+            self.get_remote_poster()
+        super(Volume, self).save(*args, **kwargs)
 
     def __str__(self):
         if self.absolute_number >= 0:

@@ -23,23 +23,23 @@
     {{ manga.name }} - Tankōbon
 {% endblock meta_title %}
 {% block meta_image %}
-    {{ manga.poster }}
+    {% if manga.poster_file %} {{ manga.poster_file.url }} {% endif %}
 {% endblock meta_image %}
 {% block meta_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_image_alt %}
 {% block meta_twitter_image %}
-    {{ manga.banner }}
+    {% if manga.banner_file %} {{ manga.banner_file.url }} {% endif %}
 {% endblock meta_twitter_image %}
 {% block meta_twitter_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_twitter_image_alt %}
 {% block content %}
     <div class="head">
-        {% if manga.poster %}
+        {% if manga.poster_file %}
             <div>
                 <center>
-                    <img src="{{ manga.poster }}" alt="Poster" class="poster" width="150" />
+                    <img src="{{ manga.poster_file.url }}" alt="Poster" class="poster" width="150" />
                 </center>
             </div>
             <br />
@@ -51,8 +51,8 @@
         <div class="row">
             <div class="col-sm-6">
                 <div class="sticky">
-                    {% if manga.banner %}
-                        <img src="{{ manga.banner }}" alt="banner" class="poster" width="100%" />
+                    {% if manga.banner_file %}
+                        <img src="{{ manga.banner_file.url }}" alt="banner" class="poster" width="100%" />
                         <br />
                         <br />
                     {% endif %}

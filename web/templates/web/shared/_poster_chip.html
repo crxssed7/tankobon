@@ -2,8 +2,8 @@
     <a href="{% url 'manga' manga.id %}" class="card-link">
         <div class="chip-card">
             <div class="display-flex">
-                {% if manga.poster %}
-                    <div class="chip-img" style="background-image: url('{{ manga.poster }}');"></div>
+                {% if manga.poster_file %}
+                    <div class="chip-img" style="background-image: url('{{ manga.poster_file.url }}');"></div>
                 {% else %}
                     <div class="chip-img"></div>
                 {% endif %}

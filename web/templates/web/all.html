@@ -93,9 +93,9 @@
                     var new_html = `<div class="col-sm-6 banner-card-parent">
                                                         <a href="/manga/${manga.id}/" class="card-link">
                                                             <div class="card banner-card">`
-                    if (manga.banner) {
+                    if (manga.banner_file) {
                         new_html += `<div class="banner-card-img-container">
-                                        <img src="${manga.banner}" alt="poster" class="banner-card-img">
+                                        <img src="${manga.banner_file.url}" alt="poster" class="banner-card-img">
                                     </div>`
                     } else {
                         new_html += `<div class="banner-card-img-container bg-tank no-banner-div">

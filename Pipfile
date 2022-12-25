@@ -15,6 +15,7 @@ requests = "*"
 whitenoise = "*"
 pytz = "*"
 django-simple-history = "*"
+pillow = "*"
 
 [dev-packages]
 black = "*"
