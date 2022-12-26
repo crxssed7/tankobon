@@ -66,7 +66,7 @@ class Manga(models.Model):
                     self.banner_file.delete(save=False)
                     image = ImageFile(
                         io.BytesIO(result.content),
-                        name=f"{slugify(self.name)}_banner.{ext}",
+                        name=f"{slugify(self.name)}/banner.{ext}",
                     )
                     self.banner_file = image
         else:
@@ -83,7 +83,7 @@ class Manga(models.Model):
                     self.poster_file.delete(save=False)
                     image = ImageFile(
                         io.BytesIO(result.content),
-                        name=f"{slugify(self.name)}_poster.{ext}",
+                        name=f"{slugify(self.name)}/poster.{ext}",
                     )
                     self.poster_file = image
         else:
@@ -152,7 +152,7 @@ class Volume(models.Model):
                     self.poster_file.delete(save=False)
                     image = ImageFile(
                         io.BytesIO(result.content),
-                        name=f"{slugify(self.manga.name)}_{self.edition.name}_volume_{self.absolute_number}.{ext}",
+                        name=f"{slugify(self.manga.name)}/volumes/{self.edition.name}_volume_{self.absolute_number}_poster.{ext}",
                     )
                     self.poster_file = image
         else:
