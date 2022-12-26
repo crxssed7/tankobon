@@ -152,7 +152,7 @@ class Volume(models.Model):
                     self.poster_file.delete(save=False)
                     image = ImageFile(
                         io.BytesIO(result.content),
-                        name=f"{slugify(self.manga.name)}/volumes/{self.edition.name}_volume_{self.absolute_number}_poster.{ext}",
+                        name=f"{slugify(self.manga.name)}/volumes/{slugify(self.edition.name)}/volume_{self.absolute_number}_poster.{ext}",
                     )
                     self.poster_file = image
         else:
