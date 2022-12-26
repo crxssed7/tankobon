@@ -91,10 +91,11 @@ class Manga(models.Model):
                 self.poster_file.delete(save=False)
 
     def save(self, *args, **kwargs):
-        if self._original_poster != self.poster_url:
+        primary = self.pk
+        if self._original_poster != self.poster_url or primary == None:
             self.get_remote_poster()
 
-        if self._original_banner != self.banner_url:
+        if self._original_banner != self.banner_url or primary == None:
             self.get_remote_banner()
         super(Manga, self).save(*args, **kwargs)
 
@@ -159,7 +160,8 @@ class Volume(models.Model):
                 self.poster_file.delete(save=False)
 
     def save(self, *args, **kwargs):
-        if self._original_poster != self.poster_url:
+        primary = self.pk
+        if self._original_poster != self.poster_url or primary == None:
             self.get_remote_poster()
         super(Volume, self).save(*args, **kwargs)
 
