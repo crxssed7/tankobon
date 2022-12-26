@@ -101,7 +101,10 @@ def get_manga_volumes(request, manga_id):
         volume_nt = Volume.objects.filter(manga=manga, absolute_number=-1).first()
         vols_data = []
         for volume in volumes:
-            data = {"number": volume.absolute_number, "poster": volume.poster_url}
+            poster = ""
+            if volume.poster_file:
+                poster = volume.poster_file.url
+            data = {"number": volume.absolute_number, "poster": poster}
             chapters = []
             chapters_str = volume.chapters.strip().splitlines()
             for c in chapters_str:

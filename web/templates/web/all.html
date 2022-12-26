@@ -95,7 +95,7 @@
                                                             <div class="card banner-card">`
                     if (manga.banner_file) {
                         new_html += `<div class="banner-card-img-container">
-                                        <img src="${manga.banner_file.url}" alt="poster" class="banner-card-img">
+                                        <img src="https://tankobon.s3.eu-west-2.amazonaws.com/${manga.banner_file}" alt="poster" class="banner-card-img">
                                     </div>`
                     } else {
                         new_html += `<div class="banner-card-img-container bg-tank no-banner-div">
