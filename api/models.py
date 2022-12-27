@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.core.files.images import ImageFile
 from django.core.validators import MinValueValidator
 from django.db import models
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
 from django.utils.timezone import datetime
@@ -14,7 +14,14 @@ from simple_history.models import HistoricalRecords
 
 User._meta.get_field("email")._unique = True
 
-# Create your models here.
+
+class Genre(models.Model):
+    name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, blank=True, unique=True)
+    icon = models.CharField(max_length=250, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.name)
 
 
 class Manga(models.Model):
@@ -43,6 +50,8 @@ class Manga(models.Model):
     volume_count = models.PositiveIntegerField(default=1)
     locked = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
+    tags = models.TextField(null=True, blank=True)
+    genres = models.ManyToManyField(Genre, blank=True)
     history = HistoricalRecords(excluded_fields=["last_updated"])
 
     _original_poster = None
@@ -169,6 +178,12 @@ class Volume(models.Model):
         if self.absolute_number >= 0:
             return self.manga.name + " Volume " + str(self.absolute_number)
         return self.manga.name + " Non-tankobon"
+
+
+@receiver(pre_save, sender=Genre)
+def update_genre_slug(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = slugify(instance.name)
 
 
 @receiver(post_save, sender=Volume)

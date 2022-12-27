@@ -39,7 +39,9 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(
-                Q(name__icontains=query) | Q(romaji__icontains=query)
+                Q(name__icontains=query)
+                | Q(romaji__icontains=query)
+                | Q(tags__icontains=query)
             )
         else:
             object_list = []

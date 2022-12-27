@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from api.models import Manga, Volume, Edition
+from api.models import Manga, Volume, Edition, Genre
 
 
 class SignUpForm(UserCreationForm):
@@ -21,14 +21,22 @@ class SignUpForm(UserCreationForm):
 class MangaForm(forms.ModelForm):
     # start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
     start_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
+    tags = forms.CharField(
+        label="Tags", help_text="Comma seperated list of tags.", required=False
+    )
+    genres = forms.ModelMultipleChoiceField(
+        queryset=Genre.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+    )
     poster_url = forms.CharField(
         label="Poster URL",
-        help_text="URL to an image file. Try to use an image from AniList or MAL.",
+        help_text="URL to an image file.",
         required=False,
     )
     banner_url = forms.CharField(
         label="Banner URL",
-        help_text="URL to an image file. Try to use an image from AniList or MAL.",
+        help_text="URL to an image file.",
         required=False,
     )
     anilist_id = forms.IntegerField(label="AniList ID", required=False)
@@ -49,6 +57,8 @@ class MangaForm(forms.ModelForm):
             "description",
             "status",
             "start_date",
+            "tags",
+            "genres",
             "poster_url",
             "banner_url",
             "anilist_id",

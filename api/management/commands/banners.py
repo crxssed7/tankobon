@@ -1,7 +1,6 @@
 import time
 
 from django.core.management.base import BaseCommand
-from django.db import Error
 
 from api.models import Manga
 

@@ -46,6 +46,11 @@
         {% endif %}
         <h1>{{ manga.name }}</h1>
         {% if manga.name != manga.romaji %}<p>{{ manga.romaji }}</p>{% endif %}
+        <div class="flex">
+            {% for genre in manga.genres.all %}
+                <span class="badge bg-dark">{{ genre.name }}</span>
+            {% endfor %}
+        </div>
     </div>
     <div class="container section">
         <div class="row">
