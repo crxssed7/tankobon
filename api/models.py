@@ -32,7 +32,7 @@ class Manga(models.Model):
     poster_url = models.URLField(blank=True, max_length=750)
     poster_file = models.ImageField(upload_to="posters", blank=True, null=True)
     banner_url = models.URLField(blank=True, max_length=750)
-    banner_file = models.ImageField(upload_to="banners", blank=True, null=True)
+    banner_file = models.ImageField(upload_to="heroes", blank=True, null=True)
     anilist_id = models.PositiveIntegerField(blank=True, null=True)
     mal_id = models.PositiveIntegerField(blank=True, null=True)
     mangaupdates_id = models.PositiveIntegerField(blank=True, null=True)
@@ -66,7 +66,7 @@ class Manga(models.Model):
                     self.banner_file.delete(save=False)
                     image = ImageFile(
                         io.BytesIO(result.content),
-                        name=f"{slugify(self.name)}/banner.{ext}",
+                        name=f"{slugify(self.name)}/hero.{ext}",
                     )
                     self.banner_file = image
         else:
