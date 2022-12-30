@@ -11,6 +11,9 @@ from django.utils.text import slugify
 from django.utils.timezone import datetime
 
 from simple_history.models import HistoricalRecords
+from simple_history import register as history_register
+
+from api.decorators import track_data, track_data_performed
 
 User._meta.get_field("email")._unique = True
 
@@ -24,6 +27,26 @@ class Genre(models.Model):
         return str(self.name)
 
 
+@track_data(
+    "name",
+    "romaji",
+    "description",
+    "status",
+    "start_date",
+    "poster_url",
+    "poster_file",
+    "banner_url",
+    "banner_file", 
+    "anilist_id",
+    "mal_id",
+    "mangaupdates_id",
+    "anime_planet_slug",
+    "kitsu_id",
+    "fandom",
+    "magazine",
+    "volume_count",
+    "tags"
+)
 class Manga(models.Model):
     STATUS_CHOICES = (
         ("RELEASING", "Releasing"),
@@ -52,7 +75,6 @@ class Manga(models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     tags = models.TextField(null=True, blank=True)
     genres = models.ManyToManyField(Genre, blank=True)
-    history = HistoricalRecords(excluded_fields=["last_updated"])
 
     _original_poster = None
     _original_banner = None
@@ -107,6 +129,9 @@ class Manga(models.Model):
         if self._original_banner != self.banner_url or primary == None:
             self.get_remote_banner()
         super(Manga, self).save(*args, **kwargs)
+
+
+history_register(Manga, inherit=True, excluded_fields=["last_updated"])
 
 
 class Edition(models.Model):
@@ -200,3 +225,9 @@ def update_last_updated(sender, instance=None, created=False, **kwargs):
 def create_standard_edtion(sender, instance=None, created=False, **kwargs):
     if created:
         Edition.objects.create(name="standard", manga=instance)
+
+
+@receiver(track_data_performed, sender=Manga)
+def manga_save_history(sender, instance, **kwargs):
+    if not instance.whats_changed():
+        instance.skip_history_when_saving = True
