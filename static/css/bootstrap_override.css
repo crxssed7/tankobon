@@ -1,5 +1,6 @@
 :root {
   --bs-primary: #0b0b0b !important;
+  --bs-radius: 5px !important;
 }
 
 .card {
@@ -25,4 +26,24 @@
 
 .toast-header {
   color: var(--bs-primary) !important;
+}
+
+.page-link {
+  border: 1px solid var(--bs-primary) !important;
+  color: var(--bs-primary) !important;
+}
+
+.page-link.current {
+  background-color: var(--bs-primary) !important;
+  color: #efefef !important;
+}
+
+.page-item:first-child .page-link {
+  border-top-left-radius: 5px !important;
+  border-bottom-left-radius: 5px !important;
+}
+
+.page-item:last-child .page-link {
+  border-top-right-radius: 5px !important;
+  border-bottom-right-radius: 5px !important;
 }

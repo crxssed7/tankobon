@@ -1,13 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% block title %}
-    {% if type == 'all' %}
-        All Manga - Tankōbon
-    {% elif type == 'releasing' %}
-        All Releasing Manga - Tankōbon
-    {% else %}
-        All Completed Manga - Tankōbon
-    {% endif %}
+All Manga - Tankōbon
 {% endblock title %}
 {% block extrahead %}
     <link rel="stylesheet"
@@ -15,25 +9,11 @@
           href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
 {% block meta_description %}
-    {% if type == 'all' %}
-        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
-    {% elif type == 'releasing' %}
-        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} releasing manga in our database, with more documented frequently!
-    {% else %}
-        A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} completed manga in our database, with more documented frequently!
-    {% endif %}
+A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
 {% endblock meta_description %}
 {% block content %}
     <div class="head">
-        {% if type == 'all' %}
-            <h2>We currently have {{ count }} manga in the database.</h2>
-        {% elif type == 'releasing' %}
-            <h2>We currently have {{ count }} releasing manga in the database.</h2>
-            <a class="btn btn-tankobon mg-10" href="{% url 'all_manga' %}">View all</a>
-        {% else %}
-            <h2>We currently have {{ count }} completed manga in the database.</h2>
-            <a class="btn btn-tankobon mg-10" href="{% url 'all_manga' %}">View all</a>
-        {% endif %}
+        <h2>We currently have {{ count }} manga in the database.</h2>
     </div>
     <div class="container section">
         <div class="row" id="content">
@@ -41,89 +21,18 @@
                 {% include "web/shared/_banner_card.html" with manga=manga only %}
             {% endfor %}
         </div>
-        <center>
-            <p>
-                <span id="amount">8</span> / <span id="total">{{ count }}</span> results
-            </p>
-            <div class="load-more__btn mt-3">
-                <a id="loadBtn" class="btn btn-tankobon pd-15 mg-12">Load more</a>
-            </div>
-            <div class="spinner spinner-border mt-2 visually-hidden"
-                 role="status"
-                 id="spinner"></div>
-        </center>
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+            {% endif %}
+
+            <li class="page-item"><a class="page-link current" aria-disabled="true">{{ page_obj.number }}</a></li>
+
+            {% if page_obj.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+            {% endif %}
+          </ul>
     </div>
-    <script>
-    const loadBtn = document.getElementById('loadBtn');
-    const spinner = document.getElementById('spinner');
-    const amount = document.getElementById('amount');
-    const total = document.getElementById('total').textContent;
-    var status = '{{ type }}';
-    if (status == 'completed') {
-        status = 'finished';
-    }
-
-    function loadMore() {
-        var offset = $('.banner-card').length;
-        data = {
-            'offset': offset
-        }
-        if (status != 'all') {
-            data = {
-                'offset': offset,
-                'status': status
-            }
-        }
-        const content_container = document.getElementById("content");
-        $.ajax({
-            url: '{% url "get_manga" %}',
-            type: 'GET',
-            data: data,
-            beforeSend: function () {
-                loadBtn.classList.add('visually-hidden');
-                spinner.classList.remove('visually-hidden');
-            },
-            success: function (response) {
-                const data = response.manga;
-                console.log(data)
-                spinner.classList.add('visually-hidden');
-                data.map(manga => {
-                    console.log(manga.name);
-                    // Construct the inner html
-                    var new_html = `<div class="col-sm-6 banner-card-parent">
-                                                        <a href="/manga/${manga.id}/" class="card-link">
-                                                            <div class="card banner-card">`
-                    if (manga.banner_file) {
-                        new_html += `<div class="banner-card-img-container">
-                                        <img src="https://tankobon.s3.eu-west-2.amazonaws.com/${manga.banner_file}" alt="poster" class="banner-card-img">
-                                    </div>`
-                    } else {
-                        new_html += `<div class="banner-card-img-container bg-tank no-banner-div">
-                                        <span class="no-banner">No Banner Found.</span>
-                                    </div>`
-                    }
-                    new_html += `<div class="card-body manga-title">
-                                    <center><h5 class="card-title">${manga.name}</h5></center>
-                                </div>
-                            </div>
-                        </a>
-                    </div>`
-                    content_container.innerHTML += new_html;
-                })
-                current_amount = $('.banner-card').length;
-                amount.innerText = current_amount;
-                if (current_amount != total) {
-                    loadBtn.classList.remove('visually-hidden');
-                }
-            },
-            error: function (err) {
-                console.log(err);
-            },
-        });
-    }
-
-    loadBtn.addEventListener('click', () => {
-        loadMore()
-    });
-    </script>
 {% endblock content %}

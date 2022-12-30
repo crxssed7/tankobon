@@ -146,11 +146,6 @@
                 {% for manga in releasing %}
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}
                 {% endfor %}
-                <center>
-                    <a class="btn btn-tankobon mg-10"
-                       href="{% url 'all_manga' %}{% urlparams status='releasing' %}">View all releasing
-                    series</a>
-                </center>
             </div>
             <div class="col-sm-6">
                 <center>
@@ -161,11 +156,6 @@
                 {% for manga in completed %}
                     {% include "web/shared/_poster_chip.html" with manga=manga only %}
                 {% endfor %}
-                <center>
-                    <a class="btn btn-tankobon mg-10"
-                       href="{% url 'all_manga' %}{% urlparams status='finished' %}">View all completed
-                    series</a>
-                </center>
             </div>
         </div>
     </div>

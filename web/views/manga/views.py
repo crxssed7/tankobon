@@ -97,29 +97,14 @@ def edit_manga(request, manga_id):
 
 class ListMangaView(ListView):
     model = Manga
+    paginate_by = 10
     template_name = "web/all.html"
     context_object_name = "results"
-
-    def get_queryset(self):
-        status = str(self.request.GET.get("status")).lower()
-        choices = ["releasing", "finished"]
-        if status not in choices:
-            # We need to get all manga.
-            queryset = Manga.objects.all().order_by("name")[:8]
-        else:
-            queryset = Manga.objects.filter(status=status.upper()).order_by("name")[:8]
-        return queryset
+    ordering = "name"
 
     def get_context_data(self, **kwargs):
         context = super(ListMangaView, self).get_context_data(**kwargs)
-        status = str(self.request.GET.get("status")).lower()
-        choices = ["releasing", "finished"]
-        if status not in choices:
-            context["count"] = Manga.objects.count()
-            context["type"] = "all"
-        else:
-            context["count"] = Manga.objects.filter(status=status.upper()).count()
-            context["type"] = status
+        context["count"] = Manga.objects.count()
         context["search_active"] = "active"
         return context
 
