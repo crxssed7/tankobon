@@ -36,7 +36,7 @@ class Genre(models.Model):
     "poster_url",
     "poster_file",
     "banner_url",
-    "banner_file", 
+    "banner_file",
     "anilist_id",
     "mal_id",
     "mangaupdates_id",
@@ -44,7 +44,7 @@ class Genre(models.Model):
     "kitsu_id",
     "fandom",
     "magazine",
-    "tags"
+    "tags",
 )
 class Manga(models.Model):
     STATUS_CHOICES = (
