@@ -56,14 +56,6 @@ query ($id: Int) {
         if response.status_code == 200:
             json = response.json()
 
-            volume_count = json["data"]["Media"]["volumes"]
-            if not volume_count:
-                volume_count = int(
-                    input(
-                        "There was no volume count found in the API. Specify the volume count: "
-                    )
-                )
-
             if (
                 json["data"]["Media"]["startDate"]["month"]
                 and json["data"]["Media"]["startDate"]["day"]
@@ -105,7 +97,6 @@ query ($id: Int) {
                     banner_url=banner,
                     anilist_id=manga_id,
                     mal_id=json["data"]["Media"]["idMal"],
-                    volume_count=volume_count,
                 )
             except Error as exception:
                 print("There was an error:")
