@@ -44,7 +44,6 @@ class Genre(models.Model):
     "kitsu_id",
     "fandom",
     "magazine",
-    "volume_count",
     "tags"
 )
 class Manga(models.Model):
@@ -70,7 +69,6 @@ class Manga(models.Model):
     kitsu_id = models.PositiveIntegerField(blank=True, null=True)
     fandom = models.URLField(blank=True, null=True)
     magazine = models.CharField(max_length=150, blank=True, null=True)
-    volume_count = models.PositiveIntegerField(default=1)
     locked = models.BooleanField(default=False)
     last_updated = models.DateTimeField(auto_now=True)
     tags = models.TextField(null=True, blank=True)

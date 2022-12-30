@@ -27,7 +27,7 @@ class HelpNeededView(TemplateView):
             .annotate(cnt=Count("volume"))
             .filter(cnt=0)
         )
-        context["no_poster"] = Manga.objects.filter(poster_url="")
+        context["no_poster"] = Manga.objects.filter(poster_file="")
         return context
 
 

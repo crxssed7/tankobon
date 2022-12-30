@@ -68,7 +68,6 @@ class MangaForm(forms.ModelForm):
             "kitsu_id",
             "fandom",
             "magazine",
-            "volume_count",
         )
 
 

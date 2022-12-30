@@ -23,7 +23,6 @@ class TestMangaForms(SimpleTestCase):
                 "kitsu_id": "",
                 "fandom": "",
                 "magazine": "",
-                "volume_count": 23,
             }
         )
 
@@ -36,7 +35,7 @@ class TestMangaForms(SimpleTestCase):
                 "romaji": "Two Piece",
                 "description": "haha funi",
                 "status": "RELEASING",
-                "start_date": "2012-05-15",
+                "start_date": "This should be a date",
                 "poster_url": "",
                 "banner_url": "",
                 "anilist_id": "",
@@ -46,7 +45,6 @@ class TestMangaForms(SimpleTestCase):
                 "kitsu_id": "",
                 "fandom": "",
                 "magazine": "",
-                "volume_count": "this should be a number",
             }
         )
 

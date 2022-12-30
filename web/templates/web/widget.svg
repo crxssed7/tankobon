@@ -69,13 +69,6 @@
     {% endfor %}
     <text xml:space="preserve"
     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
-    x="5.9725957" y="45.707176" id="text3935">
-    <tspan sodipodi:role="line" id="tspan3933"
-    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"
-    x="5.9725957" y="45.707176">{{ manga.volume_count }} volumes</tspan>
-    </text>
-    <text xml:space="preserve"
-    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;line-height:1.25;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke:none;stroke-width:0.264583"
     x="5.9725957" y="50.707176" id="text3935">
     <tspan sodipodi:role="line" id="tspan3933"
     style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Montserrat;-inkscape-font-specification:'Montserrat, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:start;text-anchor:start;fill:#212529;fill-opacity:1;stroke-width:0.264583"

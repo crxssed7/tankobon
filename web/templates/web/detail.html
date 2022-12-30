@@ -80,8 +80,6 @@
                             <div class="manga-description">{{ manga.description | bleach:"br,b" }}</div>
                             <a href="#" id="readmore" class="btn btn-tankobon">Read more</a>
                             <hr />
-                            <b>Volumes: </b> {{ manga.volume_count }}
-                            <hr />
                             <b>Status: </b> {% capitalize manga.status %}
                             <hr />
                             <b>Start Date: </b> {{ manga.start_date }}
