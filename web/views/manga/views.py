@@ -97,7 +97,7 @@ def edit_manga(request, manga_id):
 
 class ListMangaView(ListView):
     model = Manga
-    paginate_by = 10
+    paginate_by = 14
     template_name = "web/all.html"
     context_object_name = "results"
     ordering = "name"

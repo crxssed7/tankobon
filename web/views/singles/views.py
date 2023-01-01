@@ -28,6 +28,7 @@ class HelpNeededView(TemplateView):
             .filter(cnt=0)
         )
         context["no_poster"] = Manga.objects.filter(poster_file="")
+        context["no_genre"] = Manga.objects.all().annotate(cnt=Count("genres")).filter(cnt=0)
         return context
 
 
@@ -39,9 +40,9 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(
-                Q(name__icontains=query)
-                | Q(romaji__icontains=query)
-                | Q(tags__icontains=query)
+                Q(name__icontains=query) |
+                Q(romaji__icontains=query) |
+                Q(tags__icontains=query)
             )
         else:
             object_list = []
