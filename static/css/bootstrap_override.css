@@ -47,3 +47,7 @@
   border-top-right-radius: 5px !important;
   border-bottom-right-radius: 5px !important;
 }
+
+.btn:focus {
+  box-shadow: 0 0 0 0.25rem rgb(41 207 149 / 25%) !important;
+}
