@@ -29,7 +29,7 @@ jobs:
           command: pylint $(git ls-files '*.py')
       - run:
           name: run tests
-          command: python manage.py test
+          command: python manage.py collectstatic && python manage.py test
 
 workflows:
   build-and-test-workflow:
