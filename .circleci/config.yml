@@ -10,6 +10,9 @@ jobs:
           name: install pipenv
           command: pip install pipenv
       - run:
+          name: install pylint
+          command: pip install pylint
+      - run:
           name: install dependencies
           command: pipenv install --system --dev
       - run:
