@@ -11,7 +11,7 @@ jobs:
           command: pip install pipenv
       - run:
           name: install dependencies
-          command: pipenv install --system --deploy
+          command: pipenv install --system
       - run:
           name: lint
           command: pylint $(git ls-files '*.py')
