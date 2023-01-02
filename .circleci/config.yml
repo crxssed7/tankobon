@@ -38,8 +38,8 @@ jobs:
         - run: 
             name: Deploy to Fly
             command: |
-                chmod +x scripts/deploy.sh
-                ./scripts/deploy.sh
+                chmod +x deploy.sh
+                ./deploy.sh
 
 workflows:
   build-and-test-workflow:
