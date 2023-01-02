@@ -4,6 +4,15 @@ jobs:
   test-and-lint:
     docker:
       - image: cimg/python:3.10.1
+      - image: cimg/postgres:14.1
+    environment:
+      DATABASE_URL: postgresql://postgres:@localhost/test_tankobon
+      DEBUG: True
+      SECRET_KEY: test
+      AWS_ACCESS_KEY_ID: test
+      AWS_SECRET_ACCESS_KEY: test
+      AWS_STORAGE_BUCKET_NAME: test
+      AWS_S3_REGION_NAME: test
     steps:
       - checkout
       - run:
