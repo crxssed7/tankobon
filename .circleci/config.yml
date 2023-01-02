@@ -16,22 +16,38 @@ jobs:
     steps:
       - checkout
       - run:
-          name: install pipenv
+          name: Install pipenv
           command: pip install pipenv
       - run:
-          name: install pylint
+          name: Install pylint
           command: pip install pylint
       - run:
-          name: install dependencies
+          name: Install dependencies
           command: pipenv install --system --dev
       - run:
-          name: lint
+          name: Lint
           command: pylint $(git ls-files '*.py')
       - run:
-          name: run tests
+          name: Run tests
           command: python manage.py collectstatic && python manage.py test
+  deploy:
+    docker:
+        - image: alpine:3.12
+    steps:
+        - checkout
+        - run: 
+            name: Deploy to Fly
+            command: |
+                chmod +x scripts/deploy.sh
+                ./scripts/deploy.sh
 
 workflows:
   build-and-test-workflow:
     jobs:
       - test-and-lint
+      - deploy:
+          requires:
+              - test-and-lint
+          filters:
+              branches:
+                  only: master
