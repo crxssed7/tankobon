@@ -88,7 +88,7 @@ WSGI_APPLICATION = "tankobon.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL"),
+    "default": env.dj_db_url("DATABASE_URL", default="postgresql://postgres:@localhost/test_tankobon"),
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
@@ -149,10 +149,10 @@ BLEACH_ALLOWED_ATTRIBUTES = ["class"]
 BLEACH_STRIP_TAGS = True
 
 # Storage stuff
-AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID")
-AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY")
-AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME")
-AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME")
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default="test")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default="test")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default="test")
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="test")
 AWS_QUERYSTRING_AUTH = False
 
 # django.core.files.storage.FileSystemStorage

@@ -33,10 +33,6 @@ jobs:
   deploy:
     docker:
         - image: alpine:3.12
-    environment:
-      DATABASE_URL: postgresql://postgres:@localhost/test_tankobon
-      DEBUG: False
-      SECRET_KEY: test
     steps:
         - checkout
         - run: 
