@@ -5,93 +5,67 @@
           type="text/css"
           href="{% static 'css/shared/_banner_card.css' %}"/>
 {% endblock extrahead %}
-{% block content %}
-    <div class="head">
-        <img src="{% static 'img/logo.svg' %}" alt="" width="150" />
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+        <img src="{% static 'img/logo.svg' %}" alt="" class="w-[150px]" />
         <br />
-        <h1>Tankōbon</h1>
-        <p>単行本</p>
+        <h1 class="underline decoration-hint decoration-[5px] font-bold text-4xl pb-3">Tankōbon</h1>
+        <p class="font-bold">単行本</p>
     </div>
-    <div class="container section">
-        <div class="row mobile-hidden">
-            <div class="col-sm-6 information">
-                <h2>
-                    <b>The Tankōbon format<span class="hint">.</span></b>
-                </h2>
-                <p>
-                    In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.
-                </p>
-                <p>This site is community-driven, meaning even you can add or edit data as long as you have an account.</p>
-                <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn btn-tankobon">Read more</a>
+{% endblock heading %}
+{% block content %}
+    <div class="grid grid-cols-3 gap-4">
+        <div class="md:col-span-2 col-span-3 flex flex-col justify-center content-center min-h-[500px]">
+            <div class="p-[20px] md:hidden block">
+                <center>
+                    <img src="{% static 'img/covers.png' %}" alt="Jujutsu Kaisen and Kaiju No. 8" max-width="320px" width="50%"/>
+                </center>
             </div>
-            <div class="col-sm-6 information">
-                <div class="pd-15">
-                    <center>
-                        <img src="{% static 'img/covers.png' %}"
-                             alt="Bakuman: Moritaka Mashiro and Akito Takagi"
-                             max-width="320px"
-                             width="50%"/>
-                    </center>
-                </div>
+            <h2 class="text-4xl text-blay pb-2">
+                <b>The Tankōbon format<span class="text-hint">.</span></b>
+            </h2>
+            <p class="pb-2">
+                In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.
+            </p>
+            <p class="pb-2">This site is community-driven, meaning even you can add or edit data as long as you have an account.</p>
+            <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" target="_blank" rel="noopener noreferrer">Read more</a>
+        </div>
+        <!-- ... -->
+        <div class="col-span-1 hidden md:flex flex-col justify-center content-center min-h-[500px]">
+            <div class="p-[15px]">
+                <center>
+                    <img src="{% static 'img/covers.png' %}" alt="Jujutsu Kaisen and Kaiju No. 8" max-width="320px" width="50%"/>
+                </center>
             </div>
         </div>
+    </div>
 
-        <div class="row desktop-hidden">
-            <div class="col-sm-6 information">
-                <div class="pd-15">
-                    <center>
-                        <img src="{% static 'img/covers.png' %}"
-                             alt="Bakuman: Moritaka Mashiro and Akito Takagi"
-                             max-width="320px"
-                             width="50%"/>
-                    </center>
-                </div>
-            </div>
-            <div class="col-sm-6 information">
-                <h2>
-                    <b>The Tankōbon format<span class="hint">.</span></b>
-                </h2>
-                <p>
-                    In Japan, manga are typically collected in volumes, each with a length of around 7 chapters. Most series are individually serialised in magazines before being collected into the Tankōbon format.
-                </p>
-                <p>This site is community-driven, meaning even you can add or edit data as long as you have an account.</p>
-                <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon"
-                   target="_blank"
-                   rel="noopener noreferrer"
-                   class="btn btn-tankobon">Read more</a>
+    <div class="grid grid-cols-3 gap-4">
+        <div class="col-span-1 hidden md:flex flex-col justify-center content-center min-h-[500px]">
+            <div class="p-[15px]">
+                <center>
+                    <img src="{% static 'img/bakuman.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi" max-width="320px" width="50%"/>
+                </center>
             </div>
         </div>
-
-        <div class="spacer"></div>
-
-        <div class="row">
-            <div class="col-sm-6 information">
-                <div class="pd-15">
-                    <center>
-                        <img src="{% static 'img/bakuman.png' %}"
-                             alt="Bakuman: Moritaka Mashiro and Akito Takagi"
-                             max-width="320px"
-                             width="50%"/>
-                    </center>
-                </div>
+        <div class="md:col-span-2 col-span-3 flex flex-col justify-center content-center min-h-[500px]">
+            <div class="p-[20px] md:hidden block">
+                <center>
+                    <img src="{% static 'img/bakuman.png' %}" alt="Bakuman: Moritaka Mashiro and Akito Takagi" max-width="320px" width="50%"/>
+                </center>
             </div>
-            <div class="col-sm-6 information">
-                <h2>
-                    <b>Your manga collection<span class="hint">.</span></b>
-                </h2>
-                <p>With Tankōbon you can easily track which volumes of manga you own across multiple editions.</p>
-                <p>
-                    <i>* This feature is currently being developed.</i>
-                </p>
-                {% if user.is_authenticated %}
-                    <a href="{% url 'search' %}" class="btn btn-tankobon">Start collecting</a>
-                {% else %}
-                    <a href="{% url 'signup' %}" class="btn btn-tankobon">Start collecting</a>
-                {% endif %}
-            </div>
+            <h2 class="text-4xl text-blay pb-2">
+                <b>Your manga collection<span class="text-hint">.</span></b>
+            </h2>
+            <p class="pb-2">
+                With Tankōbon you can easily track which volumes of manga you own across multiple editions.
+            </p>
+            <p class="pb-2"><i>* This feature is currently being developed.</i></p>
+            {% if user.is_authenticated %}
+                <a href="{% url 'search' %}" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Start collecting</a>
+            {% else %}
+                <a href="{% url 'signup' %}" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Start collecting</a>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}

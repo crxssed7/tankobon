@@ -1,4 +1,5 @@
 {% load static %}
+{% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,15 +12,8 @@
             {% endblock title %}
         </title>
         <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
-        <link rel="stylesheet"
-              type="text/css"
-              href="{% static 'css/bootstrap_override.css' %}"/>
         <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-              rel="stylesheet"
-              integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-              crossorigin="anonymous"/>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+        {% tailwind_css %}
         <link rel="icon"
               type="image/svg+xml"
               href="{% static 'img/favicon/favicon.svg' %}"/>
@@ -49,14 +43,18 @@
     <body>
         {% include "shared/_navbar.html" %}
         <main>
-            {% block content %}
-            {% endblock content %}
+            <div class="mb-6">
+                  {% block heading %}
+                  {% endblock heading %}
+            </div>
+            <div class="mx-auto max-w-7xl p-4">
+                  {% block content %}
+                  {% endblock content %}
+            </div>
         </main>
-        <footer class="text-lg-start footer">
-            <div class="container p-4">
-                <p class="text-small">
-                    <a href="https://github.com/crxssed7/tankobon" class="link">Tankōbon</a> developed by <a href="https://github.com/crxssed7" class="link">crxssed</a> · <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="link">Reports</a> · <a href="{% url 'docs' %}" class="link">API</a> · <a href="{% url 'contrib' %}" class="link">Guidelines</a>
-                </p>
+        <footer class="bg-blay text-white text-sm mt-6">
+            <div class=" mx-auto max-w-7xl p-4">
+                  <a href="https://github.com/crxssed7/tankobon" class="text-hint">Tankōbon</a> developed by <a href="https://github.com/crxssed7" class="text-hint">crxssed</a> · <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="text-hint">Reports</a> · <a href="{% url 'docs' %}" class="text-hint">API</a> · <a href="{% url 'contrib' %}" class="text-hint">Guidelines</a>
             </div>
         </footer>
         <script src="{% static 'js/disable_autocomplete.js' %}"></script>

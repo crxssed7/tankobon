@@ -46,6 +46,15 @@ INSTALLED_APPS = [
     "django_bleach",
     "simple_history",
     "storages",
+    "tailwind",
+    "theme",
+    "django_browser_reload",
+]
+
+TAILWIND_APP_NAME = 'theme'
+
+INTERNAL_IPS = [
+    "127.0.0.1",
 ]
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
@@ -61,6 +70,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tankobon.middleware.SqlPrintMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "tankobon.urls"

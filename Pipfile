@@ -18,6 +18,8 @@ django-simple-history = "*"
 pillow = "*"
 boto3 = "*"
 django-storages = "*"
+django-tailwind = "*"
+django-browser-reload = "*"
 
 [dev-packages]
 black = "*"
