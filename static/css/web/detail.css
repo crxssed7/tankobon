@@ -1,28 +1,5 @@
-.edit-link:link {
-  text-decoration: none !important;
-}
-
-.edit-link:visited {
-  text-decoration: none !important;
-}
-
-.edit-link:hover {
-  text-decoration: none !important;
-}
-
-.edit-link:active {
-  text-decoration: none !important;
-}
-
 .volume-poster {
   margin: 10px;
-}
-
-.manga-description {
-  overflow: hidden;
-
-  /* height: 12.1em; */
-  height: auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -38,14 +15,6 @@
 
   .volume-poster {
     width: 100px;
-  }
-}
-
-@media only screen and (min-width: 575px) {
-  /* For desktop: */
-  div.sticky {
-    position: sticky;
-    top: 100px;
   }
 }
 

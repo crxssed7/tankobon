@@ -1,10 +1,10 @@
-<div class="badge-section">
+<div class="flex flex-wrap gap-2">
     {% if manga.anilist_id %}
         <a href="https://anilist.co/manga/{{ manga.anilist_id }}"
            target="_blank"
            rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-anilist">AniList</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-anilist">AniList</span>
             </h5>
         </a>
     {% endif %}
@@ -13,7 +13,7 @@
            target="_blank"
            rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-mal">MAL</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-mal">MAL</span>
             </h5>
         </a>
     {% endif %}
@@ -22,7 +22,7 @@
            target="_blank"
            rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-mangaupdates">MangaUpdates</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-mangaupdates">MangaUpdates</span>
             </h5>
         </a>
     {% endif %}
@@ -31,7 +31,7 @@
            target="_blank"
            rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-anime-planet">Anime Planet</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-anime-planet">Anime Planet</span>
             </h5>
         </a>
     {% endif %}
@@ -40,14 +40,14 @@
            target="_blank"
            rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-kitsu">Kitsu</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-kitsu">Kitsu</span>
             </h5>
         </a>
     {% endif %}
     {% if manga.fandom %}
         <a href="{{ manga.fandom }}" target="_blank" rel="noopener noreferrer">
             <h5>
-                <span class="badge badge-fandom">Fandom</span>
+                <span class="text-xs font-bold bg-hint text-whay p-[5px] rounded badge-fandom">Fandom</span>
             </h5>
         </a>
     {% endif %}
