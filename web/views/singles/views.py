@@ -70,7 +70,3 @@ class SignUpView(CreateView):
 
 class GuidelinesView(TemplateView):
     template_name = "web/contrib.html"
-
-
-class DocsView(TemplateView):
-    template_name = "web/api.html"
