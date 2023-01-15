@@ -17,7 +17,7 @@
         <h2>Help is needed!</h2>
         <p>The records listed below need to be updated/modified.</p>
         <p>
-            <a href="#no_volume" class="link">No Volumes</a> · <a href="#no_poster" class="link">No Poster</a> · <a href="#no_genre" class="link">No Genres</a>
+            <a href="#no_volume" class="text-hint underline">No Volumes</a> · <a href="#no_poster" class="text-hint underline">No Poster</a> · <a href="#no_genre" class="text-hint underline">No Genres</a>
         </p>
     </div>
     <br />
@@ -45,7 +45,7 @@
                     <ul>
                         {% for manga in no_poster %}
                             <li>
-                                <a href="{% url 'manga' manga.id %}" class="link"><b>{{ manga.name }}</b></a>
+                                <a href="{% url 'manga' manga.id %}" class="text-hint underline"><b>{{ manga.name }}</b></a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -61,7 +61,7 @@
                     <ul>
                         {% for manga in no_genre %}
                             <li>
-                                <a href="{% url 'manga' manga.id %}" class="link"><b>{{ manga.name }}</b></a>
+                                <a href="{% url 'manga' manga.id %}" class="text-hint underline"><b>{{ manga.name }}</b></a>
                             </li>
                         {% endfor %}
                     </ul>

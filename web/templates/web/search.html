@@ -19,144 +19,130 @@
           type="text/css"
           href="{% static 'css/web/swiper.css' %}"/>
 {% endblock extrahead %}
-{% block content %}
-    <div class="slider">
-        <!-- Swiper -->
-        <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-                {% for manga in recently_updated %}
-                    <div class="swiper-slide"
-                         style="background-image: url('{% if manga.banner_file %} {{ manga.banner_file.url }} {% endif %}')">
-                        <div class="gradient-bg">
-                            <div class="container">
-                                <div class="swiper-details">
-                                    <h1 class="swiper-name">
-                                        <b>{{ manga.name }}</b>
-                                    </h1>
-                                    <div class="display-flex wrap">
-                                        <p>
-                                            <span class="badge bg-dark">{{ manga.status }}</span>
-                                        </p>
-                                    </div>
-                                    <div class="swiper-manga-description-wrapper mobile-hidden">
-                                        <p>
-                                            <small>{{ manga.description | bleach:"br,b" }}</small>
-                                        </p>
-                                    </div>
-                                    <a class="btn btn-tankobon" href="{% url 'manga' manga.id %}">View</a>
+{% block heading %}
+<div class="slider">
+    <!-- Swiper -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            {% for manga in recently_updated %}
+                <div class="swiper-slide bg-blay text-whay w-full h-[350px] md:h-[500px] bg-no-repeat bg-cover bg-center" style="background-image: url('{% if manga.banner_file %} {{ manga.banner_file.url }} {% endif %}')">
+                    <div class="bg-[#0b0b0bbf] w-full h-full">
+                        <div class="mx-auto max-w-7xl p-4">
+                            <div class="absolute bottom-[45px]">
+                                <h1 class="text-2xl md:text-4xl">
+                                    <b>{{ manga.name }}</b>
+                                </h1>
+                                <div class="flex my-2">
+                                    <p>
+                                        <span class="text-xs font-bold bg-blay p-[5px] rounded">{% capitalize manga.status %}</span>
+                                    </p>
                                 </div>
+                                <div class="mb-[15px] h-[7.3em] max-w-[25em] hidden md:block overflow-hidden text-ellipsis swiper-manga-description-wrapper mobile-hidden">
+                                    <p>
+                                        <small>{{ manga.description | bleach:"br,b" }}</small>
+                                    </p>
+                                </div>
+                                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'manga' manga.id %}">View</a>
                             </div>
                         </div>
                     </div>
-                {% endfor %}
-            </div>
-            <div class="swiper-pagination"></div>
+                </div>
+            {% endfor %}
         </div>
-        <!-- Swiper JS -->
-        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
-        <!-- Initialize Swiper -->
-        <script>
-        var swiper = new Swiper(".mySwiper", {
-            loop: true,
-            autoplay: {
-                delay: 5000,
-                disableOnInteraction: false,
-            },
-            pagination: {
-                el: ".swiper-pagination",
-                dynamicBullets: true,
-            },
-        });
-        </script>
+        <div class="swiper-pagination"></div>
     </div>
-    <div class="container section">
-        <div class="desktop-hidden">
-            <form class="d-flex" action="{% url 'search' %}" method="get">
-                <input name="q"
-                       class="form-control me-2"
-                       id="search-box"
-                       type="search"
-                       placeholder="Search"
-                       aria-label="Search"
-                       value="{{ query }}"/>
-                <button class="btn btn-tankobon" type="submit">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-            <br />
+    <!-- Swiper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+    <!-- Initialize Swiper -->
+    <script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 5000,
+            disableOnInteraction: false,
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            dynamicBullets: true,
+        },
+    });
+    </script>
+</div>
+{% endblock heading %}
+{% block content %}
+    <form class="lg:hidden flex gap-2 w-full" action="{% url 'search' %}" method="get">
+        <input name="q" class="rounded focus:border-hint focus:ring-hint w-full" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}"/>
+        <button class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+    </form>
+    {% if object_list %}
+        <center>
+            <h3 class="font-bold text-2xl my-2">Search results:</h3>
+        </center>
+        <div class="flex justify-center">
+            {% for manga in object_list %}
+                {% include "web/shared/_search_result.html" with manga=manga only %}
+            {% endfor %}
         </div>
-        {% if object_list %}
-            <center>
-                <h3 class="header">Search results:</h3>
-            </center>
-            <div class="flex">
-                {% for manga in object_list %}
-                    {% include "web/shared/_search_result.html" with manga=manga only %}
-                {% endfor %}
-            </div>
-        {% endif %}
-    </div>
+    {% endif %}
     <!-- CTA's -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="cta cta-left">
-                    <h5>
-                        <b>Can't find your favourite manga?</b>
-                    </h5>
-                    <p>
-                        Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="link">create an account</a> and add it yourself!
-                    </p>
-                    <div>
-                        <a class="btn btn-tankobon" href="{% url 'new_manga' %}">Add manga!</a>
-                        <a class="btn btn-tankobon" href="{% url 'all_manga' %}">View all</a>
-                    </div>
-                    <p class="no-mg mg-tp-16">
-                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
-                    </p>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="col-span-1">
+            <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
+                <h5 class="text-2xl">
+                    <b>Can't find your favourite manga?</b>
+                </h5>
+                <p class="text-sm my-2">
+                    Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="text-hint underline">create an account</a> and add it yourself!
+                </p>
+                <div class="flex gap-2 my-2">
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}">Add manga!</a>
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'all_manga' %}">View all</a>
                 </div>
+                <p class="mt-[16px]">
+                    <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
+                </p>
             </div>
-            <div class="col-sm-6">
-                <div class="cta cta-right">
-                    <h5>
-                        <b>We need your help!</b>
-                    </h5>
-                    <p>
-                        If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
-                    </p>
-                    <div>
-                        <a class="btn btn-tankobon" href="{% url 'help_needed' %}">Help!</a>
-                    </div>
-                    <p class="no-mg mg-tp-16">
-                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before doing so.</small>
-                    </p>
+        </div>
+        <div class="col-span-1">
+            <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
+                <h5 class="text-2xl">
+                    <b>We need your help!</b>
+                </h5>
+                <p class="text-sm my-2">
+                    If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
+                </p>
+                <div class="my-2">
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'help_needed' %}">Help!</a>
                 </div>
+                <p class="mt-[16px]">
+                    <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
+                </p>
             </div>
         </div>
     </div>
     <!-- CHIP STUFF -->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <center>
-                    <h3 id="releasing" class="mg-bt-20 mg-tp-20">
-                        <b>Releasing Manga</b>
-                    </h3>
-                </center>
-                {% for manga in releasing %}
-                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
-                {% endfor %}
-            </div>
-            <div class="col-sm-6">
-                <center>
-                    <h3 id="completed" class="mg-bt-20 mg-tp-20">
-                        <b>Completed Manga</b>
-                    </h3>
-                </center>
-                {% for manga in completed %}
-                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
-                {% endfor %}
-            </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="col-span-1">
+            <center>
+                <h3 id="releasing" class="text-2xl my-[20px]">
+                    <b>Releasing Manga</b>
+                </h3>
+            </center>
+            {% for manga in releasing %}
+                {% include "web/shared/_poster_chip.html" with manga=manga only %}
+            {% endfor %}
+        </div>
+        <div class="col-span-1">
+            <center>
+                <h3 id="completed" class="text-2xl my-[20px]">
+                    <b>Completed Manga</b>
+                </h3>
+            </center>
+            {% for manga in completed %}
+                {% include "web/shared/_poster_chip.html" with manga=manga only %}
+            {% endfor %}
         </div>
     </div>
 {% endblock content %}

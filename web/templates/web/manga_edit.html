@@ -13,9 +13,9 @@
                 {% csrf_token %}
                 {{ form|crispy }}
                 <p>
-                    Please read the <a href="{% url 'contrib' %}" class="link">Contribution Guidelines</a> before submitting
+                    Please read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before submitting
                 </p>
-                <button type="submit" class="btn btn-tankobon">Submit</button>
+                <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Submit</button>
                 <a href="{% url 'manga' manga.id %}" class="btn btn-danger">Cancel</a>
             </form>
         </div>
