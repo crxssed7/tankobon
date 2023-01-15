@@ -29,12 +29,12 @@
                 </button>
             </form>
             {% if not user.is_authenticated %}
-                <a class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'login' %}" title="Login">Login</a>
-                <a class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'signup' %}" title="Signup">Signup</a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'login' %}" title="Login">Login</a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'signup' %}" title="Signup">Signup</a>
             {% else %}
-                <a class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
-                <a class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
-                <a class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
             {% endif %}
         </div>
       </div>

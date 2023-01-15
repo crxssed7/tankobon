@@ -13,3 +13,34 @@ body {
 * {
   font-family: Montserrat, sans-serif;
 }
+
+::selection {
+  color: var(--tankobon-white);
+  background-color: var(--tankobon-black);
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--tankobon-white);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--tankobon-hint);
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--tankobon-hint);
+}
+
+::placeholder {
+  color: var(--tankobon-black) !important;
+  opacity: 1 !important;
+}

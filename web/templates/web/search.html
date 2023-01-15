@@ -42,7 +42,7 @@
                                         <small>{{ manga.description | bleach:"br,b" }}</small>
                                     </p>
                                 </div>
-                                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'manga' manga.id %}">View</a>
+                                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'manga' manga.id %}">View</a>
                             </div>
                         </div>
                     </div>
@@ -72,7 +72,7 @@
 {% block content %}
     <form class="lg:hidden flex gap-2 w-full" action="{% url 'search' %}" method="get">
         <input name="q" class="rounded focus:border-hint focus:ring-hint w-full" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}"/>
-        <button class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit">
+        <button class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
     </form>
@@ -97,8 +97,8 @@
                     Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="text-hint underline">create an account</a> and add it yourself!
                 </p>
                 <div class="flex gap-2 my-2">
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}">Add manga!</a>
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'all_manga' %}">View all</a>
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}">Add manga!</a>
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'all_manga' %}">View all</a>
                 </div>
                 <p class="mt-[16px]">
                     <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
@@ -114,7 +114,7 @@
                     If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
                 </p>
                 <div class="my-2">
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'help_needed' %}">Help!</a>
+                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'help_needed' %}">Help!</a>
                 </div>
                 <p class="mt-[16px]">
                     <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
