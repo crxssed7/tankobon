@@ -15,6 +15,10 @@ echo "Successfully Installed Flyctl"
 
 # deploy app
 sh -c "flyctl deploy"
+if [ $? -ne 0 ]; then
+    echo -e "\n--THERE WAS A PROBLEM. PLEASE SEE ABOVE OUTPUT.--\n"
+    exit 1
+fi
 
 # get app Information
 sh -c "flyctl info"
