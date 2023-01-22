@@ -27,9 +27,9 @@ getOffset();
 window.addEventListener('scroll', getOffset);
 
 window.addEventListener('resize', () => {
-  if (window.screen.width < 640) {
-    nav.classList.add('bg-blay');
-  } else {
+  if (window.screen.width >= 640 && window.pageYOffset < offset) {
     nav.classList.remove('bg-blay');
+  } else {
+    nav.classList.add('bg-blay');
   }
 }, true);

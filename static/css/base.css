@@ -14,6 +14,36 @@ body {
   font-family: Montserrat, sans-serif;
 }
 
+.hoverable {
+  transition: box-shadow 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.hoverable:hover {
+  transform: translate(-6px, -6px);
+  box-shadow:
+    1px 1px 0 var(--tankobon-hint),
+    2px 2px 0 var(--tankobon-hint),
+    3px 3px 0 var(--tankobon-hint),
+    4px 4px 0 var(--tankobon-hint),
+    5px 5px 0 var(--tankobon-hint),
+    6px 6px 0 var(--tankobon-hint);
+}
+
+/* NON-WEBKIT STYLES */
+.chip-name-wrapper {
+  /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.swiper-manga-description-wrapper {
+  /* Fallback for non-webkit */
+  display: -webkit-box !important;
+  -webkit-line-clamp: 5 !important;
+  -webkit-box-orient: vertical !important;
+}
+
 ::selection {
   color: var(--tankobon-white);
   background-color: var(--tankobon-black);
