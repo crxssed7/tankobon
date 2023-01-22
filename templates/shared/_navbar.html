@@ -1,12 +1,16 @@
 {% load static %}
-<!--
-<script src="{% static 'js/navbar.js' %}"></script>
-<script src="{% static 'js/select_input.js' %}"></script>
--->
-
-<nav class="bg-blay sm:fixed top-0 w-full z-10">
+<nav class="navbar bg-blay sm:fixed top-0 w-full z-10">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button id="mobileButtonCollapse" type="button" class="inline-flex items-center justify-center rounded p-2 text-whay hover:bg-black-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
         <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div class="flex flex-shrink-0 items-center">
             <img class="block h-[36px] w-auto lg:hidden" src="{% static 'img/logo.svg' %}" alt="brand icon"/>
@@ -41,13 +45,13 @@
     </div>
   
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="sm:hidden" id="mobile-menu">
+    <div class="hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <!-- Current: "ext-white", Default: "text-gray-300 hover:text-white" -->
         <a href="{% url 'index' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Home</a>
-  
+    
         <a href="{% url 'search' %}" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Manga</a>
-
+  
         {% if not user.is_authenticated %}
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'login' %}" title="Login">Login</a>
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'signup' %}" title="Signup">Signup</a>
@@ -61,4 +65,18 @@
       </div>
     </div>
 </nav>
-  
+
+<script>
+  var hidden = true;
+  document.getElementById("mobileButtonCollapse").addEventListener("click", () => {
+    var menu = document.getElementById("mobile-menu");
+    if (hidden === true) {
+      menu.classList.remove("hidden");
+    } else {
+      menu.classList.add("hidden");
+    }
+    hidden = !hidden
+  });
+</script>
+<script src="{% static 'js/navbar.js' %}"></script>
+<script src="{% static 'js/select_input.js' %}"></script>
