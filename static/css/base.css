@@ -30,7 +30,7 @@ body {
 }
 
 /* NON-WEBKIT STYLES */
-.chip-name-wrapper {
+.manga-name-wrapper {
   /* Fallback for non-webkit */
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -39,9 +39,9 @@ body {
 
 .swiper-manga-description-wrapper {
   /* Fallback for non-webkit */
-  display: -webkit-box !important;
-  -webkit-line-clamp: 5 !important;
-  -webkit-box-orient: vertical !important;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 ::selection {

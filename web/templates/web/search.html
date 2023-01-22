@@ -77,7 +77,7 @@
         <center>
             <h3 class="font-bold text-2xl my-2">Search results:</h3>
         </center>
-        <div class="flex justify-center">
+        <div class="flex flex-wrap justify-center">
             {% for manga in object_list %}
                 {% include "web/shared/_search_result.html" with manga=manga only %}
             {% endfor %}
