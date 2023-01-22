@@ -19,9 +19,8 @@ def capitalize(value):
 
 @register.simple_tag
 def active_tab(value, expected):
-    active = str(value).startswith(expected)
-    t = str(value).split('/')
-    if t[1] == expected:
+    active = str(value).split('/')
+    if active[1] == expected:
         return "text-white px-3 py-2 rounded-md text-sm font-medium"
     else:
         return "text-gray-300 hover:text-white hover:text-white px-3 py-2 rounded-md text-sm font-medium"
