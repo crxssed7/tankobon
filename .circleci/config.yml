@@ -1,9 +1,8 @@
 version: 2.1
-orbs:
-  node: circleci/node@5.0.2
 jobs:
   test-and-lint:
     docker:
+      - image: cimg/node:19.4.0
       - image: cimg/python:3.10.1
       - image: cimg/postgres:14.1
     environment:
@@ -16,7 +15,6 @@ jobs:
       AWS_S3_REGION_NAME: test
     steps:
       - checkout
-      - run: node --version
       - run:
           name: Install pipenv
           command: pip install pipenv
