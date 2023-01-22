@@ -1,18 +1,18 @@
-<div class="col-sm-6 banner-card-parent">
-    <a href="{% url 'manga' manga.id %}" class="card-link">
-        <div class="card banner-card">
+<div class="col-span-1 p-[12px]">
+    <a href="{% url 'manga' manga.id %}">
+        <div class="hoverable relative flex flex-col rounded border border-blay">
             {% if manga.banner_file %}
-                <div class="banner-card-img-container">
-                    <img src="{{ manga.banner_file.url }}" alt="poster" class="banner-card-img" />
+                <div class="h-[200px] rounded-t-[5px] overflow-hidden">
+                    <img class="w-full h-full object-cover" src="{{ manga.banner_file.url }}" alt="{{ manga.name }} Banner" />
                 </div>
             {% else %}
-                <div class="banner-card-img-container bg-tank no-banner-div">
-                    <span class="no-banner">No Banner Found.</span>
+                <div class="h-[200px] rounded-t-[5px] overflow-hidden bg-hint flex flex-col justify-center items-center">
+                    <span class="font-bold text-xl text-blay">No Banner Found.</span>
                 </div>
             {% endif %}
-            <div class="card-body manga-title">
+            <div class="p-4 text-xs">
                 <center>
-                    <h5 class="card-title">{{ manga.name }}</h5>
+                    <h5>{{ manga.name }}</h5>
                 </center>
             </div>
         </div>
