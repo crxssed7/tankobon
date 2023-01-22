@@ -28,8 +28,11 @@ jobs:
           name: Lint
           command: pylint $(git ls-files '*.py')
       - run:
+          name: Compile assets
+          command: python manage.py tailwind build && python manage.py collectstatic --noinput
+      - run:
           name: Run tests
-          command: python manage.py collectstatic && python manage.py test
+          command: python manage.py test
   deploy:
     docker:
         - image: alpine:3.12
