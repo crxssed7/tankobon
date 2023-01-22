@@ -1,4 +1,5 @@
 {% load static %}
+{% load utility %}
 <nav class="navbar bg-blay sm:fixed top-0 w-full z-10">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
@@ -19,9 +20,9 @@
           <div class="hidden sm:ml-6 sm:block">
             <div class="flex space-x-4">
               <!-- Current: "text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-              <a href="{% url 'index' %}" class="text-white px-3 py-2 rounded-md text-sm font-medium" aria-current="page">Home</a>
-  
-              <a href="{% url 'search' %}" class="text-gray-300 hover:text-white hover:text-white px-3 py-2 rounded-md text-sm font-medium">Manga</a>
+              <a href="{% url 'index' %}" class="{% active_tab request.path '' %}" aria-current="page">Home</a>
+              
+              <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %}">Manga</a>
             </div>
           </div>
         </div>
