@@ -15,13 +15,6 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Node and npm
-          command: |
-              sudo apt update
-              sudo apt install nodejs
-              sudo apt install npm
-              npm install cross-env
-      - run:
           name: Install pipenv
           command: pip install pipenv
       - run:
@@ -35,7 +28,7 @@ jobs:
           command: pylint $(git ls-files '*.py')
       - run:
           name: Compile assets
-          command: python manage.py tailwind build && python manage.py collectstatic --noinput
+          command: python manage.py collectstatic --noinput
       - run:
           name: Run tests
           command: python manage.py test

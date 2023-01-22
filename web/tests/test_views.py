@@ -13,7 +13,6 @@ class TestSingleViews(TestCase):
         self.help_needed_url = reverse("help_needed")
         self.search_url = reverse("search")
         self.contrib_url = reverse("contrib")
-        self.docs_url = reverse("docs")
 
     def test_index_GET(self):
         response = self.client.get(self.index_url)
@@ -34,11 +33,6 @@ class TestSingleViews(TestCase):
         response = self.client.get(self.contrib_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/contrib.html")
-
-    def test_docs_GET(self):
-        response = self.client.get(self.docs_url)
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/api.html")
 
 
 class TestMangaViews(TestCase):
