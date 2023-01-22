@@ -16,6 +16,7 @@ jobs:
       AWS_S3_REGION_NAME: test
     steps:
       - checkout
+      - run: node --version
       - run:
           name: Install pipenv
           command: pip install pipenv
