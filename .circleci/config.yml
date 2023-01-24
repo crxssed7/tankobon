@@ -30,6 +30,9 @@ jobs:
           name: Lint
           command: pylint $(git ls-files '*.py')
       - run:
+          name: Install Tailwind deps
+          command: cd tankobon/theme/static_src && npm install
+      - run:
           name: Compile assets
           command: python manage.py tailwind build && python manage.py collectstatic --noinput
       - run:
