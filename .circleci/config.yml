@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   test-and-lint:
     docker:
-      - image: cimg/python:3.10.1
+      - image: cimg/python:3.10.1-node
       - image: cimg/postgres:14.1
     environment:
       DATABASE_URL: postgresql://postgres:@localhost/test_tankobon
@@ -14,6 +14,9 @@ jobs:
       AWS_S3_REGION_NAME: test
     steps:
       - checkout
+      - run:
+          name: Check node version
+          command: node --version
       - run:
           name: Install pipenv
           command: pip install pipenv
@@ -28,7 +31,7 @@ jobs:
           command: pylint $(git ls-files '*.py')
       - run:
           name: Compile assets
-          command: python manage.py collectstatic --noinput
+          command: python manage.py tailwind build && python manage.py collectstatic --noinput
       - run:
           name: Run tests
           command: python manage.py test
