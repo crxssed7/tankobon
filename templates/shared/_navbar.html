@@ -49,9 +49,9 @@
     <div class="hidden bg-blay" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <!-- Current: "ext-white", Default: "text-gray-300 hover:text-white" -->
-        <a href="{% url 'index' %}" class="text-white block px-3 py-2 rounded-md text-base font-medium" aria-current="page">Home</a>
-    
-        <a href="{% url 'search' %}" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Manga</a>
+        <a href="{% url 'index' %}" class="{% active_tab request.path '' %} block text-base" aria-current="page">Home</a>
+
+        <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %} block text-base">Manga</a>
   
         {% if not user.is_authenticated %}
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'login' %}" title="Login">Login</a>
