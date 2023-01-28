@@ -57,7 +57,6 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",

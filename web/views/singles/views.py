@@ -5,7 +5,13 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView, CreateView
 
 from api.models import Manga
-from web.forms import SignUpForm
+from web.forms import SignUpForm, LoginForm
+
+
+from django.shortcuts import render,redirect
+from django.urls import reverse
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 
 
 class IndexView(TemplateView):
@@ -70,3 +76,22 @@ class SignUpView(CreateView):
 
 class GuidelinesView(TemplateView):
     template_name = "web/contrib.html"
+
+
+def login_view(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return redirect(reverse('search'))
+        else:
+            messages.error(request, 'Username or password not correct')
+            return redirect(reverse('login'))
+    else:
+        form = LoginForm()
+    rendered_form = form.render("web/form_snippet.html")
+    return render(request,'registration/login.html',{'form':rendered_form})

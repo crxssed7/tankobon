@@ -1,21 +1,19 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags %}
 {% block title %}
     Sign Up
 {% endblock title %}
-{% block content %}
-    <div class="head">
-        <h3>Welcome!</h3>
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+        <h3 class="font-bold text-2xl pb-3">Welcome!</h3>
         <p>ようこそ！</p>
     </div>
-    <br />
-    <div class="container">
-        <div class="form-container bg-tank">
-            <form class="form" method="post">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Signup</button>
-            </form>
-        </div>
+{% endblock heading %}
+{% block content %}
+    <div class="p-[25px]">
+        <form class="form" method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Signup</button>
+        </form>
     </div>
 {% endblock content %}

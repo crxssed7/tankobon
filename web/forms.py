@@ -1,12 +1,20 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
 from api.models import Manga, Volume, Edition, Genre
 
+ATTRS = {'class': 'w-full rounded focus:border-hint focus:ring-hint'}
 
 class SignUpForm(UserCreationForm):
+    template_name = "web/form_snippet.html"
+
     email = forms.EmailField(max_length=254, help_text="Enter a valid email address")
+
+    def __init__(self, *args, **kwargs):
+        super(SignUpForm, self).__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
 
     class Meta:
         model = User
@@ -18,16 +26,29 @@ class SignUpForm(UserCreationForm):
         ]
 
 
+class LoginForm(AuthenticationForm):
+    template_name = "web/form_snippet.html"
+
+    def __init__(self, *args, **kwargs):
+        super(LoginForm, self).__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
+
+    class Meta:
+        model = User
+        fields = [
+            "username",
+            "password"
+        ]
+
+
 class MangaForm(forms.ModelForm):
+    template_name = "web/form_snippet.html"
+
     # start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
     start_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
     tags = forms.CharField(
         label="Tags", help_text="Comma seperated list of tags.", required=False
-    )
-    genres = forms.ModelMultipleChoiceField(
-        queryset=Genre.objects.all(),
-        widget=forms.CheckboxSelectMultiple,
-        required=False,
     )
     poster_url = forms.CharField(
         label="Poster URL",
@@ -48,6 +69,11 @@ class MangaForm(forms.ModelForm):
         required=False,
     )
     kitsu_id = forms.IntegerField(label="Kitsu ID", required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(MangaForm, self).__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
 
     class Meta:
         model = Manga
@@ -72,6 +98,8 @@ class MangaForm(forms.ModelForm):
 
 
 class VolumeEditForm(forms.ModelForm):
+    template_name = "web/form_snippet.html"
+
     chapters = forms.CharField(
         widget=forms.Textarea(),
         help_text="Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here. To add an arc starting point use the format '|Story Arc Name'.",
@@ -80,12 +108,19 @@ class VolumeEditForm(forms.ModelForm):
         label="Poster URL", help_text="URL to an image file.", required=False
     )
 
+    def __init__(self, *args, **kwargs):
+        super(VolumeEditForm, self).__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
+
     class Meta:
         model = Volume
         fields = ("poster_url", "chapters")
 
 
 class VolumeNewForm(forms.ModelForm):
+    template_name = "web/form_snippet.html"
+
     absolute_number = forms.IntegerField(
         label="Volume Number",
         help_text="Volume number -1 is reserved for chapters that are not in tankobon format yet.",
@@ -108,6 +143,8 @@ class VolumeNewForm(forms.ModelForm):
         self.manga = manga
         self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
         self.fields["edition"].required = True
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -132,6 +169,13 @@ class VolumeNewForm(forms.ModelForm):
 
 
 class EditionForm(forms.ModelForm):
+    template_name = "web/form_snippet.html"
+
     class Meta:
         model = Edition
         fields = ("manga", "name")
+
+    def __init__(self, *args, **kwargs):
+        super(EditionForm, self).__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(ATTRS)
