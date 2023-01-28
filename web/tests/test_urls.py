@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 from django.test import SimpleTestCase
 from django.urls import reverse, resolve
 
@@ -16,6 +16,7 @@ from web.views.singles.views import (
     SearchResultsView,
     SignUpView,
     GuidelinesView,
+    login_view
 )
 from web.views.users.views import UserDetailView
 
@@ -83,7 +84,7 @@ class TestVolumeUrls(SimpleTestCase):
 class TestAccountUrls(SimpleTestCase):
     def test_login_url_is_resolved(self):
         url = reverse("login")
-        self.assertEquals(resolve(url).func.__name__, LoginView.as_view().__name__)
+        self.assertEquals(resolve(url).func, login_view)
 
     def test_logout_url_is_resolved(self):
         url = reverse("logout")

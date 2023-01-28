@@ -17,7 +17,7 @@
     <div class="p-[25px]">
         <form class="form" method="post">
             {% csrf_token %}
-            {{ form|crispy }}
+            {{ form }}
             <p class="text-sm my-4">
                 Please read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before submitting
             </p>
