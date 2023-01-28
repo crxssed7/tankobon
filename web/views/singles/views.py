@@ -1,17 +1,14 @@
 from random import sample
 
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.db.models import Q, Count
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView
 
 from api.models import Manga
 from web.forms import SignUpForm, LoginForm
-
-
-from django.shortcuts import render,redirect
-from django.urls import reverse
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
 
 
 class IndexView(TemplateView):
@@ -34,7 +31,9 @@ class HelpNeededView(TemplateView):
             .filter(cnt=0)
         )
         context["no_poster"] = Manga.objects.filter(poster_file="")
-        context["no_genre"] = Manga.objects.all().annotate(cnt=Count("genres")).filter(cnt=0)
+        context["no_genre"] = (
+            Manga.objects.all().annotate(cnt=Count("genres")).filter(cnt=0)
+        )
         return context
 
 
@@ -46,9 +45,9 @@ class SearchResultsView(ListView):
         query = self.request.GET.get("q")
         if query:
             object_list = Manga.objects.filter(
-                Q(name__icontains=query) |
-                Q(romaji__icontains=query) |
-                Q(tags__icontains=query)
+                Q(name__icontains=query)
+                | Q(romaji__icontains=query)
+                | Q(tags__icontains=query)
             )
         else:
             object_list = []
@@ -79,19 +78,19 @@ class GuidelinesView(TemplateView):
 
 
 def login_view(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = LoginForm(request.POST)
-        username = request.POST['username']
-        password = request.POST['password']
+        username = request.POST["username"]
+        password = request.POST["password"]
         user = authenticate(username=username, password=password)
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect(reverse('search'))
+                return redirect(reverse("search"))
         else:
-            messages.error(request, 'Username or password not correct')
-            return redirect(reverse('login'))
+            messages.error(request, "Username or password not correct")
+            return redirect(reverse("login"))
     else:
         form = LoginForm()
     rendered_form = form.render("web/form_snippet.html")
-    return render(request,'registration/login.html',{'form':rendered_form})
+    return render(request, "registration/login.html", {"form": rendered_form})

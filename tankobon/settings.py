@@ -51,7 +51,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
 ]
 
-TAILWIND_APP_NAME = 'theme'
+TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -97,7 +97,9 @@ WSGI_APPLICATION = "tankobon.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="postgresql://postgres:@localhost/test_tankobon"),
+    "default": env.dj_db_url(
+        "DATABASE_URL", default="postgresql://postgres:@localhost/test_tankobon"
+    ),
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",

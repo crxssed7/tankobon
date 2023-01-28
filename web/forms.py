@@ -2,9 +2,10 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from api.models import Manga, Volume, Edition, Genre
+from api.models import Manga, Volume, Edition
 
-ATTRS = {'class': 'w-full rounded focus:border-hint focus:ring-hint'}
+ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint"}
+
 
 class SignUpForm(UserCreationForm):
     template_name = "web/form_snippet.html"
@@ -36,10 +37,7 @@ class LoginForm(AuthenticationForm):
 
     class Meta:
         model = User
-        fields = [
-            "username",
-            "password"
-        ]
+        fields = ["username", "password"]
 
 
 class MangaForm(forms.ModelForm):

@@ -16,7 +16,7 @@ from web.views.singles.views import (
     SearchResultsView,
     SignUpView,
     GuidelinesView,
-    login_view
+    login_view,
 )
 from web.views.users.views import UserDetailView
 from web.views.volume.views import edit_volume, new_volume
