@@ -2,13 +2,17 @@ ARG PYTHON_VERSION=3.10
 
 FROM python:${PYTHON_VERSION}
 
-RUN apt-get update && apt-get install -y \
-    python3-pip \
-    python3-venv \
-    python3-dev \
-    python3-setuptools \
-    python3-wheel \
-    nodejs
+RUN apt-get update -yq \
+    && apt-get -yq install curl gnupg ca-certificates \
+    && curl -fsSL https://deb.nodesource.com/setup_19.x | sudo -E bash \
+    && apt-get update -yq \
+    && apt-get install -yq \
+        python3-pip \
+        python3-venv \
+        python3-dev \
+        python3-setuptools \
+        python3-wheel \
+        nodejs
 
 RUN mkdir -p /app
 WORKDIR /app
