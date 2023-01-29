@@ -46,7 +46,13 @@ module.exports = {
       colors: {
         hint: '#29cf95',
         blay: '#0b0b0b',
-        whay: "#fefefe"
+        whay: '#fefefe',
+        anilist: '#0b1622',
+        mal: '#2e51a2',
+        mangaupdates: '#52667c',
+        animeplanet: '#fc5342',
+        kitsu: '#483048',
+        fandom: '#fa005a',
       },
     },
     borderRadius: {
