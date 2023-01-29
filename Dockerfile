@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y \
     python3-venv \
     python3-dev \
     python3-setuptools \
-    python3-wheel
+    python3-wheel \
+    nodejs
 
 RUN mkdir -p /app
 WORKDIR /app
@@ -20,6 +21,12 @@ RUN pipenv install --system --deploy
 
 COPY . .
 
+WORKDIR theme/static_src/
+RUN npm install
+
+WORKDIR /app
+
+RUN python manage.py tailwind build
 RUN python manage.py collectstatic --noinput
 
 
