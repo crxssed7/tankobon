@@ -40,15 +40,13 @@
                                         {% endif %}
                                     {% endif %}
                                 </h3>
+                                <button id="{{ edition.name }}-{{ volume.absolute_number }}-btn"
+                                        class="absolute right-0 top-0 px-3 py-2">
+                                    <i class="fa-solid fa-x"></i>
+                                </button>
                             </div>
                             <div class="m-4 px-7 py-3 max-h-[250px] overflow-scroll">
                                 {{ volume.chapters | listify | bleach:"li,p,b,br" }}
-                            </div>
-                            <div class="text-end px-4 py-3">
-                                <button id="{{ edition.name }}-{{ volume.absolute_number }}-btn"
-                                        class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">
-                                    Close
-                                </button>
                             </div>
                         </div>
                     </div>
