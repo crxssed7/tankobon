@@ -1,15 +1,15 @@
 <div>
     <a href="{% url 'manga' manga.id %}" class="card-link">
-        <div class="chip-card">
-            <div class="display-flex">
+        <div class="hoverable m-[10px] p-[10px] border border-blay rounded">
+            <div class="flex">
                 {% if manga.poster_file %}
-                    <div class="chip-img" style="background-image: url('{{ manga.poster_file.url }}');"></div>
+                    <div class="mr-[10px] min-w-[100px] h-[150px] bg-hint bg-cover bg-no-repeat bg-center rounded" style="background-image: url('{{ manga.poster_file.url }}');"></div>
                 {% else %}
-                    <div class="chip-img"></div>
+                    <div class="mr-[10px] min-w-[100px] h-[150px] bg-hint rounded"></div>
                 {% endif %}
                 <div>
-                    <div class="chip-name-wrapper">
-                        <h5>{{ manga.name }}</h5>
+                    <div class="manga-name-wrapper block h-[4em] leading-[2em] overflow-hidden text-ellipsis">
+                        <h5 class="font-bold">{{ manga.name }}</h5>
                     </div>
                     {% if manga.magazine %}
                         <p>

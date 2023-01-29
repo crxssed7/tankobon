@@ -19,6 +19,6 @@ def listify(value):
                     + " arc starts here.</b></p>"
                 )
             else:
-                c = '<li class="chapter-li">' + chapter + "</li>\n"
+                c = '<li class="m-[10px]">' + chapter + "</li>\n"
             output += c
-    return output
+    return output.strip()

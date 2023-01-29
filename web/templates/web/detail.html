@@ -5,14 +5,6 @@
 {% block title %}
     {{ manga.name }} - Tankōbon
 {% endblock title %}
-{% block extrahead %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/shared/_id_badges.css' %}"/>
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/web/detail.css' %}"/>
-{% endblock extrahead %}
 {% block meta_description %}
     {{ manga.description }}
 {% endblock meta_description %}
@@ -34,70 +26,71 @@
 {% block meta_twitter_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_twitter_image_alt %}
-{% block content %}
-    <div class="head">
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
         {% if manga.poster_file %}
             <div>
                 <center>
-                    <img src="{{ manga.poster_file.url }}" alt="Poster" class="poster" width="150" />
+                    <img src="{{ manga.poster_file.url }}" alt="{{ manga.name }} Poster" class="rounded" width="150" />
                 </center>
             </div>
             <br />
         {% endif %}
-        <h1>{{ manga.name }}</h1>
-        {% if manga.name != manga.romaji %}<p>{{ manga.romaji }}</p>{% endif %}
-        <div class="flex">
+        <h1 class="underline decoration-hint decoration-[5px] font-bold sm:text-4xl text-2xl pb-3">{{ manga.name }}</h1>
+        {% if manga.name != manga.romaji %}<p class="font-bold pb-3">{{ manga.romaji }}</p>{% endif %}
+        <div class="flex flex-wrap justify-center gap-2">
             {% for genre in manga.genres.all %}
-                <span class="badge bg-dark">{{ genre.name }}</span>
+                <span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">{{ genre.name }}</span>
             {% endfor %}
         </div>
     </div>
-    <div class="container section">
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="sticky">
-                    {% if manga.banner_file %}
-                        <img src="{{ manga.banner_file.url }}" alt="banner" class="poster" width="100%" />
-                        <br />
-                        <br />
-                    {% endif %}
-                    <div class="card mb-3">
-                        <div class="card-header">
-                            <div class="space-between">
-                                <b>About {{ manga.name }}</b>
-                                {% if user.is_authenticated %}
-                                    {% if not manga.locked %}
-                                        <a href="{% url 'edit_manga' manga.id %}"
-                                           class="edit-link link"
-                                           title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
-                                    {% else %}
-                                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
-                                    {% endif %}
+{% endblock heading %}
+{% block content %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="col-span-1">
+            <div class="sm:sticky sm:top-[100px]">
+                {% if manga.banner_file %}
+                    <img src="{{ manga.banner_file.url }}" alt="banner" class="rounded mb-4" width="100%" />
+                {% endif %}
+                <div class="flex relative flex-col rounded border border-blay mb-3 overflow-hidden">
+                    <div class="py-2 px-4 bg-gray-100 border-b border-blay">
+                        <div class="flex justify-between">
+                            <b>About {{ manga.name }}</b>
+                            {% if user.is_authenticated %}
+                                {% if not manga.locked %}
+                                    <a href="{% url 'edit_manga' manga.id %}" title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
+                                {% else %}
+                                    <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
                                 {% endif %}
-                            </div>
-                        </div>
-                        <div class="card-body text-dark">
-                            <div class="manga-description">{{ manga.description | bleach:"br,b" }}</div>
-                            <a href="#" id="readmore" class="btn btn-tankobon">Read more</a>
-                            <hr />
-                            <b>Status: </b> {% capitalize manga.status %}
-                            <hr />
-                            <b>Start Date: </b> {{ manga.start_date }}
-                            {% if manga.magazine %}
-                                <hr />
-                                <b>Magazine: </b> {{ manga.magazine }}
                             {% endif %}
-                            <hr />
-                            {% include "web/shared/_id_badges.html" with manga=manga only %}
                         </div>
+                    </div>
+                    <div class="flex flex-col p-4">
+                        <div class="manga-description h-auto overflow-hidden">{{ manga.description | bleach:"br,b" }}</div>
+                        <a href="#" id="readmore" class="underline">Read more</a>
+                        <hr class="my-4 border-blay" />
+
+                        <span><b>Status: </b> {% capitalize manga.status %}</span>
+                        <hr class="my-4 border-blay" />
+
+                        <span><b>Start Date: </b> {{ manga.start_date }}</span>
+                        <hr class="my-4 border-blay" />
+
+                        {% if manga.magazine %}
+                            <span><b>Magazine: </b> {{ manga.magazine }}</span>
+                            <hr class="my-4 border-blay" />
+                        {% endif %}
+
+                        {% include "web/shared/_id_badges.html" with manga=manga only %}
                     </div>
                 </div>
             </div>
-            <div class="col-sm-6">
-                {% block volume_details %}
-                {% endblock volume_details %}
-            </div>
+        </div>
+        <div class="col-span-1">
+            {% block volume_details %}
+            {% endblock volume_details %}
         </div>
     </div>
+    
     <script src="{% static 'js/read_more.js' %}"></script>
 {% endblock content %}

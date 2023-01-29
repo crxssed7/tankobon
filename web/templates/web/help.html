@@ -1,74 +1,68 @@
 {% extends "base.html" %}
 {% load static %}
 {% load bleach_tags %}
-{% block extrahead %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/shared/_poster_chip.css' %}"/>
-{% endblock extrahead %}
 {% block meta_description %}
     Help is needed! We need your help to make Tankōbon as accurate as possible.
 {% endblock meta_description %}
 {% block meta_title %}
     Tankōbon - Help is needed!
 {% endblock meta_title %}
-{% block content %}
-    <div class="head">
-        <h2>Help is needed!</h2>
-        <p>The records listed below need to be updated/modified.</p>
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+        <h3 class="font-bold text-2xl">Help is needed!</h3>
+        <p class="font-bold pb-3">The records listed below need to be updated/modified.</p>
         <p>
-            <a href="#no_volume" class="link">No Volumes</a> · <a href="#no_poster" class="link">No Poster</a> · <a href="#no_genre" class="link">No Genres</a>
+            <a href="#no_volume" class="text-hint underline">No Volumes</a> · <a href="#no_poster" class="text-hint underline">No Poster</a> · <a href="#no_genre" class="text-hint underline">No Genres</a>
         </p>
     </div>
-    <br />
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-6">
-                <h4 id="no_volume">
-                    <b>No Volumes:</b>
-                </h4>
-                {% if no_volume %}
-                    <p>These records have no volumes attached to them.</p>
-                    {% for manga in no_volume %}
-                        {% include "web/shared/_poster_chip.html" with manga=manga only %}
+{% endblock heading %}
+{% block content %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div class="col-span-1">
+            <h4 id="no_volume">
+                <b>No Volumes:</b>
+            </h4>
+            {% if no_volume %}
+                <p>These records have no volumes attached to them.</p>
+                {% for manga in no_volume %}
+                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                {% endfor %}
+            {% else %}
+                <p>There are no records with missing volumes. 👏</p>
+            {% endif %}
+        </div>
+        <div class="col-span-1">
+            <h4 id="no_poster">
+                <b>No Poster:</b>
+            </h4>
+            {% if no_poster %}
+                <p>These records have no poster.</p>
+                <ul class="list-disc pl-4 mb-3">
+                    {% for manga in no_poster %}
+                        <li>
+                            <a href="{% url 'manga' manga.id %}" class="text-hint underline"><b>{{ manga.name }}</b></a>
+                        </li>
                     {% endfor %}
-                {% else %}
-                    <p>There are no records with missing volumes. 👏</p>
-                {% endif %}
-            </div>
-            <div class="col-sm-6">
-                <h4 id="no_poster">
-                    <b>No Poster:</b>
-                </h4>
-                {% if no_poster %}
-                    <p>These records have no poster.</p>
-                    <ul>
-                        {% for manga in no_poster %}
-                            <li>
-                                <a href="{% url 'manga' manga.id %}" class="link"><b>{{ manga.name }}</b></a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>There are no records with missing posters. Yay!</p>
-                {% endif %}
+                </ul>
+            {% else %}
+                <p>There are no records with missing posters. Yay!</p>
+            {% endif %}
 
-                <h4 id="no_genre">
-                    <b>No Genres:</b>
-                </h4>
-                {% if no_genre %}
-                    <p>These records have no genres.</p>
-                    <ul>
-                        {% for manga in no_genre %}
-                            <li>
-                                <a href="{% url 'manga' manga.id %}" class="link"><b>{{ manga.name }}</b></a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>There are no records with no genres.</p>
-                {% endif %}
-            </div>
+            <h4 id="no_genre">
+                <b>No Genres:</b>
+            </h4>
+            {% if no_genre %}
+                <p>These records have no genres.</p>
+                <ul class="list-disc pl-4 mb-3">
+                    {% for manga in no_genre %}
+                        <li>
+                            <a href="{% url 'manga' manga.id %}" class="text-hint underline"><b>{{ manga.name }}</b></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>There are no records with no genres.</p>
+            {% endif %}
         </div>
     </div>
 {% endblock content %}

@@ -42,13 +42,20 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "crispy_forms",
     "django_bleach",
     "simple_history",
     "storages",
+    "tailwind",
+    "theme",
+    "django_browser_reload",
 ]
 
-CRISPY_TEMPLATE_PACK = "bootstrap4"
+TAILWIND_APP_NAME = "theme"
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
+
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -61,6 +68,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "tankobon.middleware.SqlPrintMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "tankobon.urls"
@@ -88,7 +96,9 @@ WSGI_APPLICATION = "tankobon.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    "default": env.dj_db_url("DATABASE_URL", default="postgresql://postgres:@localhost/test_tankobon"),
+    "default": env.dj_db_url(
+        "DATABASE_URL", default="postgresql://postgres:@localhost/test_tankobon"
+    ),
     "sqlite": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",

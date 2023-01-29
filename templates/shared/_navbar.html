@@ -1,67 +1,83 @@
 {% load static %}
-<nav class="navbar fixed-top navbar-expand-lg navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="{% url 'index' %}">
-            <img src="{% static 'img/logo.svg' %}"
-                 alt="brand icon"
-                 class="navbar-brand"
-                 width="35px"/>
-        </a>
-        <button class="navbar-toggler"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                onclick="navChangeColor()">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link {{ home_active }}"
-                       aria-current="page"
-                       href="{% url 'index' %}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ search_active }}" href="{% url 'search' %}">Manga</a>
-                </li>
-            </ul>
-            <div class="navbar-nav">
-                <form class="d-flex" action="{% url 'search' %}" method="get">
-                    <input name="q"
-                           id="main-search"
-                           class="form-control me-2"
-                           type="search"
-                           placeholder="Search for a manga"
-                           aria-label="Search"
-                           value="{{ query }}"/>
-                    <button class="btn btn-tankobon me-2" type="submit" title="Search">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-                {% if not user.is_authenticated %}
-                    <a class="btn btn-tankobon me-2 nav-actions"
-                       href="{% url 'login' %}"
-                       title="Login">Login</a>
-                    <a class="btn btn-tankobon me-2 nav-actions"
-                       href="{% url 'signup' %}"
-                       title="Signup">Signup</a>
-                {% else %}
-                    <a class="btn btn-tankobon me-2 nav-actions"
-                       href="{% url 'user' user.username %}"
-                       title="Your Profile"><i class="fa-solid fa-user"></i></a>
-                    <a class="btn btn-tankobon me-2 nav-actions"
-                       href="{% url 'logout' %}"
-                       title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
-                    <a class="btn btn-tankobon me-2 nav-actions"
-                       href="{% url 'new_manga' %}"
-                       title="Add Manga"><i class="fa-solid fa-plus"></i></a>
-                {% endif %}
-            </div>
+{% load utility %}
+<nav class="navbar bg-blay sm:fixed top-0 w-full z-10">
+    <div class="mx-auto px-2 sm:px-6 lg:px-8">
+      <div class="relative flex h-16 items-center justify-between">
+        <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+          <!-- Mobile menu button-->
+          <button id="mobileButtonCollapse" type="button" class="inline-flex items-center justify-center rounded p-2 text-whay hover:bg-black-100 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
         </div>
+        <div class="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+          <div class="flex flex-shrink-0 items-center">
+            <img class="block h-[36px] w-auto lg:hidden" src="{% static 'img/logo.svg' %}" alt="brand icon"/>
+            <img class="hidden h-[36px] w-auto lg:block" src="{% static 'img/logo.svg' %}" alt="brand icon"/>
+          </div>
+          <div class="hidden sm:ml-6 sm:block">
+            <div class="flex space-x-4">
+              <!-- Current: "text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+              <a href="{% url 'index' %}" class="{% active_tab request.path '' %}" aria-current="page">Home</a>
+              
+              <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %}">Manga</a>
+            </div>
+          </div>
+        </div>
+        <div class="hidden absolute inset-y-0 right-0 sm:flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+            <form class="md:hidden lg:flex sm:hidden gap-2" action="{% url 'search' %}" method="get">
+                <input name="q" id="main-search" class="rounded focus:border-hint focus:ring-hint" type="search" placeholder="Search for a manga" aria-label="Search" value="{{ query }}"/>
+                <button class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit" title="Search">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </form>
+            {% if not user.is_authenticated %}
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'login' %}" title="Login">Login</a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'signup' %}" title="Signup">Signup</a>
+            {% else %}
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
+                <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            {% endif %}
+        </div>
+      </div>
+    </div>
+  
+    <!-- Mobile menu, show/hide based on menu state. -->
+    <div class="hidden bg-blay" id="mobile-menu">
+      <div class="space-y-1 px-2 pt-2 pb-3">
+        <!-- Current: "ext-white", Default: "text-gray-300 hover:text-white" -->
+        <a href="{% url 'index' %}" class="{% active_tab request.path '' %} block text-base" aria-current="page">Home</a>
+
+        <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %} block text-base">Manga</a>
+  
+        {% if not user.is_authenticated %}
+            <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'login' %}" title="Login">Login</a>
+            <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'signup' %}" title="Signup">Signup</a>
+        {% else %}
+            <div class="flex justify-between">
+                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
+                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+            </div>
+        {% endif %}
+      </div>
     </div>
 </nav>
+
+<script>
+  var hidden = true;
+  document.getElementById("mobileButtonCollapse").addEventListener("click", () => {
+    var menu = document.getElementById("mobile-menu");
+    if (hidden === true) {
+      menu.classList.remove("hidden");
+    } else {
+      menu.classList.add("hidden");
+    }
+    hidden = !hidden
+  });
+</script>
 <script src="{% static 'js/navbar.js' %}"></script>
 <script src="{% static 'js/select_input.js' %}"></script>

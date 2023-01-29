@@ -1,80 +1,68 @@
 {% extends "base.html" %}
 {% load static %}
-{% load crispy_forms_tags %}
 {% block title %}
     Contribution Guidelines - Tankōbon
 {% endblock title %}
-{% block extrahead %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/web/contrib.css' %}"/>
-{% endblock extrahead %}
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+        <h3 class="font-bold text-2xl">Contribution Guidelines 📑</h3>
+    </div>
+{% endblock heading %}
 {% block content %}
-    <div class="head">
-        <h3>Contribution Guidelines 📑</h3>
-    </div>
-    <div class="container section">
-        <p>
-            Tankōbon would not be possible without the help of user contributions, however there are a few rules you must
-            read before you can contribute.
-        </p>
-        <h5>Rules</h5>
-        <ol>
-            <li class="li-ind">
-                Only add manga that follow the <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" class="link">Tankōbon</a> format.
+    <p>
+        Tankōbon would not be possible without the help of user contributions, however there are a few rules you must
+        read before you can contribute.
+    </p>
+    <h5 class="font-bold text-lg my-2">Rules</h5>
+    <ul class="list-decimal pl-4">
+        <li class="mb-2">
+            Only add manga that follow the <a href="https://en.wikipedia.org/wiki/Tank%C5%8Dbon" class="text-hint underline">Tankōbon</a> format.
+        </li>
+        <li class="mb-2">Follow the correct formatting for chapters. Example for One Punch Man:</li>
+        <ul class="list-disc pl-6">
+            <li class="mb-2">
+                Chapter {chapter number} | <code>Chapter 1</code>
             </li>
-            <li>Follow the correct formatting for chapters. Example for One Punch Man:</li>
-            <ul>
-                <li>
-                    Chapter {chapter number} | <code>Chapter 1</code>
-                </li>
-                <li>
-                    Chapter {chapter number} - {chapter name} | <code>Chapter 1: One Punch</code>
-                </li>
-                <li>
-                    {custom} {chapter number} | <code>1st Punch</code>
-                </li>
-                <li>
-                    {custom} {chapter number} - {chapter name} | <code>1st Punch: One Punch</code>
-                </li>
-            </ul>
-            <p class="li-ind">
-                Follow this format to add arc starting points: <code>|Story Arc Name</code>
-            </p>
-            <li class="li-ind">Check if the record you are adding already exists in the database.</li>
-            <li class="li-ind">
-                Avoid adding sexually explicit content. Ecchi is fine (as long as the images do not contain any nudity) but h*ntai is not.
+            <li class="mb-2">
+                Chapter {chapter number} - {chapter name} | <code>Chapter 1: One Punch</code>
             </li>
-            <li class="li-ind">Do not add oneshots.</li>
-        </ol>
-        <p>Failure to follow any of the above rules will result in a ban.</p>
-        <h5>How do I contribute?</h5>
-        <p>
-            That's easy! Simply <a href="{% url 'signup' %}" class="link">signup</a>, and click the <i class="fa-solid fa-pencil"></i> icon on any manga page
-            to start editing! After signing up, you can also start <a href="{% url 'new_manga' %}" class="link">adding
-            manga</a>.
-        </p>
-        <p>
-            If you don't want to contribute directly to the site, you can also help contribute with the development. Either
-            send bug fixes (if you're a developer) or submit bug reports (if you're not a developer) to the Tankōbon <a href="https://github.com/crxssed7/tankobon" class="link">Github</a> page.
-        </p>
-    </div>
-    <div class="feature">
-        <h3>Contribution Notes</h3>
-    </div>
-    <div class="container section">
-        <h5>Locked Records</h5>
-        <p>
-            While browsing the site you may see the <i class="fa-solid fa-lock"></i> icon. This indicates that the record you are viewing is locked and
-            cannot be edited any further.
-        </p>
-        <p>A record will be locked when:</p>
-        <ul>
-            <li class="li-ind">The manga/volume has finished releasing.</li>
-            <li class="li-ind">The data related to the manga is complete.</li>
+            <li class="mb-2">
+                {custom} {chapter number} | <code>1st Punch</code>
+            </li>
+            <li class="mb-2">
+                {custom} {chapter number} - {chapter name} | <code>1st Punch: One Punch</code>
+            </li>
         </ul>
-        <p>
-            If a locked record has incorrect data, <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="link">report it</a>.
+        <p class="mb-2">
+            Follow this format to add arc starting points: <code>|Story Arc Name</code>
         </p>
-    </div>
+        <li class="mb-2">Check if the record you are adding already exists in the database.</li>
+        <li class="mb-2">
+            Avoid adding sexually explicit content. Ecchi is fine (as long as the images do not contain any nudity) but h*ntai is not.
+        </li>
+    </ul>
+    <p>Failure to follow any of the above rules will result in a ban.</p>
+    <h5 class="font-bold text-lg my-2">How do I contribute?</h5>
+    <p class="mb-2">
+        That's easy! Simply <a href="{% url 'signup' %}" class="text-hint underline">signup</a>, and click the <i class="fa-solid fa-pencil"></i> icon on any manga page
+        to start editing! After signing up, you can also start <a href="{% url 'new_manga' %}" class="text-hint underline">adding
+        manga</a>.
+    </p>
+    <p class="mb-2">
+        If you don't want to contribute directly to the site, you can also help contribute with the development. Either
+        send bug fixes (if you're a developer) or submit bug reports (if you're not a developer) to the Tankōbon <a href="https://github.com/crxssed7/tankobon" class="text-hint underline">Github</a> page.
+    </p>
+    <h5 class="font-bold text-lg my-2">Contribution Notes</h5>
+    <p class="mb-2">
+        While browsing the site you may see the <i class="fa-solid fa-lock"></i> icon. This indicates that the record you are viewing is locked and
+        cannot be edited any further.
+    </p>
+    <p class="mb-2">A record will be locked when:</p>
+    <ul class="list-disc pl-4 mb-2">
+        <li class="mb-2">The manga/volume has finished releasing.</li>
+        <li class="mb-2">The data related to the manga is complete.</li>
+    </ul>
+    <p class="mb-2">
+        If a locked record has incorrect data, <a href="https://forms.gle/TYcJq3EJhPhC4iE87" class="text-hint underline">report it</a>.
+    </p>
 {% endblock content %}

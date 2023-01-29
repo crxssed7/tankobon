@@ -16,3 +16,11 @@ def urlparams(*_, **kwargs):
 @register.simple_tag
 def capitalize(value):
     return str(value).capitalize()
+
+
+@register.simple_tag
+def active_tab(value, expected):
+    active = str(value).split("/")
+    if active[1] == expected:
+        return "text-white px-3 py-2 rounded-md text-sm font-medium"
+    return "text-gray-300 hover:text-white hover:text-white px-3 py-2 rounded-md text-sm font-medium"

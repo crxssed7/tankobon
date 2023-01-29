@@ -3,36 +3,45 @@
 {% block title %}
 All Manga - Tankōbon
 {% endblock title %}
-{% block extrahead %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/shared/_banner_card.css' %}"/>
-{% endblock extrahead %}
 {% block meta_description %}
 A centralised site that documents what chapter is in which volume of a manga. There are currently {{ count }} manga in our database, with more documented frequently!
 {% endblock meta_description %}
-{% block content %}
-    <div class="head">
-        <h2>We currently have {{ count }} manga in the database.</h2>
+{% block heading %}
+    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+        <h3 class="font-bold text-2xl">We currently have {{ count }} manga in the database.</h3>
     </div>
-    <div class="container section">
-        <div class="row" id="content">
-            {% for manga in results %}
-                {% include "web/shared/_banner_card.html" with manga=manga only %}
-            {% endfor %}
-        </div>
-        <ul class="pagination">
+{% endblock heading %}
+{% block content %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {% for manga in results %}
+            {% include "web/shared/_banner_card.html" with manga=manga only %}
+        {% endfor %}
+    </div>
+    <div class="flex justify-center">
+        <nav aria-label="Page navigation example">
+          <ul class="flex list-style-none">
             {% if page_obj.has_previous %}
-                <li class="page-item"><a class="page-link" href="?page=1">&laquo;</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+                <li class="page-item"><a
+                    class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    href="?page=1" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+                <li class="page-item"><a
+                    class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    href="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
             {% endif %}
 
-            <li class="page-item"><a class="page-link current" aria-disabled="true">{{ page_obj.number }}</a></li>
-
+            <li class="page-item disabled"><a
+                class="page-link relative block py-1.5 px-3 rounded border-0 bg-blay outline-none transition-all duration-300 rounded text-whay shadow-md focus:shadow-md"
+                href="#">{{ page_obj.number }}</a></li>
+            
             {% if page_obj.has_next %}
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
-                <li class="page-item"><a class="page-link" href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+                <li class="page-item"><a
+                    class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    href="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+                <li class="page-item"><a
+                    class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none"
+                    href="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
             {% endif %}
           </ul>
-    </div>
+        </nav>
+      </div>
 {% endblock content %}

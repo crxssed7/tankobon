@@ -1,28 +1,35 @@
-// This is a bloody mess. Try and find better examples online.
 const nav = document.querySelector('.navbar');
-const collapse = document.querySelector('.navbar-collapse');
 const offset = 25;
-// colored = nav.classList.contains('navbar-bg')
-// opened = collapse.classList.contains('show')
 
 function navChangeColor(colored = true) {
   if (colored) {
-    nav.classList.add('navbar-bg');
+    nav.classList.add('bg-blay', 'transition-all', 'duration-[0.25s]');
   } else {
-    nav.classList.remove('navbar-bg');
+    nav.classList.remove('bg-blay', 'transition-all', 'duration-[0.25s]');
   }
 }
 
 function getOffset() {
-  if (window.pageYOffset > offset) {
-    navChangeColor();
-  }
-  if (window.pageYOffset < offset && collapse.classList.contains('show') === false && nav.classList.contains('navbar-bg') === true) {
-    navChangeColor(false);
-    nav.style.transition = 'background .25s ease-out';
+  if (window.screen.width >= 640) {
+    nav.classList.remove('bg-blay');
+    if (window.pageYOffset > offset) {
+      navChangeColor();
+    }
+    if (window.pageYOffset < offset) {
+      navChangeColor(false);
+      nav.style.transition = 'background .25s ease-out';
+    }
   }
 }
 
 getOffset();
 
 window.addEventListener('scroll', getOffset);
+
+window.addEventListener('resize', () => {
+  if (window.screen.width >= 640 && window.pageYOffset < offset) {
+    nav.classList.remove('bg-blay');
+  } else {
+    nav.classList.add('bg-blay');
+  }
+}, true);

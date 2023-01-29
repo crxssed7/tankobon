@@ -1,5 +1,5 @@
 from django.urls import path, register_converter
-from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.views import LogoutView
 
 from web.converters import NegativeIntConverter
 from web.views.manga.views import (
@@ -16,7 +16,7 @@ from web.views.singles.views import (
     SearchResultsView,
     SignUpView,
     GuidelinesView,
-    DocsView,
+    login_view,
 )
 from web.views.users.views import UserDetailView
 from web.views.volume.views import edit_volume, new_volume
@@ -26,7 +26,6 @@ register_converter(NegativeIntConverter, "negint")
 urlpatterns = [
     path("", IndexView.as_view(), name="index"),
     path("guidelines/", GuidelinesView.as_view(), name="contrib"),
-    path("docs/", DocsView.as_view(), name="docs"),
     path("help/", HelpNeededView.as_view(), name="help_needed"),
     path("manga/", SearchResultsView.as_view(), name="search"),
     path("manga/new/", new_manga, name="new_manga"),
@@ -46,7 +45,7 @@ urlpatterns = [
     ),
     path("manga/<int:manga_id>/new/", new_volume, name="new_volume"),
     path("edition/new/", new_edition, name="new_edition"),
-    path("accounts/login/", LoginView.as_view(), name="login"),
+    path("accounts/login/", login_view, name="login"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
     path("accounts/signup/", SignUpView.as_view(), name="signup"),
     path("users/<slug>/", UserDetailView.as_view(), name="user"),

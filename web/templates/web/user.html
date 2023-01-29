@@ -3,28 +3,25 @@
 {% block title %}
     {{ object.username }} - Tankōbon
 {% endblock title %}
-{% block extrahead %}
-    <link rel="stylesheet"
-          type="text/css"
-          href="{% static 'css/web/user.css' %}"/>
-{% endblock extrahead %}
 {% block meta_description %}
     Check out {{ object.username }}'s manga collection on Tankobon
 {% endblock meta_description %}
 {% block meta_title %}
     {{ object.username }} - Tankōbon
 {% endblock meta_title %}
-{% block content %}
-    <div class="head">
-        <div>
-            <center>
-                <img src="{{ avatar }}" alt="Avatar" class="avatar" width="150" />
-            </center>
-        </div>
-        <br />
-        <h1>{{ object.username }}</h1>
-        {% if object.is_staff %}<span class="badge bg-dark">ADMIN</span>{% endif %}
+{% block heading %}
+<div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
+    <div>
+        <center>
+            <img src="{{ avatar }}" alt="Avatar" class="rounded-[50%] border-[5px] border-whay max-w-[90px]" />
+        </center>
     </div>
+    <br />
+    <h1 class="font-bold text-2xl">{{ object.username }}</h1>
+    {% if object.is_staff %}<span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">ADMIN</span>{% endif %}
+</div>
+{% endblock heading %}
+{% block content %}
     <div class="container section">
         <p>Manga collections are coming to Tankōbon really soon!</p>
     </div>
