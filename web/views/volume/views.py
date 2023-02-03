@@ -9,10 +9,9 @@ from web.forms import VolumeEditForm, VolumeNewForm
 @login_required
 def edit_volume(request, manga_id, volume_number):
     _edition = request.GET.get("edition")
+    edition = None
     if _edition:
         edition = Edition.objects.filter(name=_edition.lower(), manga=manga_id).first()
-    else:
-        edition = Edition.objects.filter(name="standard", manga=manga_id).first()
 
     if not edition:
         raise Http404("This edition does not exist")
