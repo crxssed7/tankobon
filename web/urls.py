@@ -1,5 +1,5 @@
-from django.urls import path, register_converter
 from django.contrib.auth.views import LogoutView
+from django.urls import path, register_converter
 from django.views.generic import TemplateView
 
 from web.converters import NegativeIntConverter
