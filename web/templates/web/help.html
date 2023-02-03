@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 {% load bleach_tags %}
+{% load utility %}
 {% block meta_description %}
     Help is needed! We need your help to make Tankōbon as accurate as possible.
 {% endblock meta_description %}
@@ -23,10 +24,14 @@
                 <b>No Volumes:</b>
             </h4>
             {% if no_volume %}
-                <p>These records have no volumes attached to them.</p>
-                {% for manga in no_volume %}
-                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
-                {% endfor %}
+                <p>These editions have no volumes attached to them.</p>
+                <ul class="list-disc pl-4 mb-3">
+                    {% for edition in no_volume %}
+                        <li>
+                            <a href="{% url 'manga' edition.manga.id %}" class="text-hint underline"><b>{{ edition.manga.name }} - {% capitalize edition.name %} Edition</b></a>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% else %}
                 <p>There are no records with missing volumes. 👏</p>
             {% endif %}
