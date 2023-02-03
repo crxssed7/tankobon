@@ -45,7 +45,7 @@ module.exports = {
     extend: {
       colors: {
         hint: '#29cf95',
-        blay: '#262425',
+        blay: '#0b0b0b',
         whay: '#fefefe',
         anilist: '#0b1622',
         mal: '#2e51a2',
