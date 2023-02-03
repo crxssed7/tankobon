@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy, reverse
 from django.views.generic import TemplateView, ListView, CreateView
 
-from api.models import Manga
+from api.models import Manga, Edition
 from web.forms import SignUpForm, LoginForm
 
 
@@ -26,8 +26,7 @@ class HelpNeededView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(HelpNeededView, self).get_context_data(**kwargs)
         context["no_volume"] = (
-            Manga.objects.exclude(status="PLANNED")
-            .annotate(cnt=Count("volume"))
+            Edition.objects.select_related("manga").annotate(cnt=Count("volume"))
             .filter(cnt=0)
         )
         context["no_poster"] = Manga.objects.filter(poster_file="")
