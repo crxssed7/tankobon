@@ -73,10 +73,6 @@ class SignUpView(CreateView):
     template_name = "registration/signup.html"
 
 
-class GuidelinesView(TemplateView):
-    template_name = "web/contrib.html"
-
-
 def login_view(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
