@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils.timezone import datetime
 
-from api.models import Manga, Volume, Edition
+from api.models import Manga, Volume, Edition, Genre
 
 
 class TestSingleViews(TestCase):
@@ -25,6 +25,10 @@ class TestSingleViews(TestCase):
         self.assertTemplateUsed(response, "web/help.html")
 
     def test_search_GET(self):
+        Genre.objects.create(name="Shounen")
+        Genre.objects.create(name="Shoujo")
+        Genre.objects.create(name="Seinen")
+        Genre.objects.create(name="Josei")
         response = self.client.get(self.search_url)
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/manga/manga_search.html")

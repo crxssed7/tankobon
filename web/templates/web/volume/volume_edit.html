@@ -14,14 +14,16 @@
     </div>
 {% endblock heading %}
 {% block content %}
-    <div class="p-[25px]">
-        <form class="form" method="post">
-            {% csrf_token %}
-            {{ form }}
-            <p class="text-sm my-4">
-                Please read the <a href="{% url 'contrib' %}" class="text-blay underline">Contribution Guidelines</a> before submitting
-            </p>
-            <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Submit</button>
-        </form>
+    <div class="mx-auto max-w-7xl px-4">
+        <div class="p-[25px]">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <p class="text-sm my-4">
+                    Please read the <a href="{% url 'contrib' %}" class="text-blay underline">Contribution Guidelines</a> before submitting
+                </p>
+                <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Submit</button>
+            </form>
+        </div>
     </div>
 {% endblock content %}

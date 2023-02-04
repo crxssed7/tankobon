@@ -58,6 +58,9 @@ module.exports = {
     borderRadius: {
       DEFAULT: '5px',
     },
+    fontFamily: {
+      sans: ['"Montserrat"', 'sans-serif'],
+    },
   },
   plugins: [
     /**
