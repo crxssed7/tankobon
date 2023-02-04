@@ -9,19 +9,21 @@
     </div>
 {% endblock heading %}
 {% block content %}
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li class="p-[25px] bg-red-200">{{ message }}</li>
-    {% endfor %}
-</ul>
-{% endif %}
-
-<div class="p-[25px]">
-    <form class="form" method="post">
-        {% csrf_token %}
-        {{ form }}
-        <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Log In</button>
-    </form>
-</div>
+    <div class="mx-auto max-w-7xl px-4">
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li class="p-[25px] bg-red-200">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <div class="p-[25px]">
+            <form class="form" method="post">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Log In</button>
+            </form>
+        </div>
+    </div>
 {% endblock content %}

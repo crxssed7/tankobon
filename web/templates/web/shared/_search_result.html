@@ -1,7 +1,9 @@
+{% load utility %}
+
 <a href="{% url 'manga' manga.id %}" class="m-[5px]">
     <div class="hoverable relative flex flex-col h-full w-[150px] rounded border border-blay" title="{{ manga.name }}">
         <div class="h-[235px] rounded-t-[5px] overflow-hidden bg-hint">
-            {% if manga.poster_file %}<img src="{{ manga.poster_file.url }}" alt="{{ manga.name }} Poster" class="w-full h-full object-cover" />{% endif %}
+            <img src="{% poster_url manga %}" alt="{{ manga.name }} Poster" class="w-full h-full object-cover" />
         </div>
         <div class="p-4 text-xs manga-name-wrapper block overflow-hidden text-ellipsis">
             <center>

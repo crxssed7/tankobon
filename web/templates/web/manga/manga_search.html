@@ -19,7 +19,7 @@
     <div class="swiper mySwiper">
         <div class="swiper-wrapper">
             {% for manga in recently_updated %}
-                <div class="swiper-slide bg-blay text-whay !w-full !h-[350px] md:!h-[500px] bg-no-repeat bg-cover bg-center" style="background-image: url('{% if manga.banner_file %} {{ manga.banner_file.url }} {% endif %}')">
+                <div class="swiper-slide bg-blay text-whay !w-full !h-[350px] md:!h-[500px] bg-no-repeat bg-cover bg-center" style="background-image: url('{% banner_url manga %}')">
                     <div class="bg-[#0b0b0bbf] w-full h-full">
                         <div class="mx-auto max-w-7xl p-4">
                             <div class="absolute bottom-[45px]">
@@ -64,79 +64,153 @@
 </div>
 {% endblock heading %}
 {% block content %}
-    <form class="lg:hidden flex gap-2 w-full" action="{% url 'search' %}" method="get">
-        <input name="q" class="rounded focus:border-hint focus:ring-hint w-full" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}"/>
-        <button class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>
-        </button>
-    </form>
-    {% if object_list %}
-        <center>
-            <h3 class="font-bold text-2xl my-2">Search results:</h3>
-        </center>
-        <div class="flex flex-wrap justify-center">
-            {% for manga in object_list %}
-                {% include "web/shared/_search_result.html" with manga=manga only %}
-            {% endfor %}
-        </div>
-    {% endif %}
-    <!-- CTA's -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="col-span-1">
-            <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
-                <h5 class="text-2xl">
-                    <b>Can't find your favourite manga?</b>
-                </h5>
-                <p class="text-sm my-2">
-                    Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="text-hint underline">create an account</a> and add it yourself!
-                </p>
-                <div class="flex gap-2 my-2">
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}">Add manga!</a>
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'all_manga' %}">View all</a>
+    <div class="mx-auto max-w-7xl px-4">
+        <form class="lg:hidden flex gap-2 w-full" action="{% url 'search' %}" method="get">
+            <input name="q" class="rounded focus:border-hint focus:ring-hint w-full" id="search-box" type="search" placeholder="Search" aria-label="Search" value="{{ query }}"/>
+            <button class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+        {% if object_list %}
+            <center>
+                <h3 class="font-bold text-2xl my-2">Search results:</h3>
+            </center>
+            <div class="flex flex-wrap justify-center">
+                {% for manga in object_list %}
+                    {% include "web/shared/_search_result.html" with manga=manga only %}
+                {% endfor %}
+            </div>
+        {% endif %}
+        <!-- CTA's -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="col-span-1">
+                <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
+                    <h5 class="text-2xl">
+                        <b>Can't find your favourite manga?</b>
+                    </h5>
+                    <p class="text-sm my-2">
+                        Tankōbon is a community driven site. If you can't find the manga you're looking for, you can <a href="{% url 'signup' %}" class="text-hint underline">create an account</a> and add it yourself!
+                    </p>
+                    <div class="flex gap-2 my-2">
+                        <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'new_manga' %}">Add manga!</a>
+                        <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'all_manga' %}">View all</a>
+                    </div>
+                    <p class="mt-[16px]">
+                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
+                    </p>
                 </div>
-                <p class="mt-[16px]">
-                    <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
-                </p>
+            </div>
+            <div class="col-span-1">
+                <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
+                    <h5 class="text-2xl">
+                        <b>We need your help!</b>
+                    </h5>
+                    <p class="text-sm my-2">
+                        If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
+                    </p>
+                    <div class="my-2">
+                        <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'help_needed' %}">Help!</a>
+                    </div>
+                    <p class="mt-[16px]">
+                        <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
+                    </p>
+                </div>
             </div>
         </div>
-        <div class="col-span-1">
-            <div class="min-h-[250px] rounded p-[25px] m-[10px] bg-blay text-whay">
-                <h5 class="text-2xl">
-                    <b>We need your help!</b>
-                </h5>
-                <p class="text-sm my-2">
-                    If you want to contribute but you don't know where to get started, head over to the help page to see which manga has missing data.
-                </p>
-                <div class="my-2">
-                    <a class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" href="{% url 'help_needed' %}">Help!</a>
-                </div>
-                <p class="mt-[16px]">
-                    <small>Please make sure to read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before doing so.</small>
-                </p>
+        <!-- CHIP STUFF -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="col-span-1">
+                <center>
+                    <h3 id="releasing" class="text-2xl my-[20px]">
+                        <b>Releasing Manga</b>
+                    </h3>
+                </center>
+                {% for manga in releasing %}
+                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                {% endfor %}
+            </div>
+            <div class="col-span-1">
+                <center>
+                    <h3 id="completed" class="text-2xl my-[20px]">
+                        <b>Completed Manga</b>
+                    </h3>
+                </center>
+                {% for manga in completed %}
+                    {% include "web/shared/_poster_chip.html" with manga=manga only %}
+                {% endfor %}
             </div>
         </div>
     </div>
-    <!-- CHIP STUFF -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="col-span-1">
-            <center>
-                <h3 id="releasing" class="text-2xl my-[20px]">
-                    <b>Releasing Manga</b>
-                </h3>
-            </center>
-            {% for manga in releasing %}
-                {% include "web/shared/_poster_chip.html" with manga=manga only %}
-            {% endfor %}
+    <div class="bg-blay">
+        <div class="mx-auto max-w-7xl px-4 sm:py-[257px] py-[100px] text-whay">
+            <i class="fa-solid fa-bomb text-[65px] mb-4"></i>
+            <h3 class="md:text-[65px] text-4xl font-bold italic uppercase mb-8">Shounen</h3>
+            <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+                {% for manga in shounen %}
+                    <a href="{% url 'manga' manga.id %}">
+                        <div class="hoverable col-span-1 h-[380px] overflow-hidden rounded border border-blay bg-hint bg-cover bg-no-repeat bg-center" style="background-image: url('{% banner_url manga %}');">
+                            <div class="flex bg-gradient-to-t from-blay via-transparent w-full h-full items-end">
+                                <h6 class="font-bold p-4">{{ manga.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
-        <div class="col-span-1">
-            <center>
-                <h3 id="completed" class="text-2xl my-[20px]">
-                    <b>Completed Manga</b>
-                </h3>
-            </center>
-            {% for manga in completed %}
-                {% include "web/shared/_poster_chip.html" with manga=manga only %}
-            {% endfor %}
+    </div>
+    <div class="bg-whay">
+        <div class="mx-auto max-w-7xl px-4 sm:py-[257px] py-[100px] text-blay">
+            <div class="text-right">
+                <i class="fa-solid fa-heart text-[65px] mb-4"></i>
+                <h3 class="md:text-[65px] text-4xl font-bold italic uppercase mb-8">Shoujo</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+                {% for manga in shoujo %}
+                    <a href="{% url 'manga' manga.id %}">
+                        <div class="hoverable col-span-1 h-[380px] overflow-hidden rounded border border-blay bg-hint bg-cover bg-no-repeat bg-center" style="background-image: url('{% banner_url manga %}');">
+                            <div class="flex bg-gradient-to-t from-blay via-transparent w-full h-full items-end">
+                                <h6 class="font-bold p-4 text-whay">{{ manga.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="bg-blay">
+        <div class="mx-auto max-w-7xl px-4 sm:py-[257px] py-[100px] text-whay">
+            <i class="fa-solid fa-mars text-[65px] mb-4"></i>
+            <h3 class="md:text-[65px] text-4xl font-bold italic uppercase mb-8">Seinen</h3>
+            <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+                {% for manga in seinen %}
+                    <a href="{% url 'manga' manga.id %}">
+                        <div class="hoverable col-span-1 h-[380px] overflow-hidden rounded border border-blay bg-hint bg-cover bg-no-repeat bg-center" style="background-image: url('{% banner_url manga %}');">
+                            <div class="flex bg-gradient-to-t from-blay via-transparent w-full h-full items-end">
+                                <h6 class="font-bold p-4">{{ manga.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="bg-whay">
+        <div class="mx-auto max-w-7xl px-4 sm:py-[257px] py-[100px] text-blay">
+            <div class="text-right">
+                <i class="fa-solid fa-venus text-[65px] mb-4"></i>
+                <h3 class="md:text-[65px] text-4xl font-bold italic uppercase mb-8">Josei</h3>
+            </div>
+            <div class="grid sm:grid-cols-2 grid-cols-1 gap-4 mt-4">
+                {% for manga in josei %}
+                    <a href="{% url 'manga' manga.id %}">
+                        <div class="hoverable col-span-1 h-[380px] overflow-hidden rounded border border-blay bg-hint bg-cover bg-no-repeat bg-center" style="background-image: url('{% banner_url manga %}');">
+                            <div class="flex bg-gradient-to-t from-blay via-transparent w-full h-full items-end">
+                                <h6 class="font-bold p-4 text-whay">{{ manga.name }}</h6>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
         </div>
     </div>
 {% endblock content %}

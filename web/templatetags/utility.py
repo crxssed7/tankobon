@@ -24,3 +24,17 @@ def active_tab(value, expected):
     if active[1] == expected:
         return "text-white px-3 py-2 rounded-md text-sm font-medium"
     return "text-gray-300 hover:text-white hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+
+
+@register.simple_tag
+def poster_url(record):
+    if record.poster_file:
+        return record.poster_file.url
+    return ""
+
+
+@register.simple_tag
+def banner_url(record):
+    if record.banner_file:
+        return record.banner_file.url
+    return ""

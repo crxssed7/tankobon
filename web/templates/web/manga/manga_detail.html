@@ -15,27 +15,25 @@
     {{ manga.name }} - Tankōbon
 {% endblock meta_title %}
 {% block meta_image %}
-    {% if manga.poster_file %} {{ manga.poster_file.url }} {% endif %}
+    {% poster_url manga %}
 {% endblock meta_image %}
 {% block meta_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_image_alt %}
 {% block meta_twitter_image %}
-    {% if manga.banner_file %} {{ manga.banner_file.url }} {% endif %}
+    {% banner_url manga %}
 {% endblock meta_twitter_image %}
 {% block meta_twitter_image_alt %}
     {{ manga.name }} poster
 {% endblock meta_twitter_image_alt %}
 {% block heading %}
     <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
-        {% if manga.poster_file %}
-            <div>
-                <center>
-                    <img src="{{ manga.poster_file.url }}" alt="{{ manga.name }} Poster" class="rounded" width="150" />
-                </center>
-            </div>
-            <br />
-        {% endif %}
+        <div>
+            <center>
+                <img src="{% poster_url manga %}" alt="{{ manga.name }} Poster" class="rounded" width="150" />
+            </center>
+        </div>
+        <br />
         <h1 class="underline decoration-hint decoration-[5px] font-bold sm:text-4xl text-2xl pb-3">{{ manga.name }}</h1>
         {% if manga.name != manga.romaji %}<p class="font-bold pb-3">{{ manga.romaji }}</p>{% endif %}
         <div class="flex flex-wrap justify-center gap-2">
@@ -46,54 +44,54 @@
     </div>
 {% endblock heading %}
 {% block content %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div class="col-span-1">
-            <div class="sm:sticky sm:top-[100px]">
-                {% if manga.banner_file %}
-                    <img src="{{ manga.banner_file.url }}" alt="banner" class="rounded mb-4" width="100%" />
-                {% endif %}
-                <div class="flex relative flex-col rounded border border-blay mb-3 overflow-hidden">
-                    <div class="py-2 px-4 bg-gray-100 border-b border-blay">
-                        <div class="flex justify-between">
-                            <b>About {{ manga.name }}</b>
-                            {% if user.is_authenticated %}
-                                {% if not manga.locked %}
-                                    <a href="{% url 'edit_manga' manga.id %}" title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
-                                {% else %}
-                                    <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+    <div class="mx-auto max-w-7xl px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="col-span-1">
+                <div class="sm:sticky sm:top-[100px]">
+                    <img src="{% banner_url manga %}" alt="banner" class="rounded mb-4" width="100%" />
+                    <div class="flex relative flex-col rounded border border-blay mb-3 overflow-hidden">
+                        <div class="py-2 px-4 bg-gray-100 border-b border-blay">
+                            <div class="flex justify-between">
+                                <b>About {{ manga.name }}</b>
+                                {% if user.is_authenticated %}
+                                    {% if not manga.locked %}
+                                        <a href="{% url 'edit_manga' manga.id %}" title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
+                                    {% else %}
+                                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                                    {% endif %}
                                 {% endif %}
+                            </div>
+                        </div>
+                        <div class="flex flex-col p-4">
+                            <div class="manga-description h-auto overflow-hidden">{{ manga.description | bleach:"br,b" }}</div>
+                            <a href="#" id="readmore" class="underline">Read more</a>
+                            <hr class="my-4 border-blay" />
+
+                            <span><b>Status: </b> {% capitalize manga.status %}</span>
+                            <hr class="my-4 border-blay" />
+
+                            <span><b>Start Date: </b> {{ manga.start_date }}</span>
+                            <hr class="my-4 border-blay" />
+
+                            {% if manga.magazine %}
+                                <span><b>Magazine: </b> {{ manga.magazine }}</span>
+                                <hr class="my-4 border-blay" />
                             {% endif %}
+
+                            {% include "web/shared/_id_badges.html" with manga=manga only %}
                         </div>
                     </div>
-                    <div class="flex flex-col p-4">
-                        <div class="manga-description h-auto overflow-hidden">{{ manga.description | bleach:"br,b" }}</div>
-                        <a href="#" id="readmore" class="underline">Read more</a>
-                        <hr class="my-4 border-blay" />
-
-                        <span><b>Status: </b> {% capitalize manga.status %}</span>
-                        <hr class="my-4 border-blay" />
-
-                        <span><b>Start Date: </b> {{ manga.start_date }}</span>
-                        <hr class="my-4 border-blay" />
-
-                        {% if manga.magazine %}
-                            <span><b>Magazine: </b> {{ manga.magazine }}</span>
-                            <hr class="my-4 border-blay" />
-                        {% endif %}
-
-                        {% include "web/shared/_id_badges.html" with manga=manga only %}
-                    </div>
+                    {% if last_edited_by %}
+                        <p class="text-sm text-blay">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
+                    {% endif %}
                 </div>
-                {% if last_edited_by %}
-                    <p class="text-sm text-blay">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
-                {% endif %}
+            </div>
+            <div class="col-span-1">
+                {% block volume_details %}
+                {% endblock volume_details %}
             </div>
         </div>
-        <div class="col-span-1">
-            {% block volume_details %}
-            {% endblock volume_details %}
-        </div>
+        
+        <script src="{% static 'js/read_more.js' %}"></script>
     </div>
-    
-    <script src="{% static 'js/read_more.js' %}"></script>
 {% endblock content %}
