@@ -3,23 +3,26 @@ from django.urls import path, register_converter
 from django.views.generic import TemplateView
 
 from web.converters import NegativeIntConverter
-from web.views.manga.views import (
-    edit_manga,
-    new_manga,
-    new_edition,
-    MangaDetailView,
-    MangaWidgetView,
-    ListMangaView,
-)
+
+from web.views.edition.edition_new import new_edition
+
+from web.views.manga.manga_detail import MangaDetailView
+from web.views.manga.manga_edit import edit_manga
+from web.views.manga.manga_list import ListMangaView
+from web.views.manga.manga_new import new_manga
+from web.views.manga.manga_search import SearchResultsView
+from web.views.manga.manga_widget import MangaWidgetView
+
 from web.views.singles.views import (
     IndexView,
     HelpNeededView,
-    SearchResultsView,
-    SignUpView,
-    login_view,
 )
-from web.views.users.views import UserDetailView
-from web.views.volume.views import edit_volume, new_volume
+from web.views.users.user_detail import UserDetailView
+from web.views.users.user_login import login_view
+from web.views.users.user_signup import SignUpView
+
+from web.views.volume.volume_edit import edit_volume
+from web.views.volume.volume_new import new_volume
 
 register_converter(NegativeIntConverter, "negint")
 
