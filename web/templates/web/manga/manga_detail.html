@@ -84,6 +84,9 @@
                         {% include "web/shared/_id_badges.html" with manga=manga only %}
                     </div>
                 </div>
+                {% if last_edited_by %}
+                    <p class="text-sm text-blay">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
+                {% endif %}
             </div>
         </div>
         <div class="col-span-1">
