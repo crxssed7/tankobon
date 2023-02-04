@@ -11,6 +11,10 @@ class MangaDetailView(DetailView):
         context = super(MangaDetailView, self).get_context_data(**kwargs)
         manga = context["manga"]
         editions = Edition.objects.filter(manga=manga).prefetch_related("volume_set")
+        user = manga.history.exclude(history_user=None).values("history_user__username").first()
+        last_edited_by = None
+        if user:
+            last_edited_by = user["history_user__username"]
 
-        context.update({"editions": editions})
+        context.update({"editions": editions, "last_edited_by": last_edited_by})
         return context
