@@ -53,9 +53,9 @@ workflows:
   build-and-test-workflow:
     jobs:
       - test-and-lint
-#      - deploy:
-#          requires:
-#              - test-and-lint
-#          filters:
-#              branches:
-#                  only: master
+      - deploy:
+          requires:
+              - test-and-lint
+          filters:
+              branches:
+                  only: master
