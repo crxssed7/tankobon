@@ -7,7 +7,7 @@ from django.views.generic.detail import DetailView
 from api.models import Manga
 
 class MangaWidgetView(DetailView):
-    template_name = "web/widget.svg"
+    template_name = "web/manga/manga_widget.svg"
     content_type = "image/svg+xml"
     context_object_name = "manga"
     model = Manga

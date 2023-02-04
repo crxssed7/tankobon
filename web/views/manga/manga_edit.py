@@ -15,4 +15,4 @@ def edit_manga(request, manga_id):
             return redirect("manga", pk=manga.id)
     else:
         form = MangaForm(instance=manga_obj)
-    return render(request, "web/manga_edit.html", {"form": form, "manga": manga_obj})
+    return render(request, "web/manga/manga_edit.html", {"form": form, "manga": manga_obj})

@@ -6,7 +6,7 @@ from tankobon.utils import get_user_image
 
 class UserDetailView(DetailView):
     model = User
-    template_name = "web/user.html"
+    template_name = "web/users/user_detail.html"
     slug_field = "username"
     context_object_name = "object"
 

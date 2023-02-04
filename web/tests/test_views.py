@@ -27,7 +27,7 @@ class TestSingleViews(TestCase):
     def test_search_GET(self):
         response = self.client.get(self.search_url)
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/search.html")
+        self.assertTemplateUsed(response, "web/manga/manga_search.html")
 
     def test_contrib_GET(self):
         response = self.client.get(self.contrib_url)
@@ -54,7 +54,7 @@ class TestMangaViews(TestCase):
     def test_manga_GET_with_correct_id(self):
         response = self.client.get(reverse("manga", args=[self.manga.id]))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/detail.html")
+        self.assertTemplateUsed(response, "web/manga/manga_detail.html")
 
     def test_manga_GET_with_incorrect_id(self):
         response = self.client.get(reverse("manga", args=[100]))
@@ -64,7 +64,7 @@ class TestMangaViews(TestCase):
     def test_manga_widget_GET_with_correct_id(self):
         response = self.client.get(reverse("widget", args=[self.manga.id]))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/widget.svg")
+        self.assertTemplateUsed(response, "web/manga/manga_widget.svg")
 
     def test_manga_widget_GET_with_incorrect_id(self):
         response = self.client.get(reverse("widget", args=[100]))
@@ -84,13 +84,13 @@ class TestMangaViews(TestCase):
     def test_all_manga_GET(self):
         response = self.client.get(reverse("all_manga"))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/all.html")
+        self.assertTemplateUsed(response, "web/manga/manga_list.html")
 
     def test_edit_manga_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_manga", args=[self.manga.id]))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/manga_edit.html")
+        self.assertTemplateUsed(response, "web/manga/manga_edit.html")
 
     def test_edit_manga_GET_no_login(self):
         response = self.client.get(reverse("edit_manga", args=[self.manga.id]))
@@ -141,7 +141,7 @@ class TestVolumeViews(TestCase):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard")
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/volume_edit.html")
+        self.assertTemplateUsed(response, "web/volume/volume_edit.html")
 
     def test_edit_volume_GET_no_login(self):
         response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard")
@@ -169,7 +169,7 @@ class TestVolumeViews(TestCase):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]) + "?edition=standard")
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/volume_edit.html")
+        self.assertTemplateUsed(response, "web/volume/volume_edit.html")
 
     def test_new_volume_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
@@ -208,7 +208,7 @@ class TestAccountViews(TestCase):
     def test_user_GET(self):
         response = self.client.get(reverse("user", args=["BobbyBadBoi"]))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/user.html")
+        self.assertTemplateUsed(response, "web/users/user_detail.html")
 
     def test_user_GET_no_user_found(self):
         response = self.client.get(reverse("user", args=["BobbyNotABadBoi"]))

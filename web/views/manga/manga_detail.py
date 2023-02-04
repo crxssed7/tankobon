@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from api.models import Manga, Edition
 
 class MangaDetailView(DetailView):
-    template_name = "web/manga_volumes.html"
+    template_name = "web/manga/manga_volumes.html"
     context_object_name = "manga"
     model = Manga
 
@@ -12,5 +12,5 @@ class MangaDetailView(DetailView):
         manga = context["manga"]
         editions = Edition.objects.filter(manga=manga).prefetch_related("volume_set")
 
-        context.update({"search_active": "active", "editions": editions})
+        context.update({"editions": editions})
         return context

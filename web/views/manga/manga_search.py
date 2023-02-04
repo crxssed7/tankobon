@@ -7,7 +7,7 @@ from api.models import Manga
 
 class SearchResultsView(ListView):
     model = Manga
-    template_name = "web/search.html"
+    template_name = "web/manga/manga_search.html"
 
     def get_queryset(self):
         query = self.request.GET.get("q")
@@ -28,7 +28,6 @@ class SearchResultsView(ListView):
         completed = list(Manga.objects.filter(status="FINISHED"))
         context["releasing"] = sample(releasing, 5) if len(releasing) > 5 else releasing
         context["completed"] = sample(completed, 5) if len(completed) > 5 else completed
-        context["search_active"] = "active"
         q = self.request.GET.get("q")
         if q:
             context["query"] = q

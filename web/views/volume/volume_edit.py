@@ -33,4 +33,4 @@ def edit_volume(request, manga_id, volume_number):
             return redirect("manga", pk=volume.manga.id)
     else:
         form = VolumeEditForm(instance=volume)
-    return render(request, "web/volume_edit.html", {"form": form, "volume": volume})
+    return render(request, "web/volume/volume_edit.html", {"form": form, "volume": volume})
