@@ -222,7 +222,7 @@ def update_last_updated(sender, instance=None, created=False, **kwargs):
 @receiver(post_save, sender=Manga)
 def create_standard_edtion(sender, instance=None, created=False, **kwargs):
     if created:
-        Edition.objects.create(name="standard", manga=instance)
+        Edition.objects.create(name="standard japanese", manga=instance)
 
 
 @receiver(track_data_performed, sender=Manga)
