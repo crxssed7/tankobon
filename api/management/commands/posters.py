@@ -27,4 +27,4 @@ class Command(BaseCommand):
             print(obj)
             obj.get_remote_poster()
             obj.save()
-            time.sleep(10)
+            time.sleep(2)
