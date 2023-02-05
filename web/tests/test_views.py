@@ -143,12 +143,12 @@ class TestVolumeViews(TestCase):
 
     def test_edit_volume_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
-        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard japanese")
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/volume/volume_edit.html")
 
     def test_edit_volume_GET_no_login(self):
-        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 0]) + "?edition=standard japanese")
         self.assertEquals(response.status_code, 302)
 
     def test_edit_volume_locked_GET(self):
@@ -156,13 +156,13 @@ class TestVolumeViews(TestCase):
             absolute_number=1, manga=self.manga, locked=True
         )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
-        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 1]) + "?edition=standard")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, 1]) + "?edition=standard japanese")
         self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
 
     def test_edit_volume_does_not_exist_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
-        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]) + "?edition=standard")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]) + "?edition=standard japanese")
         self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
 
@@ -171,7 +171,7 @@ class TestVolumeViews(TestCase):
             absolute_number=-1, manga=self.manga, edition=self.edition
         )
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
-        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]) + "?edition=standard")
+        response = self.client.get(reverse("edit_volume", args=[self.manga.id, -1]) + "?edition=standard japanese")
         self.assertEquals(response.status_code, 200)
         self.assertTemplateUsed(response, "web/volume/volume_edit.html")
 
