@@ -2,7 +2,7 @@ from simple_history.admin import SimpleHistoryAdmin
 
 from django.contrib import admin
 
-from .models import Manga, Volume, Edition, Genre
+from .models import Manga, Volume, Edition, Genre, Language
 
 
 @admin.action(description="Mark selected as locked")
@@ -36,3 +36,8 @@ class MangaAdmin(SimpleHistoryAdmin):
 @admin.register(Genre)
 class GenreAdmin(admin.ModelAdmin):
     list_display = ["name", "icon"]
+
+
+@admin.register(Language)
+class LanguageAdmin(admin.ModelAdmin):
+    list_display = ["name", "code"]

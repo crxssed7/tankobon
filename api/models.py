@@ -27,6 +27,14 @@ class Genre(models.Model):
         return str(self.name)
 
 
+class Language(models.Model):
+    name = models.CharField(max_length=150)
+    code = models.CharField(max_length=2, unique=True)
+
+    def __str__(self):
+        return str(self.name)
+
+
 @track_data(
     "name",
     "romaji",
@@ -138,6 +146,7 @@ class Edition(models.Model):
 
     name = models.CharField(max_length=150)
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
     history = HistoricalRecords()
 
     def __str__(self):
