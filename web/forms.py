@@ -171,7 +171,7 @@ class EditionForm(forms.ModelForm):
 
     class Meta:
         model = Edition
-        fields = ("manga", "name")
+        fields = ("manga", "language", "name")
 
     def __init__(self, *args, **kwargs):
         super(EditionForm, self).__init__(*args, **kwargs)
