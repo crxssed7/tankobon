@@ -78,6 +78,13 @@
                                 modal.style.display = "none";
                                 body.style.overflow = "auto";
                             }
+
+                            modal.onclick = function(e) {
+                                if (e.target.id === modal.id) {
+                                    modal.style.display = "none";
+                                    body.style.overflow = "auto";
+                                }
+                            }
                         })();
                     </script>
                 {% endfor %}
