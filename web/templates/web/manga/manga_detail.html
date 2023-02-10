@@ -49,8 +49,6 @@
                 </div>
             </div>
             <div class="col-span-1 sm:col-span-3 p-4">
-                {% include "web/shared/_id_badges.html" with manga=manga only %}
-                <hr class="my-4 border-whay" />
                 <div class="manga-description h-auto overflow-hidden">{{ manga.description | bleach:"br,b" }}</div>
                 <a href="#" id="readmore" class="underline">Read more</a>
                 <hr class="my-4 border-whay" />
@@ -78,6 +76,8 @@
                         </div>
                     </div>
                 </div>
+                <hr class="my-4 border-whay" />
+                {% include "web/shared/_id_badges.html" with manga=manga only %}
                 <hr class="my-4 border-whay" />
                 {% block volume_details %}
                 {% endblock volume_details %}
