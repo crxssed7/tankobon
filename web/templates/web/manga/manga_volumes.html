@@ -11,9 +11,9 @@
                     <img class="h-full" alt="{{ edition.language }}" title="{{ edition.language }}" src="https://www.countryflagicons.com/SHINY/24/{{ edition.language.code }}.png" />
                 {% endif %}
             </div>
-            <div class="w-full overflow-scroll flex gap-4 mb-2">
+            <div class="w-full overflow-y-auto flex gap-4 mb-2 track-blay">
                 {% for volume in edition.volume_set.all %}
-                    <div id="{{ edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
+                    <div id="{{ edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
                          style="background-image: url('{% if volume.poster_file %} {{ volume.poster_file.url }}{% endif %}')">
                         {% if volume.absolute_number == -1 %}
                             <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
@@ -24,7 +24,7 @@
                     <!--Overlay Effect-->
                     <div class="fixed hidden inset-0 backdrop-blur-sm bg-blay bg-opacity-50 overflow-y-auto h-full w-full z-10"
                          id="{{ edition.name }}-{{ volume.absolute_number }}-modal">
-                        <div class="md:rounded relative md:top-20 mx-auto w-full h-full md:h-auto md:w-[600px] shadow-lg bg-white">
+                        <div class="border border-whay md:rounded relative md:top-20 mx-auto w-full h-full md:h-auto md:w-[600px] shadow-lg bg-blay">
                             <div class="bg-hint p-[15px] text-blay md:rounded-t">
                                 <div class="mx-auto flex items-center justify-center">
                                     <div class="rounded min-w-[150px] h-[225px] flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center" style="background-image: url('{% if volume.poster_file %} {{ volume.poster_file.url }}{% endif %}')"></div>
@@ -50,7 +50,7 @@
                                     <i class="fa-solid fa-circle-xmark"></i>
                                 </button>
                             </div>
-                            <div class="m-4 px-7 py-3 max-h-[250px] overflow-scroll">
+                            <div class="m-4 px-7 py-3 max-h-[250px] overflow-x-auto">
                                 {{ volume.chapters | listify | bleach:"li,p,b,br" }}
                             </div>
                         </div>
@@ -92,14 +92,16 @@
             <div id="{{ edition.name }}-chapters"></div>
         </div>
     {% endfor %}
-    {% if not manga.locked %}
-        <a href="{% url 'new_volume' manga.id %}"
-           class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Volume</a>
-        <a href="{% url 'new_edition' %}"
-           class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Edition</a>
-    {% endif %}
-    {% if user.is_staff %}
-        <a href="{% url 'admin:api_manga_change' manga.id %}"
-           class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Admin</a>
-    {% endif %}
+    <div class="flex flex-wrap gap-4">
+        {% if not manga.locked %}
+            <a href="{% url 'new_volume' manga.id %}"
+               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Volume</a>
+            <a href="{% url 'new_edition' %}"
+               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Edition</a>
+        {% endif %}
+        {% if user.is_staff %}
+            <a href="{% url 'admin:api_manga_change' manga.id %}"
+               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Admin</a>
+        {% endif %}
+    </div>
 {% endblock volume_details %}

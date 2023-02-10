@@ -3,24 +3,22 @@
 {% block title %}
     Edit {{ volume.manga.name }} - Tankōbon
 {% endblock title %}
-{% block heading %}
-    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
-        <h3 class="font-bold text-2xl pb-3">Edit Volume</h3>
-        {% if volume.absolute_number == -1 %}
-            <p>{{ volume.manga.name }} non-tankobon chapters</p>
-        {% else %}
-            <p>{{ volume.manga.name }} {% capitalize volume.edition.name %} Edition Volume {{ volume.absolute_number }}</p>
-        {% endif %}
-    </div>
-{% endblock heading %}
 {% block content %}
-    <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-7xl px-4 mt-[75px]">
+        <div class="flex flex-col items-center justify-center content-center text-center py-6">
+            <h3 class="font-bold text-2xl pb-3">Edit Volume</h3>
+            {% if volume.absolute_number == -1 %}
+                <p>{{ volume.manga.name }} non-tankobon chapters</p>
+            {% else %}
+                <p>{{ volume.manga.name }} {% capitalize volume.edition.name %} Edition Volume {{ volume.absolute_number }}</p>
+            {% endif %}
+        </div>
         <div class="p-[25px]">
             <form class="form" method="post">
                 {% csrf_token %}
                 {{ form }}
                 <p class="text-sm my-4">
-                    Please read the <a href="{% url 'contrib' %}" class="text-blay underline">Contribution Guidelines</a> before submitting
+                    Please read the <a href="{% url 'contrib' %}" class="text-hint underline">Contribution Guidelines</a> before submitting
                 </p>
                 <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Submit</button>
             </form>

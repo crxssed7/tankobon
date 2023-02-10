@@ -9,20 +9,18 @@
 {% block meta_title %}
     {{ object.username }} - Tankōbon
 {% endblock meta_title %}
-{% block heading %}
-<div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
-    <div>
-        <center>
-            <img src="{{ avatar }}" alt="Avatar" class="rounded-[50%] border-[5px] border-whay max-w-[90px]" />
-        </center>
-    </div>
-    <br />
-    <h1 class="font-bold text-2xl">{{ object.username }}</h1>
-    {% if object.is_staff %}<span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">ADMIN</span>{% endif %}
-</div>
-{% endblock heading %}
 {% block content %}
-    <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-7xl px-4 mt-[75px]">
+        <div class="flex flex-col items-center justify-center content-center text-center py-6">
+            <div>
+                <center>
+                    <img src="{{ avatar }}" alt="Avatar" class="rounded-[50%] border-[5px] border-whay max-w-[90px]" />
+                </center>
+            </div>
+            <br />
+            <h1 class="font-bold text-2xl">{{ object.username }}</h1>
+            {% if object.is_staff %}<span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">ADMIN</span>{% endif %}
+        </div>
         <div class="container section">
             <p>Manga collections are coming to Tankōbon really soon!</p>
         </div>

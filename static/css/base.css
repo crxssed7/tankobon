@@ -1,13 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 :root {
   --tankobon-black: #0b0b0b;
   --tankobon-white: #fefefe;
   --tankobon-hint: #29cf95;
-}
-
-body {
-  background-color: var(--tankobon-white) !important;
 }
 
 .hoverable {
@@ -41,8 +37,8 @@ body {
 }
 
 ::selection {
-  color: var(--tankobon-white);
-  background-color: var(--tankobon-black);
+  color: var(--tankobon-black);
+  background-color: var(--tankobon-white);
 }
 
 /* width */
@@ -53,7 +49,7 @@ body {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: var(--tankobon-white);
+  background: rgba(0, 0, 0, 0);
 }
 
 /* Handle */
@@ -67,6 +63,6 @@ body {
 }
 
 ::placeholder {
-  color: var(--tankobon-black) !important;
+  color: var(--tankobon-white) !important;
   opacity: 1 !important;
 }

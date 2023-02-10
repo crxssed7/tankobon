@@ -1,6 +1,6 @@
 <div class="col-span-1 p-[12px]">
     <a href="{% url 'manga' manga.id %}">
-        <div class="hoverable relative flex flex-col rounded border border-blay">
+        <div class="hoverable relative flex flex-col rounded border border-whay hover:border-hint transition duration-300 ease-in-out">
             {% if manga.banner_file %}
                 <div class="h-[200px] rounded-t-[5px] overflow-hidden">
                     <img class="w-full h-full object-cover" src="{{ manga.banner_file.url }}" alt="{{ manga.name }} Banner" />

@@ -2,14 +2,12 @@
 {% block title %}
     Sign Up
 {% endblock title %}
-{% block heading %}
-    <div class="bg-blay flex flex-col items-center justify-center content-center text-center p-[75px] text-whay">
-        <h3 class="font-bold text-2xl pb-3">Welcome!</h3>
-        <p>ようこそ！</p>
-    </div>
-{% endblock heading %}
 {% block content %}
-    <div class="mx-auto max-w-7xl px-4">
+    <div class="mx-auto max-w-7xl px-4 mt-[75px]">
+        <div class="flex flex-col items-center justify-center content-center text-center py-6">
+            <h3 class="font-bold text-2xl pb-3">Welcome!</h3>
+            <p>ようこそ！</p>
+        </div>
         <div class="p-[25px]">
             <form class="form" method="post">
                 {% csrf_token %}
