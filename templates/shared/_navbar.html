@@ -1,6 +1,6 @@
 {% load static %}
 {% load utility %}
-<nav class="navbar bg-blay sm:fixed top-0 w-full z-10">
+<nav class="navbar bg-blay/50 backdrop-blur-sm border-b border-whay fixed top-0 w-full z-10">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
       <div class="relative flex h-16 items-center justify-between">
         <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -28,7 +28,7 @@
         </div>
         <div class="hidden absolute inset-y-0 right-0 sm:flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
             <form class="md:hidden lg:flex sm:hidden gap-2" action="{% url 'search' %}" method="get">
-                <input name="q" id="main-search" class="rounded focus:border-hint focus:ring-hint" type="search" placeholder="Search for a manga" aria-label="Search" value="{{ query }}"/>
+                <input name="q" id="main-search" class="rounded bg-blay border-whay hover:border-hint transition duration-300 ease-in-out focus:border-hint focus:ring-hint" type="search" placeholder="Search for a manga" aria-label="Search" value="{{ query }}"/>
                 <button class="px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out" type="submit" title="Search">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
@@ -46,7 +46,7 @@
     </div>
   
     <!-- Mobile menu, show/hide based on menu state. -->
-    <div class="hidden bg-blay" id="mobile-menu">
+    <div class="hidden" id="mobile-menu">
       <div class="space-y-1 px-2 pt-2 pb-3">
         <!-- Current: "ext-white", Default: "text-gray-300 hover:text-white" -->
         <a href="{% url 'index' %}" class="{% active_tab request.path '' %} block text-base" aria-current="page">Home</a>
@@ -58,9 +58,9 @@
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'signup' %}" title="Signup">Signup</a>
         {% else %}
             <div class="flex justify-between">
-                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
-                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
-                <a class="px-3 py-2 bg-blay text-gray-300" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
+                <a class="px-3 py-2 text-gray-300" href="{% url 'user' user.username %}" title="Your Profile"><i class="fa-solid fa-user"></i></a>
+                <a class="px-3 py-2 text-gray-300" href="{% url 'new_manga' %}" title="Add Manga"><i class="fa-solid fa-plus"></i></a>
+                <a class="px-3 py-2 text-gray-300" href="{% url 'logout' %}" title="Logout"><i class="fa-solid fa-right-from-bracket"></i></a>
             </div>
         {% endif %}
       </div>
@@ -79,5 +79,4 @@
     hidden = !hidden
   });
 </script>
-<script src="{% static 'js/navbar.js' %}"></script>
 <script src="{% static 'js/select_input.js' %}"></script>

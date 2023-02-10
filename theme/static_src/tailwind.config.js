@@ -59,7 +59,7 @@ module.exports = {
       DEFAULT: '5px',
     },
     fontFamily: {
-      sans: ['"Montserrat"', 'sans-serif'],
+      sans: ['"Space Mono"', 'sans-serif'],
     },
   },
   plugins: [

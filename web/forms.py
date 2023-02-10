@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from api.models import Manga, Volume, Edition
 
-ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint"}
+ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint bg-blay border-whay hover:border-hint transition duration-300 ease-in-out"}
 
 
 class SignUpForm(UserCreationForm):

@@ -38,14 +38,10 @@
       {% endblock extrahead %}
 </head>
 
-<body>
+<body class="h-screen bg-blay text-whay">
       <div class="flex flex-col h-screen justify-between">
             {% include "shared/_navbar.html" %}
             <main>
-                  <div class="mb-6">
-                        {% block heading %}
-                        {% endblock heading %}
-                  </div>
                   {% block content %}
                   {% endblock content %}
             </main>
