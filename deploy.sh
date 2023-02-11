@@ -14,9 +14,6 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 echo "Successfully Installed Flyctl"
 
 # deploy app
-sh -c "flyctl auth token"
-echo -e "-------------------------"
-
 sh -c "flyctl deploy"
 if [ $? -ne 0 ]; then
     echo -e "\n--THERE WAS A PROBLEM. PLEASE SEE ABOVE OUTPUT.--\n"
