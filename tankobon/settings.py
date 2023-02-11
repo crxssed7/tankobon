@@ -28,8 +28,8 @@ SECRET_KEY = env.str("SECRET_KEY", default="test")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
 
-ALLOWED_HOSTS = ["*"]
-CSRF_TRUSTED_ORIGINS = ["https://tankobon.fly.dev"]
+ALLOWED_HOSTS = ["*.fly.dev", "*.tankobon.net"]
+CSRF_TRUSTED_ORIGINS = ["https://tankobon.fly.dev", "https://tankobon.net"]
 
 # Application definition
 
