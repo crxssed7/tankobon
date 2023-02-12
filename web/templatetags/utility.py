@@ -1,9 +1,6 @@
 from urllib.parse import urlencode
 
 from django import template
-from django.contrib.auth.models import User
-
-from api.models import Volume
 
 register = template.Library()
 
