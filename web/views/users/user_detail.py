@@ -1,8 +1,7 @@
 from django.contrib.auth.models import User
 from django.views.generic.detail import DetailView
-from django.db.models import Prefetch, Subquery
 
-from api.models import Volume, Edition, Collection, Manga
+from api.models import Volume
 from tankobon.utils import get_user_image
 
 
