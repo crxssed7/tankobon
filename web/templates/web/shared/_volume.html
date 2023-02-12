@@ -72,7 +72,7 @@ id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}
            {% endif %}
            {% if user.is_authenticated %}
                {% if not volume.locked %}
-                   <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=edition.name %}"
+                   <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
                       class="edit-link link"
                       title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
                {% else %}
