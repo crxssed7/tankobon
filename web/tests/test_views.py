@@ -121,7 +121,7 @@ class TestMangaViews(TestCase):
         self.assertTemplateUsed(response, "404.html")
 
 
-class TextCollectionViews(TestCase):
+class TestCollectionViews(TestCase):
     def setUp(self):
         self.client = Client()
         self.manga = Manga.objects.create(
@@ -146,6 +146,14 @@ class TextCollectionViews(TestCase):
         response = self.client.post(reverse("collect", args=[self.volume.id]))
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), {'message': 'Action successful', 'type': 'collected'})
+
+    def test_collect_POST_non_tankobon(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        vol = Volume.objects.create(
+            absolute_number=-1, manga=self.manga, edition=self.edition
+        )
+        response = self.client.post(reverse("collect", args=[vol.id]))
+        self.assertEquals(response.status_code, 404)
 
     def test_collect_POST_has_collected(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
