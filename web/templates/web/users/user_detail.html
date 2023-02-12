@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
+{% load utility %}
 {% block title %}
     {{ object.username }} - Tankōbon
 {% endblock title %}
@@ -14,15 +15,33 @@
         <div class="flex flex-col items-center justify-center content-center text-center py-6">
             <div>
                 <center>
-                    <img src="{{ avatar }}" alt="Avatar" class="rounded-[50%] border-[5px] border-whay max-w-[90px]" />
+                    <img src="{{ avatar }}"
+                         alt="Avatar"
+                         class="rounded-[50%] border-[5px] border-whay max-w-[90px]"/>
                 </center>
             </div>
             <br />
             <h1 class="font-bold text-2xl">{{ object.username }}</h1>
             {% if object.is_staff %}<span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">ADMIN</span>{% endif %}
         </div>
-        <div class="container section">
-            <p>Manga collections are coming to Tankōbon really soon!</p>
-        </div>
+        {% for edition, data in edition_volumes.items %}
+            <div class="py-4">
+                <a href="{% url 'manga' data.manga.id %}">
+                    <h3 class="font-bold underline decoration-hint decoration-[3px] mb-4">{{ edition }}</h3>
+                </a>
+                <div class="w-full overflow-y-auto flex gap-4 mb-2 track-blay">
+                    {% for volume in data.volume_list %}
+                        <div class="relative rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden"
+                             style="background-image: url('{% poster_url volume %}')">
+                            {% if volume.absolute_number == -1 %}
+                                <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
+                            {% else %}
+                                <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
 {% endblock content %}
