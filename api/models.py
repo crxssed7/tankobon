@@ -211,6 +211,23 @@ class Volume(models.Model):
             return self.manga.name + " Volume " + str(self.absolute_number)
         return self.manga.name + " Non-tankobon"
 
+    def has_collected(self, user):
+        return Collection.objects.filter(volume=self, user=user).exists()
+
+
+class Collection(models.Model):
+    class Meta:
+        unique_together = ("user", "edition", "volume")
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
+    volume = models.ForeignKey(Volume, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        self.edition = self.volume.edition
+        super(Collection, self).save(*args, **kwargs)
+
 
 @receiver(pre_save, sender=Genre)
 def update_genre_slug(sender, instance, *args, **kwargs):

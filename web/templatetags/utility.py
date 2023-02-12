@@ -1,6 +1,9 @@
 from urllib.parse import urlencode
 
 from django import template
+from django.contrib.auth.models import User
+
+from api.models import Volume
 
 register = template.Library()
 
@@ -42,3 +45,8 @@ def banner_url(record):
     if record.banner_file:
         return record.banner_file.url
     return ""
+
+
+@register.simple_tag
+def collected(volume, user):
+    return volume.has_collected(user=user)
