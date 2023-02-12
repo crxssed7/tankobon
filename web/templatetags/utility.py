@@ -42,3 +42,8 @@ def banner_url(record):
     if record.banner_file:
         return record.banner_file.url
     return ""
+
+
+@register.simple_tag
+def collected(volume, user):
+    return volume.has_collected(user=user)

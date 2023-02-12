@@ -1,6 +1,7 @@
-from django.views.generic.detail import DetailView
 from django.contrib.auth.models import User
+from django.views.generic.detail import DetailView
 
+from api.models import Volume
 from tankobon.utils import get_user_image
 
 
@@ -12,5 +13,15 @@ class UserDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["avatar"] = get_user_image(context["object"].email)
+        user = context["object"]
+        context["avatar"] = get_user_image(user.email)
+        collected_volumes = Volume.objects.prefetch_related("edition", "collection_set", "manga").filter(collection__user=user).order_by("edition__manga__name", "absolute_number")
+
+        edition_volumes = {}
+        for volume in collected_volumes:
+            edition_name = f"{volume.manga} {volume.edition.name} Edition".title()
+            if edition_name not in edition_volumes:
+                edition_volumes[edition_name] = {'manga': volume.manga, 'volume_list': []}
+            edition_volumes[edition_name]['volume_list'].append(volume)
+        context["edition_volumes"] = edition_volumes
         return context

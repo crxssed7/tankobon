@@ -22,6 +22,7 @@ from web.views.users.user_signup import SignUpView
 
 from web.views.volume.volume_edit import edit_volume
 from web.views.volume.volume_new import new_volume
+from web.views.volume.volume_collect import CollectionView
 
 
 class TestMiscUrls(SimpleTestCase):
@@ -82,6 +83,12 @@ class TestVolumeUrls(SimpleTestCase):
     def test_new_volume_url_is_resolved(self):
         url = reverse("new_volume", args=[1])
         self.assertEquals(resolve(url).func, new_volume)
+
+
+class TestCollectionUrls(SimpleTestCase):
+    def test_edit_volume_url_is_resolved(self):
+        url = reverse("collect", args=[1])
+        self.assertEquals(resolve(url).func.__name__, CollectionView.as_view().__name__)
 
 
 class TestAccountUrls(SimpleTestCase):

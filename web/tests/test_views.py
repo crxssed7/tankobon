@@ -3,7 +3,7 @@ from django.test import TestCase, Client
 from django.urls import reverse
 from django.utils.timezone import datetime
 
-from api.models import Manga, Volume, Edition, Genre
+from api.models import Manga, Volume, Edition, Genre, Collection
 
 
 class TestSingleViews(TestCase):
@@ -119,6 +119,74 @@ class TestMangaViews(TestCase):
         response = self.client.get(reverse("edit_manga", args=[43565743]))
         self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
+
+
+class TestCollectionViews(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.manga = Manga.objects.create(
+            name="TETS",
+            romaji="fadfa",
+            description="asfaf",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        self.edition = Edition.objects.first()
+        self.volume = Volume.objects.create(
+            absolute_number=0, manga=self.manga, edition=self.edition
+        )
+        self.user = User.objects.create(
+            username="BobbyBadBoi", email="bobby@badboi.com"
+        )
+        self.user.set_password("bobbyisabadboi101")
+        self.user.save()
+
+    def test_collect_POST(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.post(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'message': 'Action successful', 'type': 'collected'})
+
+    def test_collect_POST_non_tankobon(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        vol = Volume.objects.create(
+            absolute_number=-1, manga=self.manga, edition=self.edition
+        )
+        response = self.client.post(reverse("collect", args=[vol.id]))
+        self.assertEquals(response.status_code, 404)
+
+    def test_collect_POST_has_collected(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        Collection.objects.create(user=self.user, edition=self.edition, volume=self.volume)
+        response = self.client.post(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.json(), {'message': 'Action unsuccessful'})
+
+    def test_collect_POST_no_login(self):
+        response = self.client.post(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 302)
+    
+    def test_collect_DELETE(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        Collection.objects.create(user=self.user, edition=self.edition, volume=self.volume)
+        response = self.client.delete(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 200)
+        self.assertEquals(response.json(), {'message': 'Action successful', 'type': 'uncollected'})
+
+    def test_collect_DELETE_not_collected(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.delete(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 400)
+        self.assertEquals(response.json(), {'message': 'Action unsuccessful'})
+
+    def test_collect_DELETE_no_login(self):
+        response = self.client.delete(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 302)
+
+    def test_collect_GET(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.get(reverse("collect", args=[self.volume.id]))
+        self.assertEquals(response.status_code, 405)
 
 
 class TestVolumeViews(TestCase):
