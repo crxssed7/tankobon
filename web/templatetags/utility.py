@@ -15,11 +15,7 @@ def urlparams(*_, **kwargs):
 
 @register.simple_tag
 def capitalize(value):
-    words = str(value).split(" ")
-    output = ""
-    for word in words:
-        output += f"{word.capitalize()} "
-    return output.strip()
+    return str(value).title()
 
 
 @register.simple_tag

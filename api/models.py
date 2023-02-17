@@ -150,7 +150,7 @@ class Edition(models.Model):
     history = HistoricalRecords()
 
     def __str__(self):
-        return f"{self.manga.name}: {self.name.capitalize()} Edition"
+        return f"{self.manga.name}: {self.name.title()} Edition"
 
     def save(self, *args, **kwargs):
         self.name = self.name.lower().strip()
