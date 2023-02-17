@@ -1,4 +1,3 @@
-from django.contrib.auth.models import User
 from django.contrib.sitemaps import Sitemap
 from django.urls import reverse
 
@@ -18,8 +17,8 @@ class SingleViewSitemap(Sitemap):
             "new_manga",
         ]
 
-    def location(self, obj):
-        return reverse(obj)
+    def location(self, item):
+        return reverse(item)
 
 
 class MangaSitemap(Sitemap):
@@ -32,5 +31,5 @@ class MangaSitemap(Sitemap):
     def lastmod(self, obj):
         return obj.last_updated
 
-    def location(self, obj):
-        return reverse("manga", args=[obj.id])
+    def location(self, item):
+        return reverse("manga", args=[item.id])
