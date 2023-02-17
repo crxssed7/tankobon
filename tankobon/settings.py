@@ -39,8 +39,10 @@ INSTALLED_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
-    "django.contrib.sessions",
     "django.contrib.messages",
+    "django.contrib.sessions",
+    "django.contrib.sitemaps",
+    "django.contrib.sites",
     "django.contrib.staticfiles",
     "django_bleach",
     "simple_history",
@@ -168,3 +170,5 @@ AWS_QUERYSTRING_AUTH = False
 # django.core.files.storage.FileSystemStorage
 if DEBUG == False:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+
+SITE_ID = 1
