@@ -36,11 +36,6 @@
   -webkit-box-orient: vertical;
 }
 
-::selection {
-  color: var(--tankobon-black);
-  background-color: var(--tankobon-white);
-}
-
 /* width */
 ::-webkit-scrollbar {
   width: 4px;
