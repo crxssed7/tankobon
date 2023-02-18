@@ -2,8 +2,6 @@ from urllib.parse import urlencode
 
 from django import template
 
-from sorl.thumbnail import get_thumbnail
-
 register = template.Library()
 
 
@@ -31,16 +29,14 @@ def active_tab(value, expected):
 @register.simple_tag
 def poster_url(record):
     if record.poster_file:
-        img = get_thumbnail(record.poster_file, '150')
-        return img.url
+        return record.poster_file.url
     return ""
 
 
 @register.simple_tag
 def banner_url(record):
     if record.banner_file:
-        img = get_thumbnail(record.banner_file, 'x500')
-        return img.url
+        return record.banner_file.url
     return ""
 
 
