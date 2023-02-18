@@ -173,3 +173,5 @@ if DEBUG == False:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 SITE_ID = 1
+
+THUMBNAIL_FORCE_OVERWRITE = True
