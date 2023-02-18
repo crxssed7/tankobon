@@ -19,6 +19,7 @@ boto3 = "*"
 django-storages = "*"
 django-tailwind = "*"
 django-browser-reload = "*"
+sorl-thumbnail = "*"
 
 [dev-packages]
 black = "*"

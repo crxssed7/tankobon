@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     "django.contrib.sites",
     "django.contrib.staticfiles",
     "django_bleach",
+    "django_browser_reload",
     "simple_history",
+    "sorl.thumbnail",
     "storages",
     "tailwind",
     "theme",
-    "django_browser_reload",
 ]
 
 TAILWIND_APP_NAME = "theme"
