@@ -12,6 +12,7 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get("q")
         if query:
+            query = query.strip()
             object_list = Manga.objects.filter(
                 Q(name__icontains=query)
                 | Q(romaji__icontains=query)
