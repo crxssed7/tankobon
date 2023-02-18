@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from api.models import Manga, Edition
 
 class MangaDetailView(DetailView):
-    template_name = "web/manga/manga_volumes.html"
+    template_name = "web/manga/manga_detail.html"
     context_object_name = "manga"
     model = Manga
 

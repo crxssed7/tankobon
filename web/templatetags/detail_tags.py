@@ -12,13 +12,12 @@ def listify(value):
     output = ""
     for chapter in chapters:
         if not chapter.isspace():
+            classes = []
             if chapter.startswith("|"):
-                c = (
-                    "<br /><p><b>"
-                    + chapter.replace("|", "")
-                    + " arc starts here.</b></p>"
-                )
-            else:
-                c = '<li class="m-[10px]">' + chapter + "</li>\n"
+                classes.extend(["font-bold", "my-2", "text-lg", "underline"])
+                chapter = f"{chapter.replace('|', '').title()} arc starts here"
+
+            c = f'<p class="{" ".join(classes)}">{chapter.strip()}</p>\n'
+
             output += c
     return output.strip()

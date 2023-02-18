@@ -1,0 +1,51 @@
+{% extends "web/manga/manga_base.html" %}
+
+{% load detail_tags %}
+{% load bleach_tags %}
+{% load utility %}
+
+{% block details %}
+    <hr class="my-4 border-whay sm:hidden" />
+    <div class="flex flex-col justify-center items-center text-center gap-4">
+        {% if volume.absolute_number >= 0 %}
+            <img src="{% poster_url volume %}" alt="Volume Poster" class="rounded border border-whay" width="100" />
+            <h3 class="font-bold text-2xl pb-3">
+                Volume {{ volume.absolute_number }}
+                {% if user.is_authenticated %}
+                    {% if not volume.locked %}
+                        <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+                        class="edit-link link text-base"
+                        title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+                    {% else %}
+                        <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                    {% endif %}
+                {% endif %}
+            </h3>
+        {% else %}
+        <h3 class="font-bold text-2xl pb-3">Chapters not yet in Tankobon format</h3>
+        {% endif %}
+    </div>
+    <hr class="my-4 border-whay" />
+    <div class="grid grid-cols-2 gap-4">
+        <div class="col-span-2 sm:col-span-1">
+            <div class="flex flex-col items-center justify-center">
+                <span><b>ISBN:</b></span>
+                <span>Unknown</span>
+            </div>
+        </div>
+        <div class="col-span-2 sm:col-span-1">
+            <div class="flex flex-col items-center justify-center">
+                <span><b>Page Count: </b></span>
+                <span>Unknown</span>
+            </div>
+        </div>
+    </div>
+    <hr class="my-4 border-whay" />
+    <h4 class="font-bold text-xl">Chapters:</h4>
+    <div class="my-4">
+        {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+    </div>
+    {% if last_edited_by %}
+        <p class="text-sm my-2">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
+    {% endif %}
+{% endblock details %}
