@@ -17,3 +17,8 @@ class VolumeDetailView(DetailView):
 
         context.update({"manga": volume.manga, "last_edited_by": last_edited_by})
         return context
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ['web/volume/_volume_detail.html']
+        return ['web/volume/volume_detail.html']

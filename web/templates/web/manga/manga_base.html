@@ -32,9 +32,7 @@
             <div class="col-span-1 p-4 justify-center">
                 <div class="flex flex-col gap-4 items-center justify-center text-center sm:sticky sm:top-[100px]">
                     <img src="{% poster_url manga %}" alt="{{ manga.name }} Poster" class="rounded border border-whay" width="150" />
-                    <a href="{% url 'manga' manga.id %}">
-                        <h1 class="underline decoration-hint decoration-[5px] font-bold sm:text-4xl text-2xl pb-3">{{ manga.name }}</h1>
-                    </a>
+                    <h1 class="underline decoration-hint decoration-[5px] font-bold sm:text-4xl text-2xl pb-3">{{ manga.name }}</h1>
                     {% if manga.name != manga.romaji %}<p class="font-bold pb-3">{{ manga.romaji }}</p>{% endif %}
                         {% if user.is_authenticated %}
                         {% if not manga.locked %}
@@ -51,10 +49,11 @@
                 </div>
             </div>
             <div class="col-span-1 sm:col-span-3 p-4">
-                {% block details %}
-                {% endblock details %}
+                <div hx-target="this" hx-swap="innerHTML">
+                    {% block details %}
+                    {% endblock details %}
+                </div>
             </div>
         </div>
     </div>
-    <script src="{% static 'js/read_more.js' %}"></script>
 {% endblock content %}

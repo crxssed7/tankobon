@@ -1,67 +1,9 @@
 {% extends "web/manga/manga_base.html" %}
+
 {% load detail_tags %}
 {% load bleach_tags %}
 {% load utility %}
+
 {% block details %}
-    <div class="manga-description h-auto overflow-hidden">{{ manga.description | bleach:"br,b" }}</div>
-    <a href="#" id="readmore" class="underline">Read more</a>
-    <hr class="my-4 border-whay" />
-    <div class="grid grid-cols-3 gap-4">
-        <div class="col-span-3 sm:col-span-1">
-            <div class="flex flex-col items-center justify-center">
-                <span><b>Status:</b></span>
-                <span>{% capitalize manga.status %}</span>
-            </div>
-        </div>
-        <div class="col-span-3 sm:col-span-1">
-            <div class="flex flex-col items-center justify-center">
-                <span><b>Start Date: </b></span>
-                <span>{{ manga.start_date }}</span>
-            </div>
-        </div>
-        <div class="col-span-3 sm:col-span-1">
-            <div class="flex flex-col items-center justify-center">
-                <span><b>Magazine: </b></span>
-                {% if manga.magazine %}
-                    <span>{{ manga.magazine }}</span>
-                {% else %}
-                    <span>UKNOWN</span>
-                {% endif %}
-            </div>
-        </div>
-    </div>
-    <hr class="my-4 border-whay" />
-    {% include "web/shared/_id_badges.html" with manga=manga only %}
-    <hr class="my-4 border-whay" />
-    {% for edition in editions %}
-        <div class="mb-4">
-            <div class="flex justify-between">
-                <h3 class="font-bold text-lg mb-2">{% capitalize edition.name %} Edition</h3>
-                {% if edition.language %}
-                    <img class="h-full" alt="{{ edition.language }}" title="{{ edition.language }}" src="https://www.countryflagicons.com/SHINY/24/{{ edition.language.code }}.png" />
-                {% endif %}
-            </div>
-            <div class="w-full overflow-y-auto flex gap-4 mb-2 track-blay">
-                {% for volume in edition.volume_set.all %}
-                    {% include "web/shared/_volume.html" with volume=volume user=user only %}
-                {% endfor %}
-            </div>
-            <div id="{{ edition.name }}-chapters"></div>
-        </div>
-    {% endfor %}
-    <div class="flex flex-wrap gap-4">
-        {% if not manga.locked %}
-            <a href="{% url 'new_volume' manga.id %}"
-               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Volume</a>
-            <a href="{% url 'new_edition' %}"
-               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out"><i class="fa-solid fa-plus"></i> Edition</a>
-        {% endif %}
-        {% if user.is_staff %}
-            <a href="{% url 'admin:api_manga_change' manga.id %}"
-               class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Admin</a>
-        {% endif %}
-    </div>
-    {% if last_edited_by %}
-        <p class="text-sm my-2">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
-    {% endif %}
+    {% include "web/manga/_manga_detail.html" %}
 {% endblock details %}

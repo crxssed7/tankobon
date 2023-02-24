@@ -43,3 +43,12 @@ def banner_url(record):
 @register.simple_tag
 def collected(volume, user):
     return volume.has_collected(user=user)
+
+
+@register.simple_tag
+def get_field_value(record, field):
+    if hasattr(record, field):
+        value = getattr(record, field)
+        if value:
+            return value
+    return "Unknown"

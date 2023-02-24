@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_bleach",
     "django_browser_reload",
+    "django_htmx",
     "simple_history",
     "storages",
     "tailwind",
@@ -71,6 +72,7 @@ MIDDLEWARE = [
     "tankobon.middleware.SqlPrintMiddleware",
     "simple_history.middleware.HistoryRequestMiddleware",
     "django_browser_reload.middleware.BrowserReloadMiddleware",
+    "django_htmx.middleware.HtmxMiddleware",
 ]
 
 ROOT_URLCONF = "tankobon.urls"

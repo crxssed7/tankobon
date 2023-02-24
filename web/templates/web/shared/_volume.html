@@ -2,14 +2,7 @@
 {% load bleach_tags %}
 {% load utility %}
 
-<a href="{% url 'volume' volume.id %}">
-    <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="relative rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
-         style="background-image: url('{% poster_url volume %}')">
-    {% if volume.absolute_number == -1 %}
-        <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
-    {% else %}
-        <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
-    {% endif %}
+<div class="relative">
     {% if user.is_authenticated and volume.absolute_number > -1 %}
         <input class="border border-blay absolute top-0 right-0 m-2 h-6 w-6 rounded checked:bg-blay checked:hover:bg-blay focus:ring-blay checked:focus:bg-blay" type="checkbox" name="v-{{ volume.id }}" id="v-{{ volume.id }}" data-collected="{% collected volume user %}" title="Mark as collected" />
         <script>
@@ -56,5 +49,14 @@
             })();
         </script>
     {% endif %}
-    </div>
-</a>
+    <a hx-get="{% url 'volume' volume.id %}">
+        <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
+             style="background-image: url('{% poster_url volume %}')">
+        {% if volume.absolute_number == -1 %}
+            <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
+        {% else %}
+            <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
+        {% endif %}
+        </div>
+    </a>
+</div>

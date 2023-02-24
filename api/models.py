@@ -14,6 +14,7 @@ from simple_history.models import HistoricalRecords
 from simple_history import register as history_register
 
 from api.decorators import track_data, track_data_performed
+from api.validators import isbn_validator
 
 User._meta.get_field("email")._unique = True
 
@@ -175,6 +176,9 @@ class Volume(models.Model):
     edition = models.ForeignKey(
         Edition, blank=True, null=True, on_delete=models.CASCADE
     )
+    isbn = models.CharField(max_length=20, validators=[isbn_validator], blank=True, null=True)
+    page_count = models.PositiveIntegerField(blank=True, null=True)
+    release_date = models.DateField(blank=True, null=True)
     history = HistoricalRecords()
 
     _original_poster = None

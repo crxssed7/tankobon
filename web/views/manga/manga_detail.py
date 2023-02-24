@@ -18,3 +18,8 @@ class MangaDetailView(DetailView):
 
         context.update({"editions": editions, "last_edited_by": last_edited_by})
         return context
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ['web/manga/_manga_detail.html']
+        return ['web/manga/manga_detail.html']
