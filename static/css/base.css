@@ -61,3 +61,19 @@
   color: var(--tankobon-white) !important;
   opacity: 1 !important;
 }
+
+.bar {
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: indeterminate;
+}
+
+@keyframes indeterminate {
+  from {
+    left: -50%;
+  }
+
+  to {
+    left: 100%;
+  }
+}

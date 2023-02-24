@@ -65,7 +65,9 @@
         {% endif %}
       </div>
     </div>
-    <div id="progress" class="htmx-indicator h-[3px] bg-hint z-10"></div>
+    <div id="progress" class="htmx-indicator relative overflow-hidden h-[3px] z-10">
+      <div class="bar bg-hint absolute top-0 bottom-0 w-6/12"></div>
+    </div>
 </nav>
 
 <script>
