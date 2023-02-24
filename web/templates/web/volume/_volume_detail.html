@@ -1,0 +1,65 @@
+{% load detail_tags %}
+{% load bleach_tags %}
+{% load utility %}
+
+<a hx-get="{% url 'manga' volume.manga.id %}" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
+<hr class="my-4 border-whay" />
+<div class="flex flex-col justify-center items-center text-center gap-4 p-6 bg-hint rounded text-blay">
+    {% if volume.absolute_number >= 0 %}
+        <img src="{% poster_url volume %}" alt="Volume Poster" class="rounded border border-whay" width="100" />
+        <h3 class="font-bold text-2xl">
+            Volume {{ volume.absolute_number }}
+            {% if user.is_authenticated %}
+                {% if not volume.locked %}
+                    <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+                    class="edit-link link text-base"
+                    title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+                {% else %}
+                    <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                {% endif %}
+            {% endif %}
+        </h3>
+    {% else %}
+    <h3 class="font-bold text-2xl">
+        Chapters not yet in Tankobon format
+        {% if user.is_authenticated %}
+        {% if not volume.locked %}
+            <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+            class="edit-link link text-base"
+            title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+        {% else %}
+            <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+        {% endif %}
+    {% endif %}
+    </h3>
+    {% endif %}
+</div>
+<hr class="my-4 border-whay" />
+<div class="grid grid-cols-3 gap-4">
+    <div class="col-span-3 sm:col-span-1">
+        <div class="flex flex-col items-center justify-center">
+            <span><b>ISBN:</b></span>
+            <span>{% get_field_value volume 'isbn' %}</span>
+        </div>
+    </div>
+    <div class="col-span-3 sm:col-span-1">
+        <div class="flex flex-col items-center justify-center">
+            <span><b>Page Count: </b></span>
+            <span>{% get_field_value volume 'page_count' %}</span>
+        </div>
+    </div>
+    <div class="col-span-3 sm:col-span-1">
+        <div class="flex flex-col items-center justify-center">
+            <span><b>Release Date: </b></span>
+            <span>{{ volume.release_date }}</span>
+        </div>
+    </div>
+</div>
+<hr class="my-4 border-whay" />
+<h4 class="font-bold text-xl">Chapters:</h4>
+<div class="my-4">
+    {{ volume.chapters | listify | bleach:"li,p,b,br" }}
+</div>
+{% if last_edited_by %}
+    <p class="text-sm my-2">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
+{% endif %}

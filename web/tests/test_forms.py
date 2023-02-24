@@ -75,7 +75,7 @@ class TestEditionForm(TestCase):
 class TestVolumeForms(TestCase):
     def test_volume_edit_form_with_valid_data(self):
         form = VolumeEditForm(
-            data={"poster_url": "", "chapters": "Chapter 1\nChapter 2"}
+            data={"poster_url": "", "chapters": "Chapter 1\nChapter 2", "release_date": "2012-05-15"}
         )
 
         self.assertTrue(form.is_valid())
@@ -84,7 +84,7 @@ class TestVolumeForms(TestCase):
         form = VolumeEditForm(data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 1)
+        self.assertEquals(len(form.errors), 2)
 
     def test_volume_edit_form_does_not_update_absolute_number(self):
         manga = Manga.objects.create(
@@ -100,6 +100,7 @@ class TestVolumeForms(TestCase):
                 "absolute_number": 2,
                 "poster_url": "",
                 "chapters": "Chapter 1\nChapter 2",
+                "release_date": "2012-05-15"
             },
             instance=volume,
         )
@@ -124,6 +125,7 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": Edition.objects.first(),
+                "release_date": "2012-05-15"
             },
         )
         self.assertTrue(form.is_valid())
@@ -139,7 +141,7 @@ class TestVolumeForms(TestCase):
         form = VolumeNewForm(manga=manga, data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 3)
+        self.assertEquals(len(form.errors), 4)
 
     def test_volume_new_form_when_absolute_number_exists(self):
         manga = Manga.objects.create(
@@ -159,6 +161,7 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": edition,
+                "release_date": "2012-05-15"
             },
         )
 

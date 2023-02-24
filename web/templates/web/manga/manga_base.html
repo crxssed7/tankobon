@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% load bleach_tags %}
+{% load utility %}
+{% block title %}
+    {{ manga.name }} - Tankōbon
+{% endblock title %}
+{% block meta_description %}
+    {{ manga.description }}
+{% endblock meta_description %}
+{% block meta_tags %}
+    tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, {{ manga.name }}, {{ manga.romaji }}
+{% endblock meta_tags %}
+{% block meta_title %}
+    {{ manga.name }} - Tankōbon
+{% endblock meta_title %}
+{% block meta_image %}
+    {% poster_url manga %}
+{% endblock meta_image %}
+{% block meta_image_alt %}
+    {{ manga.name }} poster
+{% endblock meta_image_alt %}
+{% block meta_twitter_image %}
+    {% banner_url manga %}
+{% endblock meta_twitter_image %}
+{% block meta_twitter_image_alt %}
+    {{ manga.name }} poster
+{% endblock meta_twitter_image_alt %}
+{% block content %}
+    <div class="mx-auto max-w-7xl px-4 mt-[75px]">
+        <div class="grid grid-cols-1 sm:grid-cols-4">
+            <div class="col-span-1 p-4 justify-center">
+                <div class="flex flex-col gap-4 items-center justify-center text-center sm:sticky sm:top-[100px]">
+                    <img src="{% poster_url manga %}" alt="{{ manga.name }} Poster" class="rounded border border-whay" width="150" />
+                    <h1 class="underline decoration-hint decoration-[5px] font-bold sm:text-4xl text-2xl pb-3">{{ manga.name }}</h1>
+                    {% if manga.name != manga.romaji %}<p class="font-bold pb-3">{{ manga.romaji }}</p>{% endif %}
+                        {% if user.is_authenticated %}
+                        {% if not manga.locked %}
+                            <a href="{% url 'edit_manga' manga.id %}" title="Edit this manga"><i class="fa-solid fa-pencil"></i></a>
+                        {% else %}
+                            <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+                        {% endif %}
+                    {% endif %}
+                    <div class="flex flex-wrap justify-center gap-2">
+                        {% for genre in manga.genres.all %}
+                            <span class="text-xs font-bold bg-hint text-blay p-[5px] rounded">{{ genre.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-span-1 sm:col-span-3 p-4">
+                <div hx-target="this" hx-swap="innerHTML">
+                    {% block details %}
+                    {% endblock details %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

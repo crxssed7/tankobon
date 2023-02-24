@@ -98,6 +98,7 @@ class MangaForm(forms.ModelForm):
 class VolumeEditForm(forms.ModelForm):
     template_name = "web/form_snippet.html"
 
+    release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
     chapters = forms.CharField(
         widget=forms.Textarea(),
         help_text="Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here. To add an arc starting point use the format '|Story Arc Name'.",
@@ -113,12 +114,13 @@ class VolumeEditForm(forms.ModelForm):
 
     class Meta:
         model = Volume
-        fields = ("poster_url", "chapters")
+        fields = ("poster_url", "chapters", "isbn", "page_count", "release_date")
 
 
 class VolumeNewForm(forms.ModelForm):
     template_name = "web/form_snippet.html"
 
+    release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
     absolute_number = forms.IntegerField(
         label="Volume Number",
         help_text="Volume number -1 is reserved for chapters that are not in tankobon format yet.",
@@ -134,7 +136,7 @@ class VolumeNewForm(forms.ModelForm):
 
     class Meta:
         model = Volume
-        fields = ("absolute_number", "poster_url", "edition", "chapters")
+        fields = ("absolute_number", "poster_url", "edition", "chapters", "isbn", "page_count", "release_date")
 
     def __init__(self, manga, *args, **kwargs):
         super(VolumeNewForm, self).__init__(*args, **kwargs)

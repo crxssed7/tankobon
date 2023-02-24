@@ -165,7 +165,7 @@ class TestCollectionViews(TestCase):
     def test_collect_POST_no_login(self):
         response = self.client.post(reverse("collect", args=[self.volume.id]))
         self.assertEquals(response.status_code, 302)
-    
+
     def test_collect_DELETE(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         Collection.objects.create(user=self.user, edition=self.edition, volume=self.volume)

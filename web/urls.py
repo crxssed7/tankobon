@@ -22,6 +22,7 @@ from web.views.users.user_login import login_view
 from web.views.users.user_signup import SignUpView
 
 from web.views.volume.volume_collect import CollectionView
+from web.views.volume.volume_detail import VolumeDetailView
 from web.views.volume.volume_edit import edit_volume
 from web.views.volume.volume_new import new_volume
 
@@ -49,6 +50,8 @@ urlpatterns = [
         name="edit_volume",
     ),
     path("manga/<int:manga_id>/new/", new_volume, name="new_volume"),
+
+    path("volume/<pk>", VolumeDetailView.as_view(), name="volume"),
 
     path("edition/new/", new_edition, name="new_edition"),
 

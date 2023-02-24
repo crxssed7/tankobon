@@ -3,7 +3,7 @@ from django.views.generic.detail import DetailView
 from api.models import Manga, Edition
 
 class MangaDetailView(DetailView):
-    template_name = "web/manga/manga_volumes.html"
+    template_name = "web/manga/manga_detail.html"
     context_object_name = "manga"
     model = Manga
 
@@ -18,3 +18,8 @@ class MangaDetailView(DetailView):
 
         context.update({"editions": editions, "last_edited_by": last_edited_by})
         return context
+
+    def get_template_names(self):
+        if self.request.htmx:
+            return ['web/manga/_manga_detail.html']
+        return ['web/manga/manga_detail.html']

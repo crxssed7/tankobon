@@ -31,14 +31,16 @@
                 </a>
                 <div class="w-full overflow-y-auto flex gap-4 mb-2 track-blay">
                     {% for volume in data.volume_list %}
-                        <div class="relative rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden"
-                             style="background-image: url('{% poster_url volume %}')">
-                            {% if volume.absolute_number == -1 %}
-                                <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
-                            {% else %}
-                                <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
-                            {% endif %}
-                        </div>
+                        <a href="{% url 'volume' volume.id %}">
+                            <div class="relative rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden"
+                                style="background-image: url('{% poster_url volume %}')">
+                                {% if volume.absolute_number == -1 %}
+                                    <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
+                                {% else %}
+                                    <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
+                                {% endif %}
+                            </div>
+                        </a>
                     {% endfor %}
                 </div>
             </div>

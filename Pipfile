@@ -19,6 +19,9 @@ boto3 = "*"
 django-storages = "*"
 django-tailwind = "*"
 django-browser-reload = "*"
+django-htmx = "*"
+python-stdnum = "*"
+six = "*"
 
 [dev-packages]
 black = "*"
