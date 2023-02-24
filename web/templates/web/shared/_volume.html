@@ -49,7 +49,7 @@
             })();
         </script>
     {% endif %}
-    <a hx-get="{% url 'volume' volume.id %}">
+    <a hx-get="{% url 'volume' volume.id %}" hx-indicator="#progress">
         <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
              style="background-image: url('{% poster_url volume %}')">
         {% if volume.absolute_number == -1 %}

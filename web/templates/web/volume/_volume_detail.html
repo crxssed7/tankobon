@@ -2,7 +2,7 @@
 {% load bleach_tags %}
 {% load utility %}
 
-<a hx-get="{% url 'manga' volume.manga.id %}" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
+<a hx-get="{% url 'manga' volume.manga.id %}" hx-indicator="#progress" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
 <hr class="my-4 border-whay" />
 <div class="flex flex-col justify-center items-center text-center gap-4 p-6 bg-hint rounded text-blay">
     {% if volume.absolute_number >= 0 %}
