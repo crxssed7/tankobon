@@ -20,7 +20,18 @@
             {% endif %}
         </h3>
     {% else %}
-    <h3 class="font-bold text-2xl">Chapters not yet in Tankobon format</h3>
+    <h3 class="font-bold text-2xl">
+        Chapters not yet in Tankobon format
+        {% if user.is_authenticated %}
+        {% if not volume.locked %}
+            <a href="{% url 'edit_volume' volume.manga.id volume.absolute_number %}{% urlparams edition=volume.edition.name %}"
+            class="edit-link link text-base"
+            title="Edit this volume"><i class="fa-solid fa-pencil"></i></a>
+        {% else %}
+            <span title="Editing locked"><i class="fa-solid fa-lock"></i></span>
+        {% endif %}
+    {% endif %}
+    </h3>
     {% endif %}
 </div>
 <hr class="my-4 border-whay" />
