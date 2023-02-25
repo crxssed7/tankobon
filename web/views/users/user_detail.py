@@ -75,6 +75,8 @@ class UserStatisticsView(DetailView):
         seinen_count = seinen_count[0] if seinen_count else 0
         josei_count = josei_count[0] if josei_count else 0
 
+        print(demograph_counts)
+
         context["demographs"] = PieChart({'Shounen': shounen_count, 'Shoujo': shoujo_count, 'Seinen': seinen_count, 'Josei': josei_count})
         return context
 
