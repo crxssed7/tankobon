@@ -17,7 +17,7 @@ from web.views.singles.views import (
     IndexView,
     HelpNeededView,
 )
-from web.views.users.user_detail import UserDetailView
+from web.views.users.user_detail import UserDetailView, UserStatisticsView
 from web.views.users.user_login import login_view
 from web.views.users.user_signup import SignUpView
 
@@ -62,4 +62,5 @@ urlpatterns = [
     path("accounts/signup/", SignUpView.as_view(), name="signup"),
 
     path("users/<slug>/", UserDetailView.as_view(), name="user"),
+    path("users/<slug>/stats/", UserStatisticsView.as_view(), name="public_user_stats"),
 ]

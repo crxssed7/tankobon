@@ -280,7 +280,12 @@ class TestAccountViews(TestCase):
     def test_user_GET(self):
         response = self.client.get(reverse("user", args=["BobbyBadBoi"]))
         self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/users/user_detail.html")
+        self.assertTemplateUsed(response, "web/users/user_library.html")
+
+    def test_user_GET_stats(self):
+        response = self.client.get(reverse("public_user_stats", args=["BobbyBadBoi"]))
+        self.assertEquals(response.status_code, 200)
+        self.assertTemplateUsed(response, "web/users/user_statistics.html")
 
     def test_user_GET_no_user_found(self):
         response = self.client.get(reverse("user", args=["BobbyNotABadBoi"]))

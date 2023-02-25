@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "django.contrib.sitemaps",
     "django.contrib.sites",
     "django.contrib.staticfiles",
+    "chartkick.django",
     "django_bleach",
     "django_browser_reload",
     "django_htmx",

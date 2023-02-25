@@ -1,0 +1,22 @@
+{% load static %}
+{% load utility %}
+
+<div class="flex mb-4">
+    <a hx-get="{% url 'user' object.username %}" class="border-b border-whay cursor-pointer p-4">Library</a>
+    <a class="border-t border-r border-l border-whay rounded-t cursor-pointer p-4">Statistics</a>
+    <div class="border-b border-whay w-full"></div>
+</div>
+<div class="border border-whay rounded p-4 mb-4">
+    <h4 class="text-lg sm:text-4xl font-bold mb-4">Volumes collected by month</h4>
+    {{ monthly_collected }}
+</div>
+<div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col justify-center items-center col-span-2 sm:col-span-1 border border-whay rounded p-4">
+        <h4 class="sm:text-4xl font-bold mb-4">Volumes collected</h4>
+        <p class="text-6xl">{{ volume_count }}</p>
+    </div>
+    <div class="col-span-2 sm:col-span-1 border border-whay rounded p-4">
+        <h4 class="sm:text-4xl font-bold mb-4">Demographs</h4>
+        {{ demographs }}
+    </div>
+</div>

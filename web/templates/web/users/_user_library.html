@@ -1,0 +1,29 @@
+{% load static %}
+{% load utility %}
+
+<div class="flex mb-4">
+    <a class="border-t border-r border-l border-whay rounded-t cursor-pointer p-4">Library</a>
+    <a hx-get="{% url 'public_user_stats' object.username %}" class="border-b border-whay cursor-pointer p-4">Statistics</a>
+    <div class="border-b border-whay w-full"></div>
+</div>
+{% for edition, data in edition_volumes.items %}
+<div class="py-4">
+    <a href="{% url 'manga' data.manga.id %}">
+        <h3 class="font-bold underline decoration-hint decoration-[3px] mb-4">{{ edition }}</h3>
+    </a>
+    <div class="w-full overflow-y-auto flex gap-4 mb-2 track-blay">
+        {% for volume in data.volume_list %}
+            <a href="{% url 'volume' volume.id %}">
+                <div class="relative rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden"
+                    style="background-image: url('{% poster_url volume %}')">
+                    {% if volume.absolute_number == -1 %}
+                        <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
+                    {% else %}
+                        <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
+                    {% endif %}
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</div>
+{% endfor %}
