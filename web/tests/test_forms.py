@@ -84,7 +84,7 @@ class TestVolumeForms(TestCase):
         form = VolumeEditForm(data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 2)
+        self.assertEquals(len(form.errors), 1)
 
     def test_volume_edit_form_does_not_update_absolute_number(self):
         manga = Manga.objects.create(
@@ -141,7 +141,7 @@ class TestVolumeForms(TestCase):
         form = VolumeNewForm(manga=manga, data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 4)
+        self.assertEquals(len(form.errors), 3)
 
     def test_volume_new_form_when_absolute_number_exists(self):
         manga = Manga.objects.create(
