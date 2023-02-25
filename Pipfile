@@ -22,6 +22,7 @@ django-browser-reload = "*"
 django-htmx = "*"
 python-stdnum = "*"
 six = "*"
+chartkick = "*"
 
 [dev-packages]
 black = "*"
