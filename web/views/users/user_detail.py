@@ -61,7 +61,7 @@ class UserStatisticsView(DetailView):
         context["monthly_collected"] = ColumnChart(monthly_collected_dict)
 
         # <QuerySet [{'manga__genres__name': 'Seinen', 'count': 3}, {'manga__genres__name': 'Shounen', 'count': 4}, {'manga__genres__name': 'Josei', 'count': 1}]>
-        demograph_counts = Volume.objects.filter(collection__user=user).values('manga__genres__name').annotate(count=Count('id'))
+        demograph_counts = Volume.objects.filter(collection__user=user, manga__genres__name__in=["Shounen", "Shoujo", "Seinen", "Josei"]).values('manga__genres__name').annotate(count=Count('id'))
 
         # Returns an array with one element e.g. [4]. The element is the count
         shounen_count = list(demograph_counts.filter(manga__genres__name='Shounen').values_list('count', flat=True))
@@ -74,8 +74,6 @@ class UserStatisticsView(DetailView):
         shoujo_count = shoujo_count[0] if shoujo_count else 0
         seinen_count = seinen_count[0] if seinen_count else 0
         josei_count = josei_count[0] if josei_count else 0
-
-        context["debug"] = demograph_counts
 
         context["demographs"] = PieChart({'Shounen': shounen_count, 'Shoujo': shoujo_count, 'Seinen': seinen_count, 'Josei': josei_count})
         return context
