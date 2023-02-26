@@ -2,7 +2,7 @@
 {% load bleach_tags %}
 {% load utility %}
 
-<a hx-get="{% url 'manga' volume.manga.id %}" hx-indicator="#progress" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
+<a href="#swappable" hx-get="{% url 'manga' volume.manga.id %}" hx-indicator="#progress" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
 <hr class="my-4 border-whay" />
 <div class="flex flex-col justify-center items-center text-center gap-4 p-6 bg-hint rounded text-blay">
     {% if volume.absolute_number >= 0 %}
@@ -63,3 +63,5 @@
 {% if last_edited_by %}
     <p class="text-sm my-2">Last edited by: <a href="{% url 'user' last_edited_by %}" class="underline">{{ last_edited_by }}</a></p>
 {% endif %}
+<hr class="my-4 border-whay" />
+<a href="#swappable" hx-get="{% url 'manga' volume.manga.id %}" hx-indicator="#progress" class="pb-4 cursor-pointer">&laquo; Back to {{ volume.manga.name }}</a>
