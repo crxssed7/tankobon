@@ -8,7 +8,7 @@ from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.utils.text import slugify
-from django.utils.timezone import datetime
+from django.utils.timezone import datetime, now
 
 from simple_history.models import HistoricalRecords
 from simple_history import register as history_register
@@ -227,6 +227,7 @@ class Collection(models.Model):
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     volume = models.ForeignKey(Volume, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
+    collected_at = models.DateField(default=now)
 
     def save(self, *args, **kwargs):
         self.edition = self.volume.edition

@@ -49,7 +49,7 @@ class UserStatisticsView(DetailView):
         context["volume_count"] = user.collection_set.count()
 
         monthly_collected = (
-            Collection.objects.filter(user=user).annotate(month=TruncMonth("created_at"))
+            Collection.objects.filter(user=user).annotate(month=TruncMonth("collected_at"))
                 .values("month")
                 .annotate(count=Count("month"))
                 .order_by("-month")[:12]
