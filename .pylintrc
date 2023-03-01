@@ -431,7 +431,7 @@ disable=raw-checker-failed,
         consider-using-enumerate,
         unused-argument,
         super-with-arguments,
-        duplicate-code
+        duplicate-code,
         redefined-outer-name
 
 # Enable the message, report, category or checker with the given id(s). You can
