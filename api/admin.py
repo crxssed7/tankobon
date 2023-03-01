@@ -40,7 +40,7 @@ class GenreAdmin(admin.ModelAdmin):
 
 @admin.register(Collection)
 class CollectionAdmin(admin.ModelAdmin):
-    list_display = ["user", "edition", "volume", "created_at"]
+    list_display = ["user", "edition", "volume", "collected_at"]
 
 
 @admin.register(Language)
