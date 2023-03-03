@@ -49,8 +49,9 @@ HONEYBADGER = {
 # Application definition
 
 INSTALLED_APPS = [
-    "web.apps.WebConfig",
     "api.apps.ApiConfig",
+    "dashboard.apps.DashboardConfig",
+    "web.apps.WebConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

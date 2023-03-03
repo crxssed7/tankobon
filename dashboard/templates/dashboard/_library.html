@@ -1,0 +1,52 @@
+{% load static %}
+{% load bleach_tags %}
+{% load utility %}
+
+<h1 class="text-2xl font-bold underline decoration-hint mb-4">Library</h1>
+<table class="w-full table-auto">
+  <thead>
+    <tr class="border-b border-t border-whay">
+      <th class="w-20 text-start py-4"></th>
+      <th class="text-start py-4">Manga</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for collection in results %}
+      <tr hx-get="{% url 'collection' collection.id %}" class="cursor-pointer">
+        <td class="w-20 border-b border-whay py-2"><div class="rounded h-12 w-12 border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden" style="background-image: url('{% poster_url collection.volume %}')"></div></td>
+        <td class="border-b border-whay py-2">
+          <p class="underline decoration-hint">{{ collection.volume.manga.name }} {{ collection.volume.absolute_number }}</p>
+          <p class="text-xs">{% capitalize collection.edition.name %} Edition</p>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="flex justify-center my-4">
+  <nav aria-label="Page navigation">
+    <ul class="flex gap-2 list-style-none">
+        {% if page_obj.has_previous %}
+            <li class="page-item"><a
+                class="cursor-pointer page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-whay hover:text-blay hover:bg-gray-200 focus:shadow-none"
+                hx-get="?page=1" tabindex="-1" aria-disabled="true">&laquo;</a></li>
+            <li class="page-item"><a
+                class="cursor-pointer page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-whay hover:text-blay hover:bg-gray-200 focus:shadow-none"
+                hx-get="?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a></li>
+        {% endif %}
+
+        <li class="page-item disabled"><a
+            class="page-link relative block py-1.5 px-3 rounded border-0 bg-whay outline-none transition-all duration-300 rounded text-blay shadow-md focus:shadow-md"
+            >{{ page_obj.number }}</a></li>
+
+        {% if page_obj.has_next %}
+            <li class="page-item"><a
+                class="cursor-pointer page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-whay hover:text-blay hover:bg-gray-200 focus:shadow-none"
+                hx-get="?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a></li>
+            <li class="page-item"><a
+                class="cursor-pointer page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-whay hover:text-blay hover:bg-gray-200 focus:shadow-none"
+                hx-get="?page={{ page_obj.paginator.num_pages }}">&raquo;</a></li>
+        {% endif %}
+    </ul>
+  </nav>
+</div>

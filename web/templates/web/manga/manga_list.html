@@ -17,7 +17,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
             {% endfor %}
         </div>
         <div class="flex justify-center">
-            <nav aria-label="Page navigation example">
+            <nav aria-label="Page navigation">
             <ul class="flex gap-2 list-style-none">
                 {% if page_obj.has_previous %}
                     <li class="page-item"><a
@@ -31,7 +31,7 @@ A centralised site that documents what chapter is in which volume of a manga. Th
                 <li class="page-item disabled"><a
                     class="page-link relative block py-1.5 px-3 rounded border-0 bg-whay outline-none transition-all duration-300 rounded text-blay shadow-md focus:shadow-md"
                     href="#">{{ page_obj.number }}</a></li>
-                
+
                 {% if page_obj.has_next %}
                     <li class="page-item"><a
                         class="page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-whay hover:text-blay hover:bg-gray-200 focus:shadow-none"

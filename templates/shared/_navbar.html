@@ -21,7 +21,9 @@
             <div class="flex space-x-4">
               <!-- Current: "text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
               <a href="{% url 'index' %}" class="{% active_tab request.path '' %}" aria-current="page">Home</a>
-              
+
+              <a href="{% url 'dashboard' %}" class="{% active_tab request.path 'dashboard' %}">Dashboard</a>
+
               <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %}">Manga</a>
             </div>
           </div>
@@ -52,7 +54,7 @@
         <a href="{% url 'index' %}" class="{% active_tab request.path '' %} block text-base" aria-current="page">Home</a>
 
         <a href="{% url 'search' %}" class="{% active_tab request.path 'manga' %} block text-base">Manga</a>
-  
+
         {% if not user.is_authenticated %}
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'login' %}" title="Login">Login</a>
             <a class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" href="{% url 'signup' %}" title="Signup">Signup</a>

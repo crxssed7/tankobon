@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>
             {% block title %}
-            Tankōbon
+            Tankōbon Dashboard
             {% endblock title %}
       </title>
       <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
@@ -44,26 +44,35 @@
 
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="h-screen bg-blay text-whay selection:bg-whay selection:text-blay">
       <div class="flex flex-col h-screen justify-between">
-            {% include "shared/_navbar.html" %}
             <main>
-                  {% if messages %}
-                  <ul class="messages mt-[75px]">
-                    {% for message in messages %}
-                      <li class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay">{{ message }}</li>
-                    {% endfor %}
-                  </ul>
-                  {% endif %}
-                  {% block content %}
-                  {% endblock content %}
+              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed left-0 top-0 h-screen pt-[20px]">
+                <div class="w-full flex justify-center">
+                  <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] pb-[20px]" />
+                </div>
+                <div class="p-6 bg-hint text-blay font-bold">Library</div>
+                <div class="p-6">Stats</div>
+                <a href="{% url 'user' user %}"><div class="p-6">Profile</div></a>
+                <a href="{% url 'search' %}"><div class="p-6">Back</div></a>
+              </aside>
+              <div class="block md:hidden bg-black">
+                <div class="w-full flex justify-center">
+                  <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] py-[20px]" />
+                </div>
+                <div class="p-4 bg-hint text-blay font-bold">Library</div>
+                <div class="p-4">Stats</div>
+                <a href="{% url 'user' user %}"><div class="p-4">Profile</div></a>
+                <a href="{% url 'search' %}"><div class="p-4">Back</div></a>
+              </div>
+              <div class="md:mx-[250px] md:my-[50px] m-4" hx-target="this" hx-swap="innerHTML">
+                {% block content %}
+                {% endblock content %}
+              </div>
+              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed right-0 top-0 h-screen pt-[20px]">
+                <p>One</p>
+                <div class="h-[1px] w-full bg-white opacity-50"></div>
+                <p>Two</p>
+              </aside>
             </main>
-            <footer class="bg-blay text-white text-sm mt-6">
-                  <div class=" mx-auto max-w-7xl p-4">
-                        <a href="https://github.com/crxssed7/tankobon" class="text-hint underline">Tankōbon</a>
-                        developed by <a href="https://github.com/crxssed7" class="text-hint underline">crxssed</a> · <a
-                              href="https://forms.gle/TYcJq3EJhPhC4iE87" class="text-hint underline">Reports</a> · <a
-                              href="{% url 'contrib' %}" class="text-hint underline">Guidelines</a>
-                  </div>
-            </footer>
       </div>
       <script src="{% static 'js/disable_autocomplete.js' %}"></script>
 </body>

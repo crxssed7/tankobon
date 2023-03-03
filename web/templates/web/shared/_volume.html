@@ -2,6 +2,7 @@
 {% load utility %}
 
 <div class="relative">
+  <!--
     {% if user.is_authenticated and volume.absolute_number > -1 %}
         <input class="border border-blay absolute top-0 right-0 m-2 h-6 w-6 rounded checked:bg-blay checked:hover:bg-blay focus:ring-blay checked:focus:bg-blay" type="checkbox" name="v-{{ volume.id }}" id="v-{{ volume.id }}" data-collected="{% collected volume user %}" title="Mark as collected" />
         <script>
@@ -18,7 +19,7 @@
                     var csrfCookie = "";
                     var value = "; " + document.cookie;
                     var parts = value.split("; csrftoken=");
-                    if (parts.length == 2) { 
+                    if (parts.length == 2) {
                         csrfCookie = parts.pop().split(";").shift();
                     }
 
@@ -48,6 +49,7 @@
             })();
         </script>
     {% endif %}
+    -->
     <a href="#swappable" hx-get="{% url 'volume' volume.id %}" hx-indicator="#progress">
         <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
              style="background-image: url('{% poster_url volume %}')">

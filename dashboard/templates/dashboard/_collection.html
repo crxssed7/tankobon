@@ -1,0 +1,9 @@
+{% load utility %}
+
+<a hx-get="{% url 'dashboard' %}" class="cursor-pointer">&laquo; Back to dashboard</a>
+
+<div class="mt-4 p-16 bg-hint rounded border border-whay flex flex-col items-center text-blay justify-center">
+  <img src="{% poster_url collection.volume %}" class="rounded border border-whay" width="150" alt="Volume Poster" />
+  <h1 class="font-bold text-2xl mt-4">{{ collection.volume }}</h1>
+  <h6 class="text-sm">{% capitalize collection.edition.name %} Edition</h6>
+</div>
