@@ -182,7 +182,7 @@ class CollectionForm(forms.Form):
             self.fields[field].widget.attrs.update(ATTRS)
 
     def clean_isbn(self):
-        isbn = self.cleaned_data['isbn']
+        isbn = self.cleaned_data['isbn'].replace("-", '')
         try:
             volume = Volume.objects.get(isbn=isbn, absolute_number__gt=-1)
         except Volume.DoesNotExist:
