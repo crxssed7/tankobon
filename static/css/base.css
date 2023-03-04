@@ -77,3 +77,16 @@
     left: 100%;
   }
 }
+
+/* MESSAGES */
+.info {
+  background-color: rgb(68, 68, 239);
+}
+
+.error {
+  background-color: rgb(239, 68, 68);
+}
+
+.success {
+  background-color: rgb(68, 239, 68);
+}

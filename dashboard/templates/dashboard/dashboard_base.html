@@ -49,7 +49,11 @@
                 <div class="w-full flex justify-center">
                   <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] pb-[20px]" />
                 </div>
-                <div class="p-6 bg-hint text-blay font-bold">Library</div>
+                <a href="{% url 'dashboard' %}">
+                  <div class="p-6 bg-hint text-blay font-bold">
+                    Library
+                  </div>
+                </a>
                 <div class="p-6">Stats</div>
                 <a href="{% url 'user' user %}"><div class="p-6">Profile</div></a>
                 <a href="{% url 'search' %}"><div class="p-6">Back</div></a>
@@ -58,19 +62,31 @@
                 <div class="w-full flex justify-center">
                   <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] py-[20px]" />
                 </div>
-                <div class="p-4 bg-hint text-blay font-bold">Library</div>
+                <a href="{% url 'dashboard' %}">
+                  <div class="p-4 bg-hint text-blay font-bold">Library</div>
+                </a>
                 <div class="p-4">Stats</div>
                 <a href="{% url 'user' user %}"><div class="p-4">Profile</div></a>
                 <a href="{% url 'search' %}"><div class="p-4">Back</div></a>
               </div>
               <div class="md:mx-[250px] md:my-[50px] m-4" hx-target="this" hx-swap="innerHTML">
+                {% if messages %}
+                <ul class="messages">
+                  {% for message in messages %}
+                    <li class="{% if message.tags %}{{ message.tags }}{% endif %} mb-4 p-4 rounded border border-whay text-blay">{{ message }}</li>
+                  {% endfor %}
+                </ul>
+                {% endif %}
                 {% block content %}
                 {% endblock content %}
               </div>
-              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed right-0 top-0 h-screen pt-[20px]">
-                <p>One</p>
-                <div class="h-[1px] w-full bg-white opacity-50"></div>
-                <p>Two</p>
+              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed right-0 top-0 h-screen p-[20px]">
+                <h1 class="font-bold text-lg mb-4">Add a volume:</h1>
+                <form class="form" method="post" action="{% url 'dashboard' %}">
+                  {% csrf_token %}
+                  {{ add_collection_form }}
+                  <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Update</button>
+                </form>
               </aside>
             </main>
       </div>

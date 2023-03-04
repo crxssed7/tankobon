@@ -12,11 +12,15 @@
   </thead>
   <tbody>
     {% for collection in results %}
-      <tr hx-get="{% url 'collection' collection.id %}" class="cursor-pointer">
+      <tr>
         <td class="w-20 border-b border-whay py-2"><div class="rounded h-12 w-12 border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden" style="background-image: url('{% poster_url collection.volume %}')"></div></td>
         <td class="border-b border-whay py-2">
-          <p class="underline decoration-hint">{{ collection.volume.manga.name }} {{ collection.volume.absolute_number }}</p>
-          <p class="text-xs">{% capitalize collection.edition.name %} Edition</p>
+          <a href="{% url 'collection' collection.id %}">
+            <div class="manga-name-wrapper block h-[2em] leading-[2em] overflow-hidden text-ellipsis">
+              <p class="underline decoration-hint">{{ collection.volume.manga.name }} {{ collection.volume.absolute_number }}</p>
+            </div>
+            <p class="text-xs">{% capitalize collection.edition.name %} Edition</p>
+          </a>
         </td>
       </tr>
     {% endfor %}
