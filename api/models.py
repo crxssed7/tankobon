@@ -2,11 +2,14 @@ import io
 import requests
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.files.images import ImageFile
+from django.core.mail import send_mail
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.template import loader
 from django.utils.text import slugify
 from django.utils.timezone import datetime, now
 
@@ -260,3 +263,19 @@ def create_standard_edtion(sender, instance=None, created=False, **kwargs):
 def manga_save_history(sender, instance, **kwargs):
     if not instance.whats_changed():
         instance.skip_history_when_saving = True
+
+@receiver(post_save, sender=User)
+def create_user_deps(sender, instance=None, created=False, **kwargs):
+    if created:
+        html = loader.render_to_string("emails/signup.html", {
+            "username": instance.username,
+            "domain": Site.objects.all().first().domain
+        })
+        send_mail(
+            "Welcome to Tankōbon!",
+            "You can start tracking your manga collection today!",
+            "contact@tankobon.net",
+            [instance.email],
+            fail_silently=False,
+            html_message=html
+        )
