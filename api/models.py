@@ -22,6 +22,8 @@ from api.decorators import track_data, track_data_performed
 from api.tokens import account_activation_token
 from api.validators import isbn_validator
 
+from tankobon.settings import DEFAULT_FROM_EMAIL
+
 User._meta.get_field("email")._unique = True
 
 
@@ -282,7 +284,7 @@ def create_user_deps(sender, instance=None, created=False, **kwargs):
         send_mail(
             "Activate your new Tankōbon account.",
             "Welcome to Tankōbon!",
-            "contact@tankobon.net",
+            DEFAULT_FROM_EMAIL,
             [instance.email],
             fail_silently=False,
             html_message=html

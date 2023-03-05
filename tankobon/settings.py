@@ -175,7 +175,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_API_KEY", default="test")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'contact@tankobon.net'
+DEFAULT_FROM_EMAIL = env.str("DEFAULT_FROM_EMAIL", default="test@example.com")
 
 # django.core.files.storage.FileSystemStorage
 if DEBUG == False:
