@@ -2,11 +2,16 @@ import io
 import requests
 
 from django.contrib.auth.models import User
+from django.contrib.sites.models import Site
 from django.core.files.images import ImageFile
+from django.core.mail import send_mail
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
+from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.text import slugify
 from django.utils.timezone import datetime, now
 
@@ -14,7 +19,10 @@ from simple_history.models import HistoricalRecords
 from simple_history import register as history_register
 
 from api.decorators import track_data, track_data_performed
+from api.tokens import account_activation_token
 from api.validators import isbn_validator
+
+from tankobon.settings import DEFAULT_FROM_EMAIL
 
 User._meta.get_field("email")._unique = True
 
@@ -260,3 +268,24 @@ def create_standard_edtion(sender, instance=None, created=False, **kwargs):
 def manga_save_history(sender, instance, **kwargs):
     if not instance.whats_changed():
         instance.skip_history_when_saving = True
+
+@receiver(post_save, sender=User)
+def create_user_deps(sender, instance=None, created=False, **kwargs):
+    if created:
+        uid = urlsafe_base64_encode(force_bytes(instance.pk))
+        token = account_activation_token.make_token(instance)
+
+        html = loader.render_to_string("emails/signup.html", {
+            "username": instance.username,
+            "domain": Site.objects.all().first().domain,
+            "uid": uid,
+            "token": token
+        })
+        send_mail(
+            "Activate your new Tankōbon account.",
+            "Welcome to Tankōbon!",
+            DEFAULT_FROM_EMAIL,
+            [instance.email],
+            fail_silently=False,
+            html_message=html
+        )

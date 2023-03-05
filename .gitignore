@@ -145,3 +145,4 @@ GitHub.sublime-settings
 staticfiles/
 db.sh
 test.sh
+tmp/
