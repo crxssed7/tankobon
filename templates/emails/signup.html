@@ -143,7 +143,7 @@
                                                 So, what now?</h3>
                                             <p
                                                 style="color: #fefefe; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                                That's up to you! You can either start <a href="https://{{ domain }}{% url 'login' %}" style="color: #29cf95; text-decoration: underline;">tracking your collection</a>
+                                                You first need to activate your account. After that you can either start <a href="https://{{ domain }}{% url 'login' %}" style="color: #29cf95; text-decoration: underline;">tracking your collection</a>
                                                 or <a href="https://{{ domain }}{% url 'new_manga' %}" style="color: #29cf95; text-decoration: underline;">adding data</a> to Tankōbon.</p>
                                             <table role="presentation" border="0" cellpadding="0" cellspacing="0"
                                                 class="btn btn-primary"
@@ -162,9 +162,9 @@
                                                                         <td style="font-family: sans-serif; font-size: 14px; vertical-align: top; border-radius: 5px; text-align: center; background-color: #FF5F6D;"
                                                                             valign="top" align="center"
                                                                             bgcolor="#FF5F6D"> <a
-                                                                                href="http://{{ domain }}/accounts/login" target="_blank"
-                                                                                style="border: solid 1px #29cf95; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #29cf95; border-color: #29cf95; color: #0b0b0b;">Manage
-                                                                                your account</a>
+                                                                                href="http://{{ domain }}{% url 'activate' uidb64=uid token=token %}" target="_blank"
+                                                                                style="border: solid 1px #29cf95; border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 12px 25px; text-decoration: none; text-transform: capitalize; background-color: #29cf95; border-color: #29cf95; color: #0b0b0b;">Activate
+                                                                            Your Account</a>
                                                                         </td>
                                                                     </tr>
                                                                 </tbody>
@@ -175,8 +175,7 @@
                                             </table>
                                             <p
                                                 style="color: #fefefe; font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px;">
-                                                We're sending this email just to confirm that you have created an
-                                                account. If this was not you, please reply to this email.</p>
+                                                We're sending this email because an account was created with this address. If this was not you, please reply to this email.</p>
                                             <h6></h6>
                                         </td>
                                     </tr>

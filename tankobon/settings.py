@@ -171,15 +171,17 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="test")
 AWS_QUERYSTRING_AUTH = False
 
 EMAIL_HOST = 'smtp.sendgrid.net'
-EMAIL_HOST_USER = 'apikey' # this is exactly the value 'apikey'
+EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_API_KEY", default="test")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-
 # django.core.files.storage.FileSystemStorage
 if DEBUG == False:
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
+else:
+    EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
+    EMAIL_FILE_PATH = "tmp/emails"
 
 SITE_ID = 1

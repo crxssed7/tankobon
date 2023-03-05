@@ -10,6 +10,8 @@ from django.db import models
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.template import loader
+from django.utils.encoding import force_bytes
+from django.utils.http import urlsafe_base64_encode
 from django.utils.text import slugify
 from django.utils.timezone import datetime, now
 
@@ -17,6 +19,7 @@ from simple_history.models import HistoricalRecords
 from simple_history import register as history_register
 
 from api.decorators import track_data, track_data_performed
+from api.tokens import account_activation_token
 from api.validators import isbn_validator
 
 User._meta.get_field("email")._unique = True
@@ -267,13 +270,18 @@ def manga_save_history(sender, instance, **kwargs):
 @receiver(post_save, sender=User)
 def create_user_deps(sender, instance=None, created=False, **kwargs):
     if created:
+        uid = urlsafe_base64_encode(force_bytes(instance.pk))
+        token = account_activation_token.make_token(instance)
+
         html = loader.render_to_string("emails/signup.html", {
             "username": instance.username,
-            "domain": Site.objects.all().first().domain
+            "domain": Site.objects.all().first().domain,
+            "uid": uid,
+            "token": token
         })
         send_mail(
+            "Activate your new Tankōbon account.",
             "Welcome to Tankōbon!",
-            "You can start tracking your manga collection today!",
             "contact@tankobon.net",
             [instance.email],
             fail_silently=False,

@@ -46,6 +46,13 @@
       <div class="flex flex-col h-screen justify-between">
             {% include "shared/_navbar.html" %}
             <main>
+                  {% if messages %}
+                  <ul class="messages mt-[75px]">
+                    {% for message in messages %}
+                      <li class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay">{{ message }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
                   {% block content %}
                   {% endblock content %}
             </main>
