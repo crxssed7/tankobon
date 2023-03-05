@@ -175,6 +175,7 @@ EMAIL_HOST_USER = 'apikey'
 EMAIL_HOST_PASSWORD = env.str("SENDGRID_API_KEY", default="test")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'contact@tankobon.net'
 
 # django.core.files.storage.FileSystemStorage
 if DEBUG == False:
@@ -182,6 +183,6 @@ if DEBUG == False:
     DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 else:
     EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
-    EMAIL_FILE_PATH = "tmp/emails"
+    EMAIL_FILE_PATH = BASE_DIR / "tmp/emails"
 
 SITE_ID = 1
