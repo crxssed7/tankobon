@@ -50,7 +50,7 @@ urlpatterns = [
     ),
     path("manga/<int:manga_id>/new/", new_volume, name="new_volume"),
 
-    path("volume/<pk>", VolumeDetailView.as_view(), name="volume"),
+    path("volume/<pk>/", VolumeDetailView.as_view(), name="volume"),
 
     path("edition/new/", new_edition, name="new_edition"),
 

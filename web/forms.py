@@ -183,22 +183,18 @@ class CollectionForm(forms.Form):
 
     def clean_isbn(self):
         isbn = self.cleaned_data['isbn'].replace("-", '')
+
         try:
             volume = Volume.objects.get(isbn=isbn, absolute_number__gt=-1)
         except Volume.DoesNotExist:
             raise forms.ValidationError('No volume found with ISBN {}'.format(isbn))
         self.volume = volume
-        return isbn
 
-    def clean(self):
-        cleaned_data = super().clean()
-
-        volume = cleaned_data.get('volume')
         exists = Collection.objects.filter(user=self.user, volume=volume).exists()
         if exists:
             raise forms.ValidationError('You already have this volume in your collection.')
 
-        return cleaned_data
+        return isbn
 
     def save(self):
         return Collection.objects.create(user=self.user, volume=self.volume, collected_at=self.cleaned_data['collected_at'])
