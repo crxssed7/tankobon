@@ -1,0 +1,4 @@
+#!/bin/sh
+
+trap 'kill %1' SIGINT
+python manage.py runserver & python manage.py tailwind start
