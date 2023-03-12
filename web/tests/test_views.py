@@ -1,11 +1,14 @@
 from django.contrib.auth.models import User
-from django.test import TestCase, Client
+from django.test import TestCase, Client, modify_settings
 from django.urls import reverse
 from django.utils.timezone import datetime
 
 from api.models import Manga, Volume, Edition, Genre, Collection
 
 
+@modify_settings(MIDDLEWARE={
+    "remove": "tankobon.middleware.SqlPrintMiddleware",
+})
 class TestSingleViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -39,6 +42,9 @@ class TestSingleViews(TestCase):
         self.assertTemplateUsed(response, "web/contrib.html")
 
 
+@modify_settings(MIDDLEWARE={
+    "remove": "tankobon.middleware.SqlPrintMiddleware",
+})
 class TestMangaViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -121,6 +127,9 @@ class TestMangaViews(TestCase):
         self.assertTemplateUsed(response, "404.html")
 
 
+@modify_settings(MIDDLEWARE={
+    "remove": "tankobon.middleware.SqlPrintMiddleware",
+})
 class TestCollectionViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -189,6 +198,9 @@ class TestCollectionViews(TestCase):
         self.assertEquals(response.status_code, 405)
 
 
+@modify_settings(MIDDLEWARE={
+    "remove": "tankobon.middleware.SqlPrintMiddleware",
+})
 class TestVolumeViews(TestCase):
     def setUp(self):
         self.client = Client()
@@ -268,6 +280,9 @@ class TestVolumeViews(TestCase):
         self.assertTemplateUsed(response, "404.html")
 
 
+@modify_settings(MIDDLEWARE={
+    "remove": "tankobon.middleware.SqlPrintMiddleware",
+})
 class TestAccountViews(TestCase):
     def setUp(self):
         self.client = Client()

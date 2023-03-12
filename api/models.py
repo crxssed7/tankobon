@@ -20,7 +20,7 @@ from simple_history import register as history_register
 
 from api.decorators import track_data, track_data_performed
 from api.tokens import account_activation_token
-from api.validators import isbn_validator
+from api.validators import isbn_validator, image_url_validator
 
 from tankobon.settings import DEFAULT_FROM_EMAIL
 
@@ -75,9 +75,9 @@ class Manga(models.Model):
     description = models.TextField()
     status = models.CharField(max_length=15, choices=STATUS_CHOICES)
     start_date = models.DateField()
-    poster_url = models.URLField(blank=True, max_length=750)
+    poster_url = models.URLField(blank=True, max_length=750, validators=[image_url_validator])
     poster_file = models.ImageField(upload_to="posters", blank=True, null=True)
-    banner_url = models.URLField(blank=True, max_length=750)
+    banner_url = models.URLField(blank=True, max_length=750, validators=[image_url_validator])
     banner_file = models.ImageField(upload_to="heroes", blank=True, null=True)
     anilist_id = models.PositiveIntegerField(blank=True, null=True)
     mal_id = models.PositiveIntegerField(blank=True, null=True)
@@ -145,6 +145,13 @@ class Manga(models.Model):
             self.get_remote_banner()
         super(Manga, self).save(*args, **kwargs)
 
+    def delete(self, *args, **kwargs):
+        if self.poster_file:
+            self.poster_file.delete(save=False)
+        if self.banner_file:
+            self.banner_file.delete(save=False)
+        super(Manga, self).delete(*args, **kwargs)
+
 
 history_register(Manga, inherit=True, excluded_fields=["last_updated"])
 
@@ -179,7 +186,7 @@ class Volume(models.Model):
     manga = models.ForeignKey(Manga, on_delete=models.CASCADE)
     chapters = models.TextField()
     locked = models.BooleanField(default=False)
-    poster_url = models.URLField(blank=True, max_length=750)
+    poster_url = models.URLField(blank=True, max_length=750, validators=[image_url_validator])
     poster_file = models.ImageField(upload_to="posters", blank=True, null=True)
     edition = models.ForeignKey(
         Edition, blank=True, null=True, on_delete=models.CASCADE
@@ -217,6 +224,11 @@ class Volume(models.Model):
         if self._original_poster != self.poster_url or primary == None:
             self.get_remote_poster()
         super(Volume, self).save(*args, **kwargs)
+
+    def delete(self, *args, **kwargs):
+        if self.poster_file:
+            self.poster_file.delete(save=False)
+        super(Volume, self).delete(*args, **kwargs)
 
     def __str__(self):
         if self.absolute_number >= 0:

@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.core.validators import RegexValidator
 from six import string_types
 from stdnum import isbn
 
@@ -21,3 +22,10 @@ def isbn_validator(raw_isbn):
         raise ValidationError("Invalid ISBN: Only upper case allowed")
 
     return True
+
+ALLOWED_DOMAINS_PATTERN = r"(s4\.anilist\.co|images-na\.ssl-images-amazon\.com|static\.wikia\.nocookie\.net\/.*\/images|m\.media-amazon\.com\/images|cdn\.myanimelist\.net\/images)"
+
+image_url_validator = RegexValidator(
+    regex=fr"^https?:\/\/{ALLOWED_DOMAINS_PATTERN}\/",
+    message="The image must be from one of the trusted sites. Learn more about this on the contribution guidelines."
+)
