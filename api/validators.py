@@ -23,7 +23,7 @@ def isbn_validator(raw_isbn):
 
     return True
 
-ALLOWED_DOMAINS_PATTERN = r"(s4\.anilist\.co|images-na\.ssl-images-amazon\.com|static\.wikia\.nocookie\.net\/.*\/images|m\.media-amazon\.com\/images|cdn\.myanimelist\.net\/images)"
+ALLOWED_DOMAINS_PATTERN = r"(s4\.anilist\.co|images-na\.ssl-images-amazon\.com|static\.wikia\.nocookie\.net\/.*\/images|m\.media-amazon\.com\/images|cdn\.myanimelist\.net\/images|uploads\.mangadex\.org\/covers|i\.gr-assets\.com\/images|comicvine\.gamespot\.com\/a\/uploads|dw9to29mmj727\.cloudfront\.net)"
 
 image_url_validator = RegexValidator(
     regex=fr"^https?:\/\/{ALLOWED_DOMAINS_PATTERN}\/",
