@@ -2,7 +2,7 @@ from django.test import SimpleTestCase, TestCase
 from django.utils.timezone import datetime
 
 from api.models import Volume, Manga, Edition
-from web.forms import MangaForm, VolumeEditForm, VolumeNewForm, SignUpForm, EditionForm
+from web.forms import MangaForm, SignUpForm, EditionForm, VolumeForm
 
 
 class TestMangaForms(SimpleTestCase):
@@ -73,20 +73,7 @@ class TestEditionForm(TestCase):
 
 
 class TestVolumeForms(TestCase):
-    def test_volume_edit_form_with_valid_data(self):
-        form = VolumeEditForm(
-            data={"poster_url": "", "chapters": "Chapter 1\nChapter 2", "release_date": "2012-05-15"}
-        )
-
-        self.assertTrue(form.is_valid())
-
-    def test_volume_edit_form_with_invalid_data(self):
-        form = VolumeEditForm(data={})
-
-        self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 1)
-
-    def test_volume_edit_form_does_not_update_absolute_number(self):
+    def test_volume_form_does_not_update_absolute_number(self):
         manga = Manga.objects.create(
             name="Assassination Classroom",
             romaji="Assassination Classroom",
@@ -95,7 +82,8 @@ class TestVolumeForms(TestCase):
             start_date=datetime.now(),
         )
         volume = Volume.objects.create(absolute_number=1, manga=manga)
-        form = VolumeEditForm(
+        form = VolumeForm(
+            manga=manga,
             data={
                 "absolute_number": 2,
                 "poster_url": "",
@@ -109,7 +97,7 @@ class TestVolumeForms(TestCase):
         self.assertEquals(v.absolute_number, 1)
         self.assertEquals(v.chapters, "Chapter 1\nChapter 2")
 
-    def test_volume_edit_form_does_not_accept_certain_fields_for_non_tankobon(self):
+    def test_volume_form_does_not_accept_certain_fields_for_non_tankobon(self):
         manga = Manga.objects.create(
             name="Assassination Classroom",
             romaji="Assassination Classroom",
@@ -118,7 +106,8 @@ class TestVolumeForms(TestCase):
             start_date=datetime.now(),
         )
         volume = Volume.objects.create(absolute_number=-1, manga=manga)
-        form = VolumeEditForm(
+        form = VolumeForm(
+            manga=manga,
             data={
                 "absolute_number": 2,
                 "poster_url": "https://tankobon.s3.amazonaws.com/posters/mob-psycho-100/volumes/standard-japanese/volume_1_poster.png",
@@ -138,7 +127,7 @@ class TestVolumeForms(TestCase):
         self.assertEquals(v.page_count, None)
         self.assertEquals(v.chapters, "Chapter 1\nChapter 2")
 
-    def test_volume_new_form_with_valid_data(self):
+    def test_volume_form_with_valid_data(self):
         manga = Manga.objects.create(
             name="Demon Slayer",
             romaji="Demon Slayer",
@@ -146,7 +135,7 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        form = VolumeNewForm(
+        form = VolumeForm(
             manga=manga,
             data={
                 "absolute_number": 1,
@@ -159,7 +148,7 @@ class TestVolumeForms(TestCase):
         )
         self.assertTrue(form.is_valid())
 
-    def test_volume_new_form_with_invalid_data(self):
+    def test_volume_form_with_invalid_data(self):
         manga = Manga.objects.create(
             name="Demon Slayer",
             romaji="Demon Slayer",
@@ -167,12 +156,18 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        form = VolumeNewForm(manga=manga, data={})
+        form = VolumeForm(manga=manga, data={})
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 3)
+        self.assertIn('absolute_number', form.errors.keys())
+        self.assertIn('This field is required.', form.errors['absolute_number'])
+        self.assertIn('edition', form.errors.keys())
+        self.assertIn('This field is required.', form.errors['edition'])
+        self.assertIn('chapters', form.errors.keys())
+        self.assertIn('This field is required.', form.errors['chapters'])
 
-    def test_volume_new_form_when_absolute_number_exists(self):
+    def test_volume_form_when_absolute_number_exists(self):
         manga = Manga.objects.create(
             name="Chainsaw Man",
             romaji="Chainsaw Man",
@@ -182,7 +177,7 @@ class TestVolumeForms(TestCase):
         )
         edition = Edition.objects.first()
         volume = Volume.objects.create(absolute_number=1, manga=manga, edition=edition)
-        form = VolumeNewForm(
+        form = VolumeForm(
             manga=manga,
             data={
                 "absolute_number": 1,
@@ -196,6 +191,8 @@ class TestVolumeForms(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 1)
+        self.assertIn('absolute_number', form.errors.keys())
+        self.assertIn('Volume with this absolute_number already exists for this manga edition', form.errors['absolute_number'])
 
 
 class TestAccountForms(TestCase):

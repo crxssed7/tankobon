@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 
 from api.models import Manga
-from web.forms import VolumeNewForm
+from web.forms import VolumeForm
 
 @login_required
 def new_volume(request, manga_id):
@@ -11,7 +11,7 @@ def new_volume(request, manga_id):
     if request.method == "POST":
         data = request.POST.copy()
         data["manga"] = manga.id
-        form = VolumeNewForm(manga, data)
+        form = VolumeForm(manga, data)
         if form.is_valid():
             v = form.save(commit=False)
             v.manga = manga
@@ -19,7 +19,7 @@ def new_volume(request, manga_id):
             v.save()
             return redirect("manga", pk=manga.id)
     else:
-        form = VolumeNewForm(manga=manga)
+        form = VolumeForm(manga=manga)
     return render(
         request,
         "web/create.html",

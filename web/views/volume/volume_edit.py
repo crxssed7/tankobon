@@ -3,7 +3,7 @@ from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 
 from api.models import Volume, Edition
-from web.forms import VolumeEditForm
+from web.forms import VolumeForm
 
 @login_required
 def edit_volume(request, manga_id, volume_number):
@@ -24,7 +24,7 @@ def edit_volume(request, manga_id, volume_number):
     )
 
     if request.method == "POST":
-        form = VolumeEditForm(request.POST, instance=volume)
+        form = VolumeForm(volume.manga, request.POST, instance=volume)
         if form.is_valid():
             v = form.save(commit=False)
             v.absolute_number = volume.absolute_number
@@ -32,5 +32,5 @@ def edit_volume(request, manga_id, volume_number):
             v.save()
             return redirect("manga", pk=volume.manga.id)
     else:
-        form = VolumeEditForm(instance=volume)
+        form = VolumeForm(volume.manga, instance=volume)
     return render(request, "web/volume/volume_edit.html", {"form": form, "volume": volume})

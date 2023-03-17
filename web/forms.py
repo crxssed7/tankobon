@@ -80,30 +80,10 @@ class MangaForm(StyledFieldsMixin, forms.ModelForm):
         )
 
 
-class VolumeEditForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
+class VolumeForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
-    hidden_fields = ["poster_url", "isbn", "page_count", "release_date"]
-
-    release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), required=False)
-    chapters = forms.CharField(
-        widget=forms.Textarea(),
-        help_text="Make sure that each chapter is listed on a separate line. If the chapter has a known name, include it here. To add an arc starting point use the format '|Story Arc Name'.",
-    )
-    poster_url = forms.CharField(
-        label="Poster URL", help_text="URL to an image file.", required=False
-    )
-
-    class Meta:
-        model = Volume
-        fields = ["poster_url", "chapters", "isbn", "page_count", "release_date"]
-
-    def conditional(self):
-        return self.instance and self.instance.absolute_number < 0
-
-
-class VolumeNewForm(StyledFieldsMixin, forms.ModelForm):
-    template_name = "web/form_snippet.html"
+    hidden_fields = ["absolute_number", "edition", "poster_url", "isbn", "page_count", "release_date"]
 
     release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), required=False)
     absolute_number = forms.IntegerField(
@@ -121,32 +101,46 @@ class VolumeNewForm(StyledFieldsMixin, forms.ModelForm):
 
     class Meta:
         model = Volume
-        fields = ("absolute_number", "poster_url", "edition", "chapters", "isbn", "page_count", "release_date")
+        fields = ["absolute_number", "poster_url", "edition", "chapters", "isbn", "page_count", "release_date"]
 
     def __init__(self, manga, *args, **kwargs):
-        super(VolumeNewForm, self).__init__(*args, **kwargs)
+        super(VolumeForm, self).__init__(*args, **kwargs)
         self.manga = manga
-        self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
-        self.fields["edition"].required = True
+        if not self.is_editing():
+            self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
+            self.fields["edition"].required = True
+        else:
+            self.fields.pop("absolute_number", None)
+            self.fields.pop("edition", None)
+
+    def is_editing(self):
+        return self.instance.pk is not None
+
+    def conditional(self):
+        if self.is_editing():
+            return self.instance and self.instance.absolute_number < 0
+        return False
 
     def clean(self):
         cleaned_data = self.cleaned_data
-        try:
-            Volume.objects.get(
-                absolute_number=cleaned_data["absolute_number"],
-                edition=cleaned_data["edition"],
-                manga=self.manga,
-            )
-        except KeyError as exception:
-            self.add_error(str(exception).replace("'", ""), "This field is required")
-        except Volume.DoesNotExist:
-            # The volume does not exist with the given absolute_number, it can be added. Yay!
-            pass
-        else:
-            self.add_error(
-                "absolute_number",
-                "Volume with this absolute_number already exists for this manga edition",
-            )
+        absolute_number = self.cleaned_data.get("absolute_number")
+        edition = self.cleaned_data.get("edition")
+
+        if not self.is_editing() and absolute_number is not None and edition is not None:
+            try:
+                Volume.objects.get(
+                    absolute_number=absolute_number,
+                    edition=edition,
+                    manga=self.manga,
+                )
+            except Volume.DoesNotExist:
+                # The volume does not exist with the given absolute_number, it can be added. Yay!
+                pass
+            else:
+                self.add_error(
+                    "absolute_number",
+                    "Volume with this absolute_number already exists for this manga edition",
+                )
 
         return cleaned_data
 
