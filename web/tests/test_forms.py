@@ -109,6 +109,35 @@ class TestVolumeForms(TestCase):
         self.assertEquals(v.absolute_number, 1)
         self.assertEquals(v.chapters, "Chapter 1\nChapter 2")
 
+    def test_volume_edit_form_does_not_accept_certain_fields_for_non_tankobon(self):
+        manga = Manga.objects.create(
+            name="Assassination Classroom",
+            romaji="Assassination Classroom",
+            description="Assassination Classroom manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        volume = Volume.objects.create(absolute_number=-1, manga=manga)
+        form = VolumeEditForm(
+            data={
+                "absolute_number": 2,
+                "poster_url": "https://tankobon.s3.amazonaws.com/posters/mob-psycho-100/volumes/standard-japanese/volume_1_poster.png",
+                "chapters": "Chapter 1\nChapter 2",
+                "release_date": "2012-05-15",
+                "isbn": "9784091241023",
+                "page_count": 200
+            },
+            instance=volume,
+        )
+        self.assertEquals(form.is_valid(), True)
+        self.assertEquals(form.cleaned_data, {"chapters": "Chapter 1\nChapter 2"})
+        v = form.save()
+        self.assertEquals(v.poster_url, "")
+        self.assertEquals(v.release_date, None)
+        self.assertEquals(v.isbn, None)
+        self.assertEquals(v.page_count, None)
+        self.assertEquals(v.chapters, "Chapter 1\nChapter 2")
+
     def test_volume_new_form_with_valid_data(self):
         manga = Manga.objects.create(
             name="Demon Slayer",

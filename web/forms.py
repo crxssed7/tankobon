@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 
 from api.models import Manga, Volume, Edition
 
+from web.mixins.forms import HiddenFieldsMixin
+
 ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint bg-blay border-whay hover:border-hint transition duration-300 ease-in-out"}
 
 
@@ -95,8 +97,10 @@ class MangaForm(forms.ModelForm):
         )
 
 
-class VolumeEditForm(forms.ModelForm):
+class VolumeEditForm(HiddenFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
+
+    hidden_fields = ["poster_url", "isbn", "page_count", "release_date"]
 
     release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), required=False)
     chapters = forms.CharField(
@@ -107,14 +111,17 @@ class VolumeEditForm(forms.ModelForm):
         label="Poster URL", help_text="URL to an image file.", required=False
     )
 
+    class Meta:
+        model = Volume
+        fields = ["poster_url", "chapters", "isbn", "page_count", "release_date"]
+
     def __init__(self, *args, **kwargs):
         super(VolumeEditForm, self).__init__(*args, **kwargs)
         for field in self.fields.keys():
             self.fields[field].widget.attrs.update(ATTRS)
 
-    class Meta:
-        model = Volume
-        fields = ("poster_url", "chapters", "isbn", "page_count", "release_date")
+    def conditional(self):
+        return self.instance and self.instance.absolute_number < 0
 
 
 class VolumeNewForm(forms.ModelForm):
