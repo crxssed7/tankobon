@@ -12,3 +12,12 @@ class HiddenFieldsMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.remove_hidden_fields()
+
+
+class StyledFieldsMixin:
+    ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint bg-blay border-whay hover:border-hint transition duration-300 ease-in-out"}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.keys():
+            self.fields[field].widget.attrs.update(self.ATTRS)

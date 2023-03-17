@@ -4,20 +4,13 @@ from django.contrib.auth.models import User
 
 from api.models import Manga, Volume, Edition
 
-from web.mixins.forms import HiddenFieldsMixin
-
-ATTRS = {"class": "w-full rounded focus:border-hint focus:ring-hint bg-blay border-whay hover:border-hint transition duration-300 ease-in-out"}
+from web.mixins.forms import HiddenFieldsMixin, StyledFieldsMixin
 
 
-class SignUpForm(UserCreationForm):
+class SignUpForm(StyledFieldsMixin, UserCreationForm):
     template_name = "web/form_snippet.html"
 
     email = forms.EmailField(max_length=254, help_text="Enter a valid email address")
-
-    def __init__(self, *args, **kwargs):
-        super(SignUpForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
 
     class Meta:
         model = User
@@ -29,20 +22,15 @@ class SignUpForm(UserCreationForm):
         ]
 
 
-class LoginForm(AuthenticationForm):
+class LoginForm(StyledFieldsMixin, AuthenticationForm):
     template_name = "web/form_snippet.html"
-
-    def __init__(self, *args, **kwargs):
-        super(LoginForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
 
     class Meta:
         model = User
         fields = ["username", "password"]
 
 
-class MangaForm(forms.ModelForm):
+class MangaForm(StyledFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
     # start_date = forms.DateField(help_text='Format: YYYY-MM-DD')
@@ -70,11 +58,6 @@ class MangaForm(forms.ModelForm):
     )
     kitsu_id = forms.IntegerField(label="Kitsu ID", required=False)
 
-    def __init__(self, *args, **kwargs):
-        super(MangaForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
-
     class Meta:
         model = Manga
         fields = (
@@ -97,7 +80,7 @@ class MangaForm(forms.ModelForm):
         )
 
 
-class VolumeEditForm(HiddenFieldsMixin, forms.ModelForm):
+class VolumeEditForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
     hidden_fields = ["poster_url", "isbn", "page_count", "release_date"]
@@ -115,16 +98,11 @@ class VolumeEditForm(HiddenFieldsMixin, forms.ModelForm):
         model = Volume
         fields = ["poster_url", "chapters", "isbn", "page_count", "release_date"]
 
-    def __init__(self, *args, **kwargs):
-        super(VolumeEditForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
-
     def conditional(self):
         return self.instance and self.instance.absolute_number < 0
 
 
-class VolumeNewForm(forms.ModelForm):
+class VolumeNewForm(StyledFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
     release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), required=False)
@@ -150,8 +128,6 @@ class VolumeNewForm(forms.ModelForm):
         self.manga = manga
         self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
         self.fields["edition"].required = True
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
 
     def clean(self):
         cleaned_data = self.cleaned_data
@@ -175,14 +151,9 @@ class VolumeNewForm(forms.ModelForm):
         return cleaned_data
 
 
-class EditionForm(forms.ModelForm):
+class EditionForm(StyledFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
     class Meta:
         model = Edition
         fields = ("manga", "language", "name")
-
-    def __init__(self, *args, **kwargs):
-        super(EditionForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
