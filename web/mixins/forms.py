@@ -6,7 +6,7 @@ class HiddenFieldsMixin:
             for field_name in self.hidden_fields:
                 self.fields.pop(field_name, None)
 
-    def conditional(self) -> None:
+    def conditional(self) -> bool:
         raise NotImplementedError()
 
     def __init__(self, *args, **kwargs):
