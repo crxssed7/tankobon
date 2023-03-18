@@ -10,6 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import os
+import sys
+
 from pathlib import Path
 from environs import Env
 
@@ -27,12 +30,20 @@ SECRET_KEY = env.str("SECRET_KEY", default="test")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DEBUG", default=False)
+TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1"])
 CSRF_TRUSTED_ORIGINS = ["https://tankobon.net"]
 
+HONEYBADGER_ENVIRONMENT = "development"
+if DEBUG == False:
+    HONEYBADGER_ENVIRONMENT = "production"
+if TESTING:
+    HONEYBADGER_ENVIRONMENT = "test"
+
 HONEYBADGER = {
-  "API_KEY": env.str("HONEYBADGER_API_KEY", default="test")
+  "API_KEY": env.str("HONEYBADGER_API_KEY", default="test"),
+  "ENVIRONMENT": HONEYBADGER_ENVIRONMENT
 }
 
 # Application definition
