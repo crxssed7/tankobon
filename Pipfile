@@ -23,6 +23,7 @@ django-htmx = "*"
 python-stdnum = "*"
 six = "*"
 chartkick = "*"
+honeybadger = "*"
 
 [dev-packages]
 black = "*"

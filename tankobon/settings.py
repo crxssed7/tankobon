@@ -31,6 +31,10 @@ DEBUG = env.bool("DEBUG", default=False)
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1"])
 CSRF_TRUSTED_ORIGINS = ["https://tankobon.net"]
 
+HONEYBADGER = {
+  "API_KEY": env.str("HONEYBADGER_API_KEY", default="test")
+}
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -62,6 +66,7 @@ INTERNAL_IPS = [
 
 
 MIDDLEWARE = [
+    "honeybadger.contrib.DjangoHoneybadgerMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
