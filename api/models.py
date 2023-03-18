@@ -1,9 +1,5 @@
-import io
-import requests
-
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
-from django.core.files.images import ImageFile
 from django.core.mail import send_mail
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -20,6 +16,7 @@ from simple_history import register as history_register
 
 from api.decorators import track_data, track_data_performed
 from api.tokens import account_activation_token
+from api.mixins.models import RemoteImageFieldMixin
 from api.validators import isbn_validator, image_url_validator
 
 from tankobon.settings import DEFAULT_FROM_EMAIL
@@ -63,7 +60,7 @@ class Language(models.Model):
     "magazine",
     "tags",
 )
-class Manga(models.Model):
+class Manga(RemoteImageFieldMixin, models.Model):
     STATUS_CHOICES = (
         ("RELEASING", "Releasing"),
         ("FINISHED", "Finished"),
@@ -102,40 +99,6 @@ class Manga(models.Model):
     def __str__(self):
         return str(self.name)
 
-    def get_remote_banner(self):
-        if self.banner_url:
-            result = requests.get(self.banner_url)
-            if result.status_code == 200:
-                content_type = result.headers["Content-Type"]
-                if content_type.startswith("image/"):
-                    ext = content_type.split("/")[-1]
-                    self.banner_file.delete(save=False)
-                    image = ImageFile(
-                        io.BytesIO(result.content),
-                        name=f"{slugify(self.name)}/hero.{ext}",
-                    )
-                    self.banner_file = image
-        else:
-            if self.banner_file:
-                self.banner_file.delete(save=False)
-
-    def get_remote_poster(self):
-        if self.poster_url:
-            result = requests.get(self.poster_url)
-            if result.status_code == 200:
-                content_type = result.headers["Content-Type"]
-                if content_type.startswith("image/"):
-                    ext = content_type.split("/")[-1]
-                    self.poster_file.delete(save=False)
-                    image = ImageFile(
-                        io.BytesIO(result.content),
-                        name=f"{slugify(self.name)}/poster.{ext}",
-                    )
-                    self.poster_file = image
-        else:
-            if self.poster_file:
-                self.poster_file.delete(save=False)
-
     def save(self, *args, **kwargs):
         primary = self.pk
         if self._original_poster != self.poster_url or primary == None:
@@ -151,6 +114,12 @@ class Manga(models.Model):
         if self.banner_file:
             self.banner_file.delete(save=False)
         super(Manga, self).delete(*args, **kwargs)
+
+    def poster_file_name(self, ext):
+        return f"{slugify(self.name)}/poster.{ext}"
+
+    def banner_file_name(self, ext):
+        return f"{slugify(self.name)}/hero.{ext}"
 
 
 history_register(Manga, inherit=True, excluded_fields=["last_updated"])
@@ -175,7 +144,7 @@ class Edition(models.Model):
         super(Edition, self).save(*args, **kwargs)
 
 
-class Volume(models.Model):
+class Volume(RemoteImageFieldMixin, models.Model):
     class Meta:
         unique_together = ("absolute_number", "manga", "edition")
         ordering = ["absolute_number"]
@@ -202,23 +171,6 @@ class Volume(models.Model):
         super(Volume, self).__init__(*args, **kwargs)
         self._original_poster = self.poster_url
 
-    def get_remote_poster(self):
-        if self.poster_url:
-            result = requests.get(self.poster_url)
-            if result.status_code == 200:
-                content_type = result.headers["Content-Type"]
-                if content_type.startswith("image/"):
-                    ext = content_type.split("/")[-1]
-                    self.poster_file.delete(save=False)
-                    image = ImageFile(
-                        io.BytesIO(result.content),
-                        name=f"{slugify(self.manga.name)}/volumes/{slugify(self.edition.name)}/volume_{self.absolute_number}_poster.{ext}",
-                    )
-                    self.poster_file = image
-        else:
-            if self.poster_file:
-                self.poster_file.delete(save=False)
-
     def save(self, *args, **kwargs):
         primary = self.pk
         if self._original_poster != self.poster_url or primary == None:
@@ -237,6 +189,13 @@ class Volume(models.Model):
 
     def has_collected(self, user):
         return Collection.objects.filter(volume=self, user=user).exists()
+
+    def poster_file_name(self, ext):
+        return f"{slugify(self.manga.name)}/volumes/{slugify(self.edition.name)}/volume_{self.absolute_number}_poster.{ext}"
+
+    # This isn't used. Maybe in the future we will have volume banners so I'll keep here for now.
+    def banner_file_name(self, ext):
+        return f"{slugify(self.manga.name)}/volumes/{slugify(self.edition.name)}/volume_{self.absolute_number}_banner.{ext}"
 
 
 class Collection(models.Model):
