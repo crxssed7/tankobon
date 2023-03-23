@@ -11,7 +11,6 @@ from web.views.manga.manga_edit import edit_manga
 from web.views.manga.manga_list import ListMangaView
 from web.views.manga.manga_new import new_manga
 from web.views.manga.manga_search import SearchResultsView
-from web.views.manga.manga_widget import MangaWidgetView
 
 from web.views.singles.views import (
     IndexView,
@@ -38,7 +37,6 @@ urlpatterns = [
     path("manga/new/", new_manga, name="new_manga"),
     path("manga/all/", ListMangaView.as_view(), name="all_manga"),
     path("manga/<pk>/", MangaDetailView.as_view(), name="manga"),
-    path("manga/<pk>/widget/", MangaWidgetView.as_view(), name="widget"),
     path("manga/<int:manga_id>/edit/", edit_manga, name="edit_manga"),
     path(
         "manga/<int:manga_id>/edit/<int:volume_number>/",

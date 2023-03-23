@@ -10,7 +10,6 @@ from web.views.manga.manga_edit import edit_manga
 from web.views.manga.manga_list import ListMangaView
 from web.views.manga.manga_new import new_manga
 from web.views.manga.manga_search import SearchResultsView
-from web.views.manga.manga_widget import MangaWidgetView
 
 from web.views.singles.views import (
     IndexView,
@@ -58,12 +57,6 @@ class TestMangaUrls(SimpleTestCase):
         url = reverse("manga", args=[1])
         self.assertEquals(
             resolve(url).func.__name__, MangaDetailView.as_view().__name__
-        )
-
-    def test_widget_url_is_resolved(self):
-        url = reverse("widget", args=[1])
-        self.assertEquals(
-            resolve(url).func.__name__, MangaWidgetView.as_view().__name__
         )
 
     def test_edit_manga_url_is_resolved(self):

@@ -71,16 +71,6 @@ class TestMangaViews(TestCase):
         self.assertEquals(response.status_code, 404)
         self.assertTemplateUsed(response, "404.html")
 
-    def test_manga_widget_GET_with_correct_id(self):
-        response = self.client.get(reverse("widget", args=[self.manga.id]))
-        self.assertEquals(response.status_code, 200)
-        self.assertTemplateUsed(response, "web/manga/manga_widget.svg")
-
-    def test_manga_widget_GET_with_incorrect_id(self):
-        response = self.client.get(reverse("widget", args=[100]))
-        self.assertEquals(response.status_code, 404)
-        self.assertTemplateUsed(response, "404.html")
-
     def test_new_manga_GET(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         response = self.client.get(reverse("new_manga"))
