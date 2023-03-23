@@ -26,8 +26,20 @@ class LibraryView(LoginRequiredMixin, DashboardMixin, ListView):
     context_object_name = "results"
 
     def get_queryset(self):
-        objects = Collection.objects.prefetch_related("edition", "volume").filter(user=self.request.user).order_by("edition__name", "edition__manga__name", "volume__absolute_number")
+        query = self.request.GET.get("q")
+        if query:
+            query = query.strip()
+            objects = Collection.objects.prefetch_related("edition", "volume").filter(volume__manga__name__icontains=query, user=self.request.user).order_by("edition__name", "edition__manga__name", "volume__absolute_number")
+        else:
+            objects = Collection.objects.prefetch_related("edition", "volume").filter(user=self.request.user).order_by("edition__name", "edition__manga__name", "volume__absolute_number")
         return objects
+
+    def get_context_data(self, **kwargs):
+        context = super(LibraryView, self).get_context_data(**kwargs)
+        q = self.request.GET.get("q")
+        if q:
+            context["query"] = q
+        return context
 
     def get_template_names(self):
         if self.request.htmx:
