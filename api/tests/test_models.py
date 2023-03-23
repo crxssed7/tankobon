@@ -5,7 +5,7 @@ from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.utils.timezone import datetime
 
-from api.models import Manga, Volume, Edition
+from api.models import Manga, Volume, Edition, Language
 
 from tankobon.settings import BASE_DIR
 
@@ -88,6 +88,18 @@ class TestMangaModel(TestCase):
         self.assertRaisesMessage(ValidationError, "The image must be from one of the trusted sites. Learn more about this on the contribution guidelines.", invalid_image.full_clean)
         # Prove that we have valid domains
         valid_image.full_clean()
+
+    def test_manga_save_creates_japanese_edition(self):
+        Language.objects.create(name="Japanese", code="JP")
+        manga = Manga.objects.create(
+            name="SPY x FAMILY",
+            romaji="SPY x FAMILY",
+            description="SPY x FAMILY manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        # Throws exception if not found
+        Edition.objects.get(manga=manga, name="standard japanese", language=Language.japanese())
 
 
 @override_settings(MEDIA_ROOT=str(BASE_DIR / "test_media"))

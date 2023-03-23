@@ -37,6 +37,10 @@ class Language(models.Model):
     name = models.CharField(max_length=150)
     code = models.CharField(max_length=2, unique=True)
 
+    @classmethod
+    def japanese(cls):
+        return Language.objects.filter(name="Japanese").first()
+
     def __str__(self):
         return str(self.name)
 
@@ -232,7 +236,8 @@ def update_last_updated(sender, instance=None, created=False, **kwargs):
 @receiver(post_save, sender=Manga)
 def create_standard_edtion(sender, instance=None, created=False, **kwargs):
     if created:
-        Edition.objects.create(name="standard japanese", manga=instance)
+        japanese = Language.japanese()
+        Edition.objects.create(name="standard japanese", manga=instance, language=japanese)
 
 
 @receiver(track_data_performed, sender=Manga)
