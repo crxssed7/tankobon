@@ -12,6 +12,9 @@ from api.models import Collection
 
 from web.forms import CollectionCollectedAtForm, CollectionForm
 
+from tankobon.settings import CHARTKICK_COLORS
+
+
 # Create your views here.
 class DashboardMixin:
     def get_context_data(self, **kwargs):
@@ -86,7 +89,7 @@ class StatisticsView(LoginRequiredMixin, DashboardMixin, TemplateView):
 
         stats = Statistics(user).public()
         context["volume_count"] = stats["volume_count"]
-        context["monthly_collected"] = ColumnChart(stats["monthly_collected"])
-        context["demographs"] = PieChart(stats["demographs"])
+        context["monthly_collected"] = ColumnChart(stats["monthly_collected"], colors=CHARTKICK_COLORS)
+        context["demographs"] = PieChart(stats["demographs"], colors=CHARTKICK_COLORS)
 
         return context
