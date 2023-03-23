@@ -88,7 +88,9 @@ class TestVolumeForms(TestCase):
                 "absolute_number": 2,
                 "poster_url": "",
                 "chapters": "Chapter 1\nChapter 2",
-                "release_date": "2012-05-15"
+                "release_date": "2012-05-15",
+                "page_count": 300,
+                "isbn": "9784091241023"
             },
             instance=volume,
         )
@@ -143,7 +145,9 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": Edition.objects.first(),
-                "release_date": "2012-05-15"
+                "release_date": "2012-05-15",
+                "page_count": 300,
+                "isbn": "9784091241023"
             },
         )
         self.assertTrue(form.is_valid())
@@ -159,7 +163,7 @@ class TestVolumeForms(TestCase):
         form = VolumeForm(manga=manga, data={})
 
         self.assertFalse(form.is_valid())
-        self.assertEquals(len(form.errors), 3)
+        self.assertEquals(len(form.errors), 6)
         self.assertIn('absolute_number', form.errors.keys())
         self.assertIn('This field is required.', form.errors['absolute_number'])
         self.assertIn('edition', form.errors.keys())
@@ -185,7 +189,9 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "manga": manga,
                 "edition": edition,
-                "release_date": "2012-05-15"
+                "release_date": "2012-05-15",
+                "page_count": 300,
+                "isbn": "9784091241023"
             },
         )
 

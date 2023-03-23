@@ -85,7 +85,9 @@ class VolumeForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
 
     hidden_fields = ["absolute_number", "edition", "poster_url", "isbn", "page_count", "release_date"]
 
-    release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), required=False)
+    release_date = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
+    page_count = forms.IntegerField(label="Page Count")
+    isbn = forms.CharField(label="ISBN (10/13)")
     absolute_number = forms.IntegerField(
         label="Volume Number",
         help_text="Volume number -1 is reserved for chapters that are not in tankobon format yet.",
