@@ -1,6 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import reverse
 from django.views.generic import ListView, View
 from django.views.generic.edit import UpdateView
@@ -54,3 +54,9 @@ class CollectionDetailView(LoginRequiredMixin, DashboardMixin, UpdateView):
 
     def get_success_url(self):
         return reverse("collection", kwargs={'pk': self.object.pk})
+
+    def dispatch(self, request, *args, **kwargs):
+        collection = self.get_object()
+        if collection.user != request.user:
+            raise Http404("Collection does not exist.")
+        return super().dispatch(request, *args, **kwargs)
