@@ -2,95 +2,114 @@
 {% load tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>
-            {% block title %}
-            Tankōbon Dashboard
-            {% endblock title %}
-      </title>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
-      <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-      {% tailwind_css %}
-      <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon/favicon.svg' %}" />
-      <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon.png' %}" />
-      <link rel="canonical" href="https://tankobon.net{{ request.path }}" />
-      <script src="https://kit.fontawesome.com/f1da3ec963.js" crossorigin="anonymous"></script>
-      <script src="{% static 'js/htmx.min.js' %}" defer></script>
-      <script src="{% static 'chartkick/Chart.bundle.js' %}"></script>
-      <script src="{% static 'chartkick/chartkick.js' %}"></script>
-      <meta name="description" content="Track your manga collection with ease." />
-      <meta property="og:description"
-            content=" {% block meta_description %} Track your manga collection with ease. {% endblock meta_description %}" />
-      <meta name="keywords"
-            content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, manga collecting {% endblock meta_tags %}" />
-      <meta property="og:title"
-            content=" {% block meta_title %} Tankōbon - manga collecting {% endblock meta_title %}" />
-      <meta property="og:image"
-            content=" {% block meta_image %} {% static 'img/header.png' %} {% endblock meta_image %}" />
-      <meta property="og:image:alt" content=" {% block meta_image_alt %} Tankōbon logo {% endblock meta_image_alt %}" />
-      <meta name="twitter:image"
-            content=" {% block meta_twitter_image %} {% static 'img/header.png' %} {% endblock meta_twitter_image %}" />
-      <meta property="twitter:image:alt"
-            content=" {% block meta_twitter_image_alt %} Tankōbon logo {% endblock meta_twitter_image_alt %}" />
-      <meta name="twitter:card" content="summary_large_image" />
-      {% block extrahead %}
-      {% endblock extrahead %}
-</head>
-
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="h-screen bg-blay text-whay selection:bg-whay selection:text-blay">
-      <div class="flex flex-col h-screen justify-between">
-            <main>
-              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed left-0 top-0 h-screen pt-[20px]">
-                <div class="w-full flex justify-center">
-                  <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] pb-[20px]" />
-                </div>
-                <a href="{% url 'dashboard' %}">
-                  <div class="p-6 bg-hint text-blay font-bold">
-                    Library
-                  </div>
-                </a>
-                <div class="p-6">Stats</div>
-                <a href="{% url 'user' user %}"><div class="p-6">Profile</div></a>
-                <a href="{% url 'search' %}"><div class="p-6">Back</div></a>
-              </aside>
-              <div class="block md:hidden bg-black">
-                <div class="w-full flex justify-center">
-                  <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] py-[20px]" />
-                </div>
-                <a href="{% url 'dashboard' %}">
-                  <div class="p-4 bg-hint text-blay font-bold">Library</div>
-                </a>
-                <div class="p-4">Stats</div>
-                <a href="{% url 'user' user %}"><div class="p-4">Profile</div></a>
-                <a href="{% url 'search' %}"><div class="p-4">Back</div></a>
-              </div>
-              <div class="md:mx-[250px] md:my-[50px] m-4" hx-target="this" hx-swap="innerHTML">
-                {% if messages %}
-                <ul class="messages">
-                  {% for message in messages %}
-                    <li class="{% if message.tags %}{{ message.tags }}{% endif %} mb-4 p-4 rounded border border-whay text-blay">{{ message }}</li>
-                  {% endfor %}
-                </ul>
-                {% endif %}
-                {% block content %}
-                {% endblock content %}
-              </div>
-              <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed right-0 top-0 h-screen p-[20px]">
-                <h1 class="font-bold text-lg mb-4">Add a volume:</h1>
-                <form class="form" method="post" action="{% url 'dashboard' %}">
-                  {% csrf_token %}
-                  {{ add_collection_form }}
-                  <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Update</button>
-                </form>
-              </aside>
-            </main>
-      </div>
-      <script src="{% static 'js/disable_autocomplete.js' %}"></script>
-</body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      {% block title %}
+        Tankōbon Dashboard
+      {% endblock title %}
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    {% tailwind_css %}
+    <link rel="icon"
+          type="image/svg+xml"
+          href="{% static 'img/favicon/favicon.svg' %}"/>
+    <link rel="icon"
+          type="image/png"
+          href="{% static 'img/favicon/favicon.png' %}"/>
+    <link rel="canonical" href="https://tankobon.net{{ request.path }}" />
+    <script src="https://kit.fontawesome.com/f1da3ec963.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="{% static 'chartkick/Chart.bundle.js' %}"></script>
+    <script src="{% static 'chartkick/chartkick.js' %}"></script>
+    <meta name="description" content="Track your manga collection with ease." />
+    <meta property="og:description"
+          content=" {% block meta_description %} Track your manga collection with ease. {% endblock meta_description %}"/>
+    <meta name="keywords"
+          content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, manga collecting {% endblock meta_tags %}"/>
+    <meta property="og:title"
+          content=" {% block meta_title %} Tankōbon - manga collecting {% endblock meta_title %}"/>
+    <meta property="og:image"
+          content=" {% block meta_image %} {% static 'img/header.png' %} {% endblock meta_image %}"/>
+    <meta property="og:image:alt"
+          content=" {% block meta_image_alt %} Tankōbon logo {% endblock meta_image_alt %}"/>
+    <meta name="twitter:image"
+          content=" {% block meta_twitter_image %} {% static 'img/header.png' %} {% endblock meta_twitter_image %}"/>
+    <meta property="twitter:image:alt"
+          content=" {% block meta_twitter_image_alt %} Tankōbon logo {% endblock meta_twitter_image_alt %}"/>
+    <meta name="twitter:card" content="summary_large_image" />
+    {% block extrahead %}
+    {% endblock extrahead %}
+  </head>
+  <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        class="h-screen bg-blay text-whay selection:bg-whay selection:text-blay">
+    <div class="flex flex-col h-screen justify-between">
+      <main>
+        <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed left-0 top-0 h-screen pt-[20px]">
+          <div class="w-full flex justify-center">
+            <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] pb-[20px]" />
+          </div>
+          <a href="{% url 'dashboard' %}">
+            <div class="p-6 bg-hint text-blay font-bold">Library</div>
+          </a>
+          <a href="{% url 'private_stats' %}">
+            <div class="p-6">Stats</div>
+          </a>
+          <a href="{% url 'user' user %}">
+            <div class="p-6">Profile</div>
+          </a>
+          <a href="{% url 'search' %}">
+            <div class="p-6">Back</div>
+          </a>
+        </aside>
+        <div class="block md:hidden bg-black">
+          <div class="w-full flex justify-center">
+            <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] py-[20px]" />
+          </div>
+          <a href="{% url 'dashboard' %}">
+            <div class="p-4 bg-hint text-blay font-bold">Library</div>
+          </a>
+          <a href="{% url 'private_stats' %}">
+            <div class="p-4">Stats</div>
+          </a>
+          <a href="{% url 'user' user %}">
+            <div class="p-4">Profile</div>
+          </a>
+          <a href="{% url 'search' %}">
+            <div class="p-4">Back</div>
+          </a>
+        </div>
+        <div class="md:mx-[250px] md:my-[50px] m-4"
+             hx-target="this"
+             hx-swap="innerHTML">
+          {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+                <li class="{% if message.tags %}{{ message.tags }}{% endif %} mb-4 p-4 rounded border border-whay text-blay">
+                  {{ message }}
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+          {% block content %}
+          {% endblock content %}
+        </div>
+        <aside class="hidden bg-black md:block bg-primary-light w-[200px] fixed right-0 top-0 h-screen p-[20px]">
+          <h1 class="font-bold text-lg mb-4">Add a volume:</h1>
+          <form class="form" method="post" action="{% url 'dashboard' %}">
+            {% csrf_token %}
+            {{ add_collection_form }}
+            <button type="submit"
+                    class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">
+              Update
+            </button>
+          </form>
+        </aside>
+      </main>
+    </div>
+    <script src="{% static 'js/disable_autocomplete.js' %}"></script>
+  </body>
 </html>

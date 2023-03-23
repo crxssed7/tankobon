@@ -2,9 +2,12 @@ from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import reverse
-from django.views.generic import ListView, View
+from django.views.generic import ListView, TemplateView
 from django.views.generic.edit import UpdateView
 
+from chartkick.django import PieChart, ColumnChart
+
+from api.extras.stats import Statistics
 from api.models import Collection
 
 from web.forms import CollectionCollectedAtForm, CollectionForm
@@ -60,3 +63,18 @@ class CollectionDetailView(LoginRequiredMixin, DashboardMixin, UpdateView):
         if collection.user != request.user:
             raise Http404("Collection does not exist.")
         return super().dispatch(request, *args, **kwargs)
+
+
+class StatisticsView(LoginRequiredMixin, DashboardMixin, TemplateView):
+    template_name = "dashboard/statistics.html"
+
+    def get_context_data(self, **kwargs):
+        context = super(StatisticsView, self).get_context_data(**kwargs)
+        user = self.request.user
+
+        stats = Statistics(user).public()
+        context["volume_count"] = stats["volume_count"]
+        context["monthly_collected"] = ColumnChart(stats["monthly_collected"])
+        context["demographs"] = PieChart(stats["demographs"])
+
+        return context
