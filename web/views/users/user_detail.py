@@ -6,6 +6,7 @@ from chartkick.django import PieChart, ColumnChart
 from api.models import Volume
 from api.extras.stats import Statistics
 
+from tankobon.settings import CHARTKICK_COLORS
 from tankobon.utils import get_user_image
 
 
@@ -49,8 +50,8 @@ class UserStatisticsView(DetailView):
 
         stats = Statistics(user).public()
         context["volume_count"] = stats["volume_count"]
-        context["monthly_collected"] = ColumnChart(stats["monthly_collected"])
-        context["demographs"] = PieChart(stats["demographs"])
+        context["monthly_collected"] = ColumnChart(stats["monthly_collected"], colors=CHARTKICK_COLORS)
+        context["demographs"] = PieChart(stats["demographs"], colors=CHARTKICK_COLORS)
 
         return context
 
