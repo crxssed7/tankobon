@@ -154,22 +154,18 @@ class EditionForm(StyledFieldsMixin, forms.ModelForm):
         model = Edition
         fields = ("manga", "language", "name")
 
-class CollectionCollectedAtForm(forms.ModelForm):
+
+class CollectionCollectedAtForm(StyledFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"
 
     collected_at = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), label="You collected this volume on:")
-
-    def __init__(self, *args, **kwargs):
-        super(CollectionCollectedAtForm, self).__init__(*args, **kwargs)
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
 
     class Meta:
         model = Collection
         fields = ("collected_at",)
 
 
-class CollectionForm(forms.Form):
+class CollectionForm(StyledFieldsMixin, forms.Form):
     template_name = "web/form_snippet.html"
 
     isbn = forms.CharField(max_length=20, label="ISBN")
@@ -178,8 +174,6 @@ class CollectionForm(forms.Form):
     def __init__(self, user, *args, **kwargs):
         super(CollectionForm, self).__init__(*args, **kwargs)
         self.user = user
-        for field in self.fields.keys():
-            self.fields[field].widget.attrs.update(ATTRS)
 
     def clean_isbn(self):
         isbn = self.cleaned_data['isbn'].replace("-", '')

@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("api", "0035_collection_collected_at"),
+        ("api", "0037_alter_historicalmanga_banner_url_and_more"),
     ]
 
     operations = [
