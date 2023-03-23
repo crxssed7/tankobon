@@ -29,6 +29,7 @@ honeybadger = "*"
 black = "*"
 djlint = "*"
 pylint = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.10"

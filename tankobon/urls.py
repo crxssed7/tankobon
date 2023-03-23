@@ -30,7 +30,6 @@ sitemaps = {
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("web.urls")),
-    path("api/", include("api.urls")),
     path("__reload__/", include("django_browser_reload.urls")),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain"), name="robots"),
     path(

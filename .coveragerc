@@ -1,0 +1,6 @@
+[run]
+omit = */test*,api/migrations/*,manage.py
+
+[report]
+skip_empty = True
+sort = cover
