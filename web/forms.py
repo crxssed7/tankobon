@@ -173,6 +173,7 @@ class CollectionForm(StyledFieldsMixin, forms.Form):
 
     def __init__(self, user, *args, **kwargs):
         super(CollectionForm, self).__init__(*args, **kwargs)
+        self.volume = None
         self.user = user
 
     def clean_isbn(self):
@@ -180,8 +181,8 @@ class CollectionForm(StyledFieldsMixin, forms.Form):
 
         try:
             volume = Volume.objects.get(isbn=isbn, absolute_number__gt=-1)
-        except Volume.DoesNotExist:
-            raise forms.ValidationError('No volume found with ISBN {}'.format(isbn))
+        except Volume.DoesNotExist as exc:
+            raise forms.ValidationError(f"No volume found with ISBN {isbn}") from exc
         self.volume = volume
 
         exists = Collection.objects.filter(user=self.user, volume=volume).exists()
