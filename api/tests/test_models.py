@@ -1,11 +1,12 @@
 import os
 import shutil
 
+from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.test import TestCase, override_settings
 from django.utils.timezone import datetime
 
-from api.models import Manga, Volume, Edition, Language
+from api.models import Manga, Volume, Edition, Language, Genre, Collection
 
 from tankobon.settings import BASE_DIR
 
@@ -138,6 +139,15 @@ class TestVolumeModel(TestCase):
         self.assertEquals(volume.poster_file.url, "/media/posters/volume-image/volumes/standard-japanese/volume_0_poster.jpeg")
         volume.delete()
 
+    def test_volume_save_formats_isbn(self):
+        volume = Volume.objects.create(
+            absolute_number=0,
+            manga=self.manga,
+            edition=self.edition,
+            isbn="978-4-08-880723-2"
+        )
+        self.assertEquals(volume.isbn, "9784088807232")
+
     def test_volume_poster_only_allows_certain_domains(self):
         invalid_image = Volume(
             absolute_number=99,
@@ -176,3 +186,42 @@ class TestEditionModel(TestCase):
 
     def test_edition_correctly_formats_name(self):
         self.assertEquals(str(self.edition.name), "deluxe")
+
+
+class TestCollectionModel(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(
+            username="BobbyBadBoi", email="bobby@badboi.com"
+        )
+        self.manga = Manga.objects.create(
+            name="Berserk",
+            romaji="Berserk",
+            description="Berserk",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        self.volume = Volume.objects.create(
+            absolute_number=1,
+            manga=self.manga,
+            edition=self.manga.edition_set.first()
+        )
+
+    def test_collection_saves_edition_from_volume(self):
+        collection = Collection.objects.create(
+            user=self.user,
+            volume=self.volume,
+            collected_at=datetime.now()
+        )
+        self.assertEquals(collection.edition, self.volume.edition)
+
+
+class TestLanguageModel(TestCase):
+    def test_language_converts_to_string(self):
+        lang = Language.objects.create(name="Japanese", code="JP")
+        self.assertEquals(str(lang), "Japanese")
+
+
+class TestGenreModel(TestCase):
+    def test_genre_converts_to_string(self):
+        genre = Genre.objects.create(name="Comedy")
+        self.assertEquals(str(genre), "Comedy")
