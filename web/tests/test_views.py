@@ -146,6 +146,12 @@ class TestCollectionViews(TestCase):
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), {'message': 'Action successful', 'type': 'collected'})
 
+    def test_collect_POST_htmx(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        response = self.client.post(reverse("collect", args=[self.volume.id]), **{"HTTP_HX-Request": "true"})
+        self.assertEquals(response.status_code, 200)
+        self.assertIn("HX-Redirect", response.headers.keys())
+
     def test_collect_POST_non_tankobon(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
         vol = Volume.objects.create(
@@ -171,6 +177,13 @@ class TestCollectionViews(TestCase):
         response = self.client.delete(reverse("collect", args=[self.volume.id]))
         self.assertEquals(response.status_code, 200)
         self.assertEquals(response.json(), {'message': 'Action successful', 'type': 'uncollected'})
+
+    def test_collect_DELETE_htmx(self):
+        self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")
+        Collection.objects.create(user=self.user, edition=self.edition, volume=self.volume)
+        response = self.client.delete(reverse("collect", args=[self.volume.id]), **{"HTTP_HX-Request": "true"})
+        self.assertEquals(response.status_code, 200)
+        self.assertIn("HX-Redirect", response.headers.keys())
 
     def test_collect_DELETE_not_collected(self):
         self.client.login(username="BobbyBadBoi", password="bobbyisabadboi101")

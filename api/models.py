@@ -164,7 +164,7 @@ class Volume(RemoteImageFieldMixin, models.Model):
     edition = models.ForeignKey(
         Edition, blank=True, null=True, on_delete=models.CASCADE
     )
-    isbn = models.CharField(max_length=20, validators=[isbn_validator], blank=True, null=True)
+    isbn = models.CharField(max_length=20, validators=[isbn_validator], blank=True, null=True, unique=True)
     page_count = models.PositiveIntegerField(blank=True, null=True)
     release_date = models.DateField(blank=True, null=True)
     history = HistoricalRecords()
@@ -179,6 +179,8 @@ class Volume(RemoteImageFieldMixin, models.Model):
         primary = self.pk
         if self._original_poster != self.poster_url or primary == None:
             self.get_remote_poster()
+        if self.isbn:
+            self.isbn = self.isbn.replace("-", "")
         super(Volume, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):

@@ -2,60 +2,20 @@
 {% load utility %}
 
 <div class="relative">
+  <a href="#swappable" hx-get="{% url 'volume' volume.id %}" hx-indicator="#progress">
     {% if user.is_authenticated and volume.absolute_number > -1 %}
-        <input class="border border-blay absolute top-0 right-0 m-2 h-6 w-6 rounded checked:bg-blay checked:hover:bg-blay focus:ring-blay checked:focus:bg-blay" type="checkbox" name="v-{{ volume.id }}" id="v-{{ volume.id }}" data-collected="{% collected volume user %}" title="Mark as collected" />
-        <script>
-            (function () {
-                const cCheck = document.getElementById('v-{{ volume.id }}');
-                cCheck.checked = cCheck.getAttribute("data-collected") === 'True' ? true : false
-
-                cCheck.addEventListener('click', function(event) {
-                    event.preventDefault();
-
-                    var method = this.getAttribute('data-collected') === 'True' ? 'DELETE' : 'POST';
-                    var url = '{% url "collect" volume.id %}';
-
-                    var csrfCookie = "";
-                    var value = "; " + document.cookie;
-                    var parts = value.split("; csrftoken=");
-                    if (parts.length == 2) { 
-                        csrfCookie = parts.pop().split(";").shift();
-                    }
-
-                    fetch(url, {
-                        method: method,
-                        headers: {
-                            'Content-Type': 'application/json',
-                            "X-CSRFToken": csrfCookie
-                        }
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error(`HTTP error! status: ${response.status}`);
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        console.log(data.message);
-                        const collected = data.type === 'collected' ? 'True' : 'False';
-                        this.setAttribute('data-collected', collected);
-                        this.checked = collected === 'True' ? true : false;
-                    })
-                    .catch(error => {
-                        console.error('There was a problem with the fetch operation:', error);
-                    });
-                });
-            })();
-        </script>
+      {% collected volume user as has_collected %}
+      {% if has_collected %}
+          <i class="fa-solid fa-square-check absolute top-0 right-0 m-2 bg-whay rounded text-blay border border-whay text-lg" title="Collected"></i>
+      {% endif %}
     {% endif %}
-    <a href="#swappable" hx-get="{% url 'volume' volume.id %}" hx-indicator="#progress">
-        <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
-             style="background-image: url('{% poster_url volume %}')">
-        {% if volume.absolute_number == -1 %}
-            <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
-        {% else %}
-            <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
-        {% endif %}
-        </div>
-    </a>
+    <div id="{{ volume.manga.id }}-{{ volume.edition.name }}-{{ volume.absolute_number }}" class="rounded min-w-[150px] h-[225px] border border-whay flex justify-center items-end bg-hint bg-no-repeat bg-cover bg-center text-xs overflow-hidden cursor-pointer"
+         style="background-image: url('{% poster_url volume %}')">
+    {% if volume.absolute_number == -1 %}
+      <p class="w-full text-center text-whay p-2 bg-blay">No volume</p>
+    {% else %}
+      <p class="w-full text-center text-whay p-2 bg-blay">Volume {{ volume.absolute_number }}</p>
+    {% endif %}
+    </div>
+  </a>
 </div>

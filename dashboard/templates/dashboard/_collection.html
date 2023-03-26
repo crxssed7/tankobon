@@ -1,0 +1,16 @@
+{% load utility %}
+
+<div class="mt-4 p-16 bg-hint rounded border border-whay flex flex-col items-center text-blay justify-center text-center">
+  <img src="{% poster_url collection.volume %}" class="rounded border border-whay" width="150" alt="Volume Poster" />
+  <h1 class="font-bold text-2xl mt-4">{{ collection.volume }}</h1>
+  <h6 class="text-sm">{% capitalize collection.edition.name %} Edition</h6>
+</div>
+
+<div class="mt-16">
+  <form class="form" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" class="inline-block text-center px-3 py-2 bg-blay text-hint border border-solid rounded border-hint hover:bg-hint hover:text-blay hover:border-blay focus:border-blay focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Update</button>
+    <button hx-delete="{% url 'collect' collection.volume.id %}" hx-confirm="Are you sure you want to remove this volume from your collection?" class="inline-block text-center px-3 py-2 bg-blay text-red-500 border border-solid rounded border-red-500 hover:bg-red-500 hover:text-blay hover:border-blay focus:border-blay focus:bg-red-500 focus:blay focus:text-blay transition duration-300 ease-in-out">Delete</button>
+  </form>
+</div>

@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 
-from api.models import Manga, Volume, Edition
+from api.models import Manga, Volume, Edition, Collection
 
 from web.mixins.forms import HiddenFieldsMixin, StyledFieldsMixin
 
@@ -153,3 +153,43 @@ class EditionForm(StyledFieldsMixin, forms.ModelForm):
     class Meta:
         model = Edition
         fields = ("manga", "language", "name")
+
+
+class CollectionCollectedAtForm(StyledFieldsMixin, forms.ModelForm):
+    template_name = "web/form_snippet.html"
+
+    collected_at = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}), label="You collected this volume on:")
+
+    class Meta:
+        model = Collection
+        fields = ("collected_at",)
+
+
+class CollectionForm(StyledFieldsMixin, forms.Form):
+    template_name = "web/form_snippet.html"
+
+    isbn = forms.CharField(max_length=20, label="ISBN")
+    collected_at = forms.DateField(widget=forms.TextInput(attrs={"type": "date"}))
+
+    def __init__(self, user, *args, **kwargs):
+        super(CollectionForm, self).__init__(*args, **kwargs)
+        self.volume = None
+        self.user = user
+
+    def clean_isbn(self):
+        isbn = self.cleaned_data['isbn'].replace("-", '')
+
+        try:
+            volume = Volume.objects.get(isbn=isbn, absolute_number__gt=-1)
+        except Volume.DoesNotExist as exc:
+            raise forms.ValidationError(f"No volume found with ISBN {isbn}") from exc
+        self.volume = volume
+
+        exists = Collection.objects.filter(user=self.user, volume=volume).exists()
+        if exists:
+            raise forms.ValidationError('You already have this volume in your collection.')
+
+        return isbn
+
+    def save(self):
+        return Collection.objects.create(user=self.user, volume=self.volume, collected_at=self.cleaned_data['collected_at'])

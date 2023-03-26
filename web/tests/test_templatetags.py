@@ -71,7 +71,7 @@ class TestUtilityTags(TestCase):
         expected_1 = "/media/posters/manga-image/poster.jpeg"
         actual_1 = utility.poster_url(manga)
         self.assertEquals(expected_1, actual_1)
-        expected_2 = ""
+        expected_2 = "/static/img/noposter.582688085a9c.png"
         actual_2 = utility.poster_url(self.no_image)
         self.assertEquals(expected_2, actual_2)
 

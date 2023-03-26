@@ -1,0 +1,23 @@
+{% extends "dashboard/dashboard_base.html" %}
+
+{% block title %}
+  Your Stats - Tankōbon
+{% endblock title %}
+
+{% block content %}
+  <h1 class="text-2xl font-bold underline decoration-hint mb-4">Your Stats</h1>
+  <div class="border border-whay rounded p-4 mb-4">
+    <h4 class="text-md sm:text-xl font-bold mb-4">Volumes collected by month</h4>
+    {{ monthly_collected }}
+  </div>
+  <div class="grid grid-cols-2 gap-4">
+    <div class="flex flex-col justify-center items-center col-span-2 sm:col-span-1 border border-whay rounded p-4">
+      <h4 class="sm:text-4xl font-bold mb-4">Volumes collected</h4>
+      <p class="text-6xl">{{ volume_count }}</p>
+    </div>
+    <div class="col-span-2 sm:col-span-1 border border-whay rounded p-4">
+      <h4 class="sm:text-xl font-bold mb-4">Demographs</h4>
+      {{ demographs }}
+    </div>
+  </div>
+{% endblock content %}

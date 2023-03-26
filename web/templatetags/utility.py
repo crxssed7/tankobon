@@ -2,6 +2,7 @@ from urllib.parse import urlencode
 
 from django import template
 from django.template.defaultfilters import stringfilter
+from django.contrib.staticfiles.storage import staticfiles_storage
 
 register = template.Library()
 
@@ -31,7 +32,7 @@ def active_tab(value, expected):
 def poster_url(record):
     if record.poster_file:
         return record.poster_file.url
-    return ""
+    return staticfiles_storage.url('img/noposter.png')
 
 
 @register.simple_tag
