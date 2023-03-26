@@ -1,5 +1,6 @@
 {% load static %}
 {% load tailwind_tags %}
+{% load dashboard_tags %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -53,16 +54,16 @@
             <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] pb-[20px]" />
           </div>
           <a href="{% url 'dashboard' %}">
-            <div class="p-6 bg-hint text-blay font-bold">Library</div>
+            <div class="p-6 {% dashboard_active_tab request.path '/dashboard/' %}">Library</div>
           </a>
           <a href="{% url 'private_stats' %}">
-            <div class="p-6">Stats</div>
+            <div class="p-6 {% dashboard_active_tab request.path '/dashboard/stats/' %}">Stats</div>
           </a>
           <a href="{% url 'user' user %}">
-            <div class="p-6">Profile</div>
+            <div class="p-6 hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Profile</div>
           </a>
           <a href="{% url 'search' %}">
-            <div class="p-6">Back</div>
+            <div class="p-6 hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Home</div>
           </a>
         </aside>
         <div class="block md:hidden bg-black">
@@ -70,16 +71,16 @@
             <img src="{% static 'img/logo.svg' %}" alt="" class="w-[50px] py-[20px]" />
           </div>
           <a href="{% url 'dashboard' %}">
-            <div class="p-4 bg-hint text-blay font-bold">Library</div>
+            <div class="p-4 {% dashboard_active_tab request.path '/dashboard/' %}">Library</div>
           </a>
           <a href="{% url 'private_stats' %}">
-            <div class="p-4">Stats</div>
+            <div class="p-4 {% dashboard_active_tab request.path '/dashboard/stats/' %}">Stats</div>
           </a>
           <a href="{% url 'user' user %}">
-            <div class="p-4">Profile</div>
+            <div class="p-4 hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Profile</div>
           </a>
           <a href="{% url 'search' %}">
-            <div class="p-4">Back</div>
+            <div class="p-4 hover:bg-hint hover:text-blay hover:border-hint focus:bg-hint focus:blay focus:text-blay transition duration-300 ease-in-out">Home</div>
           </a>
         </div>
         <div class="md:mx-[250px] md:my-[50px] m-4"
