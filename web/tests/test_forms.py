@@ -1,8 +1,9 @@
+from django.contrib.auth.models import User
 from django.test import SimpleTestCase, TestCase
 from django.utils.timezone import datetime
 
-from api.models import Volume, Manga, Edition
-from web.forms import MangaForm, SignUpForm, EditionForm, VolumeForm
+from api.models import Volume, Manga, Edition, Collection
+from web.forms import MangaForm, SignUpForm, EditionForm, VolumeForm, CollectionCollectedAtForm, CollectionForm
 
 
 class TestMangaForms(SimpleTestCase):
@@ -231,3 +232,137 @@ class TestAccountForms(TestCase):
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 1)
+
+
+class TestCollectionCollectedAtForm(TestCase):
+    def test_collected_at_form_with_valid_data(self):
+        form = CollectionCollectedAtForm(
+            data={
+                "collected_at": "2023-01-01"
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+    def test_collected_at_form_with_invalid_data(self):
+        form = CollectionCollectedAtForm(data={"volume": 1})
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 1)
+
+
+class TestCollectionForm(TestCase):
+    def setUp(self):
+        self.user = User.objects.create(
+            username="BobbyBadBoi", email="bobby@badboi.com"
+        )
+        self.user.set_password("bobbyisabadboi101")
+        self.user.save()
+
+    def test_collection_form_with_valid_data_valid_isbn(self):
+        manga = Manga.objects.create(
+            name="Chainsaw Man",
+            romaji="Chainsaw Man",
+            description="Chainsaw Man manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        Volume.objects.create(
+            absolute_number=1,
+            manga=manga,
+            isbn="978-4-08-880795-9"
+        )
+        form = CollectionForm(
+            user=self.user,
+            data={
+                "collected_at": "2023-01-01",
+                "isbn": "978-4-08-880795-9"
+            }
+        )
+
+        self.assertTrue(form.is_valid())
+
+    def test_collection_form_with_valid_data_invalid_isbn(self):
+        form = CollectionForm(
+            user=self.user,
+            data={
+                "collected_at": "2023-01-01",
+                "isbn": "978-4-08-880795-9"
+            }
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals({"isbn": ["No volume found with ISBN 9784088807959"]}, form.errors)
+
+    def test_collection_form_with_valid_data_already_collected(self):
+        manga = Manga.objects.create(
+            name="Chainsaw Man",
+            romaji="Chainsaw Man",
+            description="Chainsaw Man manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        volume = Volume.objects.create(
+            absolute_number=1,
+            manga=manga,
+            isbn="978-4-08-880795-9",
+            edition=manga.edition_set.first()
+        )
+        Collection.objects.create(
+            volume=volume,
+            user=self.user,
+            collected_at="2023-01-01"
+        )
+        form = CollectionForm(
+            user=self.user,
+            data={
+                "collected_at": "2023-01-01",
+                "isbn": "978-4-08-880795-9"
+            }
+        )
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals({"isbn": ["You already have this volume in your collection."]}, form.errors)
+
+    def test_collection_form_with_invalid_data(self):
+        form = CollectionForm(user=self.user, data={})
+
+        self.assertFalse(form.is_valid())
+        self.assertEquals(len(form.errors), 2)
+
+    def test_collection_form_save(self):
+        manga = Manga.objects.create(
+            name="Chainsaw Man",
+            romaji="Chainsaw Man",
+            description="Chainsaw Man manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        volume = Volume.objects.create(
+            absolute_number=1,
+            manga=manga,
+            isbn="978-4-08-880795-9",
+            edition=manga.edition_set.first()
+        )
+        form = CollectionForm(
+            user=self.user,
+            data={
+                "collected_at": "2023-01-01",
+                "isbn": "978-4-08-880795-9"
+            }
+        )
+        self.assertTrue(form.is_valid())
+        form.save()
+        Collection.objects.get(edition=volume.edition, user=self.user, volume=volume, collected_at="2023-01-01")
+
+
+class TestStyledMixin(SimpleTestCase):
+    def test_styled_mixin_adds_class_attributes(self):
+        form = CollectionCollectedAtForm(
+            data={
+                "collected_at": "2023-01-01"
+            }
+        )
+
+        for field in form.fields.keys():
+            self.assertEquals(form.fields[field].widget.attrs, {"class": "w-full rounded focus:border-hint focus:ring-hint bg-blay border-whay hover:border-hint transition duration-300 ease-in-out"})
