@@ -13,10 +13,7 @@ def new_volume(request, manga_id):
         data["manga"] = manga.id
         form = VolumeForm(manga, data)
         if form.is_valid():
-            v = form.save(commit=False)
-            v.manga = manga
-            v.locked = False
-            v.save()
+            v = form.save()
             return redirect("manga", pk=manga.id)
     else:
         form = VolumeForm(manga=manga)

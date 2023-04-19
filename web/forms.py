@@ -57,6 +57,7 @@ class MangaForm(StyledFieldsMixin, forms.ModelForm):
         required=False,
     )
     kitsu_id = forms.IntegerField(label="Kitsu ID", required=False)
+    is_oneshot = forms.BooleanField(label="Is this manga a oneshot?", required=False)
 
     class Meta:
         model = Manga
@@ -70,6 +71,7 @@ class MangaForm(StyledFieldsMixin, forms.ModelForm):
             "genres",
             "poster_url",
             "banner_url",
+            "is_oneshot",
             "anilist_id",
             "mal_id",
             "mangaupdates_id",
@@ -103,11 +105,14 @@ class VolumeForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
 
     class Meta:
         model = Volume
-        fields = ["absolute_number", "poster_url", "edition", "chapters", "isbn", "page_count", "release_date"]
+        fields = ["absolute_number", "poster_url", "edition", "chapters", "isbn", "page_count", "release_date", "manga"]
 
     def __init__(self, manga, *args, **kwargs):
         super(VolumeForm, self).__init__(*args, **kwargs)
         self.manga = manga
+        self.fields['manga'].widget = forms.HiddenInput(attrs={'hidden': True})
+        self.fields['manga'].initial = self.manga
+        self.fields['manga'].label = ""
         if not self.is_editing():
             self.fields["edition"].queryset = Edition.objects.filter(manga=manga)
             self.fields["edition"].required = True

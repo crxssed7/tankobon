@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.core.validators import MinValueValidator
 from django.db import models
@@ -91,6 +92,7 @@ class Manga(RemoteImageFieldMixin, models.Model):
     last_updated = models.DateTimeField(auto_now=True)
     tags = models.TextField(null=True, blank=True)
     genres = models.ManyToManyField(Genre, blank=True)
+    is_oneshot = models.BooleanField(default=False)
 
     _original_poster = None
     _original_banner = None
@@ -176,6 +178,8 @@ class Volume(RemoteImageFieldMixin, models.Model):
         self._original_poster = self.poster_url
 
     def save(self, *args, **kwargs):
+        self.clean()
+
         primary = self.pk
         if self._original_poster != self.poster_url or primary == None:
             self.get_remote_poster()
@@ -188,10 +192,19 @@ class Volume(RemoteImageFieldMixin, models.Model):
             self.poster_file.delete(save=False)
         super(Volume, self).delete(*args, **kwargs)
 
+    def clean(self):
+        super().clean()
+        self.validate_oneshot()
+
     def __str__(self):
         if self.absolute_number >= 0:
             return self.manga.name + " Volume " + str(self.absolute_number)
         return self.manga.name + " Non-tankobon"
+
+    def validate_oneshot(self):
+        # Check if the manga is a oneshot and the edition does not already have a volume
+        if self.manga.is_oneshot and self.edition.volume_set.exists():
+            raise ValidationError("A oneshot manga can only have one volume.")
 
     def has_collected(self, user):
         return Collection.objects.filter(volume=self, user=user).exists()

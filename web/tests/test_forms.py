@@ -24,9 +24,9 @@ class TestMangaForms(SimpleTestCase):
                 "kitsu_id": "",
                 "fandom": "",
                 "magazine": "",
+                "is_oneshot": False
             }
         )
-
         self.assertTrue(form.is_valid())
 
     def test_manga_form_with_invalid_data(self):
@@ -46,6 +46,7 @@ class TestMangaForms(SimpleTestCase):
                 "kitsu_id": "",
                 "fandom": "",
                 "magazine": "",
+                "is_oneshot": False
             }
         )
 
@@ -91,7 +92,8 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "release_date": "2012-05-15",
                 "page_count": 300,
-                "isbn": "9784091241023"
+                "isbn": "9784091241023",
+                "manga": manga.id
             },
             instance=volume,
         )
@@ -117,12 +119,13 @@ class TestVolumeForms(TestCase):
                 "chapters": "Chapter 1\nChapter 2",
                 "release_date": "2012-05-15",
                 "isbn": "9784091241023",
-                "page_count": 200
+                "page_count": 200,
+                "manga": manga.id
             },
             instance=volume,
         )
         self.assertEquals(form.is_valid(), True)
-        self.assertEquals(form.cleaned_data, {"chapters": "Chapter 1\nChapter 2"})
+        self.assertEquals(form.cleaned_data, {"chapters": "Chapter 1\nChapter 2", "manga": manga})
         v = form.save()
         self.assertEquals(v.poster_url, "")
         self.assertEquals(v.release_date, None)
@@ -161,7 +164,8 @@ class TestVolumeForms(TestCase):
             status="RELEASING",
             start_date=datetime.now(),
         )
-        form = VolumeForm(manga=manga, data={})
+        # TODO: We get a RelatedObjectDoesNotExist error if we dont pass the manga id
+        form = VolumeForm(manga=manga, data={"manga": manga.id})
 
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 6)

@@ -118,9 +118,9 @@ class TestVolumeModel(TestCase):
             start_date=datetime.now(),
         )
         self.edition = Edition.objects.first()
-        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga)
+        self.volume = Volume.objects.create(absolute_number=0, manga=self.manga, edition=self.edition)
         self.volume_nontankobon = Volume.objects.create(
-            absolute_number=-1, manga=self.manga
+            absolute_number=-1, manga=self.manga, edition=self.edition
         )
 
     def test_volume_converts_to_string(self):
@@ -131,17 +131,17 @@ class TestVolumeModel(TestCase):
 
     def test_volume_saves_images(self):
         volume = Volume.objects.create(
-            absolute_number=0,
+            absolute_number=1,
             manga=self.manga,
             edition=self.edition,
             poster_url="https://s4.anilist.co/file/anilistcdn/media/manga/cover/large/bx108556-NHjkz0BNJhLx.jpg",
         )
-        self.assertEquals(volume.poster_file.url, "/media/posters/volume-image/volumes/standard-japanese/volume_0_poster.jpeg")
+        self.assertEquals(volume.poster_file.url, "/media/posters/volume-image/volumes/standard-japanese/volume_1_poster.jpeg")
         volume.delete()
 
     def test_volume_save_formats_isbn(self):
         volume = Volume.objects.create(
-            absolute_number=0,
+            absolute_number=1,
             manga=self.manga,
             edition=self.edition,
             isbn="978-4-08-880723-2"
@@ -168,6 +168,36 @@ class TestVolumeModel(TestCase):
         self.assertRaisesMessage(ValidationError, "The image must be from one of the trusted sites. Learn more about this on the contribution guidelines.", invalid_image.full_clean)
         # Prove that we have valid domains
         valid_image.full_clean()
+
+    def test_volume_when_is_oneshot_and_does_not_have_volumes(self):
+        manga = Manga.objects.create(
+            name="Oneshot",
+            romaji="Oneshot",
+            description="OneShot",
+            status="RELEASING",
+            start_date=datetime.now(),
+            is_oneshot=True
+        )
+        edition = manga.edition_set.first()
+        # Does not raise an error
+        Volume.objects.create(absolute_number=0, manga=manga, edition=edition)
+
+    def test_volume_when_is_oneshot_and_has_volume(self):
+        manga = Manga.objects.create(
+            name="Oneshot",
+            romaji="Oneshot",
+            description="OneShot",
+            status="RELEASING",
+            start_date=datetime.now(),
+            is_oneshot=True
+        )
+        edition = manga.edition_set.first()
+        # Does not raise an error as the edition does not have any volumes at this point
+        Volume.objects.create(absolute_number=0, manga=manga, edition=edition)
+        with self.assertRaises(ValidationError):
+            Volume.objects.create(absolute_number=1, manga=manga, edition=edition)
+        with self.assertRaisesMessage(ValidationError, "A oneshot manga can only have one volume."):
+            Volume.objects.create(absolute_number=1, manga=manga, edition=edition)
 
 
 class TestEditionModel(TestCase):
