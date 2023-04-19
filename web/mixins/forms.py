@@ -23,7 +23,7 @@ class StyledFieldsMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.keys():
-            if type(self.fields[field]) == BooleanField:
+            if isinstance(self.fields[field], BooleanField):
                 self.fields[field].widget.attrs.update(self.NOT_FULL_W)
             else:
                 self.fields[field].widget.attrs.update(self.ATTRS)
