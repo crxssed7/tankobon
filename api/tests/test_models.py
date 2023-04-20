@@ -199,6 +199,21 @@ class TestVolumeModel(TestCase):
         with self.assertRaisesMessage(ValidationError, "A oneshot manga can only have one volume."):
             Volume.objects.create(absolute_number=1, manga=manga, edition=edition)
 
+    def test_volume_when_is_oneshot_and_can_be_updated(self):
+        manga = Manga.objects.create(
+            name="Oneshot",
+            romaji="Oneshot",
+            description="OneShot",
+            status="RELEASING",
+            start_date=datetime.now(),
+            is_oneshot=True
+        )
+        edition = manga.edition_set.first()
+        volume = Volume.objects.create(absolute_number=0, manga=manga, edition=edition)
+        volume.absolute_number = 1
+        volume.save()
+        self.assertEquals(volume.absolute_number, 1)
+
 
 class TestEditionModel(TestCase):
     def setUp(self):

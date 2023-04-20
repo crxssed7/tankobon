@@ -203,7 +203,7 @@ class Volume(RemoteImageFieldMixin, models.Model):
 
     def validate_oneshot(self):
         # Check if the manga is a oneshot and the edition does not already have a volume
-        if self.manga.is_oneshot and self.edition.volume_set.exists():
+        if self.manga.is_oneshot and self.edition.volume_set.exclude(id=self.id).exists():
             raise ValidationError("A oneshot manga can only have one volume.")
 
     def has_collected(self, user):
