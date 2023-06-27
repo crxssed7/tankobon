@@ -4,7 +4,7 @@ FROM python:${PYTHON_VERSION}
 
 RUN apt-get update -yq \
     && apt-get -yq install curl gnupg ca-certificates \
-    && curl -L https://deb.nodesource.com/setup_12.x | bash \
+    && curl -L https://deb.nodesource.com/setup_14.x | bash \
     && apt-get update -yq \
     && apt-get install -yq \
         python3-pip \
@@ -13,6 +13,8 @@ RUN apt-get update -yq \
         python3-setuptools \
         python3-wheel \
         nodejs
+
+RUN npm -v
 
 RUN mkdir -p /app
 WORKDIR /app
