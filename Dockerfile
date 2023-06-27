@@ -4,7 +4,7 @@ FROM python:${PYTHON_VERSION}
 
 RUN apt-get update -yq \
     && apt-get -yq install curl gnupg ca-certificates \
-    && curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | -E bash - \
     && apt-get update -yq \
     && apt-get install -yq \
         python3-pip \
