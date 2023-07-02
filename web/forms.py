@@ -128,8 +128,14 @@ class VolumeForm(StyledFieldsMixin, HiddenFieldsMixin, forms.ModelForm):
             return self.instance and self.instance.absolute_number < 0
         return False
 
+    def clean_isbn(self):
+        isbn = self.cleaned_data["isbn"]
+        if isbn:
+            isbn = isbn.replace("-", "")
+        return isbn
+
     def clean(self):
-        cleaned_data = self.cleaned_data
+        cleaned_data = super().clean()
         absolute_number = self.cleaned_data.get("absolute_number")
         edition = self.cleaned_data.get("edition")
 

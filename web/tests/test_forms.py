@@ -205,6 +205,30 @@ class TestVolumeForms(TestCase):
         self.assertIn('absolute_number', form.errors.keys())
         self.assertIn('Volume with this absolute_number already exists for this manga edition', form.errors['absolute_number'])
 
+    def test_volume_form_cleans_isbn(self):
+        manga = Manga.objects.create(
+            name="Chainsaw Man",
+            romaji="Chainsaw Man",
+            description="Chainsaw Man manga",
+            status="RELEASING",
+            start_date=datetime.now(),
+        )
+        form = VolumeForm(
+            manga=manga,
+            data={
+                "absolute_number": 1,
+                "poster_url": "",
+                "chapters": "Chapter 1\nChapter 2",
+                "manga": manga,
+                "edition": manga.edition_set.first(),
+                "release_date": "2012-05-15",
+                "page_count": 300,
+                "isbn": "978-4091241023"
+            },
+        )
+        form.is_valid()
+        self.assertEquals(form.cleaned_data["isbn"], "9784091241023")
+
 
 class TestAccountForms(TestCase):
     def test_signup_form_with_valid_data(self):
