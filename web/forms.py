@@ -165,6 +165,26 @@ class EditionForm(StyledFieldsMixin, forms.ModelForm):
         model = Edition
         fields = ("manga", "language", "name")
 
+    def clean(self):
+        cleaned_data = super().clean()
+        name = self.cleaned_data.get("name")
+        manga = self.cleaned_data.get("manga")
+
+        try:
+            Edition.objects.get(
+                name=name,
+                manga=manga
+            )
+        except Edition.DoesNotExist:
+            pass
+        else:
+            self.add_error(
+                "name",
+                "Edition with this name already exists for this manga.",
+            )
+
+        return cleaned_data
+
 
 class CollectionCollectedAtForm(StyledFieldsMixin, forms.ModelForm):
     template_name = "web/form_snippet.html"

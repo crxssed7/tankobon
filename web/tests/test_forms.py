@@ -73,6 +73,20 @@ class TestEditionForm(TestCase):
         self.assertFalse(form.is_valid())
         self.assertEquals(len(form.errors), 2)
 
+    def test_edition_form_with_duplicate(self):
+        manga = Manga.objects.create(
+            name="Fullmetal Alchemist",
+            romaji="Fullmetal Alchemist",
+            description="Fullmetal Alchemist manga",
+            status="FINISHED",
+            start_date=datetime.now(),
+        )
+        edition = manga.edition_set.first()
+
+        form = EditionForm(data={"manga": manga, "name": edition.name})
+        self.assertFalse(form.is_valid())
+        self.assertIn("name", form.errors.keys())
+        self.assertIn("Edition with this name already exists for this manga.", form.errors["name"])
 
 class TestVolumeForms(TestCase):
     def test_volume_form_does_not_update_absolute_number(self):
