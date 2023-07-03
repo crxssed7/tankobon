@@ -88,6 +88,12 @@ class TestEditionForm(TestCase):
         self.assertIn("name", form.errors.keys())
         self.assertIn("Edition with this name already exists for this manga.", form.errors["name"])
 
+        # This form has the name as it is before it is formatted in save()
+        form = EditionForm(data={"manga": manga, "name": f"{edition.name.upper()} edition "})
+        self.assertFalse(form.is_valid())
+        self.assertIn("name", form.errors.keys())
+        self.assertIn("Edition with this name already exists for this manga.", form.errors["name"])
+
 class TestVolumeForms(TestCase):
     def test_volume_form_does_not_update_absolute_number(self):
         manga = Manga.objects.create(

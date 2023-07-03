@@ -170,6 +170,9 @@ class EditionForm(StyledFieldsMixin, forms.ModelForm):
         name = self.cleaned_data.get("name")
         manga = self.cleaned_data.get("manga")
 
+        if name:
+            name = str(name).lower().strip().replace("edition", "").strip()
+
         try:
             Edition.objects.get(
                 name=name,
