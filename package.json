@@ -4,7 +4,7 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.27.5",
     "stylelint": "^15.10.1",
-    "stylelint-config-standard": "^33.0.0"
+    "stylelint-config-standard": "^34.0.0"
   },
   "scripts": {
     "lint:styles": "npx stylelint '**/*.css' --fix",
