@@ -14,7 +14,7 @@ export PATH="$FLYCTL_INSTALL/bin:$PATH"
 echo "Successfully Installed Flyctl"
 
 # deploy app
-sh -c "flyctl deploy"
+sh -c "flyctl deploy --ha=false"
 if [ $? -ne 0 ]; then
     echo -e "\n--THERE WAS A PROBLEM. PLEASE SEE ABOVE OUTPUT.--\n"
     exit 1
