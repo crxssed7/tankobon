@@ -245,10 +245,10 @@
         },
         "honeybadger": {
             "hashes": [
-                "sha256:7b2c1a3aae06d38bc0a4549307526e0ad1c93ed8f388f3bf28d556ba4aaf517f"
+                "sha256:c73663b87b3ba1bf258b0d7111353a4ece19bd13d57cf2d2191f3474c2b704ae"
             ],
             "index": "pypi",
-            "version": "==0.15.2"
+            "version": "==0.16.0"
         },
         "idna": {
             "hashes": [
@@ -671,7 +671,7 @@
                 "sha256:8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504",
                 "sha256:f84c2818376e66cf843d497486ea8fed8700b340f308f076c6fb1229dff318b6"
             ],
-            "markers": "python_full_version >= '3.8.0'",
+            "markers": "python_version >= '3.8'",
             "version": "==5.12.0"
         },
         "jsbeautifier": {
