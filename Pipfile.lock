@@ -245,10 +245,10 @@
         },
         "honeybadger": {
             "hashes": [
-                "sha256:c73663b87b3ba1bf258b0d7111353a4ece19bd13d57cf2d2191f3474c2b704ae"
+                "sha256:ab7a65a2bc12988c993b1d181eea5c1840b2986089da24f3737e4da9fd8dc7fc"
             ],
             "index": "pypi",
-            "version": "==0.16.0"
+            "version": "==0.17.0"
         },
         "idna": {
             "hashes": [
