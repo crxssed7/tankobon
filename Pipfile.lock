@@ -45,11 +45,11 @@
         },
         "botocore": {
             "hashes": [
-                "sha256:b3a0f787f275711875476cbe12a0123b2e6570b2f505e2fa509dcec3c5410b57",
-                "sha256:b46d1ce4e0cf42d28fdf61ce0c999904645d38b51cb809817a361c0cec16d487"
+                "sha256:485ef175cd011ebc965f4577d8cc02a226c46bd608dd2bb75ce6938328cff0fd",
+                "sha256:be51c5352162700e7beb0aa27af394adbbf86f8e7a2ca0c437d448d0a7b2bdfb"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==1.31.15"
+            "version": "==1.31.20"
         },
         "certifi": {
             "hashes": [
@@ -171,11 +171,11 @@
         },
         "django-bleach": {
             "hashes": [
-                "sha256:093973e02e02f88bbe38f6bbc903d28ef762ba9f3f84aafb3823f27922e819ed",
-                "sha256:0e5f145bca1a52e822097853403832d92e957e4a1d47bb90233de9d07219247b"
+                "sha256:766405a32b877a5beb6b377ace0d8bbe2a7d4d6304f04542aa14fd74b14398a7",
+                "sha256:8d9117ca08c182ee20daaf99abbf800154db5cdbcb66ef1252dd7bb542dcf19d"
             ],
             "index": "pypi",
-            "version": "==3.0.1"
+            "version": "==3.1.0"
         },
         "django-browser-reload": {
             "hashes": [
