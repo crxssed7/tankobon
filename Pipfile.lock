@@ -210,11 +210,11 @@
         },
         "django-storages": {
             "hashes": [
-                "sha256:31dc5a992520be571908c4c40d55d292660ece3a55b8141462b4e719aa38eab3",
-                "sha256:cbadd15c909ceb7247d4ffc503f12a9bec36999df8d0bef7c31e57177d512688"
+                "sha256:11280a883b13812df548f3cfe9c10280afc0d4727c8babdee369a75e71158f16",
+                "sha256:6c97e5faad829c923a1262206281742c484d76d43b332a196ddcc242b909c551"
             ],
             "index": "pypi",
-            "version": "==1.13.2"
+            "version": "==1.14"
         },
         "django-tailwind": {
             "hashes": [
@@ -653,7 +653,7 @@
                 "sha256:8bef7dde241278824a6d83f44a544709b065191b95b6e50894bdc722fcba0504",
                 "sha256:f84c2818376e66cf843d497486ea8fed8700b340f308f076c6fb1229dff318b6"
             ],
-            "markers": "python_version >= '3.8'",
+            "markers": "python_full_version >= '3.8.0'",
             "version": "==5.12.0"
         },
         "jsbeautifier": {
