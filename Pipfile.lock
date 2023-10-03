@@ -232,12 +232,12 @@
         },
         "django-storages": {
             "hashes": [
-                "sha256:11280a883b13812df548f3cfe9c10280afc0d4727c8babdee369a75e71158f16",
-                "sha256:6c97e5faad829c923a1262206281742c484d76d43b332a196ddcc242b909c551"
+                "sha256:18cb6c305fbb2f114c11b5b7b647b6271aa251972dcd4a5651b9cee2b0bd3a8a",
+                "sha256:a2c327d67792eec04c7f5f5bb2900b21f426de8a3a811cea85fac7904bdccf36"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7'",
-            "version": "==1.14"
+            "version": "==1.14.1"
         },
         "django-tailwind": {
             "hashes": [
@@ -500,7 +500,6 @@
                 "sha256:24d6a242c28d29af46c3fae832c36db3bbebcc533dd1bb549172cd739c82df21",
                 "sha256:94a757d178c9be92ef5539b8840d48dc9cf1b2709c9d6b588232a055c524458b"
             ],
-            "index": "pypi",
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4, 3.5'",
             "version": "==1.26.17"
         },
