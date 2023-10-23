@@ -37,12 +37,12 @@
         },
         "boto3": {
             "hashes": [
-                "sha256:0dfa2fc96ccafce4feb23044d6cba8b25075ad428a0c450d369d099c6a1059d2",
-                "sha256:148eeba0f1867b3db5b3e5ae2997d75a94d03fad46171374a0819168c36f7ed0"
+                "sha256:0da96244df4771a8ee70b742c42759a440fdb9c8b7850584db7c5daf10e824e1",
+                "sha256:cbc76ed54278be8cdc44ce6ee1980296f764fdff72c6bbe668169c07d4ca08f0"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.7'",
-            "version": "==1.28.62"
+            "version": "==1.28.68"
         },
         "botocore": {
             "hashes": [
