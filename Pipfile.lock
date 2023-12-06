@@ -198,12 +198,12 @@
         },
         "django-browser-reload": {
             "hashes": [
-                "sha256:2dc98c752b55d22db9c11fbc0274c16160ce4dcd67ef0ef294135ab57d711435",
-                "sha256:6c10b4b59a5aa7a412284d7c909fb5b80199e98a488f5b24da5c49b090d1ef3f"
+                "sha256:08b457f1b6599bf782d4d2ecdfb0897d6fc936ac4035060d0269c2af5ef4ef7a",
+                "sha256:875b6bd01db13380522ccb4ae75871a2edeae74bb5ac92bf32eb76763d575d86"
             ],
             "index": "pypi",
             "markers": "python_version >= '3.8'",
-            "version": "==1.12.0"
+            "version": "==1.12.1"
         },
         "django-cache-url": {
             "hashes": [
