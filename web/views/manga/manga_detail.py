@@ -1,4 +1,8 @@
+import re
+
 from django.views.generic.detail import DetailView
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
 
 from api.models import Manga, Edition
 
@@ -23,3 +27,33 @@ class MangaDetailView(DetailView):
         if self.request.htmx:
             return ['web/manga/_manga_detail.html']
         return ['web/manga/manga_detail.html']
+
+def v_json(request, manga_id, edition_language):
+    manga_obj = get_object_or_404(Manga, id=manga_id, locked=False)
+    edition = manga_obj.edition_set.filter(language__code=str(edition_language).upper()).first()
+
+    data = {
+        "id": manga_obj.anilist_id,
+        "volumes": []
+    }
+    for volume in edition.volume_set.all():
+        chapters = volume.chapters.split("\n")
+        chapters = list(filter(lambda c: not str(c).startswith("|") and c != '', chapters))
+        first_chapter = None
+        last_chapter = None
+
+        # ^\w.*(\d+)
+        chap1 = re.match(r"^\w.*(\d+)", chapters[0])
+        if chap1 is not None:
+            first_chapter = int(chap1[1])
+
+        chap2 = re.match(r"^\w.*(\d+)", chapters[-1])
+        if chap2 is not None:
+            last_chapter = int(chap2[1])
+
+        result = {
+            "start": first_chapter,
+            "end": last_chapter
+        }
+        data["volumes"].append(result)
+    return JsonResponse(data=data)

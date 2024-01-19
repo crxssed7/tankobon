@@ -6,7 +6,7 @@ from web.converters import NegativeIntConverter
 
 from web.views.edition.edition_new import new_edition
 
-from web.views.manga.manga_detail import MangaDetailView
+from web.views.manga.manga_detail import MangaDetailView, v_json
 from web.views.manga.manga_edit import edit_manga
 from web.views.manga.manga_list import ListMangaView
 from web.views.manga.manga_new import new_manga
@@ -38,6 +38,7 @@ urlpatterns = [
     path("manga/all/", ListMangaView.as_view(), name="all_manga"),
     path("manga/<pk>/", MangaDetailView.as_view(), name="manga"),
     path("manga/<int:manga_id>/edit/", edit_manga, name="edit_manga"),
+    path("manga/<int:manga_id>/v_json/<str:edition_language>/", v_json, name="v_json"),
     path(
         "manga/<int:manga_id>/edit/<int:volume_number>/",
         edit_volume,
