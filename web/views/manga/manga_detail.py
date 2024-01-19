@@ -43,13 +43,13 @@ def v_json(request, manga_id, edition_language):
         last_chapter = None
 
         # ^\w.*(\d+)
-        chap1 = re.match(r"^\w.*(\d+)", chapters[0])
+        chap1 = re.search(r"\b(\d+)\b", chapters[0])
         if chap1 is not None:
-            first_chapter = int(chap1[1])
+            first_chapter = int(chap1.group(1))
 
-        chap2 = re.match(r"^\w.*(\d+)", chapters[-1])
+        chap2 = re.search(r"\b(\d+)\b", chapters[-1])
         if chap2 is not None:
-            last_chapter = int(chap2[1])
+            last_chapter = int(chap2.group(1))
 
         result = {
             "start": first_chapter,
