@@ -29,7 +29,7 @@ class MangaDetailView(DetailView):
         return ['web/manga/manga_detail.html']
 
 def v_json(request, manga_id, edition_language):
-    manga_obj = get_object_or_404(Manga, id=manga_id, locked=False)
+    manga_obj = get_object_or_404(Manga, id=manga_id)
     edition = manga_obj.edition_set.filter(language__code=str(edition_language).upper()).first()
 
     data = {
