@@ -67,7 +67,7 @@ def ab_json(request, manga_id, edition_language):
         "volumes": []
     }
     last_chapter = 0
-    for volume in edition.volume_set.all():
+    for volume in edition.volume_set.filter(absolute_number__gte=0):
         chapters = volume.chapters.split("\n")
         chapters = list(filter(lambda c: not str(c).startswith("|") and c != '', chapters))
         start = last_chapter + 1
