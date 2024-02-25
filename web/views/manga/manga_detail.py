@@ -57,3 +57,27 @@ def v_json(request, manga_id, edition_language):
         }
         data["volumes"].append(result)
     return JsonResponse(data=data)
+
+def ab_json(request, manga_id, edition_language):
+    manga_obj = get_object_or_404(Manga, id=manga_id)
+    edition = manga_obj.edition_set.filter(language__code=str(edition_language).upper()).first()
+
+    data = {
+        "id": manga_obj.anilist_id,
+        "volumes": []
+    }
+    last_chapter = 0
+    for volume in edition.volume_set.all():
+        chapters = volume.chapters.split("\n")
+        chapters = list(filter(lambda c: not str(c).startswith("|") and c != '', chapters))
+        start = last_chapter + 1
+        end = len(chapters)
+
+        result = {
+            "start": start,
+            "end": end
+        }
+        data["volumes"].append(result)
+
+        last_chapter = end
+    return JsonResponse(data=data)
