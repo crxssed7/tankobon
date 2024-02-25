@@ -71,7 +71,7 @@ def ab_json(request, manga_id, edition_language):
         chapters = volume.chapters.split("\n")
         chapters = list(filter(lambda c: not str(c).startswith("|") and c != '', chapters))
         start = last_chapter + 1
-        end = len(chapters)
+        end = last_chapter + len(chapters)
 
         result = {
             "start": start,
