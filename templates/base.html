@@ -46,13 +46,14 @@
       <div class="flex flex-col h-screen justify-between">
             {% include "shared/_navbar.html" %}
             <main>
-                  {% if messages %}
                   <ul class="messages mt-[75px]">
-                    {% for message in messages %}
-                      <li class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay">{{ message }}</li>
-                    {% endfor %}
+                    {% if messages %}
+                      {% for message in messages %}
+                        <li class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay">{{ message }}</li>
+                      {% endfor %}
+                    {% endif %}
+                    <li class="info m-4 p-4 rounded border border-whay text-whay">Tankōbon has reached its end of life and will no longer receive updates. For a similar service, checkout <a class="underline" href="https://kaboom.rocks/">Kaboom</a>, which is made by the same people and supports a wider range of comics.</li>
                   </ul>
-                  {% endif %}
                   {% block content %}
                   {% endblock content %}
             </main>
