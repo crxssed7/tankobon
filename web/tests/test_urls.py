@@ -17,7 +17,7 @@ from web.views.singles.views import (
 )
 from web.views.users.user_detail import UserDetailView
 from web.views.users.user_login import login_view
-from web.views.users.user_signup import SignUpView
+from web.views.users.user_signup import sign_up_view
 
 from web.views.volume.volume_edit import edit_volume
 from web.views.volume.volume_new import new_volume
@@ -95,7 +95,7 @@ class TestAccountUrls(SimpleTestCase):
 
     def test_signup_url_is_resolved(self):
         url = reverse("signup")
-        self.assertEquals(resolve(url).func.__name__, SignUpView.as_view().__name__)
+        self.assertEquals(resolve(url).func, sign_up_view)
 
     def test_user_url_is_resolved(self):
         url = reverse("user", args=["some-user"])
