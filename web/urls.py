@@ -18,7 +18,7 @@ from web.views.singles.views import (
 )
 from web.views.users.user_detail import UserDetailView, UserStatisticsView
 from web.views.users.user_login import login_view
-from web.views.users.user_signup import SignUpView
+from web.views.users.user_signup import sign_up_view
 from web.views.users.user_activate import activate
 
 from web.views.volume.volume_collect import CollectionView
@@ -60,7 +60,7 @@ urlpatterns = [
 
     path("accounts/login/", login_view, name="login"),
     path("accounts/logout/", LogoutView.as_view(), name="logout"),
-    path("accounts/signup/", SignUpView.as_view(), name="signup"),
+    path("accounts/signup/", sign_up_view, name="signup"),
     path("accounts/activate/<uidb64>/<token>/", activate, name="activate"),
     path("accounts/password_change/", PasswordChangeView.as_view(), name="password_change"),
     path("accounts/password_change/done/", PasswordChangeDoneView.as_view(), name="password_change_done"),

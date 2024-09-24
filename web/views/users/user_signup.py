@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.views.generic import CreateView
+from django.shortcuts import redirect
 
 from web.forms import SignUpForm
 
@@ -16,3 +17,6 @@ class SignUpView(CreateView):
         if form.is_valid():
             messages.success(self.request, 'Your account has been created successfully. Please check your email to activate your account.')
         return response
+
+def sign_up_view(request):
+    return redirect("/")
