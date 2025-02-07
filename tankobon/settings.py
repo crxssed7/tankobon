@@ -32,7 +32,7 @@ DEBUG = env.bool("DEBUG", default=False)
 TESTING = len(sys.argv) > 1 and sys.argv[1] == 'test'
 
 ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["127.0.0.1"])
-CSRF_TRUSTED_ORIGINS = ["https://tankobon.net"]
+CSRF_TRUSTED_ORIGINS = ["https://tankobon.fly.dev"]
 
 HONEYBADGER_ENVIRONMENT = "development"
 if DEBUG == False:

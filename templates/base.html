@@ -1,72 +1,117 @@
-{% load static %}
-{% load tailwind_tags %}
-<!DOCTYPE html>
+{% load static %} {% load tailwind_tags %}
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %} Tankōbon {% endblock title %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    {% tailwind_css %}
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="{% static 'img/favicon/favicon.svg' %}"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      href="{% static 'img/favicon/favicon.png' %}"
+    />
+    <link rel="canonical" href="https://tankobon.fly.dev{{ request.path }}" />
+    <script
+      src="https://kit.fontawesome.com/eb574cc0ee.js"
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'js/htmx.min.js' %}" defer></script>
+    <script src="{% static 'chartkick/Chart.bundle.js' %}"></script>
+    <script src="{% static 'chartkick/chartkick.js' %}"></script>
+    <meta name="description" content="Track your manga collection with ease." />
+    <meta
+      property="og:description"
+      content=" {% block meta_description %} Track your manga collection with ease. {% endblock meta_description %}"
+    />
+    <meta
+      name="keywords"
+      content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, manga collecting {% endblock meta_tags %}"
+    />
+    <meta
+      property="og:title"
+      content=" {% block meta_title %} Tankōbon - manga collecting {% endblock meta_title %}"
+    />
+    <meta
+      property="og:image"
+      content=" {% block meta_image %} {% static 'img/header.png' %} {% endblock meta_image %}"
+    />
+    <meta
+      property="og:image:alt"
+      content=" {% block meta_image_alt %} Tankōbon logo {% endblock meta_image_alt %}"
+    />
+    <meta
+      name="twitter:image"
+      content=" {% block meta_twitter_image %} {% static 'img/header.png' %} {% endblock meta_twitter_image %}"
+    />
+    <meta
+      property="twitter:image:alt"
+      content=" {% block meta_twitter_image_alt %} Tankōbon logo {% endblock meta_twitter_image_alt %}"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    {% block extrahead %} {% endblock extrahead %}
+  </head>
 
-<head>
-      <meta charset="UTF-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>
-            {% block title %}
-            Tankōbon
-            {% endblock title %}
-      </title>
-      <link rel="stylesheet" type="text/css" href="{% static 'css/base.css' %}" />
-      <script src="https://code.jquery.com/jquery-3.6.0.js"
-            integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
-      {% tailwind_css %}
-      <link rel="icon" type="image/svg+xml" href="{% static 'img/favicon/favicon.svg' %}" />
-      <link rel="icon" type="image/png" href="{% static 'img/favicon/favicon.png' %}" />
-      <link rel="canonical" href="https://tankobon.net{{ request.path }}" />
-      <script src="https://kit.fontawesome.com/eb574cc0ee.js" crossorigin="anonymous"></script>
-      <script src="{% static 'js/htmx.min.js' %}" defer></script>
-      <script src="{% static 'chartkick/Chart.bundle.js' %}"></script>
-      <script src="{% static 'chartkick/chartkick.js' %}"></script>
-      <meta name="description" content="Track your manga collection with ease." />
-      <meta property="og:description"
-            content=" {% block meta_description %} Track your manga collection with ease. {% endblock meta_description %}" />
-      <meta name="keywords"
-            content=" {% block meta_tags %} tankobon, tankōbon, manga, chapters, manga chapters, volumes, manga volumes, manga collecting {% endblock meta_tags %}" />
-      <meta property="og:title"
-            content=" {% block meta_title %} Tankōbon - manga collecting {% endblock meta_title %}" />
-      <meta property="og:image"
-            content=" {% block meta_image %} {% static 'img/header.png' %} {% endblock meta_image %}" />
-      <meta property="og:image:alt" content=" {% block meta_image_alt %} Tankōbon logo {% endblock meta_image_alt %}" />
-      <meta name="twitter:image"
-            content=" {% block meta_twitter_image %} {% static 'img/header.png' %} {% endblock meta_twitter_image %}" />
-      <meta property="twitter:image:alt"
-            content=" {% block meta_twitter_image_alt %} Tankōbon logo {% endblock meta_twitter_image_alt %}" />
-      <meta name="twitter:card" content="summary_large_image" />
-      {% block extrahead %}
-      {% endblock extrahead %}
-</head>
-
-<body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}' class="h-screen bg-blay text-whay selection:bg-whay selection:text-blay">
-      <div class="flex flex-col h-screen justify-between">
-            {% include "shared/_navbar.html" %}
-            <main>
-                  <ul class="messages mt-[75px]">
-                    {% if messages %}
-                      {% for message in messages %}
-                        <li class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay">{{ message }}</li>
-                      {% endfor %}
-                    {% endif %}
-                    <li class="info m-4 p-4 rounded border border-whay text-whay">Tankōbon has reached its end of life and will no longer receive updates. For a similar service, checkout <a class="underline" href="https://kaboom.rocks/">Kaboom</a>, which is made by the same people and supports a wider range of comics.</li>
-                  </ul>
-                  {% block content %}
-                  {% endblock content %}
-            </main>
-            <footer class="bg-blay text-white text-sm mt-6">
-                  <div class=" mx-auto max-w-7xl p-4">
-                        <a href="https://github.com/crxssed7/tankobon" class="text-hint underline">Tankōbon</a>
-                        developed by <a href="https://github.com/crxssed7" class="text-hint underline">crxssed</a> · <a
-                              href="https://forms.gle/TYcJq3EJhPhC4iE87" class="text-hint underline">Reports</a> · <a
-                              href="{% url 'contrib' %}" class="text-hint underline">Guidelines</a>
-                  </div>
-            </footer>
-      </div>
-      <script src="{% static 'js/disable_autocomplete.js' %}"></script>
-</body>
-
+  <body
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    class="h-screen bg-blay text-whay selection:bg-whay selection:text-blay"
+  >
+    <div class="flex flex-col h-screen justify-between">
+      {% include "shared/_navbar.html" %}
+      <main>
+        <ul class="messages mt-[75px]">
+          {% if messages %} {% for message in messages %}
+          <li
+            class="{% if message.tags %}{{ message.tags }}{% endif %} m-4 p-4 rounded border border-whay text-whay"
+          >
+            {{ message }}
+          </li>
+          {% endfor %} {% endif %}
+          <li class="info m-4 p-4 rounded border border-whay text-whay">
+            Tankōbon has reached its end of life and will no longer receive
+            updates. For a similar service, checkout
+            <a class="underline" href="https://kaboom.rocks/">Kaboom</a>, which
+            is made by the same people and supports a wider range of comics.
+          </li>
+        </ul>
+        {% block content %} {% endblock content %}
+      </main>
+      <footer class="bg-blay text-white text-sm mt-6">
+        <div class="mx-auto max-w-7xl p-4">
+          <a
+            href="https://github.com/crxssed7/tankobon"
+            class="text-hint underline"
+            >Tankōbon</a
+          >
+          developed by
+          <a href="https://github.com/crxssed7" class="text-hint underline"
+            >crxssed</a
+          >
+          ·
+          <a
+            href="https://forms.gle/TYcJq3EJhPhC4iE87"
+            class="text-hint underline"
+            >Reports</a
+          >
+          ·
+          <a href="{% url 'contrib' %}" class="text-hint underline"
+            >Guidelines</a
+          >
+        </div>
+      </footer>
+    </div>
+    <script src="{% static 'js/disable_autocomplete.js' %}"></script>
+  </body>
 </html>
